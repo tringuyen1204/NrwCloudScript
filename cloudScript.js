@@ -1,5 +1,3 @@
-var newString = "Hello World!"
-
 var ENERGY_CODE = "EN";					  // currecny code for our Lives VC
 var COIN_CODE = "CO";					  // currency code for our Gems VC
 
@@ -9,12 +7,12 @@ handlers.Battle = function(args) {
         "PlayFabId": currentPlayerId
     };
 
-    var GetUserInventoryResult = server.GetUserInventory(GetUserInventoryRequest);
+  var GetUserInventoryResult = server.GetUserInventory(GetUserInventoryRequest);
 	var userInventory = GetUserInventoryResult.Inventory;
 	var userVcBalances = GetUserInventoryResult.VirtualCurrency;
 	var userVcRecharge = GetUserInventoryResult.VirtualCurrencyRechargeTimes;
 
-	// make sure the player has > 0 lives before proceeding. 
+	// make sure the player has > 0 lives before proceeding.
 	try
 	{
 		if(!CheckLives(userVcBalances))
@@ -30,7 +28,7 @@ handlers.Battle = function(args) {
 	SubtractVc(userVcBalances, ENERGY_CODE, 1);
 
   	var battleResults = {};
-  
+
 	return JSON.stringify(battleResults);
 };
 
@@ -55,9 +53,9 @@ handlers.DeleteThisAccount = function(args){
     	"PlayFabIds" : [currentPlayerId],
      	"TitleId" : "CD66"
     };
-    
+
     var result = server.DeleteUsers(DeleteUsersRequest);
-  
+
  	return JSON.stringify(result);
 }
 
@@ -67,15 +65,15 @@ function GrantItem(itemId)
       "PlayFabId" : currentPlayerId,
       "ItemIds" : [itemId]
     };
-    
+
     var result = server.GrantItemsToUser(GrantItemsToUserRequest);
-  	
+
   	return JSON.stringify(result);
 }
 
 
 function AddVc(vcBalnces, code, qty)
-{ 
+{
 	if(vcBalnces != null && vcBalnces.hasOwnProperty(code) &&  vcBalnces[code] > 0)
 	{
 		vcBalnces[code] += qty;
