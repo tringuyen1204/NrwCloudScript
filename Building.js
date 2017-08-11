@@ -1,6 +1,6 @@
 function GetBuidingData(buildingID){
   var GetStoreItemsRequest = {
-    "StoreId": "castle.store";
+    "StoreId": buildingID;
   }
 
   var GetStoreItemResult = server.GetStoreItems(GetStoreItemsRequest);
