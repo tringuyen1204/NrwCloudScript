@@ -20,17 +20,20 @@ function ConstructBuilding(buildingType, index){
 
   var curLv = 0
   if (GetUserDataResult.Data[buildingId] != null){
-    curLv = GetUserDataResult.Data[buildingId]["lvl"];
+    var buildingObj = JSON.parse(GetUserDataResult.Data[buildingId]);
+    curLv = buildingObj.lvl;
   }
   curLv += 1;
+
+  var newBuildingData = {
+    "lvl":curLv,
+    "updateTime":server.GetServerTime()
+  }
 
   var UpdateUserDataRequest = {
     "PlayFabId":currentPlayerId,
     "Data":{
-      buildingId:{
-        "lvl":curLv,
-        "updateTime":server.GetServerTime()
-      }
+      buildingId: JSON.stringify(newBuildingData);
     }
   };
 
