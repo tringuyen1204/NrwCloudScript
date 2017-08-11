@@ -27,7 +27,7 @@ function ConstructBuilding(buildingType, index){
 
   var newBuildingData = {
     "lvl":curLv,
-    "updateTime":server.GetTime()
+    "updateTime":10
   }
 
   var UpdateUserDataRequest = {
