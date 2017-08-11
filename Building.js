@@ -18,7 +18,7 @@ function ConstructBuilding(buildingType, index){
     "Keys": [buildingId]
   }
 
-  var GetUserDataResult = server.GetUserReadOnlyData(GetUserDataRequest);
+  var GetUserDataResult = server.GetUserReadOnlyData(GetUserReadOnlyDataRequest);
 
   var curLv = 0;
   if (GetUserDataResult.Data[buildingId] != null){
@@ -39,7 +39,7 @@ function ConstructBuilding(buildingType, index){
     }
   };
 
-  server.UpdateUserReadOnlyData(UpdateUserDataRequest);
+  server.UpdateUserReadOnlyData(UpdateUserReadOnlyDataRequest);
 }
 
 handlers.Test = function(args){
