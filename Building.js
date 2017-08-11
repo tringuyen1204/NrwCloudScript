@@ -1,4 +1,4 @@
-function GetBuidingData(string buildingID){
+function GetBuidingData(buildingID){
   var GetStoreItemsRequest = {
     "StoreId": "castle.store";
   }
