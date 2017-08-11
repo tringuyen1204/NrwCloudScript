@@ -37,7 +37,7 @@ function ConstructBuilding(buildingType, index){
   var UpdateUserReadOnlyDataRequest = {
     "PlayFabId":currentPlayerId,
     "Data":{
-      \" + buildingId + \": JSON.stringify(newBuildingData)
+      "\"" + buildingId + "\"": JSON.stringify(newBuildingData)
     }
   };
 
