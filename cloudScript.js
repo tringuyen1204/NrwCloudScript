@@ -1,37 +1,6 @@
 var ENERGY_CODE = "EN";					  // currecny code for our Lives VC
 var COIN_CODE = "CO";					  // currency code for our Gems VC
 
-handlers.Battle = function(args) {
-	// get the calling player's inventory and VC balances
-	var GetUserInventoryRequest = {
-        "PlayFabId": currentPlayerId
-    };
-
-  var GetUserInventoryResult = server.GetUserInventory(GetUserInventoryRequest);
-	var userInventory = GetUserInventoryResult.Inventory;
-	var userVcBalances = GetUserInventoryResult.VirtualCurrency;
-	var userVcRecharge = GetUserInventoryResult.VirtualCurrencyRechargeTimes;
-
-	// make sure the player has > 0 lives before proceeding.
-	try
-	{
-		if(!CheckLives(userVcBalances))
-		{
-			throw "No lives remaining. Purchase additional lives or wait: " + userVcRecharge[ENERGY_CODE].SecondsToRecharge + " seconds.";
-		}
-	}
-	catch(ex)
-	{
-		return JSON.stringify(ex);
-	}
-
-	SubtractVc(userVcBalances, ENERGY_CODE, 1);
-
-  	var battleResults = {};
-
-	return JSON.stringify(battleResults);
-};
-
 function CheckLives(vcBalnces)
 {
 	if(vcBalnces != null && vcBalnces.hasOwnProperty(ENERGY_CODE) && vcBalnces[ENERGY_CODE] > 0)
@@ -51,7 +20,7 @@ handlers.LevelUp = function(args){
 handlers.DeleteThisAccount = function(args){
   var DeleteUsersRequest = {
     	"PlayFabIds" : [currentPlayerId],
-     	"TitleId" : "CD66"
+     	"TitleId" : "EE0A"
     };
 
     var result = server.DeleteUsers(DeleteUsersRequest);

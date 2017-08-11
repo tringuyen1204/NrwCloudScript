@@ -1,4 +1,4 @@
-function convertTimeToDiamond(seconds) {
+function ConvertTimeToDiamond(seconds) {
   if (seconds <= 0)
     return 0;
 
@@ -12,7 +12,7 @@ function convertTimeToDiamond(seconds) {
 }
 
 // convert gold and food to diamond
-function convertResourceToDiamond(resources){
+function ConvertResourceToDiamond(resources){
 
   if (resources <= 0)
     return 0;
