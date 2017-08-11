@@ -1,10 +1,10 @@
 function GetBuidingData(buildingID){
-  var GetStoreItemsRequest = {
-    "StoreId": "castle.data"
+  var GetCatalogItemsRequest = {
+    "CatalogVersion ": "BuildingData"
   };
 
-  var GetStoreItemResult = server.GetStoreItems(GetStoreItemsRequest);
-  return GetStoreItemResult;
+  var GetCatalogItemsResults = server.GetCatalogItems(GetCatalogItemsRequest);
+  return GetCatalogItemsResults;
 }
 
 
