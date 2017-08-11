@@ -1,6 +1,6 @@
 function GetBuidingData(buildingID){
   var GetCatalogItemsRequest = {
-    "CatalogVersion ": "BuildingData"
+    "CatalogVersion ": buildingID
   };
 
   var GetCatalogItemsResults = server.GetCatalogItems(GetCatalogItemsRequest);
