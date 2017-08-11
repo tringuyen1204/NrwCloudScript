@@ -7,18 +7,20 @@ function GetBuidingData(buildingType){
   return GetCatalogItemsResults;
 }
 
+
+
 function ConstructBuilding(buildingType, index){
 
   var buildingId = buildingType + index;
 
-  var GetUserDataRequest = {
+  var GetUserReadOnlyDataRequest = {
     "PlayFabId":currentPlayerId,
     "Keys": [buildingId]
   }
 
-  var GetUserDataResult = server.GetUserData(GetUserDataRequest);
+  var GetUserDataResult = server.GetUserReadOnlyData(GetUserDataRequest);
 
-  var curLv = 0
+  var curLv = 0;
   if (GetUserDataResult.Data[buildingId] != null){
     var buildingObj = JSON.parse(GetUserDataResult.Data[buildingId]);
     curLv = buildingObj.lvl;
@@ -30,14 +32,14 @@ function ConstructBuilding(buildingType, index){
     "updateTime":10
   }
 
-  var UpdateUserDataRequest = {
+  var UpdateUserReadOnlyDataRequest = {
     "PlayFabId":currentPlayerId,
     "Data":{
-      buildingId: JSON.stringify(newBuildingData)
+      String(buildingId): JSON.stringify(newBuildingData)
     }
   };
 
-  server.UpdateUserData(UpdateUserDataRequest);
+  server.UpdateUserReadOnlyData(UpdateUserDataRequest);
 }
 
 handlers.Test = function(args){
