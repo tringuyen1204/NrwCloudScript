@@ -1,22 +1,6 @@
 var ENERGY_CODE = "EN";					  // currecny code for our Lives VC
 var COIN_CODE = "CO";					  // currency code for our Gems VC
 
-function CheckLives(vcBalnces)
-{
-	if(vcBalnces != null && vcBalnces.hasOwnProperty(ENERGY_CODE) && vcBalnces[ENERGY_CODE] > 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-handlers.LevelUp = function(args){
-	return GrantItem("skill.point");
-}
-
 handlers.DeleteThisAccount = function(args){
   var DeleteUsersRequest = {
     	"PlayFabIds" : [currentPlayerId],
