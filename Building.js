@@ -32,10 +32,12 @@ function ConstructBuilding(buildingType, index){
     "updateTime":10
   }
 
+
+
   var UpdateUserReadOnlyDataRequest = {
     "PlayFabId":currentPlayerId,
     "Data":{
-      buildingId: JSON.stringify(newBuildingData)
+      \" + buildingId + \": JSON.stringify(newBuildingData)
     }
   };
 
