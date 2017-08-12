@@ -40,7 +40,7 @@ function Building(type, index) {
 
     this.data.completedDate = this.ServerTime() + 100000;
     this.data.upgrading = true;
-    this.level++;
+    this.data.level++;
 
     return true;
   }
