@@ -1,27 +1,17 @@
-function GetBuidingData(buildingType){
-  var GetCatalogItemsRequest = {
-    "CatalogVersion ": buildingType
-  };
-
-  var GetCatalogItemsResults = server.GetCatalogItems(GetCatalogItemsRequest);
-  return GetCatalogItemsResults;
+handlers.Build = function(args){
+  ConstructBuilding("castle", 0);
+  return 1;
 }
 
 function ConstructBuilding(buildingType, index){
 
-
-  var GetUserReadOnlyDataRequest = {
-    "PlayFabId":currentPlayerId,
-    "Keys": [buildingType]
-  }
-
-  var GetUserDataResult = server.GetUserReadOnlyData(GetUserReadOnlyDataRequest);
+  var buildingData = GetReadOnlyData([buildingType]);
 
   var curLv = 0;
   var allBuildings;
 
   if (GetUserDataResult.Data[buildingType] != null){
-    allBuildings = JSON.parse(GetUserDataResult.Data[buildingType].Value);
+    allBuildings = JSON.parse(buildingData[buildingType].Value);
     if (allBuildings.length > index){
       curLv = allBuildings[index].lvl;
     }
@@ -42,20 +32,5 @@ function ConstructBuilding(buildingType, index){
   var newData = {};
   newData[buildingType] = JSON.stringify(allBuildings);
 
-  var UpdateUserReadOnlyDataRequest = {
-    "PlayFabId":currentPlayerId,
-    "Data":newData
-  };
-
-  server.UpdateUserReadOnlyData(UpdateUserReadOnlyDataRequest);
-}
-
-handlers.Test = function(args){
-  //var result = GetBuidingData(args.buildingType);
-  //log.debug("data: ", result.data);
-
-  ConstructBuilding("castle", 0);
-  ConstructBuilding("market", 0);
-  ConstructBuilding("market", 1);
-  return 1;
+  UpdateReadOnlyData(newData);
 }
