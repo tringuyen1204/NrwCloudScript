@@ -31,8 +31,8 @@ function Building(type, index) {
     this.Data.CompletedDate = this.ServerTime() + 100000;
     this.Data.Upgrading = false;
     this.Data.Level ++;
-    this.Data.NextLevelData = this.GetMasterData()[this.Data.Level + 1];
     this.Data.MasterData = this.GetMasterData()[this.Data.Level];
+    this.Data.NextLevelData = this.GetMasterData()[this.Data.Level + 1];
 
     return true;
   }
