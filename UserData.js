@@ -38,7 +38,7 @@ function GetMultipleUserData(Keys){
   var ret = {};
 
   for (var key in rawData) {
-    if (object.hasOwnProperty(key)) {
+    if (rawData.hasOwnProperty(key)) {
       ret[index] = {
         "Key":key,
         "Data": JSON.parse(rawData[key].Value)
@@ -46,6 +46,6 @@ function GetMultipleUserData(Keys){
       index++;
     }
   }
-  
+
   return ret;
 }
