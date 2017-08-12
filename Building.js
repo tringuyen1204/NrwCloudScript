@@ -1,9 +1,11 @@
-
-"use strict";
 function Building(type, index) {
   this.buildingId = type + index;
-  var rawData = PlayFab.GetUserReadOnlyData( [this.buildingId] );
 
+  var rawData = server.GetUserReadOnlyData({
+      "PlayFabId":currentPlayerId,
+      "Keys": [this.buildingId];
+  }).Data;
+  
   if ( this.buildingId in rawData ){
     this.data = rawData[this.buildingId];
   }

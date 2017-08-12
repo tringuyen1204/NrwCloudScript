@@ -1,4 +1,4 @@
-var PlayFab = function(){
+PlayFab = function(){
   this.GetReadOnlyData = function(keys) {
     var GetUserDataResult = server.GetUserReadOnlyData({
         "PlayFabId":currentPlayerId,

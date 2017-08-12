@@ -1,6 +1,5 @@
 
 var Converter = function(){
-
   // convert time (construction, train, healing...) to diamond
   this.TimeToDiamond = function(seconds){
     if (seconds <= 0)
@@ -52,7 +51,7 @@ function Resource(code){
     this.max = data.max;
   }
 
-  this.Change = function(quantity){    
+  this.Change = function(quantity){
     if (this.value + quantity < 0) {
       this.value = 0;
     }
