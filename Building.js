@@ -33,10 +33,10 @@ function Building(type, index) {
   }
 
   this.TryUpgrade =  function(){
-    if (this.upgrading){
-      log.error(type + index + " is already upgrading!");
-      return false;
-    }
+    // if (this.upgrading){
+    //   log.error(type + index + " is already upgrading!");
+    //   return false;
+    // }
 
     this.data.completedDate = this.ServerTime() + 100000;
     this.data.upgrading = true;
