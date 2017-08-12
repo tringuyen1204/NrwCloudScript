@@ -30,10 +30,6 @@ function Building(type, index) {
     return this.MasterData()[this.Data.Level + 1];
   }
 
-  this.ServerTime = function(){
-    return Date.now();
-  }
-
   this.StartUpgrade = function(){
     if (this.TryUpgrade()){
       this.Push();
@@ -45,28 +41,35 @@ function Building(type, index) {
       log.error(type + index + " is already Upgrading!");
       return false;
     }
-
     this.Data.CompletedDate = this.ServerTime() + 100000;
     this.Data.Upgrading = true;
-
-    var kingdom = new Kingdom();
-    kingdom.AddExp(this.NextLevelData().exp_gain);
-    //this.Data.masterData = this.NextLevelData();
     return true;
   }
 
-  this.CompleteUpgrade = function(){
+  this.TryCompleteUpgrade = function(){
     if ( this.IsCompleted() ){
+
+      // TODO update building data
       this.Data.Level ++;
       this.Data.Upgrading = false;
 
       // TODO add user exp
-      this.Push();
-
+      var kingdom = new Kingdom();
+      kingdom.AddExp(this.NextLevelData().exp_gain);
       return true;
     }
     else {
       log.error("this building construction is not completed");
+      return false;
+    }
+  }
+
+  this.CompleteUpgrade = function(){
+    if ( this.TryCompleteUpgrade() ){
+      this.Push();
+      return true;
+    }
+    else {
       return false;
     }
   }

@@ -1,6 +1,10 @@
 function UserData(Key){
   this.Key = Key;
 
+  this.ServerTime = function(){
+    return Date.now();
+  }
+
   var rawData = server.GetUserReadOnlyData({
       "PlayFabId":currentPlayerId,
       "Keys": [this.Key]
@@ -21,5 +25,5 @@ function UserData(Key){
       "Data":newData,
       "Permission":"public"
     });
-  }
+  }  
 }
