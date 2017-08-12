@@ -18,7 +18,7 @@ function ConstructBuilding(buildingType, index){
   var GetUserDataResult = server.GetUserReadOnlyData(GetUserReadOnlyDataRequest);
 
   var curLv = 0;
-  if (GetUserDataResult.Data[buildingId] != null){
+  if (GetUserDataResult.Data[buildingType] != null){
     var allBuildings = JSON.parse(GetUserDataResult.Data[buildingType]);
 
     if (allBuildings.length > index){
