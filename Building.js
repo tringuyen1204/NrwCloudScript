@@ -19,6 +19,7 @@ function ConstructBuilding(buildingType, index){
 
   var curLv = 0;
   var allBuildings;
+
   if (GetUserDataResult.Data[buildingType] != null){
     allBuildings = JSON.parse(GetUserDataResult.Data[buildingType]);
     if (allBuildings.length > index){
@@ -39,11 +40,11 @@ function ConstructBuilding(buildingType, index){
   allBuildings[index] = newBuildingData;
 
   var newData = {};
-  newData[buildingType] = JSON.stringify(allBuildings);
+  newData[buildingType] = allBuildings;
 
   var UpdateUserReadOnlyDataRequest = {
     "PlayFabId":currentPlayerId,
-    "Data":allBuildings
+    "Data":newData
   };
 
   server.UpdateUserReadOnlyData(UpdateUserReadOnlyDataRequest);
