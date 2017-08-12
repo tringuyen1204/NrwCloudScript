@@ -1,42 +1,43 @@
 
 "use strict";
-class Building {
+function Building(type, index) {
+  this.buildingId = type + index;
+  var rawData = PlayFab.GetUserReadOnlyData( [this.buildingId] );
 
-  contructor(type, index){
-    this.buildingId = type + index;
-    var rawData = PlayFab.GetUserReadOnlyData( [this.buildingId] );
-
+  if ( this.buildingId in rawData ){
+    this.data = rawData[this.buildingId];
+  }
+  else {
+    // default data
     this.data = {
       "level":0,
       "completedDate":0,
       "upgrading":false
     }
-
-    if ( this.buildingId in rawData ){
-      this.data = rawData[this.buildingId];
-    }
   }
 
-  IsCompleted() {
+  this.IsCompleted = function() {
     return this.data.completedDate <= this.ServerTime();
   }
 
-  CurrentLevelData(){
+  this.CurrentLevelData = function(){
     if ( !("_curLvlData" in this) ) {
 
     }
   }
 
-  NextLevelData() {
+  this.NextLevelData = function() {
+
+  }() {
     if ( !("_nextLvlData" in this) ) {
     }
   }
 
-  ServerTime(){
+  this.ServerTime = function(){
     return Date.now();
   }
 
-  StartUpgrade(){
+  this.StartUpgrade = function(){
     if( this.upgrading ){
       log.error(type + index + " is already upgrading!");
     }
@@ -50,6 +51,6 @@ class Building {
     PlayFab.UpdateReadOnlyData(newData);
   }
 
-  CompleteUpgrade(){
+  this.CompleteUpgrade = function(){
   }
 }
