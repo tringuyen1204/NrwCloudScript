@@ -20,6 +20,8 @@ function Building(type, index) {
   this.StartUpgrade = function(){
     if (this.TryUpgrade()){
 
+      this.Push();
+
       if (type == CASTLE || type == GOLD_STORAGE){
         RefreshStorageCap(GOLD);
       }
@@ -28,8 +30,10 @@ function Building(type, index) {
         RefreshStorageCap(FOOD);
       }
 
-      this.Push();
+      return true;
     }
+
+    return false;
   }
 
   this.TryUpgrade =  function(){
