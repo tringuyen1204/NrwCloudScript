@@ -5,7 +5,7 @@ handlers.Build = function(args){
 
 function ConstructBuilding(buildingType, index){
 
-  var buildingData = GetReadOnlyData([buildingType]);
+  var buildingData = PfHelper.GetReadOnlyData([buildingType]);
 
   var curLv = 0;
   var allBuildings;
@@ -32,5 +32,5 @@ function ConstructBuilding(buildingType, index){
   var newData = {};
   newData[buildingType] = JSON.stringify(allBuildings);
 
-  UpdateReadOnlyData(newData);
+  PfHelper.UpdateReadOnlyData(newData);
 }
