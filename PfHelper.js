@@ -1,40 +1,29 @@
-function PfHelper(){
-  this.GetReadOnlyData = function(keys) {
-    var GetUserReadOnlyDataRequest = {
-      "PlayFabId":currentPlayerId,
-      "Keys": keys
-    }
-
-    var GetUserDataResult = server.GetUserReadOnlyData(GetUserReadOnlyDataRequest);
+var PfHelper = {
+  GetReadOnlyData : function(keys) {
+    var GetUserDataResult = server.GetUserReadOnlyData( {
+        "PlayFabId":currentPlayerId,
+        "Keys": keys
+    });
     return GetUserDataResult.Data;
-  }
-
-  this.GetCatalog = function(name) {
-    var GetCatalogItemsRequest = {
+  },
+  GetCatalog : function(name) {
+    var GetCatalogItemsResults = server.GetCatalogItems({
       "CatalogVersion ": name
-    };
-
-    var GetCatalogItemsResults = server.GetCatalogItems(GetCatalogItemsRequest);
+    });
     return GetCatalogItemsResults;
-  }
-
-  this.GrantItems = function(itemIds)
-  {
-   	var GrantItemsToUserRequest = {
+  },
+  GrantItems : function(itemIds)  {
+    var result = server.GrantItemsToUser({
         "PlayFabId" : currentPlayerId,
         "ItemIds" : itemIds
-      };
-
-      var result = server.GrantItemsToUser(GrantItemsToUserRequest);
-    	return JSON.stringify(result);
-  }
-
-  this.UpdateReadOnlyData = function(data){
-    var UpdateUserReadOnlyDataRequest = {
+    });
+  	return JSON.stringify(result);
+  },
+  UpdateReadOnlyData : function(data) {
+    var updateResult = server.UpdateUserReadOnlyData({
       "PlayFabId":currentPlayerId,
       "Data":data
-    };
-
-    server.UpdateUserReadOnlyData(UpdateUserReadOnlyDataRequest);
+    });
+    return JSON.stringify(result);
   }
 }
