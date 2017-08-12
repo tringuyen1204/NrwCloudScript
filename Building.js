@@ -1,41 +1,56 @@
-handlers.Build = function(args){
-  Building.Construct("castle", 0);
-  return 1;
-}
 
-function Building(){
-  this.Construct = function(buildingType, index){
-    var buildingData = PfHelper.GetReadOnlyData([buildingType]);
+class Building {
+  contructor(type, index){
+    this.buildingId = type + index;
+    var rawData = PlayFab.GetUserReadOnlyData( [this.buildingId] );
 
-    var curLv = 0;
-
-    // all building data of this building type
-    var allBuildings;
-
-    if (GetUserDataResult.Data[buildingType] != null){
-      allBuildings = JSON.parse(buildingData[buildingType].Value);
-      if (allBuildings.length > index){
-        curLv = allBuildings[index].lvl;
-      }
+    if ( this.buildingId in rawData ){
+      this.data = rawData[this.buildingId];
     }
     else {
-      // the first building of this type has not been built
-      // create new array
-      allBuildings = [];
+      this.data = {
+        "level":0,
+        "completedDate":0,
+        "upgrading":false
+      }
+    }
+  }
+
+  ServerTime(){
+    if ( !("_serverTime" in this) ){
+      this._serverTime = PlayFab.serverTime;
+    }
+  }
+
+  IsCompleted() {
+    return this.data.completedDate <= this.ServerTime();
+  }
+
+  CurrentLevelData(){
+    if ( !("_curLvlData" in this) ) {
+
+    }
+  }
+
+  NextLevelData() {
+    if ( !("_nextLvlData" in this) ) {
+    }
+  }
+
+  StartUpgrade(){
+    if( this.upgrading ){
+      log.error(type + index + " is already upgrading!");
     }
 
-    curLv += 1;
-
-    var newBuildingData = {
-      "lvl":curLv,
-      "updateTime":10
-    }
-
-    allBuildings[index] = newBuildingData;
+    this.data.completedDate = serverTime + 100000;
+    this.data.upgrading = true;
 
     var newData = {};
-    newData[buildingType] = JSON.stringify(allBuildings);
+    newData[this.buildingId] = JSON.stringify(this.data);
 
-    PfHelper.UpdateReadOnlyData(newData);
+    PlayFab.UpdateReadOnlyData(newData);
+  }
+
+  CompleteUpgrade(){
   }
 }

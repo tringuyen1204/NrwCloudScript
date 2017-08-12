@@ -1,5 +1,7 @@
-// convert time (construction, train, healing...) to diamond
-function Converter(){
+
+var Converter = function(){
+
+  // convert time (construction, train, healing...) to diamond
   this.TimeToDiamond = function(seconds){
     if (seconds <= 0)
       return 0;
@@ -13,25 +15,24 @@ function Converter(){
     return ret;
   }
 
-  this.ResourcesToDiamond = function(resoures){
+  // convert gold/food to diamond
+  this.GoldFoodToDiamond = function(resoures){
     if (resources <= 0)
       return 0;
-
     var ret = Math.pow(6, Math.log(resources) / Math.LOG10E - 2);
-
     if (ret <= 0)
       ret = 1;
-
     return ret;
   }
 }
 
 function RefreshStorageCapacity(code){
-  if (code == GOLD || code == FOOD){
+  if (code != GOLD && code != FOOD){
+    server.error("invalid resource type!")
+    return -9999;
   }
 
   var newCap = 1000;
-
   var resource = new Resource(code);
   resource.SetCapacity(newCap);
 }
@@ -40,31 +41,31 @@ function Resource(code){
   var resoureList = [GOLD, FOOD, FUR, SILK, ARTIFACT, JADE, PEARL];
 
   if (resoureList.indexOf(code) == -1){
-    server.error("invalid resource!");
+    server.error("invalid resource type!");
     return -9999;
   }
   else {
-    var rawData = PfHelper.GetUserReadOnlyData([code]);
+    var rawData = PlayFab.GetUserReadOnlyData([code]);
     var data = JSON.parse(rawData);
 
     this.value = data.value;
     this.max = data.max;
   }
 
-  this.Change = function(quantity){
+  this.Change = function(quantity){    
     if (this.value + quantity < 0) {
       this.value = 0;
     }
     else if (this.value + quantity > this.max){
       this.value = this.max;
     }
-    PfHelper.UpdateUserReadOnlyData(data);
+    PlayFab.UpdateUserReadOnlyData(data);
     return this.value;
   };
 
   this.SetCapacity = function(newCap){
     this.max = newCap;
-    PfHelper.UpdateUserReadOnlyData(data);
+    PlayFab.UpdateUserReadOnlyData(data);
     return this.max;
   };
 }

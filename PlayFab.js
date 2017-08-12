@@ -1,6 +1,6 @@
-var PfHelper = {
+var PlayFab = {
   GetReadOnlyData : function(keys) {
-    var GetUserDataResult = server.GetUserReadOnlyData( {
+    var GetUserDataResult = server.GetUserReadOnlyData({
         "PlayFabId":currentPlayerId,
         "Keys": keys
     });
@@ -25,5 +25,9 @@ var PfHelper = {
       "Data":data
     });
     return JSON.stringify(result);
+  },
+  Time: function(){
+    return new Date(server.GetTime().Time).getTime();
   }
+  
 }
