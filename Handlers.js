@@ -1,7 +1,10 @@
 handlers.Build = function(args){
+  var building = new Building(args.type, args.index);
+  building.StartUpgrade();
+}
 
-  var castle = new Building(CASTLE, 0);
-  castle.StartUpgrade();
-
-  return 1;
+handlers.ChangeResources = function(args){
+  var res = new Resource(GOLD);
+  res.SetMax(1000);
+  res.Change(100);
 }

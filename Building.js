@@ -1,16 +1,8 @@
 function Building(type, index) {
-  this.buildingId = type + index;
-
-  var rawData = server.GetUserReadOnlyData({
-      "PlayFabId":currentPlayerId,
-      "Keys": [this.buildingId]
-  }).Data;
-
-  if ( this.buildingId in rawData ){
-    this.data = JSON.parse(rawData[this.buildingId].Value);
-  }
-  else {
-    // default data
+  this.key = type + index;
+  this.data = GetUserData(this.key);
+  if ( this.data == null ){
+    // set default data
     this.data = {
       "level":0,
       "completedDate":0,
@@ -24,7 +16,6 @@ function Building(type, index) {
 
   this.CurrentLevelData = function(){
     if ( !("_curLvlData" in this) ) {
-
     }
   }
 
@@ -42,17 +33,10 @@ function Building(type, index) {
       log.error(type + index + " is already upgrading!");
     }
 
-    this.data.level += 1;
     this.data.completedDate = this.ServerTime() + 100000;
     this.data.upgrading = true;
 
-    var newData = {};
-    newData[this.buildingId] = JSON.stringify(this.data);
-
-    server.UpdateUserReadOnlyData({
-      "PlayFabId":currentPlayerId,
-      "Data":newData
-    });
+    UpdateUserData(this);
   }
 
   this.CompleteUpgrade = function(){
