@@ -51,8 +51,8 @@ function Building(type, index) {
     this.data.completedDate = this.ServerTime() + 100000;
     this.data.upgrading = true;
 
-    var player = new Player();
-    player.AddExp(this.NextLevelData().exp_gain);
+    var kingdom = new Kingdom();
+    kingdom.AddExp(this.NextLevelData().exp_gain);
     //this.data.masterdata = this.NextLevelData();
     return true;
   }
