@@ -1,5 +1,5 @@
 handlers.Build = function(args){
-  var building = new ResourceBuilding(args.type, args.index);
+  var building = new Building(args.type, args.index);
   building.StartUpgrade();
 }
 

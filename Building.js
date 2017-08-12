@@ -1,14 +1,9 @@
+// inherit UserData
 function Building(type, index) {
-  this.key = type + index;
-  this.data = GetUserData(this.key);
-  if ( this.data == null ){
-    // set default data
-    this.data = {
-      "level":0,
-      "completedDate":0,
-      "upgrading":false
-    }
-  }
+
+  Building.prototype = Object.create(UserData.prototype);
+  Building.prototype.constructor = UserData;
+  UserData.call(this, type + index);
 
   this.IsCompleted = function() {
     return this.data.completedDate <= this.ServerTime();
@@ -33,17 +28,18 @@ function Building(type, index) {
       log.error(type + index + " is already upgrading!");
     }
 
+    if (this.data == null){
+      this.data = {
+        "level":0
+      };
+    }
+
     this.data.completedDate = this.ServerTime() + 100000;
     this.data.upgrading = true;
 
-    UpdateUserData(this);
+    this.Push();
   }
 
   this.CompleteUpgrade = function(){
   }
-}
-
-function ResourceBuilding(type, index){
-  Building.call(this, type, index);
-  this.data.lastCollectDate = Date.now();
 }
