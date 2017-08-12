@@ -3,9 +3,9 @@ function Building(type, index) {
 
   var rawData = server.GetUserReadOnlyData({
       "PlayFabId":currentPlayerId,
-      "Keys": [this.buildingId];
+      "Keys": [buildingId]
   }).Data;
-  
+
   if ( this.buildingId in rawData ){
     this.data = rawData[this.buildingId];
   }
