@@ -20,7 +20,6 @@ function ConvertGoldFoodToDiamond(quantity){
     ret = 1;
   return ret;
 }
-
 function RefreshStorageCap(code){
   if (code != GOLD && code != FOOD){
     log.error("invalid resource type!")
