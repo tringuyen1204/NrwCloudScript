@@ -20,7 +20,7 @@ function Building(type, index) {
   }
 
   this.CurrentLevelData = function(){
-    if ( (this.data.level) == 0{
+    if ( (this.data.level) == 0 ){
       return null;
     }
     else {
