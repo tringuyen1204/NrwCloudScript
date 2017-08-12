@@ -51,7 +51,7 @@ function Building(type, index) {
     this.data.completedDate = this.ServerTime() + 100000;
     this.data.upgrading = true;
 
-    this.data.masterdata = JSON.stringify( this.NextLevelData() );
+    this.data.masterdata = this.NextLevelData();
 
     return true;
   }
