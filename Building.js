@@ -9,6 +9,7 @@ function GetBuidingData(buildingType){
 
 function ConstructBuilding(buildingType, index){
 
+
   var GetUserReadOnlyDataRequest = {
     "PlayFabId":currentPlayerId,
     "Keys": [buildingType]
@@ -20,7 +21,7 @@ function ConstructBuilding(buildingType, index){
   var allBuildings;
 
   if (GetUserDataResult.Data[buildingType] != null){
-    allBuildings = GetUserDataResult.Data[buildingType];
+    allBuildings = JSON.parse(GetUserDataResult.Data[buildingType].Value);
     if (allBuildings.length > index){
       curLv = allBuildings[index].lvl;
     }
@@ -33,7 +34,7 @@ function ConstructBuilding(buildingType, index){
 
   var newBuildingData = {
     "lvl":curLv,
-    "updateTime":10,
+    "updateTime":10
   }
 
   allBuildings[index] = newBuildingData;
@@ -43,8 +44,7 @@ function ConstructBuilding(buildingType, index){
 
   var UpdateUserReadOnlyDataRequest = {
     "PlayFabId":currentPlayerId,
-    "Data":newData,
-    "Permission":"public"
+    "Data":newData
   };
 
   server.UpdateUserReadOnlyData(UpdateUserReadOnlyDataRequest);
