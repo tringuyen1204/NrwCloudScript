@@ -17,12 +17,6 @@ class Building {
     }
   }
 
-  ServerTime(){
-    if ( !("_serverTime" in this) ){
-      this._serverTime = PlayFab.serverTime;
-    }
-  }
-
   IsCompleted() {
     return this.data.completedDate <= this.ServerTime();
   }
@@ -43,7 +37,7 @@ class Building {
       log.error(type + index + " is already upgrading!");
     }
 
-    this.data.completedDate = serverTime + 100000;
+    this.data.completedDate = PlayFab.Time() + 100000;
     this.data.upgrading = true;
 
     var newData = {};
