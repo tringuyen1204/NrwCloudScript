@@ -9,9 +9,8 @@ function RefreshStorageCapacity(code){
   resource.SetMax(newCap);
 }
 
-function Resource(key){
-
-  this.id = key;
+function Resource(code){
+  this.key = code;
 
   if (this.data == null) {
     this.data = {
