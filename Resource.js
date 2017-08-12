@@ -7,9 +7,9 @@ function Resource(code){
   }
   // default Value
   if (this.Data.Max = null){
-    this.Data.Max = 100;
+    this.Data.Max = 1000;
   }
-  
+
   this.Value = function(){
     return this.Data.Value;
   }

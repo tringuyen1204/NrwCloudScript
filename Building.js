@@ -22,14 +22,6 @@ function Building(type, index) {
 
       this.Push();
 
-      if (type == CASTLE || type == GOLD_STORAGE){
-        RefreshStorageCap(GOLD);
-      }
-
-      if (type == CASTLE || type == FOOD_STORAGE){
-        RefreshStorageCap(FOOD);
-      }
-
       return true;
     }
 
@@ -72,13 +64,13 @@ function Building(type, index) {
     if ( this.TryComplete() ){
       this.Push();
 
-      // if (type == CASTLE || type == GOLD_STORAGE){
-      //   RefreshStorageCap(GOLD);
-      // }
-      //
-      // if (type == CASTLE || type == FOOD_STORAGE){
-      //   RefreshStorageCap(FOOD);
-      // }
+      if (type == CASTLE || type == GOLD_STORAGE){
+        RefreshStorageCap(GOLD);
+      }
+
+      if (type == CASTLE || type == FOOD_STORAGE){
+        RefreshStorageCap(FOOD);
+      }
 
       return true;
     }
