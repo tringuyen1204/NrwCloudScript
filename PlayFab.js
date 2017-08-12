@@ -30,7 +30,7 @@ var PlayFab = function(){
     return JSON.stringify(result);
   }
 
-  this.Time = function(){
+  this.Time = function() {
     if ( !("_time" in this) ){
       this._time = new Date(server.GetTime().Time).getTime();
     }

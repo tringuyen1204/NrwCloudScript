@@ -32,12 +32,19 @@ class Building {
     }
   }
 
+  ServerTime(){
+    if ( !("_time" in this) ) {
+      this._time = new Date(server.GetTime().Time).getTime();
+    }
+    return this._time;
+  }
+
   StartUpgrade(){
     if( this.upgrading ){
       log.error(type + index + " is already upgrading!");
     }
 
-    this.data.completedDate = PlayFab.Time() + 100000;
+    this.data.completedDate = this.ServerTime() + 100000;
     this.data.upgrading = true;
 
     var newData = {};
