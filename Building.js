@@ -12,7 +12,7 @@ function Building(type, index) {
     return this.data.completedDate <= this.ServerTime();
   }
 
-  this.MasterData = function{
+  this.MasterData = function(){
     if ( !("_masterData" in this) ){
       this._masterData = new MasterData(type);
     }
