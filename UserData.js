@@ -35,7 +35,7 @@ function GetMultipleUserData(Keys){
   }).Data;
 
   var index = 0;
-  var ret = {};
+  var ret = [];
 
   for (var key in rawData) {
     if (rawData.hasOwnProperty(key)) {
