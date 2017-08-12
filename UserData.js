@@ -31,7 +31,7 @@ function UserData(Key){
 function GetMultipleUserData(Keys){
   var rawData = server.GetUserReadOnlyData({
     "PlayFabId":currentPlayerId,
-    "Keys": Keys;
+    "Keys": Keys
   }).Data;
 
   int index = 0;
