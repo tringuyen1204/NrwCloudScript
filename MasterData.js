@@ -6,7 +6,7 @@ function MasterData(key){
   });
 
   if ( "Catalog" in rawData){
-    this.data = JSON.parts(rawData.Catalog[0].CustomData);
+    this.data = JSON.parse(rawData.Catalog);
   }
   else {
     this.data = {};
