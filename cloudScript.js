@@ -25,33 +25,3 @@ function GrantItem(itemId)
 }
 
 
-function AddVc(vcBalnces, code, qty)
-{
-	if(vcBalnces != null && vcBalnces.hasOwnProperty(code) &&  vcBalnces[code] > 0)
-	{
-		vcBalnces[code] += qty;
-	}
-
-	var AddUserVirtualCurrencyRequest = {
-	    "PlayFabId" : currentPlayerId,
-	    "VirtualCurrency": code,
-	    "Amount": qty
-    };
-    var AddUserVirtualCurrencyResult = server.AddUserVirtualCurrency(AddUserVirtualCurrencyRequest);
-}
-
-function SubtractVc(vcBalnces, code, qty)
-{
-	if(vcBalnces != null && vcBalnces.hasOwnProperty(code) &&  vcBalnces[code] > 0)
-	{
-		vcBalnces[code] -= qty;
-	}
-
-	var SubtractUserVirtualCurrencyRequest = {
-	    "PlayFabId" : currentPlayerId,
-	    "VirtualCurrency": code,
-	    "Amount": qty
-    };
-
-    var SubtractUserVirtualCurrencyResult = server.SubtractUserVirtualCurrency(SubtractUserVirtualCurrencyRequest);
-}

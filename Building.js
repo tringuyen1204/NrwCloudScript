@@ -7,23 +7,23 @@ function GetBuidingData(buildingType){
   return GetCatalogItemsResults;
 }
 
-
-
 function ConstructBuilding(buildingType, index){
 
-  var buildingId = buildingType + index;
 
   var GetUserReadOnlyDataRequest = {
     "PlayFabId":currentPlayerId,
-    "Keys": [buildingId]
+    "Keys": [buildingType]
   }
 
   var GetUserDataResult = server.GetUserReadOnlyData(GetUserReadOnlyDataRequest);
 
   var curLv = 0;
   if (GetUserDataResult.Data[buildingId] != null){
-    var buildingObj = JSON.parse(GetUserDataResult.Data[buildingId]);
-    curLv = buildingObj.lvl;
+    var allBuildings = JSON.parse(GetUserDataResult.Data[buildingType]);
+
+    if (allBuildings.length > index){
+      curLv = allBuildings[index].lvl;
+    }
   }
   curLv += 1;
 
@@ -32,13 +32,14 @@ function ConstructBuilding(buildingType, index){
     "updateTime":10
   }
 
-  var jsonObj = {};
+  allBuildings[index] = newBuildingData;
 
-  jsonObj[buildingId] = JSON.stringify(newBuildingData);
+  var newData = {};
+  newData[buildingType] = JSON.stringify(allBuildings);
 
   var UpdateUserReadOnlyDataRequest = {
     "PlayFabId":currentPlayerId,
-    "Data":jsonObj
+    "Data":allBuildings
   };
 
   server.UpdateUserReadOnlyData(UpdateUserReadOnlyDataRequest);
@@ -49,5 +50,7 @@ handlers.Test = function(args){
   //log.debug("data: ", result.data);
 
   ConstructBuilding("castle", 0);
+  ConstructBuilding("market", 0);
+  ConstructBuilding("market", 1);
   return 1;
 }
