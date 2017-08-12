@@ -25,6 +25,8 @@ function GetUserData(key){
 
 function UserData(key){
 
+  this.key = key;
+
   this.Pull = function(){
     var rawData = server.GetUserReadOnlyData({
         "PlayFabId":currentPlayerId,
@@ -36,7 +38,6 @@ function UserData(key){
     }
   }
 
-  this.key = key;
   this.Pull();
   if (this.data == null){
     this.data = {};
