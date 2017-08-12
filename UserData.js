@@ -16,7 +16,7 @@ function GetUserData(key){
   }).Data;
 
   if ( key in rawData ){
-    return JSON.parse(rawData[this.key].data);
+    return JSON.parse(rawData[key].data);
   }
   else {
     return null;
