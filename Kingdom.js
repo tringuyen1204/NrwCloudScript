@@ -1,8 +1,8 @@
 function Kingdom(){
   UserData.call(this, "Kingdom");
 
-  if (this.data.exp == null){
-    this.data.exp = 0;
+  if (this.Data.Exp == null){
+    this.Data.Exp = 0;
   }
 
   this.AddExp = function(quantity){
@@ -11,7 +11,7 @@ function Kingdom(){
       return false;
     }
 
-    this.data.exp += quantity;
+    this.Data.Exp += quantity;
     this.Push();
 
     return true;

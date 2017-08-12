@@ -1,14 +1,14 @@
 function MasterData(key){
-  this.key = key;
+  this.Key = key;
 
   var rawData = server.GetCatalogItems({
-    "CatalogVersion":key
+    "CatalogVersion":this.Key
   });
 
   if ( "Catalog" in rawData){
-    this.data = JSON.parse(rawData.Catalog[0].CustomData);
+    this.Data = JSON.parse(rawData.Catalog[0].CustomData);
   }
   else {
-    this.data = {};
+    this.Data = {};
   }
 }
