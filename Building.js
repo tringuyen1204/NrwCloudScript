@@ -1,4 +1,5 @@
 
+"use strict";
 class Building {
   contructor(type, index){
     this.buildingId = type + index;
