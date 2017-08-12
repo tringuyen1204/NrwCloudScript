@@ -10,3 +10,4 @@ var MARKET = "Market";
 var FARM = "Farm";
 var GOLD_STORAGE = "GoldStorage";
 var FOOD_STORAGE = "FoodStorage";
+var EXP_GAIN = "ExpGain";

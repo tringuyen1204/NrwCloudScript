@@ -6,7 +6,7 @@ function Building(type, index) {
   if (this.Data.Level == null){
     this.Data.Level = 0;
   }
-  this.IsCompleted = function() {
+  this.Completed = function() {
     return this.Data.CompletedDate <= this.ServerTime();
   }
 
@@ -17,7 +17,7 @@ function Building(type, index) {
     return this._masterData;
   }
 
-  this.CurrentLevelData = function(){
+  this.CurrentLevel = function(){
     if ( (this.Data.Level) == 0 ){
       return null;
     }
@@ -26,7 +26,7 @@ function Building(type, index) {
     }
   }
 
-  this.NextLevelData = function() {
+  this.NextLevel = function() {
     return this.MasterData()[this.Data.Level + 1];
   }
 
@@ -46,8 +46,8 @@ function Building(type, index) {
     return true;
   }
 
-  this.TryCompleteUpgrade = function(){
-    if ( this.IsCompleted() ){
+  this.TryComplete = function(){
+    if ( this.Completed() ){
 
       // TODO update building data
       this.Data.Level ++;
@@ -55,7 +55,7 @@ function Building(type, index) {
 
       // TODO add user exp
       var kingdom = new Kingdom();
-      kingdom.AddExp(this.NextLevelData().exp_gain);
+      kingdom.AddExp(this.NextLevel().ExpGain);
       return true;
     }
     else {
@@ -65,7 +65,7 @@ function Building(type, index) {
   }
 
   this.CompleteUpgrade = function(){
-    if ( this.TryCompleteUpgrade() ){
+    if ( this.TryComplete() ){
       this.Push();
       return true;
     }
