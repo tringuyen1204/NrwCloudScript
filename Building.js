@@ -27,8 +27,6 @@ function Building(type, index) {
   }
 
   this.NextLevelData = function() {
-
-  }() {
     if ( !("_nextLvlData" in this) ) {
     }
   }
