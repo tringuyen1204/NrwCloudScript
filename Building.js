@@ -33,8 +33,7 @@ class Building {
   }
 
   ServerTime(){
-    var data = server.GetTime();
-    return data;
+    return Date.now();
   }
 
   StartUpgrade(){
