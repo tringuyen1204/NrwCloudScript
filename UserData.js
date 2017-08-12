@@ -34,7 +34,7 @@ function GetMultipleUserData(Keys){
     "Keys": Keys
   }).Data;
 
-  int index = 0;
+  var index = 0;
   var ret = {};
 
   for (var obj in rawData) {
