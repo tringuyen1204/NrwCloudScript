@@ -33,10 +33,8 @@ class Building {
   }
 
   ServerTime(){
-    if ( !("_time" in this) ) {
-      this._time = new Date(server.GetTime().Time).getTime();
-    }
-    return this._time;
+    var data = server.GetTime();
+    return data;
   }
 
   StartUpgrade(){
