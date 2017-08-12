@@ -48,7 +48,10 @@ function Building(type, index) {
     var newData = {};
     newData[this.buildingId] = JSON.stringify(this.data);
 
-    PlayFab.UpdateReadOnlyData(newData);
+    server.UpdateUserReadOnlyData({
+      "PlayFabId":currentPlayerId,
+      "Data":newData
+    });
   }
 
   this.CompleteUpgrade = function(){
