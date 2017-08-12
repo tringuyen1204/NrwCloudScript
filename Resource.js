@@ -12,6 +12,7 @@ function RefreshStorageCapacity(code){
 function Resource(code){
   this.key = code;
 
+  this.data = GetUserData(this.key);
   if (this.data == null) {
     this.data = {
       "value": 0,
