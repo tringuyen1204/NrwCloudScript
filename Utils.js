@@ -11,7 +11,6 @@ function ConvertTimeToDiamond(seconds){
 
   return ret;
 }
-
 // convert gold/food to diamond
 function ConvertGoldFoodToDiamond(quantity){
   if (quantity <= 0)

@@ -4,7 +4,6 @@ function MasterData(key){
   var rawData = server.GetCatalogItems({
     "CatalogVersion":this.Key
   });
-
   if ( "Catalog" in rawData){
     this.Data = JSON.parse(rawData.Catalog[0].CustomData);
   }

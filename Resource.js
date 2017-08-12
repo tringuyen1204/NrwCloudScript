@@ -1,40 +1,39 @@
 function Resource(code){
   UserData.call(this, code);
 
-  // default value
-  if (this.data.value == null){
-    this.data.value = 0;
+  // default Value
+  if (this.Data.Value == null){
+    this.Data.Value = 0;
   }
-
-  // default value
-  if (this.data.max = null){
-    this.data.max = 100;
+  // default Value
+  if (this.Data.Max = null){
+    this.Data.Max = 100;
   }
   
   this.Value = function(){
-    return this.data.value;
+    return this.Data.Value;
   }
 
   this.Max = function(){
-    return this.data.max;
+    return this.Data.Max;
   }
 
   this.Change = function(quanity){
-    if (this.data.value + quanity < 0) {
-      this.data.value = 0;
+    if (this.Data.Value + quanity < 0) {
+      this.Data.Value = 0;
     }
-    else if (this.data.value + quanity > this.data.max){
-      this.data.value = this.data.max;
+    else if (this.Data.Value + quanity > this.Data.Max){
+      this.Data.Value = this.Data.Max;
     }
     else {
-      this.data.value += quanity;
+      this.Data.Value += quanity;
     }
 
     this.Push();
   };
 
   this.SetMax = function(newCap){
-    this.data.max = newCap;
+    this.Data.Max = newCap;
     this.Push();
   };
 }

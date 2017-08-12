@@ -6,7 +6,6 @@ function Building(type, index) {
   if (this.Data.Level == null){
     this.Data.Level = 0;
   }
-
   this.IsCompleted = function() {
     return this.Data.CompletedDate <= this.ServerTime();
   }

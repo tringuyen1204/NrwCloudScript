@@ -1,21 +1,20 @@
-function UserData(key){
-  this.Key = key;
+function UserData(Key){
+  this.Key = Key;
 
   var rawData = server.GetUserReadOnlyData({
       "PlayFabId":currentPlayerId,
-      "Keys": [this.key]
+      "Keys": [this.Key]
   }).Data;
 
-  if ( key in rawData ){
-    this.Data = JSON.parse(rawData[this.key].Value);
+  if ( Key in rawData ){
+    this.Data = JSON.parse(rawData[this.Key].Value);
   }
   else {
     this.Data = {};
   }
-
   this.Push = function(){
     var newData = {};
-    newData[this.key] = JSON.stringify(this.Data);
+    newData[this.Key] = JSON.stringify(this.Data);
 
     server.UpdateUserReadOnlyData({
       "PlayFabId":currentPlayerId,
