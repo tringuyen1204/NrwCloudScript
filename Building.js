@@ -1,19 +1,19 @@
 
 "use strict";
 class Building {
+
   contructor(type, index){
     this.buildingId = type + index;
     var rawData = PlayFab.GetUserReadOnlyData( [this.buildingId] );
 
+    this.data = {
+      "level":0,
+      "completedDate":0,
+      "upgrading":false
+    }
+
     if ( this.buildingId in rawData ){
       this.data = rawData[this.buildingId];
-    }
-    else {
-      this.data = {
-        "level":0,
-        "completedDate":0,
-        "upgrading":false
-      }
     }
   }
 
