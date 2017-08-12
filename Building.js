@@ -1,8 +1,7 @@
 // inherit UserData
 function Building(type, index) {
+  this.data.level = 0;
 
-  Building.prototype = Object.create(UserData.prototype);
-  Building.prototype.constructor = UserData;
   UserData.call(this, type + index);
 
   this.IsCompleted = function() {
@@ -24,22 +23,26 @@ function Building(type, index) {
   }
 
   this.StartUpgrade = function(){
-    if( this.upgrading ){
-      log.error(type + index + " is already upgrading!");
+    if (this.TryUpgrade()){
+      this.Push();
     }
+  }
 
-    if (this.data == null){
-      this.data = {
-        "level":0
-      };
+  this.TryUpgrade =  function(){
+    if (this.upgrading){
+      log.error(type + index + " is already upgrading!");
+      return false;
     }
 
     this.data.completedDate = this.ServerTime() + 100000;
     this.data.upgrading = true;
 
-    this.Push();
+    return true;
   }
 
   this.CompleteUpgrade = function(){
   }
 }
+
+Building.prototype = Object.create(UserData.prototype);
+Building.prototype.constructor = UserData;
