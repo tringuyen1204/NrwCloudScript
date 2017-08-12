@@ -27,13 +27,17 @@ function Resource(code){
     return this.data.max;
   }
 
-  this.Change = function(value){
-    if (this.data.value + value < 0) {
+  this.Change = function(quanity){
+    if (this.data.value + quanity < 0) {
       this.data.value = 0;
     }
-    else if (this.data + value > this.data.max){
-      this.data = this.data.max;
+    else if (this.data.value + quanity > this.data.max){
+      this.data.value = this.data.max;
     }
+    else {
+      this.data.value += quanity;
+    }
+
     UpdateUserData(this);
   };
 
