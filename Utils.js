@@ -48,7 +48,7 @@ function RefreshStorageCap(code){
     ]);
   }
 
-  for (var storage in storages) {
+  for (var storage in allStorages) {
     newCapacity += storage.MasterData[code + "Storage"];
   }
 
