@@ -2,34 +2,33 @@
 function Building(type, index) {
 
   UserData.call(this, type + index);
-
   // default value
-  if (this.data.level == null){
-    this.data.level = 0;
+  if (this.Data.Level == null){
+    this.Data.Level = 0;
   }
 
   this.IsCompleted = function() {
-    return this.data.completedDate <= this.ServerTime();
+    return this.Data.CompletedDate <= this.ServerTime();
   }
 
   this.MasterData = function(){
     if ( !("_masterData" in this) ){
-      this._masterData = new MasterData(type).data;
+      this._masterData = new MasterData(type).Data;
     }
     return this._masterData;
   }
 
   this.CurrentLevelData = function(){
-    if ( (this.data.level) == 0 ){
+    if ( (this.Data.Level) == 0 ){
       return null;
     }
     else {
-      return this.MasterData()[this.data.level];
+      return this.MasterData()[this.Data.Level];
     }
   }
 
   this.NextLevelData = function() {
-    return this.MasterData()[this.data.level + 1];
+    return this.MasterData()[this.Data.Level + 1];
   }
 
   this.ServerTime = function(){
@@ -43,24 +42,24 @@ function Building(type, index) {
   }
 
   this.TryUpgrade =  function(){
-    if (this.upgrading){
-      log.error(type + index + " is already upgrading!");
+    if (this.Upgrading){
+      log.error(type + index + " is already Upgrading!");
       return false;
     }
 
-    this.data.completedDate = this.ServerTime() + 100000;
-    this.data.upgrading = true;
+    this.Data.CompletedDate = this.ServerTime() + 100000;
+    this.Data.Upgrading = true;
 
     var kingdom = new Kingdom();
     kingdom.AddExp(this.NextLevelData().exp_gain);
-    //this.data.masterdata = this.NextLevelData();
+    //this.Data.masterData = this.NextLevelData();
     return true;
   }
 
   this.CompleteUpgrade = function(){
     if ( this.IsCompleted() ){
-      this.data.level ++;
-      this.data.upgrading = false;
+      this.Data.Level ++;
+      this.Data.Upgrading = false;
 
       // TODO add user exp
       this.Push();
