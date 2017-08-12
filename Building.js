@@ -34,14 +34,6 @@ function Building(type, index) {
     this.Data.MasterData = this.GetMasterData()[this.Data.Level];
     this.Data.NextLevelData = this.GetMasterData()[this.Data.Level + 1];
 
-    if (type == CASTLE || type == GOLD_STORAGE){
-      RefreshStorageCap(GOLD);
-    }
-
-    if (type == CASTLE || type == FOOD_STORAGE){
-      RefreshStorageCap(FOOD);
-    }
-
     return true;
   }
 
@@ -66,6 +58,15 @@ function Building(type, index) {
   this.CompleteUpgrade = function(){
     if ( this.TryComplete() ){
       this.Push();
+
+      if (type == CASTLE || type == GOLD_STORAGE){
+        RefreshStorageCap(GOLD);
+      }
+
+      if (type == CASTLE || type == FOOD_STORAGE){
+        RefreshStorageCap(FOOD);
+      }
+
       return true;
     }
     else {
