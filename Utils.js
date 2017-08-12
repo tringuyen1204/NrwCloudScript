@@ -26,7 +26,7 @@ function RefreshStorageCap(code){
     log.error("invalid resource type!")
     return -9999;
   }
-  
+
   var newCapacity = 0;
 
   if (code == GOLD){
@@ -49,7 +49,7 @@ function RefreshStorageCap(code){
   }
 
   for (var storage in storages) {
-    newCapacity += storage[code + "Storage"];
+    newCapacity += storage.MasterData[code + "Storage"];
   }
 
   var resource = new Resource(code);
