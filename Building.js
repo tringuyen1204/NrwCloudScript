@@ -26,7 +26,7 @@ function ConstructBuilding(buildingType, index){
     }
   }
   else {
-    allBuildings = {};
+    allBuildings = [];
   }
 
   curLv += 1;
