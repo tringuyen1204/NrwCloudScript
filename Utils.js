@@ -21,13 +21,37 @@ function ConvertGoldFoodToDiamond(quantity){
   return ret;
 }
 
-function RefreshStorageCapacity(code){
+function RefreshStorageCap(code){
   if (code != GOLD && code != FOOD){
     log.error("invalid resource type!")
     return -9999;
   }
+  
+  var newCapacity = 0;
 
-  var newCap = 1000;
+  if (code == GOLD){
+    var allStorages = GetMultipleUserData([
+      "Castle0",
+      GOLD_STORAGE+0,
+      GOLD_STORAGE+1,
+      GOLD_STORAGE+2,
+      GOLD_STORAGE+3
+    ]);
+  }
+  else {
+    var allStorages = GetMultipleUserData([
+      "Castle0",
+      FOOD_STORAGE+0,
+      FOOD_STORAGE+1,
+      FOOD_STORAGE+2,
+      FOOD_STORAGE+3
+    ]);
+  }
+
+  for (var storage in storages) {
+    newCapacity += storage[code + "Storage"];
+  }
+
   var resource = new Resource(code);
-  resource.SetMax(newCap);
+  resource.SetMax(newCapacity);
 }

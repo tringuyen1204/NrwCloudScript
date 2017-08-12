@@ -10,24 +10,15 @@ function Building(type, index) {
     return this.Data.CompletedDate <= this.ServerTime();
   }
 
-  this.MasterData = function(){
+  this.GetMasterData = function(){
     if ( !("_masterData" in this) ){
       this._masterData = new MasterData(type).Data;
     }
     return this._masterData;
   }
 
-  this.CurrentLevel = function(){
-    if ( (this.Data.Level) == 0 ){
-      return null;
-    }
-    else {
-      return this.MasterData()[this.Data.Level];
-    }
-  }
-
-  this.NextLevel = function() {
-    return this.MasterData()[this.Data.Level + 1];
+  this.NextLevelData = function() {
+    return this.GetMasterData()[this.Data.Level + 1];
   }
 
   this.StartUpgrade = function(){
@@ -42,7 +33,10 @@ function Building(type, index) {
       return false;
     }
     this.Data.CompletedDate = this.ServerTime() + 100000;
-    this.Data.Upgrading = true;
+    this.Data.Upgrading = false;
+    this.Data.Level ++;
+    this.Data.MasterData = this.GetMasterData()[this.Data.Level];
+
     return true;
   }
 

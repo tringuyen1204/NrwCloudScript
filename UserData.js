@@ -25,5 +25,24 @@ function UserData(Key){
       "Data":newData,
       "Permission":"public"
     });
-  }  
+  }
+}
+
+function GetMultipleUserData(Keys){
+  var rawData = server.GetUserReadOnlyData({
+    "PlayFabId":currentPlayerId,
+    "Keys": Keys;
+  }).Data;
+
+  int index = 0;
+  var ret = {};
+
+  for (var obj in rawData) {
+    if (obj.hasOwnProperty(variable)) {
+      ret[index] = {
+        "Data": JSON.parse(obj.Value)
+      };
+    }
+  }
+  return ret;
 }
