@@ -7,7 +7,7 @@ function Building(type, index) {
   }).Data;
 
   if ( this.buildingId in rawData ){
-    this.data = rawData[this.buildingId];
+    this.data = rawData[this.buildingId].Value;
   }
   else {
     // default data
