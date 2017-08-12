@@ -2,7 +2,11 @@
 function Building(type, index) {
 
   UserData.call(this, type + index);
-  this.data.level = 0;
+
+  // default value
+  if (this.data.level == null){
+    this.data.level = 0;
+  }
 
   this.IsCompleted = function() {
     return this.data.completedDate <= this.ServerTime();
@@ -29,10 +33,10 @@ function Building(type, index) {
   }
 
   this.TryUpgrade =  function(){
-    // if (this.upgrading){
-    //   log.error(type + index + " is already upgrading!");
-    //   return false;
-    // }
+    if (this.upgrading){
+      log.error(type + index + " is already upgrading!");
+      return false;
+    }
 
     this.data.completedDate = this.ServerTime() + 100000;
     this.data.upgrading = true;

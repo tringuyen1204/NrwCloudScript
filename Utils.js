@@ -21,3 +21,14 @@ function ConvertGoldFoodToDiamond(quantity){
     ret = 1;
   return ret;
 }
+
+function RefreshStorageCapacity(code){
+  if (code != GOLD && code != FOOD){
+    server.error("invalid resource type!")
+    return -9999;
+  }
+
+  var newCap = 1000;
+  var resource = new Resource(code);
+  resource.SetMax(newCap);
+}

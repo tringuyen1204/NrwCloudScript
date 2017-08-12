@@ -1,25 +1,16 @@
-function RefreshStorageCapacity(code){
-  if (code != GOLD && code != FOOD){
-    server.error("invalid resource type!")
-    return -9999;
-  }
-
-  var newCap = 1000;
-  var resource = new Resource(code);
-  resource.SetMax(newCap);
-}
-
 function Resource(code){
-  this.key = code;
+  UserData.call(this, code);
 
-  this.data = GetUserData(this.key);
-  if (this.data == null) {
-    this.data = {
-      "value": 0,
-      "max" : 100
-    }
+  // default value
+  if (this.data.value == null){
+    this.data.value = 0;
   }
 
+  // default value
+  if (this.data.max = null){
+    this.data.max = 100;
+  }
+  
   this.Value = function(){
     return this.data.value;
   }
@@ -39,11 +30,14 @@ function Resource(code){
       this.data.value += quanity;
     }
 
-    UpdateUserData(this);
+    this.Push();
   };
 
   this.SetMax = function(newCap){
     this.data.max = newCap;
-    UpdateUserData(this);
+    this.Push();
   };
 }
+
+Resource.prototype = Object.create(UserData.prototype);
+Resource.prototype.constructor = UserData;
