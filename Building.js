@@ -17,10 +17,6 @@ function Building(type, index) {
     return this._masterData;
   }
 
-  this.NextLevelData = function() {
-    return this.GetMasterData()[this.Data.Level + 1];
-  }
-
   this.StartUpgrade = function(){
     if (this.TryUpgrade()){
       this.Push();
@@ -35,6 +31,7 @@ function Building(type, index) {
     this.Data.CompletedDate = this.ServerTime() + 100000;
     this.Data.Upgrading = false;
     this.Data.Level ++;
+    this.Data.NextLevelData = this.GetMasterData()[this.Data.Level + 1];
     this.Data.MasterData = this.GetMasterData()[this.Data.Level];
 
     return true;
