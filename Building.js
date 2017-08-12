@@ -42,6 +42,7 @@ function Building(type, index) {
       log.error(type + index + " is already upgrading!");
     }
 
+    this.data.level += 1;
     this.data.completedDate = this.ServerTime() + 100000;
     this.data.upgrading = true;
 
