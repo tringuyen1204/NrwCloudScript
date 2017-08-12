@@ -14,7 +14,7 @@ function Building(type, index) {
 
   this.MasterData = function(){
     if ( !("_masterData" in this) ){
-      this._masterData = new MasterData(type);
+      this._masterData = new MasterData(type).data;
     }
     return this._masterData;
   }
