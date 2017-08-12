@@ -1,20 +1,15 @@
 function UserData(key){
-
   this.key = key;
 
-  this.Pull = function(){
-    var rawData = server.GetUserReadOnlyData({
-        "PlayFabId":currentPlayerId,
-        "Keys": [this.key]
-    }).Data;
+  var rawData = server.GetUserReadOnlyData({
+      "PlayFabId":currentPlayerId,
+      "Keys": [this.key]
+  }).Data;
 
-    if ( key in rawData ){
-      this.data = JSON.parse(rawData[this.key].Value);
-    }
+  if ( key in rawData ){
+    this.data = JSON.parse(rawData[this.key].Value);
   }
-
-  this.Pull();
-  if (this.data == null){
+  else {
     this.data = {};
   }
 

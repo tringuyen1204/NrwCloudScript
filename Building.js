@@ -12,14 +12,24 @@ function Building(type, index) {
     return this.data.completedDate <= this.ServerTime();
   }
 
+  this.MasterData() = function{
+    if ( !("_masterData" in this) ){
+      this._masterData = new MasterData(type);
+    }
+    return this._masterData;
+  }
+
   this.CurrentLevelData = function(){
-    if ( !("_curLvlData" in this) ) {
+    if (this.data.level) == 0{
+      return null;
+    }
+    else {
+      return this.MasterData()[this.data.level];
     }
   }
 
   this.NextLevelData = function() {
-    if ( !("_nextLvlData" in this) ) {
-    }
+    return this.MasterData()[this.data.level + 1];
   }
 
   this.ServerTime = function(){
@@ -33,19 +43,33 @@ function Building(type, index) {
   }
 
   this.TryUpgrade =  function(){
-    // if (this.upgrading){
-    //   log.error(type + index + " is already upgrading!");
-    //   return false;
-    // }
+    if (this.upgrading){
+      log.error(type + index + " is already upgrading!");
+      return false;
+    }
 
     this.data.completedDate = this.ServerTime() + 100000;
     this.data.upgrading = true;
-    this.data.level++;
+
+    this.data.masterdata = JSON.stringify( this.NextLevelData() );
 
     return true;
   }
 
   this.CompleteUpgrade = function(){
+    if ( this.IsCompleted() ){
+      this.data.level ++;
+      this.data.upgrading = false;
+
+      // TODO add user exp
+      this.Push();
+
+      return true;
+    }
+    else {
+      log.error("this building construction is not completed");
+      return false;
+    }
   }
 }
 
