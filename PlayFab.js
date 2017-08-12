@@ -31,7 +31,7 @@ var PlayFab = function(){
   }
 
   this.Time = function(){
-    if (!"_time" in this ){
+    if ( !("_time" in this) ){
       this._time = new Date(server.GetTime().Time).getTime();
     }
     return this._time;
