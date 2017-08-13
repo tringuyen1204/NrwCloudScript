@@ -45,7 +45,7 @@ function Building(type, index) {
     var notEnoughGold = false;
     var notEnoughFood = false;
 
-    if (nextLvlData.GoldCost ! null){
+    if (nextLvlData.GoldCost != null){
       var playerGold = new Resource(GOLD);
       if (playerGold.Value() < nextLvlData.GoldCost){
         missingResources += nextLvlData.GoldCost - playerGold.Value();

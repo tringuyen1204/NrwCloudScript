@@ -11,7 +11,7 @@ handlers.ChangeResources = function(args){
 handlers.InitData = function(args){
   var castle = {
     "Level":1,
-    "CompletedDate":1502548432708,
+    "CompletedDate":0,
     "Upgrading":false,
     "MasterData":{
       "GoldCost":100,
