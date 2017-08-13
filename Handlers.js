@@ -9,7 +9,6 @@ handlers.ChangeResources = function(args){
 }
 
 handlers.InitData = function(args){
-
   var castle = {
     "Level":1,
     "CompletedDate":1502548432708,
@@ -30,9 +29,8 @@ handlers.InitData = function(args){
     "PlayFabId": currentPlayerId,
     "Data":{
       "Castle0":JSON.stringify(castle),
-      "Food":"\"{\"Value\":0,\"Max\":1000}",
-      "Gold":"\"{\"Value\":0,\"Max\":1000}"
+      "Food":"\"{\"Value\":1000,\"Max\":2000}",
+      "Gold":"\"{\"Value\":1000,\"Max\":2000}"
     }
   });
-
 }

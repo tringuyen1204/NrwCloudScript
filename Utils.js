@@ -48,9 +48,44 @@ function RefreshStorageCap(code){
   }
 
   for (var storage in allStorages) {
-    newCapacity += allStorages[storage].Data.MasterData[code + "Storage"];
+    newCapacity += allStorages[storage].Data.MasterData[code + "Capacity"];
   }
 
   var resource = new Resource(code);
   resource.SetMax(newCapacity);
+}
+
+function TryUsingCurrency(vcBalnces, code, useAmount){
+  if (vcBalnces != null
+    && vcBalnces.hasOwnProperty(code)
+    && vcBalnces[code] >= useAmount){
+      ChangeCurrency(vcBalnces, code, qty);
+      return true;
+    }
+    return false;
+}
+
+function ChangeCurrency(vcBalnces, code, qty)
+{
+	if(vcBalnces != null
+    && vcBalnces.hasOwnProperty(code)
+    && (vcBalnces[code] + qty >= 0) )
+	{
+		vcBalnces[code] += qty;
+	}
+
+  if (qty > 0){
+    server.AddUserVirtualCurrency({
+      "PlayFabId" : currentPlayerId,
+      "VirtualCurrency": code,
+      "Amount": math.abs(qty)
+    });
+  }
+  else {
+    server.SubtractUserVirtualCurrency({
+      "PlayFabId" : currentPlayerId,
+      "VirtualCurrency": code,
+      "Amount": math.abs(qty)
+    });
+  }
 }
