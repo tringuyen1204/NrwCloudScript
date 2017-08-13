@@ -84,7 +84,7 @@ function Building(type, index) {
       }
 
       this.Data.CompletedDate = this.ServerTime() + nextLvlData.BuildTime;
-      this.Data.Upgrading = true;
+      this.Data.Upgrading = false;
       this.Data.MasterData = this.NextLevel();
     }
     else {
