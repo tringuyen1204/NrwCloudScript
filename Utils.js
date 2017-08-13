@@ -60,22 +60,22 @@ function TryUsingCurrency(code, qty){
     "PlayFabId": currentPlayerId
   }).VirtualCurrency;
 
-  if (vcBalnces != null
-    && vcBalnces.hasOwnProperty(code)
-    && vcBalnces[code] >= qty){
-      ChangeCurrency(vcBalnces, code, qty);
+  if (vcBalances != null
+    && vcBalances.hasOwnProperty(code)
+    && vcBalances[code] >= qty){
+      ChangeCurrency(vcBalances, code, qty);
       return true;
     }
     return false;
 }
 
-function ChangeCurrency(vcBalnces, code, qty)
+function ChangeCurrency(vcBalances, code, qty)
 {
-	if(vcBalnces != null
-    && vcBalnces.hasOwnProperty(code)
-    && (vcBalnces[code] + qty >= 0) )
+	if(vcBalances != null
+    && vcBalances.hasOwnProperty(code)
+    && (vcBalances[code] + qty >= 0) )
 	{
-		vcBalnces[code] += qty;
+		vcBalances[code] += qty;
 	}
 
   if (qty > 0){
