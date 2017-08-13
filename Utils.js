@@ -78,14 +78,14 @@ function ChangeCurrency(vcBalnces, code, qty)
     server.AddUserVirtualCurrency({
       "PlayFabId" : currentPlayerId,
       "VirtualCurrency": code,
-      "Amount": math.abs(qty)
+      "Amount": Math.abs(qty)
     });
   }
   else {
     server.SubtractUserVirtualCurrency({
       "PlayFabId" : currentPlayerId,
       "VirtualCurrency": code,
-      "Amount": math.abs(qty)
+      "Amount": Math.abs(qty)
     });
   }
 }

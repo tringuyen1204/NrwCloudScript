@@ -61,7 +61,7 @@ function Building(type, index) {
       }
     }
 
-    var diamondNeed = ConvertResourceToDiamond(missingResources);
+    var diamondNeed = ConvertGoldFoodToDiamond(missingResources);
 
     var vcBalances = server.GetUserInventory({
       "PlayFabId": currentPlayerId
