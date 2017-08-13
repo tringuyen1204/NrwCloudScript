@@ -62,6 +62,7 @@ function Building(type, index) {
     }
 
     var diamondNeed = ConvertGoldFoodToDiamond(missingResources);
+    log.info("diamond needed = " + diamondNeed);
 
     if ( (diamondNeed == 0)
     || (diamondNeed > 0 && TryUsingCurrency(DIAMOND, diamondNeed) ) ){
