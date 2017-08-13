@@ -63,12 +63,8 @@ function Building(type, index) {
 
     var diamondNeed = ConvertGoldFoodToDiamond(missingResources);
 
-    var vcBalances = server.GetUserInventory({
-      "PlayFabId": currentPlayerId
-    }).VirtualCurrency;
-
     if ( (diamondNeed == 0)
-    || (diamondNeed > 0 && TryUsingCurrency(vcBalances, DIAMOND, diamondNeed) ) ){
+    || (diamondNeed > 0 && TryUsingCurrency(DIAMOND, diamondNeed) ) ){
       if (notEnoughGold){
         playerGold.Change(-playerGold.Value());
       }
@@ -85,10 +81,9 @@ function Building(type, index) {
 
       this.Data.CompletedDate = this.ServerTime() + nextLvlData.BuildTime;
       this.Data.Upgrading = false;
-      this.Data.MasterData = this.NextLevel();
     }
     else {
-      return false
+      return false;
     }
 
     return true;

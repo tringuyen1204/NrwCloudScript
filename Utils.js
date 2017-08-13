@@ -55,10 +55,14 @@ function RefreshStorageCap(code){
   resource.SetMax(newCapacity);
 }
 
-function TryUsingCurrency(vcBalnces, code, useAmount){
+function TryUsingCurrency(code, qty){
+  var vcBalances = server.GetUserInventory({
+    "PlayFabId": currentPlayerId
+  }).VirtualCurrency;
+
   if (vcBalnces != null
     && vcBalnces.hasOwnProperty(code)
-    && vcBalnces[code] >= useAmount){
+    && vcBalnces[code] >= qty){
       ChangeCurrency(vcBalnces, code, qty);
       return true;
     }
