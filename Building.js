@@ -21,8 +21,6 @@ function Building(type, index) {
     return this.GetMasterData()[String(this.Data.Level + 1)];
   }
 
-  // the shell logic of building upgrading
-  // push data to database
   this.StartUpgrade = function(){
     if (this.TryUpgrade()){
       this.Push();
@@ -31,12 +29,19 @@ function Building(type, index) {
     return false;
   }
 
-  // main logics of upgrading
-  // intended to be overrided by children class
   this.TryUpgrade =  function(){
     if (this.Upgrading){
       log.error(type + index + " is already Upgrading!");
       return false;
+    }
+
+    if (type == CASTLE){
+    }
+    else {
+      var castle = new Building(CASTLE, 0);
+      if (index > castle.Data.MasterData[type+"Limit"] - 1){
+        return false;
+      }
     }
 
     var nextLvlData = this.NextLevel();
@@ -81,7 +86,7 @@ function Building(type, index) {
       }
 
       this.Data.CompletedDate = this.ServerTime() + nextLvlData.BuildTime;
-      this.Data.Upgrading = false;
+      this.Data.Upgrading = true;
     }
     else {
       return false;
@@ -107,8 +112,6 @@ function Building(type, index) {
     }
   }
 
-  // check if this building can be completed and
-  // process the logics
   this.TryComplete = function(){
     if ( this.Completed() ){
 

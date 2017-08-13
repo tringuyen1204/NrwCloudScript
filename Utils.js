@@ -46,11 +46,9 @@ function RefreshStorageCap(code){
       FOOD_STORAGE+3
     ]);
   }
-
   for (var storage in allStorages) {
     newCapacity += allStorages[storage].Data.MasterData[code + "Capacity"];
   }
-
   var resource = new Resource(code);
   resource.SetMax(newCapacity);
 }
