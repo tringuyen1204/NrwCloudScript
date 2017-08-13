@@ -17,11 +17,6 @@ handlers.InitData = function(args){
       "GoldCost":100,
       "ExpGain":10,
       "GoldStorage":1000,
-      "FoodStorage":1000},
-    "NextLevelData":{
-      "GoldCost":1000,
-      "ExpGain":40,
-      "GoldStorage":1000,
       "FoodStorage":1000}
     };
 
