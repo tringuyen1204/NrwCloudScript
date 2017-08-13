@@ -15,10 +15,10 @@ function ConvertTimeToDiamond(seconds){
 function ConvertGoldFoodToDiamond(qty){
   if (qty <= 0)
     return 0;
-  var ret = Math.pow(6, Math.log(qty/10) / Math.log(10) - 2);
-  if (ret <= 0)
+  var ret = Math.pow(6, Math.log(qty/10) / Math.log(10));
+  if (ret < 1)
     ret = 1;
-  return ret;
+  return Math.floor(ret);
 }
 function RefreshStorageCap(code){
   if (code != GOLD && code != FOOD){
