@@ -63,7 +63,7 @@ function TryUsingCurrency(code, qty){
   if (vcBalances != null
     && vcBalances.hasOwnProperty(code)
     && vcBalances[code] >= qty){
-      ChangeCurrency(vcBalances, code, qty);
+      ChangeCurrency(vcBalances, code, -qty);
       return true;
     }
     return false;
