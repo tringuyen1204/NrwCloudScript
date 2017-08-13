@@ -24,8 +24,8 @@ handlers.InitData = function(args){
     "PlayFabId": currentPlayerId,
     "Data":{
       "Castle0":JSON.stringify(castle),
-      "Food":"\"{\"Value\":1000,\"Max\":2000}",
-      "Gold":"\"{\"Value\":1000,\"Max\":2000}"
+      "Food":"{\"Value\":1000,\"Max\":2000}",
+      "Gold":"{\"Value\":1000,\"Max\":2000}"
     }
   });
 }
