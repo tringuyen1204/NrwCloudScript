@@ -18,7 +18,7 @@ function Building(type, index) {
   }
 
   this.NextLevel = function(){
-    return this.GetMasterData()[this.Data.Level + 1];
+    return this.GetMasterData()[String(this.Data.Level + 1)];
   }
 
   // the shell logic of building upgrading
@@ -84,7 +84,8 @@ function Building(type, index) {
       }
 
       this.Data.CompletedDate = this.ServerTime() + nextLvlData.BuildTime;
-      this.Data.Upgrading = false;
+      this.Data.Upgrading = true;
+      this.Data.MasterData = this.NextLevel();
     }
     else {
       return false
