@@ -6,7 +6,7 @@ function Resource(code){
     this.Data.Value = 0;
   }
   // default Value
-  if (this.Data.Max = null){
+  if (this.Data.Max == null){
     this.Data.Max = 1000;
   }
 
