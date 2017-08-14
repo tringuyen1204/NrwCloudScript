@@ -23,14 +23,14 @@ function ResourceManager(){
   }
 
   this.ChangeValue = function(code, quanity){
-    if (this.Data.Value + quanity < 0) {
-      this.Data.Value = 0;
+    if (this.Value(code) + quanity < 0) {
+      this.Data[code].Value = 0;
     }
-    else if (this.Data.Value + quanity > this.Data.Max){
-      this.Data.Value = this.Data.Max;
+    else if (this.Value(code) + quanity > this.Max() ) {
+      this.Data[code].Value = this.Max();
     }
     else {
-      this.Data.Value += quanity;
+      this.Data[code].Value += quanity;
     }
   }
 
