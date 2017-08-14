@@ -1,13 +1,17 @@
 // inherit UserData
-function Building(type, index) {
+function Building(type) {
 
-  UserData.call(this, type + index);
+  UserData.call(this, type);
   // default value
   if (this.Data.Level == null){
     this.Data.Level = 0;
   }
-  this.Completed = function() {
-    return this.Data.CompletedDate <= this.ServerTime();
+  this.Completed = function(id) {
+    return this.Get(id).CompletedDate <= this.ServerTime();
+  }
+  
+  this.Count = function(){
+    return this.Data.length;
   }
 
   this.GetMasterData = function(){
@@ -16,44 +20,52 @@ function Building(type, index) {
     }
     return this._masterData;
   }
-
-  this.NextLevel = function(){
-    return this.GetMasterData()[String(this.Data.Level + 1)];
+  
+  this.Get = function(id){
+      return this.Data[id];
   }
 
-  this.StartUpgrade = function(){
-    if (this.TryUpgrade()){
+  this.CurrentLevelData = function(id){
+    return this.GetMasterData()[this.Get(id).Level];
+  }
+
+  this.NextLevelData = function(id){
+    return this.GetMasterData()[this.Get(id).Level + 1];
+  }
+
+  this.StartUpgrade = function(id){
+    if ( this.TryUpgrade(id) ){
       this.Push();
       return true;
     }
     return false;
   }
 
-  this.TryUpgrade =  function(){
-    if (this.Upgrading){
-      log.error(type + index + " is already Upgrading!");
+  this.TryUpgrade =  function(id){
+    if (this.Get(id).Upgrading){
+      log.error(type + id + " is already Upgrading!");
       return false;
     }
 
     if (type == CASTLE){
     }
     else {
-      var castle = new Building(CASTLE, 0);
-      if (index > castle.Data.MasterData[type+"Limit"] - 1){
+      var castle = new Building(CASTLE);
+      if ( Number(id) > castle.CurrentLevelData("0")[type+"Limit"] ){
         return false;
       }
     }
 
-    var nextLvlData = this.NextLevel();
+    var nextLvlData = this.NextLevelData(id);
 
-    var missingResources = 0;
+    var missingRes = 0;
     var notEnoughGold = false;
     var notEnoughFood = false;
 
     if (nextLvlData.GoldCost != null){
       var playerGold = new Resource(GOLD);
       if (playerGold.Value() < nextLvlData.GoldCost){
-        missingResources += nextLvlData.GoldCost - playerGold.Value();
+        missingRes += nextLvlData.GoldCost - playerGold.Value();
         notEnoughGold = true;
       }
     }
@@ -61,12 +73,12 @@ function Building(type, index) {
     if (nextLvlData.FoodCost != null){
       var playerFood = new Resource(FOOD);
       if (playerFood.Value() < nextLvlData.FoodCost){
-        missingResources += nextLvlData.FoodCost - playerFood.Value();
+        missingRes += nextLvlData.FoodCost - playerFood.Value();
         notEnoughFood = true;
       }
     }
 
-    var diamondNeed = ConvertGoldFoodToDiamond(missingResources);
+    var diamondNeed = ConvertGoldFoodToDiamond(missingRes);
     log.info("diamond needed = " + diamondNeed);
 
     if ( (diamondNeed == 0)
@@ -85,8 +97,8 @@ function Building(type, index) {
         playerFood.Change(-nextLvlData.FoodCost);
       }
 
-      this.Data.CompletedDate = this.ServerTime() + nextLvlData.BuildTime;
-      this.Data.Upgrading = true;
+      this.Get(id).CompletedDate = this.ServerTime() + nextLvlData.BuildTime;
+      this.Get(id).Upgrading = true;
     }
     else {
       return false;
@@ -95,8 +107,8 @@ function Building(type, index) {
     return true;
   }
 
-  this.CompleteUpgrade = function(){
-    if ( this.TryComplete() ){
+  this.CompleteUpgrade = function(id){
+    if ( this.TryComplete(id) ){
       this.Push();
 
       if (type == CASTLE || type == GOLD_STORAGE){
@@ -112,17 +124,15 @@ function Building(type, index) {
     }
   }
 
-  this.TryComplete = function(){
-    if ( this.Completed() ){
-
+  this.TryComplete = function(id){
+    if ( this.Completed(id) ){
       // TODO update building data
-      this.Data.MasterData = this.NextLevel();
-      this.Data.Level ++;
-      this.Data.Upgrading = false;
+      this.Get(id).Level ++;
+      this.Get(id).Upgrading = false;
 
       // TODO add user exp
       var kingdom = new Kingdom();
-      kingdom.AddExp(this.Data.MasterData.ExpGain);
+      kingdom.AddExp(this.CurrentLevelData().ExpGain);
       return true;
     }
     else {

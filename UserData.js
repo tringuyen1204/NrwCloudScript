@@ -1,10 +1,6 @@
 function UserData(Key){
   this.Key = Key;
 
-  this.ServerTime = function(){
-    return Date.now();
-  }
-
   var rawData = server.GetUserReadOnlyData({
       "PlayFabId":currentPlayerId,
       "Keys": [this.Key]
@@ -46,16 +42,14 @@ function GetMultipleUserData(Keys){
     "Keys": Keys
   }).Data;
 
-  var index = 0;
-  var ret = [];
+  var ret = {};
 
   for (var key in rawData) {
     if (rawData.hasOwnProperty(key)) {
-      ret[index] = {
+      ret[key] = {
         "Key": key,
         "Data": JSON.parse(rawData[key].Value)
       };
-      index++;
     }
   }
 
