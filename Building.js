@@ -109,17 +109,17 @@ function Building(type) {
     if ( (diamondNeed == 0)
     || (diamondNeed > 0 && TryUsingCurrency(DIAMOND, diamondNeed) ) ){
       if (notEnoughGold){
-        resMan.ChangeValue(-resMan.Value(GOLD));
+        resMan.ChangeValue(GOLD ,-resMan.Value(GOLD) );
       }
       else if (nextLvlData.GoldCost != null) {
-        resMan.ChangeValue(-nextLvlData.GoldCost);
+        resMan.ChangeValue(GOLD, -nextLvlData.GoldCost);
       }
 
       if (notEnoughFood){
-        resMan.ChangeValue(-resMan.Value(FOOD));
+        resMan.ChangeValue(FOOD , -resMan.Value(FOOD) );
       }
       else if (nextLvlData.FoodCost != null){
-        resMan.ChangeValue(-nextLvlData.FoodCost);
+        resMan.ChangeValue(FOOD, -nextLvlData.FoodCost);
       }
       
       resMan.Push();
