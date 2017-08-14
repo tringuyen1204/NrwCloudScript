@@ -17,7 +17,6 @@ function ResourceManager(){
             "Value":0,
             "Max":0
         }
-        
     }
     return this.Data[code].Max;
   }
@@ -26,8 +25,8 @@ function ResourceManager(){
     if (this.Value(code) + qty < 0) {
       this.Data[code].Value = 0;
     }
-    else if (this.Value(code) + qty > this.Max() ) {
-      this.Data[code].Value = this.Max();
+    else if (this.Value(code) + qty > this.Max(code) ) {
+      this.Data[code].Value = this.Max(code);
     }
     else {
       this.Data[code].Value += qty;
