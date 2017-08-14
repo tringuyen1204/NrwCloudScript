@@ -16,10 +16,17 @@ function Building(type) {
 
   this.GetMasterData = function(){
     if ( !("_masterData" in this) ){
-        log.info("loading masterdata");
-        this._masterData = new MasterData(type);
+        var rawData = server.GetCatalogItems({
+            "CatalogVersion":this.Type
+        });
+        
+        if ( "Catalog" in rawData){
+            this._masterData  = JSON.parse(rawData.Catalog[0].CustomData);
+        }
+        
+        log.info( JSON.stringify(this._masterData) );
     }
-    return this._masterData.Data;
+    return this._masterData;
   }
   
   this.Get = function(id) {
