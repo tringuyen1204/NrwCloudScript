@@ -62,7 +62,7 @@ function Building(type) {
       return {
           "Level":0,
           "Upgrading":false,
-          "CompletedDated":0
+          "CompletedDate":0
       }
   }
 
@@ -71,7 +71,7 @@ function Building(type) {
     var curData = this.Get(id);
   
     if (curData == null){
-        curData = this.DefaultData();
+        this.Data[i] = this.DefaultData();
     }
   
     if (curData.Upgrading){
