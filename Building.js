@@ -30,7 +30,7 @@ function Building(type) {
   }
   
   this.Get = function(id) {
-    return this.Data[i];
+    return this.Data[id];
   }
 
   this.CurrentLevelData = function(id){
