@@ -67,14 +67,12 @@ function Building(type) {
   }
 
   this.TryUpgrade =  function(id){
-  
-    var curData = this.Get(id);
-  
-    if (curData == null){
-        this.Data[i] = this.DefaultData();
+   
+    if (this.Get(id) == null){
+        this.Data[id] = this.DefaultData();
     }
   
-    if (curData.Upgrading){
+    if (this.Get(id).Upgrading){
       log.error(type + id + " is already Upgrading!");
       return false;
     }
