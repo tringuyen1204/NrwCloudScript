@@ -24,7 +24,7 @@ function Building(type) {
             this._masterData  = JSON.parse(rawData.Catalog[0].CustomData);
         }
         
-        log.info( JSON.stringify(this._masterData) );
+        //log.info( JSON.stringify(this._masterData) );
     }
     return this._masterData;
   }
@@ -40,11 +40,11 @@ function Building(type) {
   }
 
   this.CurrentLevelData = function(id){
-    return this.GetMasterData()[this.Get(id).Level];
+    return this.GetMasterData()[String(this.Get(id).Level)];
   }
 
-  this.NextLevelData = function(id){
-    return this.GetMasterData()[this.Get(id).Level + 1];
+  this.NextLevelData = function(id){   
+    return this.GetMasterData()[String(this.Get(id).Level + 1)];
   }
 
   this.StartUpgrade = function(id){
@@ -86,8 +86,6 @@ function Building(type) {
     }
 
     var nextLvlData = this.NextLevelData(id);
-    
-    log.info( JSON.stringify(nextLvlData) );
 
     var missingRes = 0;
     var notEnoughGold = false;
