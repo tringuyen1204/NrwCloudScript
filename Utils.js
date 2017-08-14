@@ -27,31 +27,24 @@ function RefreshStorageCap(code){
   }
 
   var newCapacity = 0;
-
+  
+  var castle = new Building(CASTLE);
+  
   if (code == GOLD){
-    var allStorages = GetMultipleUserData([
-      "Castle0",
-      GOLD_STORAGE+0,
-      GOLD_STORAGE+1,
-      GOLD_STORAGE+2,
-      GOLD_STORAGE+3
-    ]);
+    var resB = new Building(GOLD_STORAGE);
   }
   else {
-    var allStorages = GetMultipleUserData([
-      "Castle0",
-      FOOD_STORAGE+0,
-      FOOD_STORAGE+1,
-      FOOD_STORAGE+2,
-      FOOD_STORAGE+3
-    ]);
+    var resB = new Building(FOOD_STORAGE);
   }
-
-  for (var storage in allStorages) {
-    newCapacity += allStorages[storage].Data.MasterData[code + "Capacity"];
+  
+  newCapacity += castle.CurrentLevelData("0")[code + "Capacity"];
+  
+  for (key in resB.Data) {
+      newCapacity += resB.CurrentLevelData(key)[code + "Capacity"];
   }
-  var resource = new Resource(code);
-  resource.SetMax(newCapacity);
+  
+  var resMan = new ResourceManager();
+  resMan.SetMax(newCapacity);
 }
 
 function TryUsingCurrency(code, qty){

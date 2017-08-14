@@ -38,9 +38,6 @@ function Building(type) {
   }
 
   this.NextLevelData = function(id){   
-  
-    log.info( id );
-  
     return this.GetMasterData()[String(this.Get(id).Level + 1)];
   }
 
@@ -86,40 +83,44 @@ function Building(type) {
     var notEnoughGold = false;
     var notEnoughFood = false;
 
+    var resMan = new ResourceManager();
+   
     if (nextLvlData.GoldCost != null){
-      var playerGold = new Resource(GOLD);
-      if (playerGold.Value() < nextLvlData.GoldCost){
-        missingRes += nextLvlData.GoldCost - playerGold.Value();
+      if (resMan.Value(GOLD) < nextLvlData.GoldCost){
+        missingRes += nextLvlData.GoldCost - resMan.Value(GOLD);
         notEnoughGold = true;
       }
     }
 
     if (nextLvlData.FoodCost != null){
-      var playerFood = new Resource(FOOD);
-      if (playerFood.Value() < nextLvlData.FoodCost){
-        missingRes += nextLvlData.FoodCost - playerFood.Value();
+      if (resMan.Value(FOOD) < nextLvlData.FoodCost){
+        missingRes += nextLvlData.FoodCost - resMan.Value(FOOD);
         notEnoughFood = true;
       }
     }
 
-    var diamondNeed = ConvertGoldFoodToDiamond(missingRes);
-    log.info("diamond needed = " + diamondNeed);
+    if (missingRes > 0) {
+        var diamondNeed = ConvertGoldFoodToDiamond(missingRes);
+        log.info("diamond needed = " + diamondNeed);
+    }
 
     if ( (diamondNeed == 0)
     || (diamondNeed > 0 && TryUsingCurrency(DIAMOND, diamondNeed) ) ){
       if (notEnoughGold){
-        playerGold.Change(-playerGold.Value());
+        resMan.ChangeValue(-resMan.Value(GOLD));
       }
       else if (nextLvlData.GoldCost != null) {
-        playerGold.Change(-nextLvlData.GoldCost);
+        resMan.ChangeValue(-nextLvlData.GoldCost);
       }
 
       if (notEnoughFood){
-        playerFood.Change(-playerFood.Value());
+        resMan.ChangeValue(-resMan.Value(FOOD));
       }
       else if (nextLvlData.FoodCost != null){
-        playerFood.Change(-nextLvlData.FoodCost);
+        resMan.ChangeValue(-nextLvlData.FoodCost);
       }
+      
+      resMan.Push();
 
       this.Get(id).CompletedDate = this.ServerTime() + nextLvlData.BuildTime;
       this.Get(id).Upgrading = true;

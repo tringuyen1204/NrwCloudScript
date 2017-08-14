@@ -15,14 +15,24 @@ handlers.InitData = function(args){
             "CompletedDate":0,
             "Upgrading":false
         }
-    };
+  };
+    
+  var resource = {
+      "Gold":{
+          "Value":1000,
+          "Max":2000
+      },
+      "Food":{
+          "Value":1000,
+          "Max":2000
+      }
+  }
 
   server.UpdateUserReadOnlyData({
     "PlayFabId": currentPlayerId,
     "Data":{
       "Castle":JSON.stringify(castle),
-      "Food":"{\"Value\":1000,\"Max\":2000}",
-      "Gold":"{\"Value\":1000,\"Max\":2000}"
+      "Resource":JSON.stringify(resource)
     }
   });
 }
