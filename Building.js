@@ -1,6 +1,8 @@
 // inherit UserData
 function Building(type) {
 
+  this.Type = type;
+
   UserData.call(this, type);
   // default value
 
@@ -13,11 +15,9 @@ function Building(type) {
   }
 
   this.GetMasterData = function(){
+    log.info("loading master data");
     if ( this._masterData == null ){
       this._masterData = new MasterData(type);
-      if (this._masterData == null){
-         log.info(JSON.stringify(this._masterData)); 
-      }
     }
     return this._masterData.Data;
   }
@@ -79,6 +79,7 @@ function Building(type) {
     }
 
     var nextLvlData = this.NextLevelData(id);
+    
     log.info( JSON.stringify(nextLvlData) );
 
     var missingRes = 0;
