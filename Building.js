@@ -16,7 +16,7 @@ function Building(type) {
     if ( this._masterData == null ){
       this._masterData = new MasterData(type);
       if (this._masterData == null){
-         log.error("Can't load masterdata of building type " + type); 
+         log.info(JSON.stringify(this._masterData)); 
       }
     }
     return this._masterData.Data;
