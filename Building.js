@@ -3,9 +3,7 @@ function Building(type) {
 
   UserData.call(this, type);
   // default value
-  if (this.Data.Level == null){
-    this.Data.Level = 0;
-  }
+
   this.Completed = function(id) {
     return this.Get(id).CompletedDate <= this.ServerTime();
   }
@@ -16,9 +14,9 @@ function Building(type) {
 
   this.GetMasterData = function(){
     if ( this._masterData == null ){
-      this._masterData = new MasterData(type).Data;
+      this._masterData = new MasterData(type);
     }
-    return this._masterData;
+    return this._masterData.Data;
   }
   
   this.Get = function(id) {
@@ -32,11 +30,11 @@ function Building(type) {
   }
 
   this.CurrentLevelData = function(id){
-    return this.GetMasterData()[this.Get(id).Data.Level];
+    return this.GetMasterData()[this.Get(id).Level];
   }
 
   this.NextLevelData = function(id){
-    return this.GetMasterData()[this.Get(id).Data.Level + 1];
+    return this.GetMasterData()[this.Get(id).Level + 1];
   }
 
   this.StartUpgrade = function(id){
@@ -46,10 +44,22 @@ function Building(type) {
     }
     return false;
   }
+  
+  this.DefaultData = function(){
+      return {
+          "Level":0,
+          "Upgrading":false,
+          "CompletedDated":0
+      }
+  }
 
   this.TryUpgrade =  function(id){
   
-    if ( this.Get(id).Upgrading != null && this.Get(id).Upgrading ){
+    if (this.Get(id) == null){
+        this.Get(id) = this.DefaultData();
+    }
+  
+    if (this.Get(id).Upgrading ){
       log.error(type + id + " is already Upgrading!");
       return false;
     }
