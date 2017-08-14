@@ -11,7 +11,7 @@ function ResourceManager(){
     return this.Data[code].Value;
   }
 
-  this.Max = function(){
+  this.Max = function(code){
     if (this.Data[code] == null){
          this.Data[code] = {
             "Value":0,
