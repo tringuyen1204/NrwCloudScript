@@ -64,7 +64,7 @@ function Building(type) {
     }
   
     if (this.Get(id).Upgrading){
-      log.error(type + id + " is already Upgrading!");
+      log.error("Error: " + type + id + " is already Upgrading!");
       return false;
     }
 
@@ -99,8 +99,10 @@ function Building(type) {
       }
     }
 
+    var diamondNeed = 0;
+
     if (missingRes > 0) {
-        var diamondNeed = ConvertGoldFoodToDiamond(missingRes);
+        diamondNeed = ConvertGoldFoodToDiamond(missingRes);
         log.info("diamond needed = " + diamondNeed);
     }
 
