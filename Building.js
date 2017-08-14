@@ -15,8 +15,7 @@ function Building(type) {
   }
 
   this.GetMasterData = function(){
-    log.info("loading master data");
-    if ( this._masterData == null ){
+    if ( !("_masterData" in this) ){
       this._masterData = new MasterData(type);
     }
     return this._masterData.Data;
