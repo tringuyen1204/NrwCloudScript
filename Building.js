@@ -15,7 +15,7 @@ function Building(type) {
   }
 
   this.GetMasterData = function(){
-    if ( !("_masterData" in this) ){
+    if ( this._masterData == null ){
       this._masterData = new MasterData(type).Data;
     }
     return this._masterData;
@@ -32,11 +32,11 @@ function Building(type) {
   }
 
   this.CurrentLevelData = function(id){
-    return this.GetMasterData()[this.Get(id).Level];
+    return this.GetMasterData()[this.Get(id).Data.Level];
   }
 
   this.NextLevelData = function(id){
-    return this.GetMasterData()[this.Get(id).Level + 1];
+    return this.GetMasterData()[this.Get(id).Data.Level + 1];
   }
 
   this.StartUpgrade = function(id){
