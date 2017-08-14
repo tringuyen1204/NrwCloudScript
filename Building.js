@@ -21,8 +21,14 @@ function Building(type) {
     return this._masterData;
   }
   
-  this.Get = function(id){
-      return this.Data[id];
+  this.Get = function(id) {
+    var ret = this.Data[id];
+    if( ret == null) {
+        return {};
+    }
+    else {
+        return ret;
+    }
   }
 
   this.CurrentLevelData = function(id){
@@ -42,7 +48,8 @@ function Building(type) {
   }
 
   this.TryUpgrade =  function(id){
-    if (this.Get(id).Upgrading){
+  
+    if ( this.Get(id).Upgrading != null && this.Get(id).Upgrading ){
       log.error(type + id + " is already Upgrading!");
       return false;
     }
