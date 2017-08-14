@@ -1,6 +1,6 @@
 handlers.Build = function(args){
   var building = new Building(args.type);
-  building.StartUpgrade(args.index);
+  building.StartUpgrade(args.id);
 }
 handlers.ChangeResources = function(args){
   var res = new Resource(GOLD);

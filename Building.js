@@ -55,11 +55,13 @@ function Building(type) {
 
   this.TryUpgrade =  function(id){
   
-    if (this.Get(id) == null){
-        this.Get(id) = this.DefaultData();
+    var curData = this.Get(id);
+  
+    if (curData == null){
+        curData = this.DefaultData();
     }
   
-    if (this.Get(id).Upgrading ){
+    if (curData.Upgrading){
       log.error(type + id + " is already Upgrading!");
       return false;
     }
@@ -74,6 +76,7 @@ function Building(type) {
     }
 
     var nextLvlData = this.NextLevelData(id);
+    log.info( JSON.stringify(nextLvlData) );
 
     var missingRes = 0;
     var notEnoughGold = false;
