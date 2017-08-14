@@ -86,15 +86,15 @@ function Building(type) {
     var resMan = new ResourceManager();
    
     if (nextLvlData.GoldCost != null){
-      if (resMan.Value(GOLD) < nextLvlData.GoldCost){
-        missingRes += nextLvlData.GoldCost - resMan.Value(GOLD);
+      if (resMan.ValueOf(GOLD) < nextLvlData.GoldCost){
+        missingRes += nextLvlData.GoldCost - resMan.ValueOf(GOLD);
         notEnoughGold = true;
       }
     }
 
     if (nextLvlData.FoodCost != null){
-      if (resMan.Value(FOOD) < nextLvlData.FoodCost){
-        missingRes += nextLvlData.FoodCost - resMan.Value(FOOD);
+      if (resMan.ValueOf(FOOD) < nextLvlData.FoodCost){
+        missingRes += nextLvlData.FoodCost - resMan.ValueOf(FOOD);
         notEnoughFood = true;
       }
     }
@@ -109,14 +109,14 @@ function Building(type) {
     if ( (diamondNeed == 0)
     || (diamondNeed > 0 && TryUsingCurrency(DIAMOND, diamondNeed) ) ){
       if (notEnoughGold){
-        resMan.ChangeValue(GOLD ,-resMan.Value(GOLD) );
+        resMan.ChangeValue(GOLD ,-resMan.ValueOf(GOLD) );
       }
       else if (nextLvlData.GoldCost != null) {
         resMan.ChangeValue(GOLD, -nextLvlData.GoldCost);
       }
 
       if (notEnoughFood){
-        resMan.ChangeValue(FOOD , -resMan.Value(FOOD) );
+        resMan.ChangeValue(FOOD , -resMan.ValueOf(FOOD) );
       }
       else if (nextLvlData.FoodCost != null){
         resMan.ChangeValue(FOOD, -nextLvlData.FoodCost);

@@ -1,7 +1,7 @@
 function ResourceManager(){
   UserData.call(this, "Resource");
 
-  this.Value = function(code){
+  this.ValueOf = function(code){
     if (this.Data[code] == null){
         this.Data[code] = {
             "Value":0,
@@ -11,7 +11,7 @@ function ResourceManager(){
     return this.Data[code].Value;
   }
 
-  this.Max = function(code){
+  this.MaxOf = function(code){
     if (this.Data[code] == null){
          this.Data[code] = {
             "Value":0,
@@ -22,14 +22,14 @@ function ResourceManager(){
   }
 
   this.ChangeValue = function(code, qty){
-    if (this.Value(code) + qty < 0) {
+    if (this.ValueOf(code) + qty < 0) {
       this.Data[code].Value = 0;
     }
-    else if (this.Value(code) + qty > this.Max(code) ) {
-      this.Data[code].Value = this.Max(code);
+    else if (this.ValueOf(code) + qty > this.MaxOf(code) ) {
+      this.Data[code].Value = this.MaxOf(code);
     }
     else {
-      this.Data[code].Value += qty;
+      this.Data[code].ValueOf += qty;
     }
   }
 
