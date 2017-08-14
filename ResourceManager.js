@@ -22,20 +22,20 @@ function ResourceManager(){
     return this.Data[code].Max;
   }
 
-  this.ChangeValue = function(code, quanity){
-    if (this.Value(code) + quanity < 0) {
+  this.ChangeValue = function(code, qty){
+    if (this.Value(code) + qty < 0) {
       this.Data[code].Value = 0;
     }
-    else if (this.Value(code) + quanity > this.Max() ) {
+    else if (this.Value(code) + qty > this.Max() ) {
       this.Data[code].Value = this.Max();
     }
     else {
-      this.Data[code].Value += quanity;
+      this.Data[code].Value += qty;
     }
   }
 
   this.SetMax = function(newCap){
-    this.Data.Max = newCap;
+    this.Data[code].Max = newCap;
     this.Push();
   }
 }
