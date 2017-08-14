@@ -45,7 +45,7 @@ function Building(type) {
 
   this.NextLevelData = function(id){   
   
-    log.info(String(this.Get(id).Level + 1) );
+    log.info( id );
   
     return this.GetMasterData()[String(this.Get(id).Level + 1)];
   }
