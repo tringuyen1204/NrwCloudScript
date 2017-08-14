@@ -14,8 +14,8 @@ function Building(type) {
     return this.Data.length;
   }
 
-  this.GetMasterData = function(){
-    if ( !("_masterData" in this) ){
+  this.GetMasterData = function() {
+    if ( !("_masterData" in this) ) {
         var rawData = server.GetCatalogItems({
             "CatalogVersion":this.Type
         });
@@ -30,13 +30,7 @@ function Building(type) {
   }
   
   this.Get = function(id) {
-    var ret = this.Data[id];
-    if( ret == null) {
-        return {};
-    }
-    else {
-        return ret;
-    }
+    return this.Data[i];
   }
 
   this.CurrentLevelData = function(id){
@@ -66,7 +60,7 @@ function Building(type) {
       }
   }
 
-  this.TryUpgrade =  function(id){
+  this.TryUpgrade = function(id){
    
     if (this.Get(id) == null){
         this.Data[id] = this.DefaultData();

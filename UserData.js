@@ -7,11 +7,12 @@ function UserData(Key){
   }).Data;
 
   if ( Key in rawData ){
-    this.Data = JSON.parse(rawData[this.Key].Value);
+    this.Data = JSON.parse( rawData[this.Key].Value );
   }
   else {
     this.Data = {};
   }
+  
   this.Push = function(){
     var newData = {};
     newData[this.Key] = JSON.stringify(this.Data);
