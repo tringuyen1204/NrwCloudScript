@@ -29,7 +29,7 @@ function ResourceManager(){
       this.Data[code].Value = this.MaxOf(code);
     }
     else {
-      this.Data[code].ValueOf += qty;
+      this.Data[code].Value += qty;
     }
   }
 
