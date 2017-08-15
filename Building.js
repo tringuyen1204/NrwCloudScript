@@ -56,8 +56,14 @@ function Building(type) {
           "CompletedDate":0
       }
   }
+  
+  this.PrepareUpgrade = function(id){
+      // for override;
+  }
 
   this.TryUpgrade = function(id){
+   
+    this.PrepareUpgrade(id);
    
     if (this.Get(id) == null){
         this.Data[id] = this.DefaultData();
