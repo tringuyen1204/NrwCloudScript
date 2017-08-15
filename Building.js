@@ -127,16 +127,9 @@ function Building(type) {
     }
 
     this.CompleteUpgrade = function(id) {
-
-        this.UpdateCompleteData(id);
+        this.PreCompleteUpgrade(id);
         this.Push();
-
-        if (type == CASTLE || type == GOLD_STORAGE) {
-            RefreshStorageCap(GOLD);
-        }
-        if (type == CASTLE || type == FOOD_STORAGE) {
-            RefreshStorageCap(FOOD);
-        }
+        this.PostCompleteUpgrade(id);
     }
 
     this.FastForward = function(id) {
@@ -155,7 +148,7 @@ function Building(type) {
         }
     }
 
-    this.UpdateCompleteData = function(id) {
+    this.PreCompleteUpgrade = function(id) {
 
         this.Get(id).Level++;
         this.Get(id).Upgrading = false;
@@ -165,15 +158,36 @@ function Building(type) {
 
         return true;
     }
-}
 
-Building.prototype.Completed = function(id) {
-    return this.Get(id).CompletedDate <= this.ServerTime();
-}
+    this.PostCompleteUpgrade = function(id){
+        if (type == CASTLE || type == GOLD_STORAGE) {
+            RefreshStorageCap(GOLD);
+        }
+        if (type == CASTLE || type == FOOD_STORAGE) {
+            RefreshStorageCap(FOOD);
+        }
+    }
 
-Building.prototype.Get = function (id) {
-    return this.Data[id];
+    this.Completed = function (id) {
+        return this.Get(id).CompletedDate <= this.ServerTime();
+    }
+
+    this.Get = function (id) {
+        return this.Data[id];
+    }
 }
 
 Building.prototype = Object.create(UserData.prototype);
 Building.prototype.constructor = UserData;
+
+
+function BuildingFromType(type){
+
+    switch (type) {
+        case MARKET:
+        case FARM:
+            return new ResourceBuilding(type);
+        default:
+            return new Building(type);
+    }
+}

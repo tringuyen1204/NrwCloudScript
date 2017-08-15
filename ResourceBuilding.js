@@ -27,6 +27,17 @@ function ResourceBuilding(type){
         this.TryCollect(id);
     }
 
+    this.PreCompleteUpgrade = function (id) {
+
+        this.Get(id).Level++;
+        this.Get(id).Upgrading = false;
+        this.Get(id).LastCollectDate = this.ServerTime();
+
+        var kingdom = new Kingdom();
+        kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
+
+    }
+
     this.TryCollect = function(id){
 
         if (this.Data[id] == null){

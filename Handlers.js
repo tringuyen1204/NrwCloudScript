@@ -1,11 +1,26 @@
 handlers.Build = function(args){
-    var building = new Building(args.type);
-    building.StartUpgrade(args.id);
+    var b = BuildingFromType(args.type);
+    b.StartUpgrade(args.id);
 }
-handlers.ChangeResources = function(args){
-    var res = new Resource(GOLD);
-    res.SetMax(1000);
-    res.Change(100);
+
+handlers.CompleteBuilding = function (args) {
+    var b = BuildingFromType(args.type);
+    b.CompleteUpgrade(args.id);
+}
+
+handlers.FastForwardBuilding = function (args) {
+    var b = BuildingFromType(args.type);
+    b.FastForward(args.id);
+}
+
+handlers.Collect = function (args) {
+    var resB = ResourceBuilding(args.type);
+    if (args.id != null) {
+        resB.Collect(args.id);
+    }
+    else {
+        resB.CollectAll();
+    }
 }
 
 handlers.InitData = function(args){
