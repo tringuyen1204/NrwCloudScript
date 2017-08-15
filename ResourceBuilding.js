@@ -1,5 +1,5 @@
-function ResourceBuilding(type){
-    Building.call(this, type);
+function ResourceBuildingHandler(type){
+    BuildingHandler.call(this, type);
 
     this.DefaultData = function(){
         return {
@@ -85,5 +85,5 @@ function ResourceBuilding(type){
     }
 }
 
-ResourceBuilding.prototype = Object.create(Building.prototype);
-ResourceBuilding.prototype.constructor = Building;
+ResourceBuildingHandler.prototype = Object.create(BuildingHandler.prototype);
+ResourceBuildingHandler.prototype.constructor = BuildingHandler;

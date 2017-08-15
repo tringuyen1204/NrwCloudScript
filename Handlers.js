@@ -1,27 +1,26 @@
 handlers.Build = function(args){
     var b = BuildingFromType(args.type);
     b.StartUpgrade(args.id);
-}
+};
 
 handlers.CompleteBuilding = function (args) {
     var b = BuildingFromType(args.type);
     b.CompleteUpgrade(args.id);
-}
+};
 
 handlers.FastForwardBuilding = function (args) {
-    var b = BuildingFromType(args.type);
+    var b = BuildingHandlerFromType(args.type);
     b.FastForward(args.id);
-}
+};
 
 handlers.Collect = function (args) {
-    var resB = ResourceBuilding(args.type);
-    if (args.id != null) {
+    var resB = ResourceBuildingHandler(args.type);
+    if (args.id == null) {
+        resB.CollectAll();
+    } else {
         resB.Collect(args.id);
     }
-    else {
-        resB.CollectAll();
-    }
-}
+};
 
 handlers.InitData = function(args){
     var castle = {
@@ -41,7 +40,7 @@ handlers.InitData = function(args){
             "Value":1000,
             "Max":2000
         }
-    }
+    };
 
     server.UpdateUserReadOnlyData({
         "PlayFabId": currentPlayerId,
@@ -50,4 +49,4 @@ handlers.InitData = function(args){
             "Resource":JSON.stringify(resource)
         }
     });
-}
+};

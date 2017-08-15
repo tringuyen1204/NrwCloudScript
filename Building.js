@@ -1,5 +1,5 @@
 // inherit UserData
-function Building(type) {
+function BuildingHandler(type) {
 
     this.Type = type;
 
@@ -63,7 +63,7 @@ function Building(type) {
         if (type == CASTLE){
         }
         else {
-            var castle = new Building(CASTLE);
+            var castle = new BuildingHandler(CASTLE);
             if ( Number(id) > castle.CurrentLevelData("0")[type+"Limit"] ){
                 return false;
             }
@@ -177,17 +177,17 @@ function Building(type) {
     }
 }
 
-Building.prototype = Object.create(UserData.prototype);
-Building.prototype.constructor = UserData;
+BuildingHandler.prototype = Object.create(UserData.prototype);
+BuildingHandler.prototype.constructor = UserData;
 
 
-function BuildingFromType(type){
+function BuildingHandlerFromType(type){
 
     switch (type) {
         case MARKET:
         case FARM:
-            return new ResourceBuilding(type);
+            return new ResourceBuildingHandler(type);
         default:
-            return new Building(type);
+            return new BuildingHandler(type);
     }
 }
