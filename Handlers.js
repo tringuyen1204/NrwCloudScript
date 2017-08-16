@@ -3,12 +3,12 @@ handlers.ServerTime = function (args) {
 }
 
 handlers.Build = function(args){
-    var b = BuildingFromType(args.type);
+    var b = BuildingHandlerFromType(args.type);
     b.StartUpgrade(args.id);
 };
 
 handlers.CompleteBuilding = function (args) {
-    var b = BuildingFromType(args.type);
+    var b = BuildingHandlerFromType(args.type);
     b.CompleteUpgrade(args.id);
 };
 
