@@ -20,7 +20,7 @@ function ResourceBuildingHandler(type){
         for (var id in this.Data){
             this.TryCollect(id);
         }
-        this.Push();
+        this. tsPush();
     }
 
     this.PrepareUpgrade = function(id){
@@ -74,7 +74,7 @@ function ResourceBuildingHandler(type){
                 amount = 0;
             }
 
-            this.Get(id).LastCollectDate = this.ServerTime() - (amount / produceRate) * ONE_HOUR;
+            this.Get(id).LastCollectDate = Math.floor(this.ServerTime() - (amount / produceRate) * ONE_HOUR);
             resMan.Push();
 
             return true;

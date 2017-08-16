@@ -1,3 +1,7 @@
+handlers.ServerTime = function (args) {
+    return String(Date.now());
+}
+
 handlers.Build = function(args){
     var b = BuildingFromType(args.type);
     b.StartUpgrade(args.id);

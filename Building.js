@@ -44,16 +44,14 @@ function BuildingHandler(type) {
     }
 
     this.PrepareUpgrade = function(id){
-        // for override;
+        if (this.Get(id) == null){
+            this.Data[id] = this.DefaultData();
+        }
     }
 
     this.TryUpgrade = function(id){
 
         this.PrepareUpgrade(id);
-
-        if (this.Get(id) == null){
-            this.Data[id] = this.DefaultData();
-        }
 
         if (this.Get(id).Upgrading){
             log.error("Error: " + type + id + " is already Upgrading!");
@@ -135,14 +133,14 @@ function BuildingHandler(type) {
     this.FastForward = function(id) {
 
         if (this.Completed(id)) {
-            log.error("this building contruction is already completed");
+            log.error("this building has been completed!");
         }
         else {
 
             var remainTime = ( this.Get(id).CompletedDate - this.ServerTime() );
-            var diamondNeeded = ConvertTimeToDiamond(remainTime / 1000.0);
+            var diamondNeed = ConvertTimeToDiamond(remainTime / 1000.0);
 
-            if (TryUsingCurrency(DI, diamondNeeded)) {
+            if (TryUsingCurrency(DI, diamondNeed)) {
                 this.CompleteUpgrade(id);
             }
         }
@@ -155,8 +153,6 @@ function BuildingHandler(type) {
 
         var kingdom = new Kingdom();
         kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
-
-        return true;
     }
 
     this.PostCompleteUpgrade = function(id){
@@ -179,7 +175,6 @@ function BuildingHandler(type) {
 
 BuildingHandler.prototype = Object.create(UserData.prototype);
 BuildingHandler.prototype.constructor = UserData;
-
 
 function BuildingHandlerFromType(type){
 
