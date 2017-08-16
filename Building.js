@@ -114,7 +114,7 @@ function BuildingHandler(type) {
 
             resMan.Push();
 
-            this.Get(id).CompletedDate = this.ServerTime() + nextLvlData.BuildTime;
+            this.Get(id).CompletedDate = this.ServerTime() + nextLvlData.BuildTime * 1000.0;
             this.Get(id).Upgrading = true;
         }
         else {
