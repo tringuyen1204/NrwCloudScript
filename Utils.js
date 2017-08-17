@@ -44,7 +44,7 @@ function RefreshStorageCap(code){
   }
   
   var resMan = new ResourceManager();
-  resMan.SetMax(newCapacity);
+  resMan.SetMax(code ,newCapacity);
 }
 
 function TryUsingCurrency(code, qty){

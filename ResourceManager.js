@@ -33,8 +33,8 @@ function ResourceManager(){
     }
   }
 
-  this.SetMax = function(newCap){
-    this.Data[code].Max = newCap;
+  this.SetMax = function(code, newMax){
+    this.Data[code].Max = newMax;
     this.Push();
   }
 }
