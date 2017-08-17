@@ -9,7 +9,12 @@ handlers.Build = function(args){
 
 handlers.CompleteBuilding = function (args) {
     var b = BuildingHandlerFromType(args.type);
-    b.CompleteUpgrade(args.id,  Number(args.date) );
+    if (b.Completed(args.id)) {
+        b.CompleteUpgrade(args.id, Number(args.date));
+    }
+    else {
+        log.error("This building is not completed");
+    }
 };
 
 handlers.FastForwardBuilding = function (args) {
