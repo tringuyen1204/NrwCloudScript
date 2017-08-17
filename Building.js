@@ -114,8 +114,6 @@ function BuildingHandler(type) {
 
             resMan.Push();
 
-            log.info("client date = " + date);
-
             this.Get(id).CompletedDate = date + nextLvlData.BuildTime * 1000.0;
 
             log.info("server complete date = ", this.Get(id).CompletedDate);

@@ -4,25 +4,25 @@ handlers.ServerTime = function (args) {
 
 handlers.Build = function(args){
     var b = BuildingHandlerFromType(args.type);
-    b.StartUpgrade(args.id, args.date);
+    b.StartUpgrade(args.id, Number(args.date) );
 };
 
 handlers.CompleteBuilding = function (args) {
     var b = BuildingHandlerFromType(args.type);
-    b.CompleteUpgrade(args.id, args.date);
+    b.CompleteUpgrade(args.id,  Number(args.date) );
 };
 
 handlers.FastForwardBuilding = function (args) {
     var b = BuildingHandlerFromType(args.type);
-    b.FastForward(args.id, args.date);
+    b.FastForward(args.id,  Number(args.date) );
 };
 
 handlers.Collect = function (args) {
     var resB = ResourceBuildingHandler(args.type);
     if (args.id == null) {
-        resB.CollectAll(args.date);
+        resB.CollectAll( Number(args.date) );
     } else {
-        resB.Collect(args.id, args.date);
+        resB.Collect(args.id, Number(args.date) );
     }
 };
 
