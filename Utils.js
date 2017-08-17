@@ -28,13 +28,13 @@ function RefreshStorageCap(code){
 
   var newCapacity = 0;
   
-  var castle = new Building(CASTLE);
+  var castle = new BuildingHandlerFromType(CASTLE);
   
   if (code == GOLD){
-    var resB = new Building(GOLD_STORAGE);
+    var resB = new BuildingHandlerFromType(GOLD_STORAGE);
   }
   else {
-    var resB = new Building(FOOD_STORAGE);
+    var resB = new BuildingHandlerFromType(FOOD_STORAGE);
   }
   
   newCapacity += castle.CurrentLevelData("0")[code + "Capacity"];
