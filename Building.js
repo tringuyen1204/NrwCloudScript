@@ -27,8 +27,8 @@ function BuildingHandler(type) {
         return this.GetMasterData()[String(this.Get(id).Level + 1)];
     }
 
-    this.StartUpgrade = function(id){
-        if ( this.TryUpgrade(id) ){
+    this.StartUpgrade = function(id, date){
+        if ( this.TryUpgrade(id, date) ){
             this.Push();
             return true;
         }
@@ -43,15 +43,15 @@ function BuildingHandler(type) {
         }
     }
 
-    this.PrepareUpgrade = function(id){
+    this.PrepareUpgrade = function(id, date){
         if (this.Get(id) == null){
             this.Data[id] = this.DefaultData();
         }
     }
 
-    this.TryUpgrade = function(id){
+    this.TryUpgrade = function(id, date){
 
-        this.PrepareUpgrade(id);
+        this.PrepareUpgrade(id, date);
 
         if (this.Get(id).Upgrading){
             log.error("Error: " + type + id + " is already Upgrading!");
@@ -114,7 +114,7 @@ function BuildingHandler(type) {
 
             resMan.Push();
 
-            this.Get(id).CompletedDate = this.ServerTime() + nextLvlData.BuildTime * 1000.0;
+            this.Get(id).CompletedDate = date + nextLvlData.BuildTime * 1000.0;
             this.Get(id).Upgrading = true;
         }
         else {
@@ -124,20 +124,20 @@ function BuildingHandler(type) {
         return true;
     }
 
-    this.CompleteUpgrade = function(id) {
-        this.PreCompleteUpgrade(id);
+    this.CompleteUpgrade = function(id, date) {
+        this.PreCompleteUpgrade(id, date);
         this.Push();
-        this.PostCompleteUpgrade(id);
+        this.PostCompleteUpgrade(id, date);
     }
 
-    this.FastForward = function(id) {
+    this.FastForward = function(id, date) {
 
         if (this.Completed(id)) {
             log.error("this building has been completed!");
         }
         else {
 
-            var remainTime = ( this.Get(id).CompletedDate - this.ServerTime() );
+            var remainTime = ( this.Get(id).CompletedDate - date );
             var diamondNeed = ConvertTimeToDiamond(remainTime / 1000.0);
 
             if (TryUsingCurrency(DI, diamondNeed)) {
@@ -146,7 +146,7 @@ function BuildingHandler(type) {
         }
     }
 
-    this.PreCompleteUpgrade = function(id) {
+    this.PreCompleteUpgrade = function(id, date) {
 
         this.Get(id).Level++;
         this.Get(id).Upgrading = false;
