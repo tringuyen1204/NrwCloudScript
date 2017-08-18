@@ -145,7 +145,7 @@ BuildingHandler.prototype.FastForward = function(id, date) {
         var diamondNeed = ConvertTimeToDiamond(remainTime / 1000.0);
 
         if (TryUsingCurrency(DIAMOND, diamondNeed)) {
-            this.CompleteUpgrade(id);
+            this.CompleteUpgrade(id, date);
         }
     }
 };
