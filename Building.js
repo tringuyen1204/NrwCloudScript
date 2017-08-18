@@ -184,7 +184,8 @@ BuildingHandler.prototype.RefreshStorageCap = function () {
 function ResBuildingHandler(type){
     BuildingHandler.call(this, type);
 
-    ResBuildingHandler.prototype.CompleteUpgrade = function(id, date) {
+    this.CompleteUpgrade = function(id, date) {
+        log.info("complete resource building");
         this.Get(id).Level++;
         this.Get(id).Upgrading = false;
         this.Get(id).LastCollectDate = date;
@@ -193,10 +194,6 @@ function ResBuildingHandler(type){
         kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
 
         this.Push();
-
-        if (this.Type == GOLD_STORAGE || this.Type == FOOD_STORAGE) {
-            this.RefreshStorageCap();
-        }
     };
 }
 
