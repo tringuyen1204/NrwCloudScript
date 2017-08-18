@@ -38,7 +38,6 @@ function ResourceBuildingHandler(type){
 
         var kingdom = new Kingdom();
         kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
-
     };
 
     this.TryCollect = function(id, date){
