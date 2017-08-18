@@ -285,8 +285,10 @@ function BuildingHandlerFromType(type){
     switch (type) {
         case MARKET:
         case FARM:
+            log.info("Handler: Resource Building");
             return new ResourceBuildingHandler(type);
         default:
+            log.info ("Handler: Building");
             return new BuildingHandler(type);
     }
 }
