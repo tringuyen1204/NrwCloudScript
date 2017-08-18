@@ -79,12 +79,3 @@ ResourceBuildingHandler.prototype.PreCompleteUpgrade = function (id, date) {
     var kingdom = new Kingdom();
     kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
 };
-
-ResourceBuildingHandler.prototype.DefaultData = function(){
-    return {
-        "Level":0,
-        "Upgrading":false,
-        "CompletedDate":0,
-        "LastCollectDate":this.ServerTime()
-    }
-};
