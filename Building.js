@@ -8,7 +8,6 @@ function BuildingHandler(type) {
 }
 
 BuildingHandler.prototype = Object.create(UserData.prototype);
-BuildingHandler.prototype.constructor = UserData;
 
 BuildingHandler.prototype.GetMasterData = function() {
     if (!("_masterData" in this)) {
@@ -182,21 +181,20 @@ BuildingHandler.prototype.RefreshStorageCap = function () {
 };
 
 
-function ResourceBuildingHandler(type){
+function ResBuildingHandler(type){
     BuildingHandler.call(this, type);
 }
 
-ResourceBuildingHandler.prototype = Object.create(BuildingHandler.prototype);
-ResourceBuildingHandler.prototype.constructor = BuildingHandler;
+ResBuildingHandler.prototype = Object.create(BuildingHandler.prototype);
 
-ResourceBuildingHandler.prototype.PrepareUpgrade = function(id, date){
+ResBuildingHandler.prototype.PrepareUpgrade = function(id, date){
     if (this.Get(id) == null){
         this.Data[id] = this.DefaultData();
     }
     this.TryCollect(id, date);
 };
 
-ResourceBuildingHandler.prototype.CompleteUpgrade = function(id, date) {
+ResBuildingHandler.prototype.CompleteUpgrade = function(id, date) {
     this.Get(id).Level++;
     this.Get(id).Upgrading = false;
     this.Get(id).LastCollectDate = date;
@@ -211,20 +209,20 @@ ResourceBuildingHandler.prototype.CompleteUpgrade = function(id, date) {
     }
 };
 
-ResourceBuildingHandler.prototype.Collect = function(id, date){
+ResBuildingHandler.prototype.Collect = function(id, date){
     if (this.TryCollect(id, date) ){
         this.Push();
     }
 };
 
-ResourceBuildingHandler.prototype.CollectAll = function(date){
+ResBuildingHandler.prototype.CollectAll = function(date){
     for (var id in this.Data){
         this.TryCollect(id, date);
     }
     this.Push();
 };
 
-ResourceBuildingHandler.prototype.TryCollect = function(id, date){
+ResBuildingHandler.prototype.TryCollect = function(id, date){
 
     if (this.Get(id) == null || this.Get(id).Level == 0) {
         return false;
@@ -274,7 +272,7 @@ function BuildingHandlerFromType(type){
         case MARKET:
         case FARM:
             log.info("Handler: Resource Building");
-            return new ResourceBuildingHandler(type);
+            return new ResBuildingHandler(type);
         default:
             log.info ("Handler: Building");
             return new BuildingHandler(type);
