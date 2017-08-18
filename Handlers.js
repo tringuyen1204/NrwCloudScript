@@ -23,7 +23,7 @@ handlers.FastForwardBuilding = function (args) {
 };
 
 handlers.Collect = function (args) {
-    var resB = ResBuildHandler(args.type);
+    var resB = new ResBuildHandler(args.type);
     if (args.id == null) {
         resB.CollectAll( Number(args.date) );
     } else {
