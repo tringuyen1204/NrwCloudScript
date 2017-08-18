@@ -9,7 +9,7 @@ function ResourceManager(){
         }
     }
     return this.Data[code].Value;
-  }
+  };
 
   this.MaxOf = function(code){
     if (this.Data[code] == null){
@@ -19,7 +19,7 @@ function ResourceManager(){
         }
     }
     return this.Data[code].Max;
-  }
+  };
 
   this.ChangeValue = function(code, qty){
     if (this.ValueOf(code) + qty < 0) {
@@ -31,7 +31,7 @@ function ResourceManager(){
     else {
       this.Data[code].Value += qty;
     }
-  }
+  };
 
   this.SetMax = function(code, newMax){
     this.Data[code].Max = newMax;

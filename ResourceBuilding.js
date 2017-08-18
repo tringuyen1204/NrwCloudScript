@@ -8,24 +8,24 @@ function ResourceBuildingHandler(type){
             "CompletedDate":0,
             "LastCollectDate":this.ServerTime()
         }
-    }
+    };
 
     this.Collect = function(id, date){
         if (this.TryCollect(id, date) ){
             this.Push();
         }
-    }
+    };
 
     this.CollectAll = function(date){
         for (var id in this.Data){
             this.TryCollect(id, date);
         }
         this.Push();
-    }
+    };
 
     this.PrepareUpgrade = function(id, date){
         this.TryCollect(id, date);
-    }
+    };
 
     this.PreCompleteUpgrade = function (id, date) {
 
@@ -36,7 +36,7 @@ function ResourceBuildingHandler(type){
         var kingdom = new Kingdom();
         kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
 
-    }
+    };
 
     this.TryCollect = function(id, date){
 
