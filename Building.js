@@ -43,6 +43,14 @@ function BuildingHandler(type) {
         }
     }
 
+    this.Get = function (id) {
+
+        if ( this.Data[id] == null ) {
+            return null;
+        }
+        return this.Data[id];
+    }
+
     this.PrepareUpgrade = function(id, date){
         if (this.Get(id) == null){
             this.Data[id] = this.DefaultData();
