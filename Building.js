@@ -142,7 +142,7 @@ function BuildingHandler(type) {
             var remainTime = ( this.Get(id).CompletedDate - date );
             var diamondNeed = ConvertTimeToDiamond(remainTime / 1000.0);
 
-            if (TryUsingCurrency(DI, diamondNeed)) {
+            if (TryUsingCurrency(DIAMOND, diamondNeed)) {
                 this.CompleteUpgrade(id);
             }
         }
