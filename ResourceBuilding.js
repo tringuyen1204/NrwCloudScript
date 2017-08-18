@@ -24,6 +24,9 @@ function ResourceBuildingHandler(type){
     };
 
     this.PrepareUpgrade = function(id, date){
+        if (this.Get(id) == null){
+            this.Data[id] = this.DefaultData();
+        }
         this.TryCollect(id, date);
     };
 
@@ -40,9 +43,7 @@ function ResourceBuildingHandler(type){
 
     this.TryCollect = function(id, date){
 
-        if (this.Data[id] == null){
-            log.info("error: " + type + id + " doesn't exist!");
-
+        if (this.Get(id) == null || this.Get(id).Level == 0) {
             return false;
         }
 
