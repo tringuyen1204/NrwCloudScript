@@ -1,6 +1,6 @@
 
-function ResBuildingHandler(type){
-    BuildingHandler.call(this, type);
+function ResBuildHandler(type){
+    BuildHandler.call(this, type);
 
     this.CompleteUpgrade = function(id, date) {
         log.info("complete resource building");
@@ -79,4 +79,4 @@ function ResBuildingHandler(type){
     };
 }
 
-ResBuildingHandler.prototype = Object.create(BuildingHandler.prototype);
+ResBuildHandler.prototype = Object.create(BuildHandler.prototype);
