@@ -23,23 +23,6 @@ function ResourceBuildingHandler(type){
         this.Push();
     };
 
-    this.PrepareUpgrade = function(id, date){
-        if (this.Get(id) == null){
-            this.Data[id] = this.DefaultData();
-        }
-        this.TryCollect(id, date);
-    };
-
-    this.PreCompleteUpgrade = function (id, date) {
-
-        this.Get(id).Level++;
-        this.Get(id).Upgrading = false;
-        this.Get(id).LastCollectDate = date;
-
-        var kingdom = new Kingdom();
-        kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
-    };
-
     this.TryCollect = function(id, date){
 
         if (this.Get(id) == null || this.Get(id).Level == 0) {
@@ -87,3 +70,20 @@ function ResourceBuildingHandler(type){
 
 ResourceBuildingHandler.prototype = Object.create(BuildingHandler.prototype);
 ResourceBuildingHandler.prototype.constructor = BuildingHandler;
+
+ResourceBuildingHandler.prototype.PrepareUpgrade = function(id, date){
+    if (this.Get(id) == null){
+        this.Data[id] = this.DefaultData();
+    }
+    this.TryCollect(id, date);
+};
+
+ResourceBuildingHandler.prototype.PreCompleteUpgrade = function (id, date) {
+
+    this.Get(id).Level++;
+    this.Get(id).Upgrading = false;
+    this.Get(id).LastCollectDate = date;
+
+    var kingdom = new Kingdom();
+    kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
+};
