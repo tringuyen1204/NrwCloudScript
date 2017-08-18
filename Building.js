@@ -5,8 +5,10 @@ function BuildingHandler(type) {
 
     UserData.call(this, type);
     // default value
-
 }
+
+BuildingHandler.prototype = Object.create(UserData.prototype);
+BuildingHandler.prototype.constructor = UserData;
 
 BuildingHandler.prototype.GetMasterData = function() {
     if (!("_masterData" in this)) {
@@ -196,20 +198,6 @@ BuildingHandler.prototype.RefreshStorageCap = function () {
 };
 
 
-BuildingHandler.prototype = Object.create(UserData.prototype);
-BuildingHandler.prototype.constructor = UserData;
-
-function BuildingHandlerFromType(type){
-
-    switch (type) {
-        case MARKET:
-        case FARM:
-            return new ResourceBuildingHandler(type);
-        default:
-            return new BuildingHandler(type);
-    }
-}
-
 function ResourceBuildingHandler(type){
     BuildingHandler.call(this, type);
 }
@@ -291,3 +279,14 @@ ResourceBuildingHandler.prototype.TryCollect = function(id, date){
         return false;
     }
 };
+
+function BuildingHandlerFromType(type){
+
+    switch (type) {
+        case MARKET:
+        case FARM:
+            return new ResourceBuildingHandler(type);
+        default:
+            return new BuildingHandler(type);
+    }
+}
