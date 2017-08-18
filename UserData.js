@@ -27,6 +27,14 @@ function UserData(Key){
             "Permission":"public"
         });
     }
+
+    this.Get = function (id) {
+
+        if ( this.Data[id] == null ) {
+            return null;
+        }
+        return this.Data[id];
+    }
 }
 
 // unsafe function
