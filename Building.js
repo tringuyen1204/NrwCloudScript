@@ -182,7 +182,7 @@ function BuildingHandler(type) {
 
         newCapacity += Number(result);
 
-        for (key in resB.Data) {
+        for (key in this.Data) {
             newCapacity += this.CurrentLevelData(key)[code + "Capacity"];
         }
 
