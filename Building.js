@@ -59,7 +59,7 @@ BuildingHandler.prototype.TryUpgrade = function(id, date){
     this.PrepareUpgrade(id, date);
 
     if (this.Get(id).Upgrading){
-        log.error("Error: " + type + id + " is already Upgrading!");
+        log.error("Error: " + this.Type + id + " is already Upgrading!");
         return false;
     }
 
@@ -67,7 +67,7 @@ BuildingHandler.prototype.TryUpgrade = function(id, date){
     }
     else {
         var castle = new BuildingHandler(CASTLE);
-        if ( Number(id) > castle.CurrentLevelData("0")[type+"Limit"] ){
+        if ( Number(id) > castle.CurrentLevelData("0")[this.Type+"Limit"] ){
             return false;
         }
     }
@@ -242,7 +242,7 @@ ResourceBuildingHandler.prototype.TryCollect = function(id, date){
         return false;
     }
 
-    var code = (type == MARKET) ? GOLD : FOOD;
+    var code = (this.Type == MARKET) ? GOLD : FOOD;
 
     var produceRate = this.CurrentLevelData(id).ProduceRate;
     var workingTime = ( date - this.Get(id).LastCollectDate ) / ONE_HOUR ;
