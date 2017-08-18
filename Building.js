@@ -183,6 +183,21 @@ BuildingHandler.prototype.RefreshStorageCap = function () {
 
 function ResBuildingHandler(type){
     BuildingHandler.call(this, type);
+
+    ResBuildingHandler.prototype.CompleteUpgrade = function(id, date) {
+        this.Get(id).Level++;
+        this.Get(id).Upgrading = false;
+        this.Get(id).LastCollectDate = date;
+
+        var kingdom = new Kingdom();
+        kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
+
+        this.Push();
+
+        if (this.Type == GOLD_STORAGE || this.Type == FOOD_STORAGE) {
+            this.RefreshStorageCap();
+        }
+    };
 }
 
 ResBuildingHandler.prototype = Object.create(BuildingHandler.prototype);
@@ -192,21 +207,6 @@ ResBuildingHandler.prototype.PrepareUpgrade = function(id, date){
         this.Data[id] = this.DefaultData();
     }
     this.TryCollect(id, date);
-};
-
-ResBuildingHandler.prototype.CompleteUpgrade = function(id, date) {
-    this.Get(id).Level++;
-    this.Get(id).Upgrading = false;
-    this.Get(id).LastCollectDate = date;
-
-    var kingdom = new Kingdom();
-    kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
-
-    this.Push();
-
-    if (this.Type == GOLD_STORAGE || this.Type == FOOD_STORAGE) {
-        this.RefreshStorageCap();
-    }
 };
 
 ResBuildingHandler.prototype.Collect = function(id, date){
