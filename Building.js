@@ -5,263 +5,183 @@ function BuildingHandler(type) {
 
     UserData.call(this, type);
     // default value
-}
 
-BuildingHandler.prototype = Object.create(UserData.prototype);
+    this.GetMasterData = function() {
+        if (!("_masterData" in this)) {
+            var rawData = server.GetCatalogItems({
+                "CatalogVersion": this.Type
+            });
 
-BuildingHandler.prototype.GetMasterData = function() {
-    if (!("_masterData" in this)) {
-        var rawData = server.GetCatalogItems({
-            "CatalogVersion": this.Type
-        });
-
-        if ("Catalog" in rawData) {
-            this._masterData = JSON.parse(rawData.Catalog[0].CustomData);
+            if ("Catalog" in rawData) {
+                this._masterData = JSON.parse(rawData.Catalog[0].CustomData);
+            }
         }
-    }
-    return this._masterData;
-};
+        return this._masterData;
+    };
 
-BuildingHandler.prototype.CurrentLevelData = function(id){
-    return this.GetMasterData()[String(this.Get(id).Level)];
-};
+    this.CurrentLevelData = function(id){
+        return this.GetMasterData()[String(this.Get(id).Level)];
+    };
 
-BuildingHandler.prototype.NextLevelData = function(id){
-    return this.GetMasterData()[String(this.Get(id).Level + 1)];
-};
+    this.NextLevelData = function(id){
+        return this.GetMasterData()[String(this.Get(id).Level + 1)];
+    };
 
-BuildingHandler.prototype.StartUpgrade = function(id, date){
-    if ( this.TryUpgrade(id, date) ){
-        this.Push();
-        return true;
-    }
-    return false;
-};
-
-BuildingHandler.prototype.TryUpgrade = function(id, date){
-
-    if (this.Get(id) == null){
-        this.Data[id] =  {
-            "Level":0,
-            "Upgrading":false,
-            "CompletedDate":0
-        };
-    }
-
-    if (this.Get(id).Upgrading){
-        log.error("Error: " + this.Type + id + " is already Upgrading!");
+    this.StartUpgrade = function(id, date){
+        if ( this.TryUpgrade(id, date) ){
+            this.Push();
+            return true;
+        }
         return false;
-    }
+    };
 
-    if (this.Type == CASTLE){
-    }
-    else {
-        var castle = new BuildingHandler(CASTLE);
-        if ( Number(id) > castle.CurrentLevelData("0")[this.Type+"Limit"] ){
+    this.TryUpgrade = function(id, date){
+
+        if (this.Get(id) == null){
+            this.Data[id] =  {
+                "Level":0,
+                "Upgrading":false,
+                "CompletedDate":0
+            };
+        }
+
+        if (this.Get(id).Upgrading){
+            log.error("Error: " + this.Type + id + " is already Upgrading!");
             return false;
         }
-    }
 
-    var nextLvlData = this.NextLevelData(id);
-
-    var missingRes = 0;
-    var notEnoughGold = false;
-    var notEnoughFood = false;
-
-    var resMan = new ResourceManager();
-
-    if (nextLvlData.GoldCost != null){
-        if (resMan.ValueOf(GOLD) < nextLvlData.GoldCost){
-            missingRes += nextLvlData.GoldCost - resMan.ValueOf(GOLD);
-            notEnoughGold = true;
+        if (this.Type == CASTLE){
         }
-    }
-
-    if (nextLvlData.FoodCost != null){
-        if (resMan.ValueOf(FOOD) < nextLvlData.FoodCost){
-            missingRes += nextLvlData.FoodCost - resMan.ValueOf(FOOD);
-            notEnoughFood = true;
-        }
-    }
-
-    var diamondNeed = 0;
-
-    if (missingRes > 0) {
-        diamondNeed = ConvertGoldFoodToDiamond(missingRes);
-        log.info("diamond needed = " + diamondNeed);
-    }
-
-    if ( (diamondNeed == 0)
-        || (diamondNeed > 0 && TryUsingCurrency(DIAMOND, diamondNeed) ) ){
-        if (notEnoughGold){
-            resMan.ChangeValue(GOLD ,-resMan.ValueOf(GOLD) );
-        }
-        else if (nextLvlData.GoldCost != null) {
-            resMan.ChangeValue(GOLD, -nextLvlData.GoldCost);
+        else {
+            var castle = new BuildingHandler(CASTLE);
+            if ( Number(id) > castle.CurrentLevelData("0")[this.Type+"Limit"] ){
+                return false;
+            }
         }
 
-        if (notEnoughFood){
-            resMan.ChangeValue(FOOD , -resMan.ValueOf(FOOD) );
+        var nextLvlData = this.NextLevelData(id);
+
+        var missingRes = 0;
+        var notEnoughGold = false;
+        var notEnoughFood = false;
+
+        var resMan = new ResourceManager();
+
+        if (nextLvlData.GoldCost != null){
+            if (resMan.ValueOf(GOLD) < nextLvlData.GoldCost){
+                missingRes += nextLvlData.GoldCost - resMan.ValueOf(GOLD);
+                notEnoughGold = true;
+            }
         }
-        else if (nextLvlData.FoodCost != null){
-            resMan.ChangeValue(FOOD, -nextLvlData.FoodCost);
+
+        if (nextLvlData.FoodCost != null){
+            if (resMan.ValueOf(FOOD) < nextLvlData.FoodCost){
+                missingRes += nextLvlData.FoodCost - resMan.ValueOf(FOOD);
+                notEnoughFood = true;
+            }
         }
 
-        resMan.Push();
+        var diamondNeed = 0;
 
-        this.Get(id).CompletedDate = date + nextLvlData.BuildTime * 1000.0;
-
-        log.info("server complete date = ", this.Get(id).CompletedDate);
-        this.Get(id).Upgrading = true;
-    }
-    else {
-        return false;
-    }
-
-    return true;
-};
-
-BuildingHandler.prototype.CompleteUpgrade = function(id, date) {
-    this.Get(id).Level++;
-    this.Get(id).Upgrading = false;
-
-    var kingdom = new Kingdom();
-    kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
-
-    this.Push();
-
-    if (this.Type == GOLD_STORAGE || this.Type == FOOD_STORAGE) {
-        this.RefreshStorageCap();
-    }
-};
-
-BuildingHandler.prototype.FastForward = function(id, date) {
-
-    if (this.Completed(id)) {
-        log.error("this building has been completed!");
-    } else {
-
-        var remainTime = ( this.Get(id).CompletedDate - date );
-        var diamondNeed = ConvertTimeToDiamond(remainTime / 1000.0);
-
-        if (TryUsingCurrency(DIAMOND, diamondNeed)) {
-            this.CompleteUpgrade(id, date);
+        if (missingRes > 0) {
+            diamondNeed = ConvertGoldFoodToDiamond(missingRes);
+            log.info("diamond needed = " + diamondNeed);
         }
-    }
-};
 
-BuildingHandler.prototype.Completed = function (id) {
-    return this.Get(id).CompletedDate <= this.ServerTime();
-};
+        if ( (diamondNeed == 0)
+            || (diamondNeed > 0 && TryUsingCurrency(DIAMOND, diamondNeed) ) ){
+            if (notEnoughGold){
+                resMan.ChangeValue(GOLD ,-resMan.ValueOf(GOLD) );
+            }
+            else if (nextLvlData.GoldCost != null) {
+                resMan.ChangeValue(GOLD, -nextLvlData.GoldCost);
+            }
 
-BuildingHandler.prototype.RefreshStorageCap = function () {
-    var code = FOOD;
+            if (notEnoughFood){
+                resMan.ChangeValue(FOOD , -resMan.ValueOf(FOOD) );
+            }
+            else if (nextLvlData.FoodCost != null){
+                resMan.ChangeValue(FOOD, -nextLvlData.FoodCost);
+            }
 
-    if (this.Type == GOLD_STORAGE){
-        code = GOLD;
-    }
+            resMan.Push();
 
-    var newCapacity = 0;
+            this.Get(id).CompletedDate = date + nextLvlData.BuildTime * 1000.0;
 
-    var str = "Castle"+code+"Storage";
+            log.info("server complete date = ", this.Get(id).CompletedDate);
+            this.Get(id).Upgrading = true;
+        }
+        else {
+            return false;
+        }
 
-    var result = server.GetTitleData([str]).Data[str];
-
-    newCapacity += Number(result);
-
-    for (key in this.Data) {
-        newCapacity += this.CurrentLevelData(key)[code + "Capacity"];
-    }
-
-    log.info("New " + code + " capacity = " + newCapacity );
-
-
-    var resMan = new ResourceManager();
-    resMan.SetMax(code ,newCapacity);
-};
-
-
-function ResBuildingHandler(type){
-    BuildingHandler.call(this, type);
+        return true;
+    };
 
     this.CompleteUpgrade = function(id, date) {
-        log.info("complete resource building");
         this.Get(id).Level++;
         this.Get(id).Upgrading = false;
-        this.Get(id).LastCollectDate = date;
 
         var kingdom = new Kingdom();
         kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
 
         this.Push();
+
+        if (this.Type == GOLD_STORAGE || this.Type == FOOD_STORAGE) {
+            this.RefreshStorageCap();
+        }
     };
-}
 
-ResBuildingHandler.prototype = Object.create(BuildingHandler.prototype);
+    this.FastForward = function(id, date) {
 
-ResBuildingHandler.prototype.PrepareUpgrade = function(id, date){
-    if (this.Get(id) == null){
-        this.Data[id] = this.DefaultData();
-    }
-    this.TryCollect(id, date);
-};
+        if (this.Completed(id)) {
+            log.error("this building has been completed!");
+        } else {
 
-ResBuildingHandler.prototype.Collect = function(id, date){
-    if (this.TryCollect(id, date) ){
-        this.Push();
-    }
-};
+            var remainTime = ( this.Get(id).CompletedDate - date );
+            var diamondNeed = ConvertTimeToDiamond(remainTime / 1000.0);
 
-ResBuildingHandler.prototype.CollectAll = function(date){
-    for (var id in this.Data){
-        this.TryCollect(id, date);
-    }
-    this.Push();
-};
+            if (TryUsingCurrency(DIAMOND, diamondNeed)) {
+                this.CompleteUpgrade(id, date);
+            }
+        }
+    };
 
-ResBuildingHandler.prototype.TryCollect = function(id, date){
+    this.Completed = function (id) {
+        return this.Get(id).CompletedDate <= this.ServerTime();
+    };
 
-    if (this.Get(id) == null || this.Get(id).Level == 0) {
-        return false;
-    }
+    this.RefreshStorageCap = function () {
+        var code = FOOD;
 
-    var code = (this.Type == MARKET) ? GOLD : FOOD;
+        if (this.Type == GOLD_STORAGE){
+            code = GOLD;
+        }
 
-    var produceRate = this.CurrentLevelData(id).ProduceRate;
-    var workingTime = ( date - this.Get(id).LastCollectDate ) / ONE_HOUR ;
+        var newCapacity = 0;
 
-    var amount = Math.floor( workingTime * produceRate );
-    var capacity = this.CurrentLevelData(id)[code+"Capacity"]; // GoldCapacity or FoodCapacity
+        var str = "Castle"+code+"Storage";
 
-    if (amount > capacity){
-        amount = capacity;    // product amount can't surpass capacity
-    }
+        var result = server.GetTitleData([str]).Data[str];
 
-    if (amount > 0){
+        newCapacity += Number(result);
+
+        for (key in this.Data) {
+            newCapacity += this.CurrentLevelData(key)[code + "Capacity"];
+        }
+
+        log.info("New " + code + " capacity = " + newCapacity );
+
 
         var resMan = new ResourceManager();
+        resMan.SetMax(code ,newCapacity);
+    };
 
-        var curRes = resMan.ValueOf(code);
-        var curMax = resMan.MaxOf(code);
 
-        if (amount + curRes > curMax){
-            resMan.ChangeValue(code, curMax - curRes);
-            amount -= curMax - curRes;
-        }
-        else {
-            resMan.ChangeValue(code, amount);
-            amount = 0;
-        }
 
-        this.Get(id).LastCollectDate = Math.floor(date - (amount / produceRate) * ONE_HOUR);
-        resMan.Push();
+}
 
-        return true;
-    }
-    else {
-        return false;
-    }
-};
+BuildingHandler.prototype = Object.create(UserData.prototype);
 
 function BuildingHandlerFromType(type){
 
