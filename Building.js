@@ -39,24 +39,15 @@ BuildingHandler.prototype.StartUpgrade = function(id, date){
     return false;
 };
 
-BuildingHandler.prototype.DefaultData = function(){
-    return {
-        "Level":0,
-        "Upgrading":false,
-        "CompletedDate":0
-    }
-};
-
-
-BuildingHandler.prototype.PrepareUpgrade = function(id, date){
-    if (this.Get(id) == null){
-        this.Data[id] = this.DefaultData();
-    }
-};
-
 BuildingHandler.prototype.TryUpgrade = function(id, date){
 
-    this.PrepareUpgrade(id, date);
+    if (this.Get(id) == null){
+        this.Data[id] =  {
+            "Level":0,
+            "Upgrading":false,
+            "CompletedDate":0
+        };
+    }
 
     if (this.Get(id).Upgrading){
         log.error("Error: " + this.Type + id + " is already Upgrading!");
@@ -132,9 +123,17 @@ BuildingHandler.prototype.TryUpgrade = function(id, date){
 };
 
 BuildingHandler.prototype.CompleteUpgrade = function(id, date) {
-    this.PreCompleteUpgrade(id, date);
+    this.Get(id).Level++;
+    this.Get(id).Upgrading = false;
+
+    var kingdom = new Kingdom();
+    kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
+
     this.Push();
-    this.PostCompleteUpgrade(id, date);
+
+    if (this.Type == GOLD_STORAGE || this.Type == FOOD_STORAGE) {
+        this.RefreshStorageCap();
+    }
 };
 
 BuildingHandler.prototype.FastForward = function(id, date) {
@@ -149,21 +148,6 @@ BuildingHandler.prototype.FastForward = function(id, date) {
         if (TryUsingCurrency(DIAMOND, diamondNeed)) {
             this.CompleteUpgrade(id);
         }
-    }
-};
-
-BuildingHandler.prototype.PreCompleteUpgrade = function(id, date) {
-
-    this.Get(id).Level++;
-    this.Get(id).Upgrading = false;
-
-    var kingdom = new Kingdom();
-    kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
-};
-
-BuildingHandler.prototype.PostCompleteUpgrade = function(id){
-    if (this.Type == GOLD_STORAGE || this.Type == FOOD_STORAGE) {
-        this.RefreshStorageCap();
     }
 };
 
@@ -212,16 +196,20 @@ ResourceBuildingHandler.prototype.PrepareUpgrade = function(id, date){
     this.TryCollect(id, date);
 };
 
-ResourceBuildingHandler.prototype.PreCompleteUpgrade = function (id, date) {
-
+ResourceBuildingHandler.prototype.CompleteUpgrade = function(id, date) {
     this.Get(id).Level++;
     this.Get(id).Upgrading = false;
     this.Get(id).LastCollectDate = date;
 
     var kingdom = new Kingdom();
     kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
-};
 
+    this.Push();
+
+    if (this.Type == GOLD_STORAGE || this.Type == FOOD_STORAGE) {
+        this.RefreshStorageCap();
+    }
+};
 
 ResourceBuildingHandler.prototype.Collect = function(id, date){
     if (this.TryCollect(id, date) ){
