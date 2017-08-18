@@ -1,14 +1,6 @@
 function ResourceBuildingHandler(type){
     BuildingHandler.call(this, type);
 
-    this.DefaultData = function(){
-        return {
-            "Level":0,
-            "Upgrading":false,
-            "CompletedDate":0,
-            "LastCollectDate":this.ServerTime()
-        }
-    };
 
     this.Collect = function(id, date){
         if (this.TryCollect(id, date) ){
@@ -86,4 +78,13 @@ ResourceBuildingHandler.prototype.PreCompleteUpgrade = function (id, date) {
 
     var kingdom = new Kingdom();
     kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
+};
+
+ResourceBuildingHandler.prototype.DefaultData = function(){
+    return {
+        "Level":0,
+        "Upgrading":false,
+        "CompletedDate":0,
+        "LastCollectDate":this.ServerTime()
+    }
 };
