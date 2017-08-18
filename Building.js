@@ -186,6 +186,9 @@ function BuildingHandler(type) {
             newCapacity += this.CurrentLevelData(key)[code + "Capacity"];
         }
 
+        log.info("New " + code + " capacity = " + newCapacity );
+
+
         var resMan = new ResourceManager();
         resMan.SetMax(code ,newCapacity);
     }
