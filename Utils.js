@@ -12,39 +12,13 @@ function ConvertTimeToDiamond(seconds){
   return ret;
 }
 // convert gold/food to diamond
-function ConvertGoldFoodToDiamond(qty){
-  if (qty <= 0)
-    return 0;
-  var ret = Math.pow(6, Math.log(qty/100) / Math.log(10));
-  if (ret < 1)
-    ret = 1;
-  return Math.floor(ret);
-}
-function RefreshStorageCap(code){
-  if (code != GOLD && code != FOOD){
-    log.error("invalid resource type!")
-    return -9999;
-  }
-
-  var newCapacity = 0;
-  
-  var castle = new BuildingHandlerFromType(CASTLE);
-  
-  if (code == GOLD){
-    var resB = new BuildingHandlerFromType(GOLD_STORAGE);
-  }
-  else {
-    var resB = new BuildingHandlerFromType(FOOD_STORAGE);
-  }
-  
-  newCapacity += castle.CurrentLevelData("0")[code + "Capacity"];
-  
-  for (key in resB.Data) {
-      newCapacity += resB.CurrentLevelData(key)[code + "Capacity"];
-  }
-  
-  var resMan = new ResourceManager();
-  resMan.SetMax(code ,newCapacity);
+function ConvertGoldFoodToDiamond(qty) {
+    if (qty <= 0)
+        return 0;
+    var ret = Math.pow(6, Math.log(qty / 100) / Math.log(10));
+    if (ret < 1)
+        ret = 1;
+    return Math.floor(ret);
 }
 
 function TryUsingCurrency(code, qty){

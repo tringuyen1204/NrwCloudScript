@@ -136,8 +136,7 @@ function BuildingHandler(type) {
 
         if (this.Completed(id)) {
             log.error("this building has been completed!");
-        }
-        else {
+        } else {
 
             var remainTime = ( this.Get(id).CompletedDate - date );
             var diamondNeed = ConvertTimeToDiamond(remainTime / 1000.0);
@@ -158,11 +157,8 @@ function BuildingHandler(type) {
     }
 
     this.PostCompleteUpgrade = function(id){
-        if (type == CASTLE || type == GOLD_STORAGE) {
-            RefreshStorageCap(GOLD);
-        }
-        if (type == CASTLE || type == FOOD_STORAGE) {
-            RefreshStorageCap(FOOD);
+        if (type == GOLD_STORAGE || type == FOOD_STORAGE) {
+            this.RefreshStorageCap();
         }
     }
 
@@ -170,8 +166,27 @@ function BuildingHandler(type) {
         return this.Get(id).CompletedDate <= this.ServerTime();
     }
 
-    this.Get = function (id) {
-        return this.Data[id];
+    this.RefreshStorageCap = function () {
+        var code = FOOD;
+
+        if (type == GOLD_STORAGE){
+            code = GOLD;
+        }
+
+        var newCapacity = 0;
+
+        var str = "Castle"+code+"Storage";
+
+        var result = server.GetTitleData([str]).Data[str];
+
+        newCapacity += Number(result);
+
+        for (key in resB.Data) {
+            newCapacity += this.CurrentLevelData(key)[code + "Capacity"];
+        }
+
+        var resMan = new ResourceManager();
+        resMan.SetMax(code ,newCapacity);
     }
 }
 
