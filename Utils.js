@@ -15,7 +15,7 @@ function ConvertTimeToDiamond(seconds){
 function ConvertGoldFoodToDiamond(qty) {
     if (qty <= 0)
         return 0;
-    var ret = Math.pow(6, Math.log(qty / 10) / Math.log(10));
+    var ret = Math.pow(6, Math.log(qty / 100) / Math.log(10));
     if (ret < 1)
         ret = 1;
     return Math.floor(ret);
