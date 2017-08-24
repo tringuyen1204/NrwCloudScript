@@ -57,17 +57,17 @@ function ResBuildHandler(type){
 
         if (amount > 0){
 
-            var resMan = new ResourceManager();
+            var resMan = new ResHandler();
 
             var curRes = resMan.ValueOf(code);
             var curMax = resMan.MaxOf(code);
 
             if (amount + curRes > curMax){
-                resMan.ChangeValue(code, curMax - curRes);
+                resMan.Change(code, curMax - curRes);
                 amount -= curMax - curRes;
             }
             else {
-                resMan.ChangeValue(code, amount);
+                resMan.Change(code, amount);
                 amount = 0;
             }
 

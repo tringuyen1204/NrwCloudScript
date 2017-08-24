@@ -18,9 +18,9 @@ handlers.CompleteBuilding = function (args) {
     }
 };
 
-handlers.FastForwardBuilding = function (args) {
+handlers.BoostBuilding = function (args) {
     var b = BuildingHandlerFromType(args.type);
-    b.FastForward(args.id,  Number(args.date) );
+    b.BoostBuilding(args.id,  Number(args.date) );
 };
 
 // farm + market handlers

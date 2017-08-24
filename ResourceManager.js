@@ -1,4 +1,4 @@
-function ResourceManager(){
+function ResHandler(){
   UserData.call(this, "Resource");
 
   this.ValueOf = function(code){
@@ -21,7 +21,7 @@ function ResourceManager(){
     return this.Data[code].Max;
   };
 
-  this.ChangeValue = function(code, qty){
+  this.Change = function(code, qty){
     if (this.ValueOf(code) + qty < 0) {
       this.Data[code].Value = 0;
     }
@@ -39,5 +39,5 @@ function ResourceManager(){
   }
 }
 
-ResourceManager.prototype = Object.create(UserData.prototype);
-ResourceManager.prototype.constructor = UserData;
+ResHandler.prototype = Object.create(UserData.prototype);
+ResHandler.prototype.constructor = UserData;

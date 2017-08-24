@@ -58,54 +58,54 @@ function BuildingHandler(type) {
             }
         }
 
-        var nextLvlData = this.NxtLvlData(id);
+        var nxtLv = this.NxtLvlData(id);
 
         var missingRes = 0;
         var notEnoughGold = false;
         var notEnoughFood = false;
 
-        var resMan = new ResourceManager();
+        var resMan = new ResHandler();
 
-        if (nextLvlData.GoldCost != null){
-            if (resMan.ValueOf(GOLD) < nextLvlData.GoldCost){
-                missingRes += nextLvlData.GoldCost - resMan.ValueOf(GOLD);
+        if (nxtLv.GoldCost != null){
+            if (resMan.ValueOf(GOLD) < nxtLv.GoldCost){
+                missingRes += nxtLv.GoldCost - resMan.ValueOf(GOLD);
                 notEnoughGold = true;
             }
         }
 
-        if (nextLvlData.FoodCost != null){
-            if (resMan.ValueOf(FOOD) < nextLvlData.FoodCost){
-                missingRes += nextLvlData.FoodCost - resMan.ValueOf(FOOD);
+        if (nxtLv.FoodCost != null){
+            if (resMan.ValueOf(FOOD) < nxtLv.FoodCost){
+                missingRes += nxtLv.FoodCost - resMan.ValueOf(FOOD);
                 notEnoughFood = true;
             }
         }
 
-        var diamondNeed = 0;
+        var boostCost = 0;
 
         if (missingRes > 0) {
-            diamondNeed = ConvertGoldFoodToDiamond(missingRes);
-            log.info("diamond needed = " + diamondNeed);
+            boostCost = ConvertGoldFoodToDiamond(missingRes);
+            log.info("diamond needed = " + boostCost);
         }
 
-        if ( (diamondNeed == 0)
-            || (diamondNeed > 0 && SpendCurrency(DIAMOND, diamondNeed) ) ){
+        if ( (boostCost == 0)
+            || (boostCost > 0 && SpendCurrency(DIAMOND, boostCost) ) ){
             if (notEnoughGold){
-                resMan.ChangeValue(GOLD ,-resMan.ValueOf(GOLD) );
+                resMan.Change(GOLD ,-resMan.ValueOf(GOLD) );
             }
-            else if (nextLvlData.GoldCost != null) {
-                resMan.ChangeValue(GOLD, -nextLvlData.GoldCost);
+            else if (nxtLv.GoldCost != null) {
+                resMan.Change(GOLD, -nxtLv.GoldCost);
             }
 
             if (notEnoughFood){
-                resMan.ChangeValue(FOOD , -resMan.ValueOf(FOOD) );
+                resMan.Change(FOOD , -resMan.ValueOf(FOOD) );
             }
-            else if (nextLvlData.FoodCost != null){
-                resMan.ChangeValue(FOOD, -nextLvlData.FoodCost);
+            else if (nxtLv.FoodCost != null){
+                resMan.Change(FOOD, -nxtLv.FoodCost);
             }
 
             resMan.Push();
 
-            this.Get(id).CompletedDate = date + nextLvlData.BuildTime * 1000.0;
+            this.Get(id).CompletedDate = date + nxtLv.BuildTime * 1000.0;
 
             log.info("server complete date = ", this.Get(id).CompletedDate);
             this.Get(id).Upgrading = true;
@@ -131,7 +131,7 @@ function BuildingHandler(type) {
         }
     };
 
-    this.FastForward = function(id, date) {
+    this.BoostBuilding = function(id, date) {
 
         if (this.Completed(id)) {
             log.error("this building has been completed!");
@@ -157,20 +157,20 @@ function BuildingHandler(type) {
             code = GOLD;
         }
 
-        var newCapacity = 0;
+        var newMax = 0;
         var str = "Castle"+code+"Storage";
         var result = server.GetTitleData([str]).Data[str];
 
-        newCapacity += Number(result);
+        newMax += Number(result);
 
         for (key in this.Data) {
-            newCapacity += this.CurLvlData(key)[code + "Capacity"];
+            newMax += this.CurLvlData(key)[code + "Capacity"];
         }
 
-        log.info("New " + code + " capacity = " + newCapacity );
+        log.info("New " + code + " capacity = " + newMax );
 
-        var resMan = new ResourceManager();
-        resMan.SetMax(code ,newCapacity);
+        var resMan = new ResHandler();
+        resMan.SetMax(code ,newMax);
     };
 }
 

@@ -95,7 +95,7 @@ function BarrackHandler(type) {
         return date;
     };
 
-    this.GetTroopCount = function (id, date) {
+    this.TroopCount = function (id, date) {
 
         var realDate = this.RealDate(id, date);
         var bData = this.Get(id);
