@@ -26,7 +26,7 @@ function UserData(Key){
             "Data":newData,
             "Permission":"public"
         });
-    }
+    };
 
     this.Get = function (id) {
 

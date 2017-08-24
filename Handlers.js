@@ -1,6 +1,6 @@
 handlers.ServerTime = function (args) {
     return String(Date.now());
-}
+};
 
 // normal building handlers
 handlers.Build = function(args){
@@ -37,12 +37,12 @@ handlers.Collect = function (args) {
 handlers.ChangeTroop = function (args) {
     var b = BuildingHandlerFromType(BARRACK);
     b.ChangeTroop(args.id, Number(args.date), Number(args.troopType));
-}
+};
 
 handlers.KillTroop = function (args) {
     var b = BuildingHandlerFromType(BARRACK);
     b.KillTroop(args.id, Number(args.date), Number(args.amount));
-}
+};
 
 handlers.BoostTrainAll = function (args) {
     var b = BuildingHandlerFromType(BARRACK);

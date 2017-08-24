@@ -5,13 +5,13 @@ function BarrackHandler(type) {
     this.KillTroop = function (id, date, amount) {
         var bData = this.Get(id);
 
-        var realDate = this.RealCheckDate(id, date);
+        var realDate = this.RealDate(id, date);
 
         if (bData.FinishTrainDate > realDate){
-            bData.FinishTrainDate += amount * this.SingleTrainTime(id);
+            bData.FinishTrainDate += amount * this.TrainTime(id);
         }
         else {
-            bData.FinishTrainDate = realDate + amount * this.SingleTrainTime(id);
+            bData.FinishTrainDate = realDate + amount * this.TrainTime(id);
         }
         this.Push();
     };
@@ -24,12 +24,12 @@ function BarrackHandler(type) {
         var curLvData = this.CurLvlData(id);
 
         bData.TroopType = troopType;
-        bData.FinishTrainDate = date + curLvData.TroopCapacity * this.SingleTrainTime(id);
+        bData.FinishTrainDate = date + curLvData.TroopCapacity * this.TrainTime(id);
 
         this.Push();
     };
 
-    this.SingleTrainTime = function(id){
+    this.TrainTime = function(id){
         return this.CurLvlData(id)[this.Get(id).TroopType + "TrainTime"];
     };
 
@@ -53,16 +53,6 @@ function BarrackHandler(type) {
         return false;
     };
 
-    this.GetBoostCost = function (id, date) {
-        if (!this.Get(id).Upgrading){
-            var remainTime = this.Get(id).FinishTrainDate - date;
-            if (remainTime > 0) {
-                return ConvertTimeToDiamond(remainTime / 1000);
-            }
-        }
-        return 0;
-    };
-
     this.BoostTrain = function (id, date) {
         var boostCost = this.GetBoostCost(id, date);
         if (boostCost > 0) {
@@ -73,6 +63,16 @@ function BarrackHandler(type) {
             }
         }
         return false;
+    };
+
+    this.GetBoostCost = function (id, date) {
+        if (!this.Get(id).Upgrading){
+            var remainTime = this.Get(id).FinishTrainDate - date;
+            if (remainTime > 0) {
+                return ConvertTimeToDiamond(remainTime / 1000);
+            }
+        }
+        return 0;
     };
 
     this.CompleteUpgrade = function(id, date) {
@@ -88,7 +88,7 @@ function BarrackHandler(type) {
         this.Push();
     };
 
-    this.RealCheckDate = function(id, date){
+    this.RealDate = function(id, date){
         if (this.Get(id).Upgrading){
             return this.Get(id).CompletedDate - this.CurLvlData(id).BuidTime;
         }
@@ -97,17 +97,15 @@ function BarrackHandler(type) {
 
     this.GetTroopCount = function (id, date) {
 
-        var realDate = this.RealCheckDate(id, date);
+        var realDate = this.RealDate(id, date);
         var bData = this.Get(id);
         var curLvData = this.CurLvlData(id);
-
 
         if (bData.FinishTrainDate < realDate) {
             return curLvData.TroopCapacity;
         }
         else {
-            var oneTroopTrainTime = curLvData[bData.TroopType + "TrainTime"];
-            var remainTroop = ( bData.FinishTrainDate - realDate ) / this.SingleTrainTime(id);
+            var remainTroop = ( bData.FinishTrainDate - realDate ) / this.TrainTime(id);
             return Math.floor(curLvData.TroopCapacity - remainTroop);
         }
     }
