@@ -21,7 +21,7 @@ function ConvertGoldFoodToDiamond(qty) {
     return Math.floor(ret);
 }
 
-function TryUsingCurrency(code, qty){
+function SpendCurrency(code, qty){
   var vcBalances = server.GetUserInventory({
     "PlayFabId": currentPlayerId
   }).VirtualCurrency;

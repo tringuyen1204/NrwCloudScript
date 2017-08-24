@@ -13,6 +13,7 @@ var MARKET = "Market";
 var FARM = "Farm";
 var GOLD_STORAGE = "GoldStorage";
 var FOOD_STORAGE = "FoodStorage";
+var BARRACK = "Barrack";
 
 // cash code
 var DIAMOND = "DI";

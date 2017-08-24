@@ -2,6 +2,7 @@ handlers.ServerTime = function (args) {
     return String(Date.now());
 }
 
+// normal building handlers
 handlers.Build = function(args){
     var b = BuildingHandlerFromType(args.type);
     b.StartUpgrade(args.id, Number(args.date) );
@@ -22,8 +23,9 @@ handlers.FastForwardBuilding = function (args) {
     b.FastForward(args.id,  Number(args.date) );
 };
 
+// farm + market handlers
 handlers.Collect = function (args) {
-    var resB = new ResBuildHandler(args.type);
+    var resB = new BuildingHandlerFromType(args.type);
     if (args.id == null) {
         resB.CollectAll( Number(args.date) );
     } else {
@@ -31,6 +33,28 @@ handlers.Collect = function (args) {
     }
 };
 
+// troop handlers
+handlers.ChangeTroop = function (args) {
+    var b = BuildingHandlerFromType(BARRACK);
+    b.ChangeTroop(args.id, Number(args.date), Number(args.troopType));
+}
+
+handlers.KillTroop = function (args) {
+    var b = BuildingHandlerFromType(BARRACK);
+    b.KillTroop(args.id, Number(args.date), Number(args.amount));
+}
+
+handlers.BoostTrainAll = function (args) {
+    var b = BuildingHandlerFromType(BARRACK);
+    b.BoostTrainAll(Number(args.date));
+};
+
+handlers.BoostTrain = function (args) {
+    var b = BuildingHandlerFromType(BARRACK);
+    b.BoostTrain(args.id, Number(args.date));
+};
+
+// account creation handler
 handlers.InitData = function(args){
     var castle = {
         "0":{

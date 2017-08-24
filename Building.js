@@ -1,8 +1,7 @@
 // inherit UserData
-function BuildHandler(type) {
+function BuildingHandler(type) {
 
     this.Type = type;
-
     UserData.call(this, type);
     // default value
 
@@ -19,11 +18,11 @@ function BuildHandler(type) {
         return this._masterData;
     };
 
-    this.CurrentLevelData = function(id){
+    this.CurLvlData = function(id){
         return this.GetMasterData()[String(this.Get(id).Level)];
     };
 
-    this.NextLevelData = function(id){
+    this.NxtLvlData = function(id){
         return this.GetMasterData()[String(this.Get(id).Level + 1)];
     };
 
@@ -53,13 +52,13 @@ function BuildHandler(type) {
         if (this.Type == CASTLE){
         }
         else {
-            var castle = new BuildHandler(CASTLE);
-            if ( Number(id) > castle.CurrentLevelData("0")[this.Type+"Limit"] ){
+            var castle = new BuildingHandler(CASTLE);
+            if ( Number(id) > castle.CurLvlData("0")[this.Type+"Limit"] ){
                 return false;
             }
         }
 
-        var nextLvlData = this.NextLevelData(id);
+        var nextLvlData = this.NxtLvlData(id);
 
         var missingRes = 0;
         var notEnoughGold = false;
@@ -89,7 +88,7 @@ function BuildHandler(type) {
         }
 
         if ( (diamondNeed == 0)
-            || (diamondNeed > 0 && TryUsingCurrency(DIAMOND, diamondNeed) ) ){
+            || (diamondNeed > 0 && SpendCurrency(DIAMOND, diamondNeed) ) ){
             if (notEnoughGold){
                 resMan.ChangeValue(GOLD ,-resMan.ValueOf(GOLD) );
             }
@@ -123,7 +122,7 @@ function BuildHandler(type) {
         this.Get(id).Upgrading = false;
 
         var kingdom = new Kingdom();
-        kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
+        kingdom.AddExp(this.CurLvlData(id).ExpGain);
 
         this.Push();
 
@@ -141,7 +140,7 @@ function BuildHandler(type) {
             var remainTime = ( this.Get(id).CompletedDate - date );
             var diamondNeed = ConvertTimeToDiamond(remainTime / 1000.0);
 
-            if (TryUsingCurrency(DIAMOND, diamondNeed)) {
+            if (SpendCurrency(DIAMOND, diamondNeed)) {
                 this.CompleteUpgrade(id, date);
             }
         }
@@ -159,39 +158,33 @@ function BuildHandler(type) {
         }
 
         var newCapacity = 0;
-
         var str = "Castle"+code+"Storage";
-
         var result = server.GetTitleData([str]).Data[str];
 
         newCapacity += Number(result);
 
         for (key in this.Data) {
-            newCapacity += this.CurrentLevelData(key)[code + "Capacity"];
+            newCapacity += this.CurLvlData(key)[code + "Capacity"];
         }
 
         log.info("New " + code + " capacity = " + newCapacity );
 
-
         var resMan = new ResourceManager();
         resMan.SetMax(code ,newCapacity);
     };
-
-
-
 }
 
-BuildHandler.prototype = Object.create(UserData.prototype);
+BuildingHandler.prototype = Object.create(UserData.prototype);
 
 function BuildingHandlerFromType(type){
 
     switch (type) {
         case MARKET:
         case FARM:
-            log.info("Handler: Resource Building");
             return new ResBuildHandler(type);
+        case BARRACK:
+            return new BarrackHandler(type);
         default:
-            log.info ("Handler: Building");
-            return new BuildHandler(type);
+            return new BuildingHandler(type);
     }
 }

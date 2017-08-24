@@ -1,15 +1,16 @@
 
 function ResBuildHandler(type){
-    BuildHandler.call(this, type);
+    BuildingHandler.call(this, type);
 
     this.CompleteUpgrade = function(id, date) {
         log.info("complete resource building");
-        this.Get(id).Level++;
-        this.Get(id).Upgrading = false;
-        this.Get(id).LastCollectDate = date;
+        var bData = this.Get(id);
+        bData.Level++;
+        bData.Upgrading = false;
+        bData.LastCollectDate = date;
 
         var kingdom = new Kingdom();
-        kingdom.AddExp(this.CurrentLevelData(id).ExpGain);
+        kingdom.AddExp(this.CurLvlData(id).ExpGain);
 
         this.Push();
     };
@@ -36,17 +37,19 @@ function ResBuildHandler(type){
 
     this.TryCollect = function(id, date){
 
-        if (this.Get(id) == null || this.Get(id).Level == 0) {
+        var bData = this.Get(id);
+
+        if (bData == null || bData.Level == 0 || bData.Upgrading) {
             return false;
         }
 
         var code = (this.Type == MARKET) ? GOLD : FOOD;
 
-        var produceRate = this.CurrentLevelData(id).ProduceRate;
-        var workingTime = ( date - this.Get(id).LastCollectDate ) / ONE_HOUR ;
+        var produceRate = this.CurLvlData(id).ProduceRate;
+        var workingTime = ( date - bData.LastCollectDate ) / ONE_HOUR ;
 
         var amount = Math.floor( workingTime * produceRate );
-        var capacity = this.CurrentLevelData(id)[code+"Capacity"]; // GoldCapacity or FoodCapacity
+        var capacity = this.CurLvlData(id)[code+"Capacity"]; // GoldCapacity or FoodCapacity
 
         if (amount > capacity){
             amount = capacity;    // product amount can't surpass capacity
@@ -68,7 +71,7 @@ function ResBuildHandler(type){
                 amount = 0;
             }
 
-            this.Get(id).LastCollectDate = Math.floor(date - (amount / produceRate) * ONE_HOUR);
+            this.bData.LastCollectDate = Math.floor(date - (amount / produceRate) * ONE_HOUR);
             resMan.Push();
 
             return true;
@@ -79,4 +82,4 @@ function ResBuildHandler(type){
     };
 }
 
-ResBuildHandler.prototype = Object.create(BuildHandler.prototype);
+ResBuildHandler.prototype = Object.create(BuildingHandler.prototype);
