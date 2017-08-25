@@ -76,7 +76,7 @@ function ResBuildHandler(type){
                 amount = 0;
             }
 
-            this.bData.LastCollectDate = Math.floor(date - (amount / produceRate) * ONE_HOUR);
+            bData.LastCollectDate = Math.floor(date - (amount / produceRate) * ONE_HOUR);
             resMan.Push();
 
             return true;
