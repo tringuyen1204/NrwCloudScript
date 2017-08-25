@@ -17,7 +17,12 @@ function ResBuildHandler(type){
 
     this.PrepareUpgrade = function(id, date){
         if (this.Get(id) == null){
-            this.Data[id] = this.DefaultData();
+            this.Data[id] =  {
+                "Level":0,
+                "Upgrading":false,
+                "CompletedDate":0,
+                "LastCollectDate":date
+            };
         }
         this.TryCollect(id, date);
     };
