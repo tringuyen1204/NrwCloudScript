@@ -18,6 +18,10 @@ var BARRACK = "Barrack";
 // cash code
 var DIAMOND = "DI";
 
+var INF = "Infantry";
+var SKR = "Skirmisher";
+var CAV = "Cavalry";
+
 // time
 ONE_MINUTE = 60000;
 ONE_HOUR = 3600000;

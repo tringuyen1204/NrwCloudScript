@@ -65,6 +65,5 @@ function GetMultipleUserData(Keys){
             };
         }
     }
-
     return ret;
 }
