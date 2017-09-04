@@ -26,7 +26,35 @@ function BuildingHandler(type) {
         return this.GetMasterData()[String(this.Get(id).Level + 1)];
     };
 
-    this.StartUpgrade = function(id, date){
+    this.Build = function (id, date, position) {
+
+        if (this.Get(id) == null){
+            this.Data[id] = this.DefaultData(position);
+        }
+
+        if ( this.TryUpgrade(id, date) ){
+            this.Push();
+            return true;
+        }
+        return false;
+    };
+
+    this.DefaultData = function (position) {
+        return {
+            "Level":0,
+            "Upgrading":false,
+            "CompletedDate":0,
+            "Position":position
+        }
+    }
+
+    this.Upgrade = function(id, date){
+
+        if (this.Get(id) == null){
+            log.error("Error: " + this.Type + id + " doesn't exist!");
+            return false;
+        }
+
         if ( this.TryUpgrade(id, date) ){
             this.Push();
             return true;
@@ -36,16 +64,8 @@ function BuildingHandler(type) {
 
     this.TryUpgrade = function(id, date){
 
-        if (this.Get(id) == null){
-            this.Data[id] =  {
-                "Level":0,
-                "Upgrading":false,
-                "CompletedDate":0
-            };
-        }
-
         if (this.Get(id).Upgrading){
-            log.error("Error: " + this.Type + id + " is already Upgrading!");
+            log.error("Error: " + this.Type + id + " is already upgrading!");
             return false;
         }
 

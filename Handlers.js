@@ -3,9 +3,14 @@ handlers.ServerTime = function (args) {
 };
 
 // normal building handlers
-handlers.Build = function(args){
+handlers.Upgrade = function(args){
     var b = BuildingHandlerFromType(args.type);
-    b.StartUpgrade(args.id, Number(args.date) );
+    b.Upgrade(args.id, Number(args.date) );
+};
+
+handlers.Build = function (args) {
+    var b = BuildingHandlerFromType(args.type);
+    b.Build(args.id, Number(args.date), Number(args.position) );
 };
 
 handlers.CompleteBuilding = function (args) {

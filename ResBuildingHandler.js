@@ -15,16 +15,19 @@ function ResBuildHandler(type){
         this.Push();
     };
 
-    this.PrepareUpgrade = function(id, date){
-        if (this.Get(id) == null){
-            this.Data[id] =  {
-                "Level":0,
-                "Upgrading":false,
-                "CompletedDate":0,
-                "LastCollectDate":date
-            };
+    this.DefaultData = function (position) {
+        return {
+            "Level":0,
+            "Upgrading":false,
+            "CompletedDate":0,
+            "LastCollectDate":date,
+            "Position":position
         }
+    };
+
+    this.Upgrade = function (id, date) {
         this.TryCollect(id, date);
+        BuildingHandler.prototype.Upgrade(this, id, date);
     };
 
     this.Collect = function(id, date){
