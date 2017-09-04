@@ -15,7 +15,7 @@ function ResBuildHandler(type){
         this.Push();
     };
 
-    this.DefaultData = function (position) {
+    this.DefaultData = function (date, position) {
         return {
             "Level":0,
             "Upgrading":false,

@@ -39,7 +39,7 @@ function BuildingHandler(type) {
         return false;
     };
 
-    this.DefaultData = function (position) {
+    this.DefaultData = function (date, position) {
         return {
             "Level":0,
             "Upgrading":false,
