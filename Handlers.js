@@ -10,7 +10,7 @@ handlers.Upgrade = function(args){
 
 handlers.Build = function (args) {
     var b = BuildingHandlerFromType(args.type);
-    b.Build(args.id, Number(args.date), Number(args.position) );
+    b.Build(args.id, Number(args.date), args.position );
 };
 
 handlers.CompleteBuilding = function (args) {
