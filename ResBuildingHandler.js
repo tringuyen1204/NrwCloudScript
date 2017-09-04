@@ -27,7 +27,18 @@ function ResBuildHandler(type){
 
     this.Upgrade = function (id, date) {
         this.TryCollect(id, date);
-        BuildingHandler.prototype.Upgrade(this, id, date);
+
+        if (this.Get(id) == null){
+            log.error("Error: " + this.Type + id + " doesn't exist!");
+            return false;
+        }
+
+        if ( this.TryUpgrade(id, date) ){
+            this.Push();
+            return true;
+        }
+        return false;
+
     };
 
     this.Collect = function(id, date){
