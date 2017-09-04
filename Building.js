@@ -29,7 +29,7 @@ function BuildingHandler(type) {
     this.Build = function (id, date, position) {
 
         if (this.Get(id) == null){
-            this.Data[id] = this.DefaultData(position);
+            this.Data[id] = this.DefaultData(date, position);
         }
 
         if ( this.TryUpgrade(id, date) ){
