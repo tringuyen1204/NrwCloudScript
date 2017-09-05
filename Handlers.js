@@ -4,17 +4,17 @@ handlers.ServerTime = function (args) {
 
 // normal building handlers
 handlers.Upgrade = function(args){
-    var b = BuildingHandlerFromType(args.type);
+    var b = CreateBuilding(args.type);
     b.Upgrade(args.id, Number(args.date) );
 };
 
 handlers.Build = function (args) {
-    var b = BuildingHandlerFromType(args.type);
+    var b = CreateBuilding(args.type);
     b.Build(args.id, Number(args.date), args.position );
 };
 
 handlers.CompleteBuilding = function (args) {
-    var b = BuildingHandlerFromType(args.type);
+    var b = CreateBuilding(args.type);
     if (b.Completed(args.id)) {
         b.CompleteUpgrade(args.id, Number(args.date));
     }
@@ -24,13 +24,13 @@ handlers.CompleteBuilding = function (args) {
 };
 
 handlers.BoostBuilding = function (args) {
-    var b = BuildingHandlerFromType(args.type);
+    var b = CreateBuilding(args.type);
     b.BoostBuilding(args.id,  Number(args.date) );
 };
 
 // farm + market handlers
 handlers.Collect = function (args) {
-    var resB = new BuildingHandlerFromType(args.type);
+    var resB = new CreateBuilding(args.type);
     if (args.id == null) {
         resB.CollectAll( Number(args.date) );
     } else {
@@ -40,22 +40,22 @@ handlers.Collect = function (args) {
 
 // troop handlers
 handlers.ChangeTroop = function (args) {
-    var b = BuildingHandlerFromType(BARRACK);
+    var b = CreateBuilding(BARRACK);
     b.ChangeTroop(args.id, Number(args.date), Number(args.troopType));
 };
 
 handlers.KillTroop = function (args) {
-    var b = BuildingHandlerFromType(BARRACK);
+    var b = CreateBuilding(BARRACK);
     b.KillTroop(args.id, Number(args.date), Number(args.amount));
 };
 
 handlers.BoostTrainAll = function (args) {
-    var b = BuildingHandlerFromType(BARRACK);
+    var b = CreateBuilding(BARRACK);
     b.BoostTrainAll(Number(args.date));
 };
 
 handlers.BoostTrain = function (args) {
-    var b = BuildingHandlerFromType(BARRACK);
+    var b = CreateBuilding(BARRACK);
     b.BoostTrain(args.id, Number(args.date));
 };
 

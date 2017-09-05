@@ -36,34 +36,3 @@ function UserData(Key){
         return this.Data[id];
     }
 }
-
-// unsafe function
-function PushUserData(key, data){
-    var newData = {};
-    newData[key] = JSON.stringify(data);
-
-    server.UpdateUserReadOnlyData({
-        "PlayFabId":currentPlayerId,
-        "Data":newData,
-        "Permission":"public"
-    });
-}
-
-function GetMultipleUserData(Keys){
-    var rawData = server.GetUserReadOnlyData({
-        "PlayFabId":currentPlayerId,
-        "Keys": Keys
-    }).Data;
-
-    var ret = {};
-
-    for (var key in rawData) {
-        if (rawData.hasOwnProperty(key)) {
-            ret[key] = {
-                "Key": key,
-                "Data": JSON.parse(rawData[key].Value)
-            };
-        }
-    }
-    return ret;
-}

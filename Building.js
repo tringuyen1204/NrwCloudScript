@@ -1,5 +1,5 @@
 // inherit UserData
-function BuildingHandler(type) {
+function Building(type) {
 
     this.Type = type;
     UserData.call(this, type);
@@ -46,7 +46,7 @@ function BuildingHandler(type) {
             "CompletedDate":0,
             "Position":position
         }
-    }
+    };
 
     this.Upgrade = function(id, date){
 
@@ -72,7 +72,7 @@ function BuildingHandler(type) {
         if (this.Type == CASTLE){
         }
         else {
-            var castle = new BuildingHandler(CASTLE);
+            var castle = new Building(CASTLE);
             if ( Number(id) > castle.CurLvlData("0")[this.Type+"Limit"] ){
                 return false;
             }
@@ -195,17 +195,17 @@ function BuildingHandler(type) {
     };
 }
 
-BuildingHandler.prototype = Object.create(UserData.prototype);
+Building.prototype = Object.create(UserData.prototype);
 
-function BuildingHandlerFromType(type){
+function CreateBuilding(type) {
 
     switch (type) {
         case MARKET:
         case FARM:
-            return new ResBuildHandler(type);
+            return new ResBuilding(type);
         case BARRACK:
-            return new BarrackHandler(type);
+            return new Barrack(type);
         default:
-            return new BuildingHandler(type);
+            return new Building(type);
     }
 }
