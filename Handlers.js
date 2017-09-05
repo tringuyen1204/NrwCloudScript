@@ -41,7 +41,7 @@ handlers.Collect = function (args) {
 // troop handlers
 handlers.ChangeTroop = function (args) {
     var b = CreateBuilding(BARRACK);
-    b.ChangeTroop(args.id, Number(args.date), Number(args.troopType));
+    b.ChangeTroop(args.id, Number(args.date), args.troopType);
 };
 
 handlers.KillTroop = function (args) {
