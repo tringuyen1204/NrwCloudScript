@@ -89,7 +89,9 @@ function BarrackHandler(type) {
         var curLvData = this.CurLvlData(id);
         bData.Level++;
         bData.Upgrading = false;
-        bData.FinishTrainDate += curLvData.BuildTime;
+        if (bData.Level != 0) {
+            bData.FinishTrainDate += curLvData.BuildTime;
+        }
 
         var kingdom = new Kingdom();
         kingdom.AddExp(this.CurLvlData(id).ExpGain);

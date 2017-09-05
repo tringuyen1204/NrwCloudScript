@@ -138,8 +138,9 @@ function BuildingHandler(type) {
     };
 
     this.CompleteUpgrade = function(id, date) {
-        this.Get(id).Level++;
-        this.Get(id).Upgrading = false;
+        var bData = this.Get(id);
+        bData.Level++;
+        bData.Upgrading = false;
 
         var kingdom = new Kingdom();
         kingdom.AddExp(this.CurLvlData(id).ExpGain);
