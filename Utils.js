@@ -21,16 +21,19 @@ function ConvertGoldFoodToDiamond(qty) {
     return Math.floor(ret);
 }
 
+/**
+ * @return(boolean)
+ */
 function SpendCurrency(code, qty){
-  var vcBalances = server.GetUserInventory({
-    "PlayFabId": currentPlayerId
-  }).VirtualCurrency;
+    var vcBalances = server.GetUserInventory({
+        "PlayFabId": currentPlayerId
+    }).VirtualCurrency;
 
-  if (vcBalances != null
-    && vcBalances.hasOwnProperty(code)
-    && vcBalances[code] >= qty){
-      ChangeCurrency(vcBalances, code, -qty);
-      return true;
+    if (vcBalances != null
+        && vcBalances.hasOwnProperty(code)
+        && vcBalances[code] >= qty){
+        ChangeCurrency(vcBalances, code, -qty);
+        return true;
     }
     return false;
 }
