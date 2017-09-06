@@ -2,11 +2,11 @@
  * @return(diamondCost)
  */
 
-function ConvertTimeToDiamond(seconds){
-  if (seconds <= 0)
+function ConvertTimeToDiamond(milisec) {
+    if (milisec <= 0)
     return 0;
 
-    var hours = seconds / ONE_HOUR;
+    var hours = milisec / ONE_HOUR;
   var ret = 25.18375 * Math.pow(hours, 0.7513);
 
   if (ret > Math.floor(ret))
