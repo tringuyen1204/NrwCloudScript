@@ -59,6 +59,11 @@ handlers.BoostTrain = function (args) {
     b.BoostTrain(args.id, Number(args.date));
 };
 
+handlers.Scout = function (args) {
+    var m = new MatchMaking();
+    return m.FindEnemies();
+};
+
 // account creation handler
 handlers.InitData = function(args){
     var castle = {
@@ -87,5 +92,22 @@ handlers.InitData = function(args){
             "Castle":JSON.stringify(castle),
             "Resource":JSON.stringify(resource)
         }
+    });
+
+    var gloryPoint = Math.random() * 400 + 800;
+    var battlePoint = gloryPoint * 10000 + 1000;
+
+    server.UpdatePlayerStatistics({
+        "PlayFabId": currentPlayerId,
+        "Statistics": [
+            {
+                "StatisticName": "Battle Point",
+                "Value": battlePoint
+            },
+            {
+                "StatisticName": "Glory Point",
+                "Value": gloryPoint
+            }
+        ]
     });
 };
