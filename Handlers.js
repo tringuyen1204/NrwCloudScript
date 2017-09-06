@@ -65,7 +65,8 @@ handlers.InitData = function(args){
         "0":{
             "Level":1,
             "CompletedDate":0,
-            "Upgrading":false
+            "Upgrading": false,
+            "Position": "s01"
         }
     };
 

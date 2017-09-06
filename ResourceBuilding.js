@@ -53,7 +53,42 @@ function ResBuilding(type) {
         this.Push();
     };
 
-    this.TryCollect = function(id, date){
+    /**
+     * @returns {number}
+     */
+    this.ProducedResource = function (id, date) {
+
+        var bData = this.Get(id);
+
+        if (bData == null || bData.Level == 0 || bData.Upgrading) {
+            return 0;
+        }
+
+        var produceRate = this.CurLvlData(id).ProduceRate;
+        var workingTime = ( date - bData.CollectDate ) / ONE_HOUR;
+        var amount = Math.floor( workingTime * produceRate );
+
+        var code = (this.Type == MARKET) ? GOLD : FOOD;
+
+        var capacity = this.CurLvlData(id)[code+"Capacity"]; // GoldCapacity or FoodCapacity
+
+        if (amount > capacity){
+            amount = capacity;    // product amount can't surpass capacity
+        }
+
+        return amount;
+    };
+
+    this.AllResource = function (date) {
+
+        var total = 0;
+        for (key in this.Data) {
+            total += this.ProducedResource(key, date);
+        }
+        return total;
+    };
+
+    this.TryCollect = function (id, date) {
 
         var bData = this.Get(id);
 
@@ -64,14 +99,7 @@ function ResBuilding(type) {
         var code = (this.Type == MARKET) ? GOLD : FOOD;
 
         var produceRate = this.CurLvlData(id).ProduceRate;
-        var workingTime = ( date - bData.CollectDate ) / ONE_HOUR;
-
-        var amount = Math.floor( workingTime * produceRate );
-        var capacity = this.CurLvlData(id)[code+"Capacity"]; // GoldCapacity or FoodCapacity
-
-        if (amount > capacity){
-            amount = capacity;    // product amount can't surpass capacity
-        }
+        var amount = this.ProducedResource(id, date);
 
         if (amount > 0){
 

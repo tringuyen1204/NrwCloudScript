@@ -36,7 +36,21 @@ function ResHandler(){
   this.SetMax = function(code, newMax){
     this.Data[code].Max = newMax;
     this.Push();
-  }
+  };
+
+    this.AvailableResource = function (date) {
+        var resInfo = {};
+
+        var goldHandler = CreateBuilding(MARKET);
+        resInfo[GOLD] = this.Data[GOLD].Value;
+        resInfo[GOLD] += goldHandler.AllResource(date);
+
+        var foodHandler = CreateBuilding(FARM);
+        resInfo[FOOD] = this.Data[FOOD].Value;
+        resInfo[FOOD] += foodHandler.AllResource(date);
+
+        return resInfo;
+    };
 }
 
 ResHandler.prototype = Object.create(UserData.prototype);
