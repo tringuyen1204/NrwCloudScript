@@ -86,14 +86,6 @@ handlers.InitData = function(args){
         }
     };
 
-    server.UpdateUserReadOnlyData({
-        "PlayFabId": currentPlayerId,
-        "Data":{
-            "Castle":JSON.stringify(castle),
-            "Resource":JSON.stringify(resource)
-        }
-    });
-
     var gloryPoint = Math.random() * 400 + 800;
     var battlePoint = gloryPoint * 10000 + 1000;
 
@@ -110,4 +102,14 @@ handlers.InitData = function(args){
             }
         ]
     });
+
+    server.UpdateUserReadOnlyData({
+        "PlayFabId": currentPlayerId,
+        "Data": {
+            "Castle": JSON.stringify(castle),
+            "Resource": JSON.stringify(resource)
+        }
+    });
+
+
 };
