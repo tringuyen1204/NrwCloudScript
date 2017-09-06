@@ -1,9 +1,12 @@
-// convert time (construction, train, healing...) to diamond
+/**
+ * @return(diamondCost)
+ */
+
 function ConvertTimeToDiamond(seconds){
   if (seconds <= 0)
     return 0;
 
-  var hours = seconds / 3600.0;
+    var hours = seconds / ONE_HOUR;
   var ret = 25.18375 * Math.pow(hours, 0.7513);
 
   if (ret > Math.floor(ret))
@@ -11,7 +14,10 @@ function ConvertTimeToDiamond(seconds){
 
   return ret;
 }
-// convert gold/food to diamond
+
+/**
+ * @return(diamondCost)
+ */
 function ConvertGoldFoodToDiamond(qty) {
     if (qty <= 0)
         return 0;

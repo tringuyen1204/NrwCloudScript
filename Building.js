@@ -125,7 +125,7 @@ function Building(type) {
 
             resMan.Push();
 
-            this.Get(id).CompletedDate = date + nxtLv.BuildTime * 1000.0;
+            this.Get(id).CompletedDate = date + nxtLv.BuildTime;
 
             log.info("server complete date = ", this.Get(id).CompletedDate);
             this.Get(id).Upgrading = true;
@@ -159,7 +159,7 @@ function Building(type) {
         } else {
 
             var remainTime = ( this.Get(id).CompletedDate - date );
-            var diamondNeed = ConvertTimeToDiamond(remainTime / 1000.0);
+            var diamondNeed = ConvertTimeToDiamond(remainTime);
 
             if (SpendCurrency(DIAMOND, diamondNeed)) {
                 this.CompleteUpgrade(id, date);
