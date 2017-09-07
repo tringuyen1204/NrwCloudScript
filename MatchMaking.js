@@ -1,4 +1,3 @@
-
 function MatchMaking() {
     this.FindEnemies = function () {
 
@@ -39,7 +38,7 @@ function MatchMaking() {
                 newValue = (gloryPoint + ranges[index] * -8) * 10000 + gloryPoint;
             }
 
-            battlePoints.push(newValue);
+            battlePoints.push(Math.floor(newValue));
             ranges.remove(index);
         }
 
