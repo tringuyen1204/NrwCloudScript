@@ -57,7 +57,7 @@ function MatchMaking() {
                 },
                 {
                     "StatisticName": "GloryPoint",
-                    "Value": 300
+                    "Value": gloryPoint
                 }
             ]
         });
