@@ -26,19 +26,19 @@ function MatchMaking() {
         //     ]
         // }).Data;
 
-        for (var a = 0; a < ranges.length; a++) {
-
-            var newValue;
-
-            if (ranges[index] > 0) {
-                newValue = (gloryPoint + ranges[a] * 1) * 10000 + gloryPoint;
-            }
-            else {
-                newValue = (gloryPoint + ranges[a] * -8) * 10000 + gloryPoint;
-            }
-
-            battlePoints[a] = Math.floor(newValue);
-        }
+        // for (var a = 0; a < ranges.length; a++) {
+        //
+        //     var newValue;
+        //
+        //     if (ranges[index] > 0) {
+        //         newValue = (gloryPoint + ranges[a] * 1) * 10000 + gloryPoint;
+        //     }
+        //     else {
+        //         newValue = (gloryPoint + ranges[a] * -8) * 10000 + gloryPoint;
+        //     }
+        //
+        //     battlePoints[a] = Math.floor(newValue);
+        // }
 
         server.UpdatePlayerStatistics({
             "PlayFabId": currentPlayerId,
@@ -57,7 +57,7 @@ function MatchMaking() {
                 },
                 {
                     "StatisticName": "GloryPoint",
-                    "Value": gloryPoint
+                    "Value": 300
                 }
             ]
         });
