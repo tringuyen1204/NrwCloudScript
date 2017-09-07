@@ -94,20 +94,8 @@ handlers.InitData = function(args){
         }
     });
 
-    var gloryPoint = Math.floor(Math.random() * 400 + 800);
-    var battlePoint = Math.floor(gloryPoint * 10000 + 1000);
+    var gloryPoint = Math.floor(Math.random() * 2700 + 300);
 
-    server.UpdatePlayerStatistics({
-        "PlayFabId": currentPlayerId,
-        "Statistics": [
-            {
-                "StatisticName": "Battle Point",
-                "Value": battlePoint
-            },
-            {
-                "StatisticName": "Glory Point",
-                "Value": gloryPoint
-            }
-        ]
-    });
+    var m = new MatchMaking();
+    m.UpdateBattlePoint(gloryPoint);
 };
