@@ -94,8 +94,8 @@ handlers.InitData = function(args){
         }
     });
 
-    var gloryPoint = Math.random() * 400 + 800;
-    var battlePoint = gloryPoint * 10000 + 1000;
+    var gloryPoint = Math.floor(Math.random() * 400 + 800);
+    var battlePoint = Math.floor(gloryPoint * 10000 + 1000);
 
     server.UpdatePlayerStatistics({
         "PlayFabId": currentPlayerId,
