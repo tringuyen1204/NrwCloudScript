@@ -95,7 +95,7 @@ handlers.InitData = function(args){
         }
     });
 
-    var gloryPoint = 800;
+    var gloryPoint = Math.random() * 400 + 800;
     var battlePoint = gloryPoint * 10000 + 1000;
 
     server.UpdatePlayerStatistics({
