@@ -26,20 +26,18 @@ function MatchMaking() {
         //     ]
         // }).Data;
 
-        while (ranges.length > 0) {
+        for (var a = 0; a < ranges.length; a++) {
 
-            var index = Math.floor(Math.random() * ranges.length);
             var newValue;
 
             if (ranges[index] > 0) {
-                newValue = (gloryPoint + ranges[index] * 1) * 10000 + gloryPoint;
+                newValue = (gloryPoint + ranges[a] * 1) * 10000 + gloryPoint;
             }
             else {
-                newValue = (gloryPoint + ranges[index] * -8) * 10000 + gloryPoint;
+                newValue = (gloryPoint + ranges[a] * -8) * 10000 + gloryPoint;
             }
 
             battlePoints.push(Math.floor(newValue));
-            ranges.remove(index);
         }
 
         server.UpdatePlayerStatistics({
