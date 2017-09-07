@@ -17,7 +17,7 @@ function MatchMaking() {
             ranges[a] = Math.floor(ranges[a] + Math.random() * 10);
         }
 
-        var battlePoints = [];
+        var battlePoints = [1, 1, 1];
 
         // var constant = server.GetTitleData({
         //     "Keys": [
@@ -37,7 +37,7 @@ function MatchMaking() {
                 newValue = (gloryPoint + ranges[a] * -8) * 10000 + gloryPoint;
             }
 
-            battlePoints.push(Math.floor(newValue));
+            battlePoints[a] = Math.floor(newValue);
         }
 
         server.UpdatePlayerStatistics({
