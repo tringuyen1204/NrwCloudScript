@@ -86,7 +86,6 @@ handlers.InitData = function(args){
         }
     };
 
-
     server.UpdateUserReadOnlyData({
         "PlayFabId": currentPlayerId,
         "Data": {
@@ -111,5 +110,4 @@ handlers.InitData = function(args){
             }
         ]
     });
-
 };

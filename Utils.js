@@ -1,7 +1,6 @@
 /**
  * @return(diamondCost)
  */
-
 function ConvertTimeToDiamond(milisec) {
     if (milisec <= 0)
     return 0;

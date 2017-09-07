@@ -37,7 +37,6 @@ function ResBuilding(type) {
             return true;
         }
         return false;
-
     };
 
     this.Collect = function(id, date){
@@ -75,7 +74,6 @@ function ResBuilding(type) {
         if (amount > capacity){
             amount = capacity;    // product amount can't surpass capacity
         }
-
         return amount;
     };
 
@@ -97,7 +95,6 @@ function ResBuilding(type) {
         }
 
         var code = (this.Type == MARKET) ? GOLD : FOOD;
-
         var produceRate = this.CurLvlData(id).ProduceRate;
         var amount = this.ProducedResource(id, date);
 
