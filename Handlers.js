@@ -67,11 +67,6 @@ handlers.Scout = function (args) {
 // account creation handler
 handlers.InitData = function(args){
 
-    analytics.track('Clicked CTA', {
-        location: 'header',
-        type: 'button'
-    });
-
     var castle = {
         "0":{
             "Level":1,

@@ -11,13 +11,7 @@ function MatchMaking() {
     };
 
     this.UpdateBattlePoint = function (gloryPoint) {
-        var ranges = [-15, -5, 5];
-
-        for (var a = 0; a < ranges.length; a++) {
-            ranges[a] = Math.floor(ranges[a] + Math.random() * 10);
-        }
-
-        var battlePoints = [1, 1, 1];
+        var points = [-15, -5, 5];
 
         var constant = server.GetTitleInternalData({
             "Keys": [
@@ -26,20 +20,25 @@ function MatchMaking() {
             ]
         }).Data;
 
-        for (var a = 0; a < ranges.length; a++) {
+        var a;
+        for (a = 0; a < points.length; a++) {
+            points[a] = Math.floor(points[a] + Math.random() * 10);
 
-            var index = Math.floor(Math.random() * ranges.length);
-
-            var newValue;
-
-            if (ranges[a] > 0) {
-                newValue = (gloryPoint + ranges[a] * constant.MaxBattlePointCoeff) * 10000 + gloryPoint;
+            if (points[a] > 0) {
+                points[a] = (gloryPoint + points[a] * constant.MaxBattlePointCoeff) * 10000 + gloryPoint;
             }
             else {
-                newValue = (gloryPoint + ranges[a] * constant.MinBattlePointCoeff) * 10000 + gloryPoint;
+                points[a] = (gloryPoint + points[a] * constant.MinBattlePointCoeff) * 10000 + gloryPoint;
             }
+            points[a] = Math.floor(points[a]);
+        }
 
-            battlePoints[index] = Math.floor(newValue);
+        var j, x, i;
+        for (i = points.length; i; i--) {
+            j = Math.floor(Math.random() * i);
+            x = points[i - 1];
+            points[i - 1] = points[j];
+            points[j] = x;
         }
 
         server.UpdatePlayerStatistics({
@@ -47,15 +46,15 @@ function MatchMaking() {
             "Statistics": [
                 {
                     "StatisticName": "BattlePoint1",
-                    "Value": battlePoints[0]
+                    "Value": points[0]
                 },
                 {
                     "StatisticName": "BattlePoint2",
-                    "Value": battlePoints[1]
+                    "Value": points[1]
                 },
                 {
                     "StatisticName": "BattlePoint3",
-                    "Value": battlePoints[2]
+                    "Value": points[2]
                 },
                 {
                     "StatisticName": "GloryPoint",
@@ -65,3 +64,4 @@ function MatchMaking() {
         });
     }
 }
+
