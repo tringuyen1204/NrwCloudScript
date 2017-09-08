@@ -99,3 +99,14 @@ handlers.InitData = function(args){
     var m = new MatchMaking();
     m.UpdateBattlePoint(gloryPoint);
 };
+
+handlers.DeleteThisAccount = function (args) {
+    var DeleteUsersRequest = {
+        "PlayFabIds": [currentPlayerId],
+        "TitleId": "CD66"
+    };
+
+    var result = server.DeleteUsers(DeleteUsersRequest);
+
+    return JSON.stringify(result);
+}
