@@ -1,4 +1,3 @@
-
 function MatchMaking() {
 
     this.FindEnemies = function (args) {
@@ -21,11 +20,46 @@ function MatchMaking() {
 
         var a, b;
 
+
+        var curGP = 0;
+        var data;
+
+        var constant = server.GetTitleInternalData({
+            "Keys": [
+                "MinDeltaPoint",
+                "MaxDeltaPoint"
+            ]
+        }).Data;
+
+        outer_loop:
+            for (a = 0; a < result.length; a++) {
+                for (b = 0; b < result[a].Leaderboard.length; b++) {
+                    data = result[a].Leaderboard[b];
+                    if (data.PlayFabId == currentPlayerId) {
+                        curGP = data.StatValue % 10000;
+                        break outer_loop;
+                    }
+                }
+            }
+
+        var gp;
+        var delta;
+
         for (a = 0; a < result.length; a++) {
             for (b = 0; b < result[a].Leaderboard.length; b++) {
-                var data = result[a].Leaderboard[b];
-                if (!eList.hasOwnProperty(data.PlayFabId)) {
-                    eList[data.PlayFabId] = data.StatValue;
+                data = result[a].Leaderboard[b];
+
+                if (data.PlayFabId == currentPlayerId) {
+                    break;
+                }
+
+                gp = data.StatValue % 10000;
+                delta = gp - curGP;
+
+                if (constant.MinDeltaPoint <= delta && delta <= constant.MaxDeltaPoint) {
+                    if (!eList.hasOwnProperty(data.PlayFabId)) {
+                        eList[data.PlayFabId] = data.StatValue;
+                    }
                 }
             }
         }
