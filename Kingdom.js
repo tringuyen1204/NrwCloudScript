@@ -15,7 +15,8 @@ function Kingdom(){
     this.Push();
 
     return true;
-  }
+
+  };
 }
 
 Kingdom.prototype = Object.create(UserData.prototype);

@@ -19,7 +19,7 @@ function MatchMaking() {
 
         var battlePoints = [1, 1, 1];
 
-        var constant = server.GetTitleData({
+        var constant = server.GetTitleInternalData({
             "Keys": [
                 "MinBattlePointCoeff",
                 "MaxBattlePointCoeff"
