@@ -1,4 +1,6 @@
+
 function MatchMaking() {
+
     this.FindEnemies = function (args) {
         var result = [];
 
@@ -18,9 +20,7 @@ function MatchMaking() {
         var eList = {};
 
         for (var value in result) {
-
             for (var data in value.Leaderboard) {
-
                 eList[data.PlayFabId] = data.StatValue;
             }
         }
@@ -31,7 +31,7 @@ function MatchMaking() {
         var points = [-15, -5, 5];
 
         var constant = server.GetTitleInternalData({
-            "Keys: [
+            "Keys": [
                 "MinBattlePointCoeff",
                 "MaxBattlePointCoeff"
             ]
@@ -81,4 +81,3 @@ function MatchMaking() {
         });
     }
 }
-
