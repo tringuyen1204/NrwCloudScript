@@ -33,10 +33,10 @@ function MatchMaking() {
             var newValue;
 
             if (ranges[a] > 0) {
-                newValue = (gloryPoint + ranges[a] * 1) * 10000 + gloryPoint;
+                newValue = (gloryPoint + ranges[a] * constant.MaxBattlePointCoeff) * 10000 + gloryPoint;
             }
             else {
-                newValue = (gloryPoint + ranges[a] * -8) * 10000 + gloryPoint;
+                newValue = (gloryPoint + ranges[a] * constant.MinBattlePointCoeff) * 10000 + gloryPoint;
             }
 
             battlePoints[index] = Math.floor(newValue);
