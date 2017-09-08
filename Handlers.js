@@ -66,6 +66,12 @@ handlers.Scout = function (args) {
 
 // account creation handler
 handlers.InitData = function(args){
+
+    analytics.track('Clicked CTA', {
+        location: 'header',
+        type: 'button'
+    });
+
     var castle = {
         "0":{
             "Level":1,
@@ -98,11 +104,6 @@ handlers.InitData = function(args){
 
     var m = new MatchMaking();
     m.UpdateBattlePoint(gloryPoint);
-
-    analytics.track('Clicked CTA', {
-        location: 'header',
-        type: 'button'
-    });
 };
 
 handlers.DeleteThisAccount = function (args) {
