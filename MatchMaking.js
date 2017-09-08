@@ -19,9 +19,14 @@ function MatchMaking() {
 
         var eList = {};
 
-        for (var value in result) {
-            for (var data in value.Leaderboard) {
-                eList[data.PlayFabId] = data.StatValue;
+        var a, b;
+
+        for (a = 0; a < result.length; a++) {
+            for (b = 0; b < value[a].Leaderboard.length; b++) {
+                var data = value[a].Leaderboard[b];
+                if (!eList.hasOwnProperty(data.PlayFabId)) {
+                    eList[data.PlayFabId] = data.StatValue;
+                }
             }
         }
         return JSON.stringify(eList);
