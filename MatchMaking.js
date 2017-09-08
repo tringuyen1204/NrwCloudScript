@@ -40,6 +40,10 @@ function MatchMaking() {
         //     battlePoints[a] = Math.floor(newValue);
         // }
 
+        for (var a = 0; a < 3; a++) {
+            battlePoints[a] = Math.floor(ranges[a]);
+        }
+
         server.UpdatePlayerStatistics({
             "PlayFabId": currentPlayerId,
             "Statistics": [
