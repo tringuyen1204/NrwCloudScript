@@ -1,13 +1,21 @@
 function MatchMaking() {
+
     this.FindEnemies = function () {
+        var result = [];
 
-        var resultList = server.GetLeaderboardAroundUser({
-            "StatisticName": "BattlePoint",
-            "PlayFabId": currentPlayerId,
-            "MaxResultsCount": 10
-        });
+        var index;
 
-        return JSON.stringify(resultList);
+        for (index = 0; index < 3; index++) {
+
+            var statName = "BattlePoint" + (index + 1);
+
+            result[index] = server.GetLeaderboardAroundUser({
+                "StatisticName": statName,
+                "PlayFabId": currentPlayerId,
+                "MaxResultsCount": 10
+            });
+        }
+        return JSON.stringify(result);
     };
 
     this.UpdateBattlePoint = function (gloryPoint) {

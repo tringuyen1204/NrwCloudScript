@@ -67,23 +67,25 @@ handlers.Scout = function (args) {
 // account creation handler
 handlers.InitData = function(args){
 
-    var castle = {
-        "0":{
-            "Level":1,
-            "CompletedDate":0,
+    var castle;
+    castle = {
+        "0": {
+            "Level": 1,
+            "CompletedDate": 0,
             "Upgrading": false,
             "Position": "s01"
         }
     };
 
-    var resource = {
-        "Gold":{
-            "Value":1000,
-            "Max":2000
+    var resource;
+    resource = {
+        "Gold": {
+            "Value": 1000,
+            "Max": 2000
         },
-        "Food":{
-            "Value":1000,
-            "Max":2000
+        "Food": {
+            "Value": 1000,
+            "Max": 2000
         }
     };
 
@@ -100,14 +102,3 @@ handlers.InitData = function(args){
     var m = new MatchMaking();
     m.UpdateBattlePoint(gloryPoint);
 };
-
-handlers.DeleteThisAccount = function (args) {
-    var DeleteUsersRequest = {
-        "PlayFabIds": [currentPlayerId],
-        "TitleId": "CD66"
-    };
-
-    var result = server.DeleteUsers(DeleteUsersRequest);
-
-    return JSON.stringify(result);
-}
