@@ -17,7 +17,6 @@ function MatchMaking() {
         }
 
         var eList = {};
-
         var a, b;
 
 
@@ -50,7 +49,7 @@ function MatchMaking() {
                 data = result[a].Leaderboard[b];
 
                 if (data.PlayFabId == currentPlayerId) {
-                    break;
+                    continue;
                 }
 
                 gp = data.StatValue % 10000;
