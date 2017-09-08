@@ -21,9 +21,7 @@ function MatchMaking() {
 
             for (var data in value.Leaderboard) {
 
-                if (!eList.hasOwnProperty(data.PlayFabId)) {
-                    eList[data.PlayFabId] = data.StatValue;
-                }
+                eList[data.PlayFabId] = data.StatValue;
             }
         }
         return JSON.stringify(eList);
@@ -33,7 +31,7 @@ function MatchMaking() {
         var points = [-15, -5, 5];
 
         var constant = server.GetTitleInternalData({
-            "Keys": [
+            "Keys: [
                 "MinBattlePointCoeff",
                 "MaxBattlePointCoeff"
             ]
