@@ -1,5 +1,4 @@
 function MatchMaking() {
-
     this.FindEnemies = function (args) {
         var result = [];
 
@@ -15,7 +14,19 @@ function MatchMaking() {
                 "MaxResultsCount": args.MaxResultsCount
             });
         }
-        return JSON.stringify(result);
+
+        var eList = {};
+
+        for (var value in result) {
+
+            for (var data in value.Leaderboard) {
+
+                if (!eList.hasOwnProperty(data.PlayFabId)) {
+                    eList[data.PlayFabId] = data.StatValue;
+                }
+            }
+        }
+        return JSON.stringify(eList);
     };
 
     this.UpdateBattlePoint = function (gloryPoint) {
