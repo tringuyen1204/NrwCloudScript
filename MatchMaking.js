@@ -19,29 +19,27 @@ function MatchMaking() {
 
         var battlePoints = [1, 1, 1];
 
-        // var constant = server.GetTitleData({
-        //     "Keys": [
-        //         "MinBattlePointCoeff",
-        //         "MaxBattlePointCoeff"
-        //     ]
-        // }).Data;
+        var constant = server.GetTitleData({
+            "Keys": [
+                "MinBattlePointCoeff",
+                "MaxBattlePointCoeff"
+            ]
+        }).Data;
 
-        // for (var a = 0; a < ranges.length; a++) {
-        //
-        //     var newValue;
-        //
-        //     if (ranges[index] > 0) {
-        //         newValue = (gloryPoint + ranges[a] * 1) * 10000 + gloryPoint;
-        //     }
-        //     else {
-        //         newValue = (gloryPoint + ranges[a] * -8) * 10000 + gloryPoint;
-        //     }
-        //
-        //     battlePoints[a] = Math.floor(newValue);
-        // }
+        for (var a = 0; a < ranges.length; a++) {
 
-        for (var a = 0; a < 3; a++) {
-            battlePoints[a] = Math.floor(ranges[a]);
+            var index = Math.floor(Math.random() * ranges.length);
+
+            var newValue;
+
+            if (ranges[a] > 0) {
+                newValue = (gloryPoint + ranges[a] * 1) * 10000 + gloryPoint;
+            }
+            else {
+                newValue = (gloryPoint + ranges[a] * -8) * 10000 + gloryPoint;
+            }
+
+            battlePoints[index] = Math.floor(newValue);
         }
 
         server.UpdatePlayerStatistics({
