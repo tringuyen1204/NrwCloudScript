@@ -64,6 +64,10 @@ handlers.Scout = function (args) {
     return m.FindEnemies();
 };
 
+handlers.ManualScout = function (args) {
+    log.info("Hook for scout");
+};
+
 // account creation handler
 handlers.InitData = function(args){
 
