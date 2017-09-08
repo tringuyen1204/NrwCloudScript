@@ -22,8 +22,8 @@ function MatchMaking() {
         var a, b;
 
         for (a = 0; a < result.length; a++) {
-            for (b = 0; b < value[a].Leaderboard.length; b++) {
-                var data = value[a].Leaderboard[b];
+            for (b = 0; b < result[a].Leaderboard.length; b++) {
+                var data = result[a].Leaderboard[b];
                 if (!eList.hasOwnProperty(data.PlayFabId)) {
                     eList[data.PlayFabId] = data.StatValue;
                 }
