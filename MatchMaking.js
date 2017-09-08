@@ -1,6 +1,6 @@
 function MatchMaking() {
 
-    this.FindEnemies = function (maxResult) {
+    this.FindEnemies = function (args) {
         var result = [];
 
         var index;
@@ -12,7 +12,7 @@ function MatchMaking() {
             result[index] = server.GetLeaderboardAroundUser({
                 "StatisticName": statName,
                 "PlayFabId": currentPlayerId,
-                "MaxResultsCount": maxResult
+                "MaxResultsCount": args.MaxResultsCount
             });
         }
         return JSON.stringify(result);

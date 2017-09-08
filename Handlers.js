@@ -61,7 +61,7 @@ handlers.BoostTrain = function (args) {
 
 handlers.Scout = function (args) {
     var m = new MatchMaking();
-    return m.FindEnemies(20);
+    return m.FindEnemies(args);
 };
 
 // account creation handler
