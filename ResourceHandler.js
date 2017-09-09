@@ -42,16 +42,15 @@ function ResHandler(){
         var resInfo = {};
 
         var goldHandler = CreateBuilding(MARKET);
-        resInfo[GOLD] = this.Data[GOLD].Value;
-        resInfo[GOLD] += goldHandler.AllResource(date);
+        resInfo[GOLD] = 0.25 * this.Data[GOLD].Value;
+        resInfo[GOLD] += 0.5 * goldHandler.AllResource(date);
 
         var foodHandler = CreateBuilding(FARM);
-        resInfo[FOOD] = this.Data[FOOD].Value;
-        resInfo[FOOD] += foodHandler.AllResource(date);
+        resInfo[FOOD] = 0.25 * this.Data[FOOD].Value;
+        resInfo[FOOD] += 0.5 * foodHandler.AllResource(date);
 
         return resInfo;
     };
 }
 
 ResHandler.prototype = Object.create(UserData.prototype);
-ResHandler.prototype.constructor = UserData;
