@@ -7,7 +7,7 @@ function MatchMaking() {
 
         for (index = 0; index < 3; index++) {
 
-            let statName = "BattlePoint" + (index + 1);
+            var statName = "BattlePoint" + (index + 1);
 
             result[index] = server.GetLeaderboardAroundUser({
                 "StatisticName": statName,

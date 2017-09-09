@@ -13,6 +13,9 @@ function UserData(Key){
         this.Data = {};
     }
 
+    /**
+     * @returns {number}
+     */
     this.ServerTime = function() {
         return Date.now();
     };
@@ -28,9 +31,11 @@ function UserData(Key){
         });
     };
 
+    /**
+     * @returns {data}
+     */
     this.Get = function (id) {
-
-        if ( this.Data[id] == null ) {
+        if (this.Data[id] === null) {
             return null;
         }
         return this.Data[id];

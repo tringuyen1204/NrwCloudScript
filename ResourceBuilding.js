@@ -24,10 +24,14 @@ function ResBuilding(type) {
         }
     };
 
+
+    /**
+     * @returns {boolean}
+     */
     this.Upgrade = function (id, date) {
         this.TryCollect(id, date);
 
-        if (this.Get(id) == null){
+        if (this.Get(id) === null) {
             log.error("Error: " + this.Type + id + " doesn't exist!");
             return false;
         }
@@ -59,7 +63,7 @@ function ResBuilding(type) {
 
         var bData = this.Get(id);
 
-        if (bData == null || bData.Level == 0 || bData.Upgrading) {
+        if (bData === null || bData.Level === 0 || bData.Upgrading) {
             return 0;
         }
 
@@ -67,7 +71,7 @@ function ResBuilding(type) {
         var workingTime = ( date - bData.CollectDate ) / ONE_HOUR;
         var amount = Math.floor( workingTime * produceRate );
 
-        var code = (this.Type == MARKET) ? GOLD : FOOD;
+        var code = (this.Type === MARKET) ? GOLD : FOOD;
 
         var capacity = this.CurLvlData(id)[code+"Capacity"]; // GoldCapacity or FoodCapacity
 
@@ -77,24 +81,31 @@ function ResBuilding(type) {
         return amount;
     };
 
+    /**
+     * @returns {number}
+     */
     this.AllResource = function (date) {
 
         var total = 0;
-        for (key in this.Data) {
-            total += this.ProducedResource(key, date);
+        var k;
+        for (k in this.Data) {
+            total += this.ProducedResource(k, date);
         }
         return total;
     };
 
+    /**
+     * @returns {boolean}
+     */
     this.TryCollect = function (id, date) {
 
         var bData = this.Get(id);
 
-        if (bData == null || bData.Level == 0 || bData.Upgrading) {
+        if (bData === null || bData.Level === 0 || bData.Upgrading) {
             return false;
         }
 
-        var code = (this.Type == MARKET) ? GOLD : FOOD;
+        var code = (this.Type === MARKET) ? GOLD : FOOD;
         var produceRate = this.CurLvlData(id).ProduceRate;
         var amount = this.ProducedResource(id, date);
 

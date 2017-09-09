@@ -2,7 +2,7 @@ function ResHandler(){
   UserData.call(this, "Resource");
 
   this.ValueOf = function(code){
-    if (this.Data[code] == null){
+      if (this.Data[code] === null) {
         this.Data[code] = {
             "Value":0,
             "Max":0
@@ -12,7 +12,7 @@ function ResHandler(){
   };
 
   this.MaxOf = function(code){
-    if (this.Data[code] == null){
+      if (this.Data[code] === null) {
          this.Data[code] = {
             "Value":0,
             "Max":0
