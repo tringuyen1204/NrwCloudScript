@@ -1,13 +1,13 @@
 function MatchMaking() {
 
     this.FindEnemies = function (args) {
-        var result = [];
+        let result = [];
 
-        var index;
+        let index;
 
         for (index = 0; index < 3; index++) {
 
-            var statName = "BattlePoint" + (index + 1);
+            let statName = "BattlePoint" + (index + 1);
 
             result[index] = server.GetLeaderboardAroundUser({
                 "StatisticName": statName,
@@ -16,52 +16,25 @@ function MatchMaking() {
             });
         }
 
-        var eList = {};
-        var a, b;
+        let eList = {};
+        let a, b;
 
-
-        var curGP = 0;
-        var data;
-
-        var constant = server.GetTitleInternalData({
-            "Keys": [
-                "MinDeltaPoint",
-                "MaxDeltaPoint"
-            ]
-        }).Data;
-
-        outer_loop:
-            for (a = 0; a < result.length; a++) {
-                for (b = 0; b < result[a].Leaderboard.length; b++) {
-                    data = result[a].Leaderboard[b];
-                    if (data.PlayFabId == currentPlayerId) {
-                        curGP = data.StatValue % 10000;
-                        break outer_loop;
-                    }
-                }
-            }
-
-        var gp;
-        var delta;
+        let data;
 
         for (a = 0; a < result.length; a++) {
             for (b = 0; b < result[a].Leaderboard.length; b++) {
                 data = result[a].Leaderboard[b];
 
-                if (data.PlayFabId == currentPlayerId) {
+                if (data.PlayFabId === currentPlayerId) {
                     continue;
                 }
 
-                gp = data.StatValue % 10000;
-                delta = gp - curGP;
-
-                if (constant.MinDeltaPoint <= delta && delta <= constant.MaxDeltaPoint) {
-                    if (!eList.hasOwnProperty(data.PlayFabId)) {
-                        eList[data.PlayFabId] = data.StatValue;
-                    }
+                if (!eList.hasOwnProperty(data.PlayFabId)) {
+                    eList[data.PlayFabId] = data.StatValue;
                 }
             }
         }
+
         return JSON.stringify(eList);
     };
 
