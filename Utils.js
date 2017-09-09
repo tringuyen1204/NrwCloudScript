@@ -34,7 +34,7 @@ function SpendCurrency(code, qty){
         "PlayFabId": currentPlayerId
     }).VirtualCurrency;
 
-    if (vcBalances != null
+    if (vcBalances !== null
         && vcBalances.hasOwnProperty(code)
         && vcBalances[code] >= qty){
         ChangeCurrency(vcBalances, code, -qty);
@@ -45,7 +45,7 @@ function SpendCurrency(code, qty){
 
 function ChangeCurrency(vcBalances, code, qty)
 {
-	if(vcBalances != null
+    if (vcBalances !== null
     && vcBalances.hasOwnProperty(code)
     && (vcBalances[code] + qty >= 0) )
 	{

@@ -1,3 +1,6 @@
+/**
+ * @returns {string}
+ */
 handlers.ServerTime = function (args) {
     return String(Date.now());
 };
@@ -31,7 +34,7 @@ handlers.BoostBuilding = function (args) {
 // farm + market handlers
 handlers.Collect = function (args) {
     var resB = new CreateBuilding(args.type);
-    if (args.id == null) {
+    if (args.id === null) {
         resB.CollectAll( Number(args.date) );
     } else {
         resB.Collect(args.id, Number(args.date) );
