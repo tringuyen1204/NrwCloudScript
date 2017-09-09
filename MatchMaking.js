@@ -3,7 +3,7 @@ function MatchMaking() {
     this.FindEnemies = function (args) {
         var result = [];
 
-        let index;
+        var index;
 
         for (index = 0; index < 3; index++) {
 
@@ -16,10 +16,10 @@ function MatchMaking() {
             });
         }
 
-        let eList = {};
-        let a, b;
+        var eList = {};
+        var a, b;
 
-        let data;
+        var data;
 
         for (a = 0; a < result.length; a++) {
             for (b = 0; b < result[a].Leaderboard.length; b++) {
