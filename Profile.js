@@ -35,8 +35,8 @@ function Profile() {
         var sData = sampleData[k];
 
         data[CASTLE] = castle;
-        data[FARM] = this.GenerateFarmData(sData);
-        data[MARKET] = this.GenerateFarmData(sData);
+        data[FARM] = this.GenerateProductionData(sData);
+        data[MARKET] = this.GenerateProductionData(sData);
         data[GOLD_STORAGE] = this.GenerateStorageData(sData);
         data[FOOD_STORAGE] = this.GenerateStorageData(sData);
 
