@@ -6,7 +6,7 @@ function Profile() {
             "Keys": [
                 "DataSample"
             ]
-        }).Data;
+        }).Data["DataSample"];
 
         log.info(JSON.stringify(sampleData));
 
