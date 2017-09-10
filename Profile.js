@@ -8,8 +8,6 @@ function Profile() {
             ]
         }).Data["DataSample"];
 
-        log.info(JSON.stringify(sampleData));
-
         var castle, farm, market, goldStorage, foodStorage;
 
         var random = Math.randomBetween(0, 1000);
@@ -17,6 +15,7 @@ function Profile() {
         var key;
 
         for (key in sampleData) {
+            log.info(key + " : " + JSON.stringify(sampleData[key]));
             if (sampleData[key].SpawnRate[0] <= random && random < sampleData[key].SpawnRate[1]) {
                 break;
             }
