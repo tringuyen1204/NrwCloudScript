@@ -8,7 +8,7 @@ function Profile() {
             ]
         }).Data;
 
-        return sampleData;
+        log.info(JSON.stringify(sampleData));
 
         var castle, farm, market, goldStorage, foodStorage;
 
