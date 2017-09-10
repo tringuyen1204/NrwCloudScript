@@ -6,7 +6,7 @@ function Profile() {
             "Keys": [
                 "DataSample"
             ]
-        });
+        }).Data;
 
         var castle, farm, market, goldStorage, foodStorage;
 
