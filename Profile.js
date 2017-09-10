@@ -8,6 +8,8 @@ function Profile() {
             ]
         }).Data;
 
+        return sampleData;
+
         var castle, farm, market, goldStorage, foodStorage;
 
         var random = Math.randomBetween(0, 1000);
