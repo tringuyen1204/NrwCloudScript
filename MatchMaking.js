@@ -1,5 +1,4 @@
 function MatchMaking() {
-
     this.FindEnemies = function (args) {
         var result = [];
 

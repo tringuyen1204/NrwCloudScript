@@ -70,38 +70,41 @@ handlers.Scout = function (args) {
 // account creation handler
 handlers.InitData = function(args){
 
-    var castle;
-    castle = {
-        "0": {
-            "Level": 1,
-            "CompletedDate": 0,
-            "Upgrading": false,
-            "Position": "s01"
-        }
-    };
+    var p = new Profile();
+    p.Init();
 
-    var resource;
-    resource = {
-        "Gold": {
-            "Value": 1000,
-            "Max": 2000
-        },
-        "Food": {
-            "Value": 1000,
-            "Max": 2000
-        }
-    };
-
-    server.UpdateUserReadOnlyData({
-        "PlayFabId": currentPlayerId,
-        "Data": {
-            "Castle": JSON.stringify(castle),
-            "Resource": JSON.stringify(resource)
-        }
-    });
-
-    var gloryPoint = Math.floor(Math.random() * 2700 + 300);
-
-    var m = new MatchMaking();
-    m.UpdateBattlePoint(gloryPoint);
+    // var castle;
+    // castle = {
+    //     "0": {
+    //         "Level": 1,
+    //         "CompletedDate": 0,
+    //         "Upgrading": false,
+    //         "Position": "s01"
+    //     }
+    // };
+    //
+    // var resource;
+    // resource = {
+    //     "Gold": {
+    //         "Value": 1000,
+    //         "Max": 2000
+    //     },
+    //     "Food": {
+    //         "Value": 1000,
+    //         "Max": 2000
+    //     }
+    // };
+    //
+    // server.UpdateUserReadOnlyData({
+    //     "PlayFabId": currentPlayerId,
+    //     "Data": {
+    //         "Castle": JSON.stringify(castle),
+    //         "Resource": JSON.stringify(resource)
+    //     }
+    // });
+    //
+    // var gloryPoint = Math.floor(Math.random() * 2700 + 300);
+    //
+    // var m = new MatchMaking();
+    // m.UpdateBattlePoint(gloryPoint);
 };

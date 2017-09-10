@@ -24,7 +24,6 @@ function ResBuilding(type) {
         }
     };
 
-
     /**
      * @returns {boolean}
      */

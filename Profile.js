@@ -1,9 +1,7 @@
 function Profile() {
 
     this.Init = function () {
-
         var data = {};
-
         var sampleData = server.GetTitleInternalData({
             "Keys": [
                 "DataSample"
@@ -55,6 +53,10 @@ function Profile() {
             "Data": data
         });
 
+        var gloryPoint = Math.randomBetween(sData.GloryPoint[0], sData.GloryPoint[1]);
+
+        var m = new MatchMaking();
+        m.UpdateBattlePoint(gloryPoint);
     };
 
     this.GenerateProductionData = function (args) {
