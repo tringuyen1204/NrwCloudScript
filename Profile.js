@@ -12,25 +12,26 @@ function Profile() {
 
         var random = Math.randomBetween(0, 1000);
 
-        var key;
+        var k;
 
-        for (key in sampleData) {
-            log.info(key + " : " + JSON.stringify(sampleData[key]));
-            if (sampleData[key].SpawnRate[0] <= random && random < sampleData[key].SpawnRate[1]) {
+        for (k in sampleData) {
+            var d = sampleData[k];
+            log.info(k + " : " + JSON.stringify(d));
+            if (d.SpawnRate[0] <= random && random < d.SpawnRate[1]) {
                 break;
             }
         }
 
         castle = {
             "0": {
-                "Level": Number(key),
+                "Level": Number(k),
                 "CompletedDate": 0,
                 "Upgrading": false,
                 "Position": "s01"
             }
         };
 
-        var sData = sampleData[key];
+        var sData = sampleData[k];
 
         data[CASTLE] = castle;
         data[FARM] = this.GenerateFarmData(sData);
