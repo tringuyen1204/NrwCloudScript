@@ -15,7 +15,7 @@ function Profile() {
         var key;
 
         for (key in sampleData) {
-            if (sampleData[key].SpawnRate[0] <= random && random < sampleData[key].SpawRate[1]) {
+            if (sampleData[key].SpawnRate[0] <= random && random < sampleData[key].SpawnRate[1]) {
                 break;
             }
         }
