@@ -2,7 +2,7 @@ function Profile() {
 
     this.Init = function () {
         var data = {};
-        var sampleData = server.GetTitleInternalData({
+        var sampleString = server.GetTitleInternalData({
             "Keys": [
                 "DataSample"
             ]
@@ -14,9 +14,10 @@ function Profile() {
 
         var k;
 
+        var sampleData = JSON.parse(sampleString);
+
         for (k in sampleData) {
             var d = sampleData[k];
-            log.info(k + " : " + JSON.stringify(d));
             if (d.SpawnRate[0] <= random && random < d.SpawnRate[1]) {
                 break;
             }
