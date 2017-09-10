@@ -34,13 +34,15 @@ function Profile() {
 
         var sData = sampleData[k];
 
-        data[CASTLE] = castle;
-        data[FARM] = this.GenerateProductionData(sData);
-        data[MARKET] = this.GenerateProductionData(sData);
-        data[GOLD_STORAGE] = this.GenerateStorageData(sData);
-        data[FOOD_STORAGE] = this.GenerateStorageData(sData);
+        var building = {};
 
-        data["Resource"] = {
+        building[CASTLE] = castle;
+        building[FARM] = this.GenerateProductionData(sData);
+        building[MARKET] = this.GenerateProductionData(sData);
+        building[GOLD_STORAGE] = this.GenerateStorageData(sData);
+        building[FOOD_STORAGE] = this.GenerateStorageData(sData);
+
+        var res = {
             Gold: {
                 Value: 1000,
                 Max: 10000
@@ -53,7 +55,10 @@ function Profile() {
 
         server.UpdateUserReadOnlyData({
             "PlayFabId": currentPlayerId,
-            "Data": data
+            "Data": {
+                "Building": JSON.stringify(building),
+                "Resource": JSON.stringify(res)
+            }
         });
 
         var gloryPoint = Math.randomBetween(sData.GloryPoint[0], sData.GloryPoint[1]);
