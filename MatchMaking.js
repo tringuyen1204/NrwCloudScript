@@ -40,22 +40,15 @@ function MatchMaking() {
     this.UpdateBattlePoint = function (gloryPoint) {
         var points = [-15, -5, 5];
 
-        var constant = server.GetTitleInternalData({
-            "Keys": [
-                "MinBattlePointCoeff",
-                "MaxBattlePointCoeff"
-            ]
-        }).Data;
-
         var a;
         for (a = 0; a < points.length; a++) {
             points[a] = Math.floor(points[a] + Math.random() * 10);
 
             if (points[a] > 0) {
-                points[a] = (gloryPoint + points[a] * constant.MaxBattlePointCoeff) * 10000 + gloryPoint;
+                points[a] = (gloryPoint + points[a] * 1) * 10000 + gloryPoint;
             }
             else {
-                points[a] = (gloryPoint + points[a] * constant.MinBattlePointCoeff) * 10000 + gloryPoint;
+                points[a] = (gloryPoint + points[a] * -8) * 10000 + gloryPoint;
             }
             points[a] = Math.floor(points[a]);
         }
