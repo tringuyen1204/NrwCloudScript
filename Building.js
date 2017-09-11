@@ -1,7 +1,7 @@
 function Building(playerId) {
-    this.PlayerId = playerId !== null ? playerId : currentPlayerId;
+    //this.PlayerId = playerId !== null ? playerId : currentPlayerId;
     this.Handlers = {};
-    UserData.call(this, "Building", this.PlayerId);
+    UserData.call(this, "Building");
 
     this.GetHandler = function (type) {
         if (this.Handlers.hasOwnProperty(type)) {
