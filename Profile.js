@@ -1,5 +1,4 @@
 function Profile() {
-
     this.Init = function () {
 
         var sampleString = server.GetTitleInternalData({

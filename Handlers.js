@@ -15,7 +15,7 @@ handlers.Scout = function (args) {
     return b.GetRaidInfo(args);
 };
 
-handlers.FindEnemiesEnemies = function (args) {
+handlers.FindEnemies = function (args) {
     var m = new MatchMaking();
     return m.FindEnemies(args);
 };

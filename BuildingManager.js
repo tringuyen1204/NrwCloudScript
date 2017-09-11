@@ -69,7 +69,7 @@ function BuildingManager(playerId) {
             return Date.now();
         }
         return Number(args.date);
-    }
+    };
 
     this.GetRaidInfo = function (args) {
         var date = this.GetDate(args);
