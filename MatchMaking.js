@@ -26,6 +26,7 @@ function MatchMaking() {
         var a, b;
 
         var retData = {};
+        retData.Info = {};
         retData.List = eList;
 
         var data;
