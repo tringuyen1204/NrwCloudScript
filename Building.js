@@ -62,6 +62,8 @@ function Building(playerId) {
     };
 }
 
+Building.prototype = Object.create(UserData.prototype);
+
 // inherit UserData
 function BuildingHandler(type) {
     this.Type = type;
