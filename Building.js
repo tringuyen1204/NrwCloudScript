@@ -27,13 +27,16 @@ function Building() {
     };
 
     this.Upgrade = function (args) {
+        args = this.Check(args);
         var handler = this.GetHandler(args.type);
+
         if (handler.Upgrade(args.id, Number(args.date))) {
             this.Push();
         }
     };
 
     this.Build = function (args) {
+        args = this.Check(args);
         var handler = this.GetHandler(args.type);
         if (handler.Build(args.id, Number(args.date), args.position)) {
             this.Push();
@@ -41,6 +44,7 @@ function Building() {
     };
 
     this.CompleteUpdate = function (args) {
+        args = this.Check(args);
         var handler = this.GetHandler(args.type);
         if (handler.CompleteUpdate(args.id, Number(args.date))) {
             this.Push();
@@ -48,6 +52,7 @@ function Building() {
     };
 
     this.BoostBuilding = function (args) {
+        args = this.Check(args);
         var handler = this.GetHandler(args.type);
         if (handler.BoostBuilding(args.id, Number(args.date))) {
             this.Push();
@@ -55,11 +60,19 @@ function Building() {
     };
 
     this.Collect = function (args) {
+        args = this.Check(args);
         var handler = this.GetHandler(args.type);
         if (handler.BoostBuilding(args.id, Number(args.date))) {
             this.Push();
         }
     };
+
+    this.Check = function (args) {
+        if (!args.hasOwnProperty("date")) {
+            args.date = Date.now();
+        }
+        return args;
+    }
 }
 
 Building.prototype = Object.create(UserData.prototype);
