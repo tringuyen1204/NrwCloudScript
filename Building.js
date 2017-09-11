@@ -23,7 +23,6 @@ function Building() {
         }
 
         this.Handlers[type].Data = this.Data[type];
-        log.info(JSON.stringify(this.Handlers[type].Data));
         return this.Handlers[type];
     };
 
@@ -261,11 +260,13 @@ function BuildingHandler(type) {
      * @returns {data}
      */
     this.Get = function (id) {
-        if (this.Data[id] === null) {
+        if (this.Data.hasOwnProperty(id)) {
+            return this.Data[id];
+        }
+        else {
             return null;
         }
-        return this.Data[id];
-    }
+    };
 
     /**
      * @returns {number}
