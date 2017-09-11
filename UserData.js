@@ -1,10 +1,12 @@
-function UserData(Key) {
+function UserData(Key, playerId) {
+
+    this.PlayerId = playerId !== null ? playerId : currentPlayerId;
     this.Key = Key;
 
     var id = currentPlayerId;
 
     var rawData = server.GetUserReadOnlyData({
-        "PlayFabId": id,
+        "PlayFabId": this.PlayerId,
         "Keys": [this.Key]
     }).Data;
 
