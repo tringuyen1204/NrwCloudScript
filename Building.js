@@ -1,9 +1,70 @@
-// inherit UserData
-function Building(type) {
+function Building(playerId) {
+    this.PlayerId = playerId !== null ? playerId : currentPlayerId;
+    this.Handlers = {};
+    UserData.call(this, "Building", this.PlayerId);
 
+    this.GetHandler = function (type) {
+        if (this.Handlers.hasOwnProperty(type)) {
+            return this.Handlers[type];
+        }
+        else {
+            switch (type) {
+                case MARKET:
+                case FARM:
+                    this.Handlers[type] = new ResBuilding(type);
+                    break;
+                case BARRACK:
+                    this.Handlers[type] = new Barrack(type);
+                    break;
+                default:
+                    this.Handlers[type] = new BuildingHandler(type);
+                    break;
+            }
+        }
+
+        this.Handlers[type].Data = this.Data[type];
+        return this.Handlers[type];
+    };
+
+    this.Upgrade = function (args) {
+        var handler = this.GetHandler(args.type);
+        if (handler.Upgrade(args.id, Number(args.date))) {
+            this.Push();
+        }
+    };
+
+    this.Build = function (args) {
+        var handler = this.GetHandler(args.type);
+        if (handler.Build(args.id, Number(args.date), args.position)) {
+            this.Push();
+        }
+    };
+
+    this.CompleteUpdate = function (args) {
+        var handler = this.GetHandler(args.type);
+        if (handler.CompleteUpdate(args.id, Number(args.date))) {
+            this.Push();
+        }
+    };
+
+    this.BoostBuilding = function (args) {
+        var handler = this.GetHandler(args.type);
+        if (handler.BoostBuilding(args.id, Number(args.date))) {
+            this.Push();
+        }
+    };
+
+    this.Collect = function (args) {
+        var handler = this.GetHandler(args.type);
+        if (handler.BoostBuilding(args.id, Number(args.date))) {
+            this.Push();
+        }
+    };
+}
+
+// inherit UserData
+function BuildingHandler(type) {
     this.Type = type;
-    UserData.call(this, type);
-    // default value
 
     this.GetMasterData = function() {
         if (!("_masterData" in this)) {
@@ -56,23 +117,6 @@ function Building(type) {
      */
     this.Upgrade = function(id, date){
 
-        if (this.Get(id) === null) {
-            log.error("Error: " + this.Type + id + " doesn't exist!");
-            return false;
-        }
-
-        if ( this.TryUpgrade(id, date) ){
-            this.Push();
-            return true;
-        }
-        return false;
-    };
-
-    /**
-     * @returns {boolean}
-     */
-    this.TryUpgrade = function(id, date){
-
         if (this.Get(id).Upgrading){
             log.error("Error: " + this.Type + id + " is already upgrading!");
             return false;
@@ -81,7 +125,7 @@ function Building(type) {
         if (this.Type === CASTLE) {
         }
         else {
-            var castle = new Building(CASTLE);
+            var castle = new BuildingHandler(CASTLE);
             if ( Number(id) > castle.CurLvlData("0")[this.Type+"Limit"] ){
                 return false;
             }
@@ -154,13 +198,14 @@ function Building(type) {
         var kingdom = new Kingdom();
         kingdom.AddExp(this.CurLvlData(id).ExpGain);
 
-        this.Push();
-
         if (this.Type === GOLD_STORAGE || this.Type === FOOD_STORAGE) {
             this.RefreshStorageCap();
         }
     };
 
+    /**
+     * @returns {boolean}
+     */
     this.BoostBuilding = function(id, date) {
 
         if (this.Completed(id)) {
@@ -171,9 +216,10 @@ function Building(type) {
             var diamondNeed = ConvertTimeToDiamond(remainTime);
 
             if (SpendCurrency(DIAMOND, diamondNeed)) {
-                this.CompleteUpgrade(id, date);
+                return this.CompleteUpgrade(id, date);
             }
         }
+        return false;
     };
 
     /**
@@ -183,11 +229,10 @@ function Building(type) {
         return this.Get(id).CompletedDate <= this.ServerTime();
     };
 
-    this.RefreshStorageCap = function () {
-        var code = FOOD;
+    this.RefreshStorageCap = function (code) {
 
-        if (this.Type === GOLD_STORAGE) {
-            code = GOLD;
+        if (code === null) {
+            code = this.Type === GOLD_STORAGE ? GOLD : FOOD;
         }
 
         var newMax = 0;
@@ -198,7 +243,9 @@ function Building(type) {
 
         var k;
         for (k in this.Data) {
-            newMax += this.CurLvlData(k)[code + "Capacity"];
+            if (this.Data.hasOwnProperty(k)) {
+                newMax += this.CurLvlData(k)[code + "Capacity"];
+            }
         }
 
         log.info("New " + code + " capacity = " + newMax );
@@ -206,19 +253,4 @@ function Building(type) {
         var resMan = new ResHandler();
         resMan.SetMax(code ,newMax);
     };
-}
-
-Building.prototype = Object.create(UserData.prototype);
-
-function CreateBuilding(type) {
-
-    switch (type) {
-        case MARKET:
-        case FARM:
-            return new ResBuilding(type);
-        case BARRACK:
-            return new Barrack(type);
-        default:
-            return new Building(type);
-    }
 }

@@ -7,62 +7,57 @@ handlers.ServerTime = function (args) {
 
 // normal building handlers
 handlers.Upgrade = function(args){
-    var b = CreateBuilding(args.type);
-    b.Upgrade(args.id, Number(args.date) );
+    var b = new Building();
+    b.Upgrade(args);
 };
 
 handlers.Build = function (args) {
-    var b = CreateBuilding(args.type);
+    var b = CreateHandler(args.type);
     b.Build(args.id, Number(args.date), args.position );
 };
 
 handlers.CompleteBuilding = function (args) {
-    var b = CreateBuilding(args.type);
-    if (b.Completed(args.id)) {
-        b.CompleteUpgrade(args.id, Number(args.date));
-    }
-    else {
-        log.error("This building is not completed");
-    }
+    var b = new Building();
+    b.CompleteUpgrade(args);
 };
 
 handlers.BoostBuilding = function (args) {
-    var b = CreateBuilding(args.type);
-    b.BoostBuilding(args.id,  Number(args.date) );
+    var b = new Building();
+    b.BoostBuilding(args);
 };
 
 // farm + market handlers
 handlers.Collect = function (args) {
-    var resB = new CreateBuilding(args.type);
-    if (args.id === null) {
-        resB.CollectAll( Number(args.date) );
-    } else {
-        resB.Collect(args.id, Number(args.date) );
-    }
+    var b = new Building();
+    b.Collect(args);
 };
 
 // troop handlers
 handlers.ChangeTroop = function (args) {
-    var b = CreateBuilding(BARRACK);
+    var b = CreateHandler(BARRACK);
     b.ChangeTroop(args.id, Number(args.date), args.troopType);
 };
 
 handlers.KillTroop = function (args) {
-    var b = CreateBuilding(BARRACK);
+    var b = CreateHandler(BARRACK);
     b.KillTroop(args.id, Number(args.date), Number(args.amount));
 };
 
 handlers.BoostTrainAll = function (args) {
-    var b = CreateBuilding(BARRACK);
+    var b = CreateHandler(BARRACK);
     b.BoostTrainAll(Number(args.date));
 };
 
 handlers.BoostTrain = function (args) {
-    var b = CreateBuilding(BARRACK);
+    var b = CreateHandler(BARRACK);
     b.BoostTrain(args.id, Number(args.date));
 };
 
 handlers.Scout = function (args) {
+
+};
+
+handlers.FindEnemiesEnemies = function (args) {
     var m = new MatchMaking();
     return m.FindEnemies(args);
 };
