@@ -1,7 +1,7 @@
 function MatchMaking() {
     this.FindEnemies = function (args) {
 
-        var maxCount = args == null ? 10 : args.MaxResultsCount;
+        var maxCount = args === null ? 10 : args.MaxResultsCount;
 
         var result = [];
 
@@ -21,6 +21,9 @@ function MatchMaking() {
         var eList = {};
         var a, b;
 
+        var retData = {};
+        retData.List = eList;
+
         var data;
 
         for (a = 0; a < result.length; a++) {
@@ -28,6 +31,9 @@ function MatchMaking() {
                 data = result[a].Leaderboard[b];
 
                 if (data.PlayFabId === currentPlayerId) {
+                    if (retData.MyBattlePoint === null) {
+                        retData.MyBattlePoint = data.StatValue;
+                    }
                     continue;
                 }
 
@@ -37,11 +43,13 @@ function MatchMaking() {
             }
         }
 
-        return JSON.stringify(eList);
+        return JSON.stringify(retData);
     };
 
     this.UpdateBattlePoint = function (gloryPoint) {
         var points = [-15, -5, 5];
+
+        var elo = Math.randomBetween(0, 9);
 
         var a;
         for (a = 0; a < points.length; a++) {
@@ -53,7 +61,7 @@ function MatchMaking() {
             else {
                 points[a] = (gloryPoint + points[a] * -8) * 10000 + gloryPoint;
             }
-            points[a] = Math.floor(points[a]);
+            points[a] = Math.floor(points[a] * 10 + elo);
         }
 
         var j, x, i;
