@@ -9,6 +9,8 @@ function UserData(Key, playerId) {
         "Keys": [this.Key]
     }).Data;
 
+    log.info(rawData[this.Key].Value);
+
     if (rawData.hasOwnProperty(this.Key)) {
         this.Data = JSON.parse(rawData[this.Key].Value);
     }
