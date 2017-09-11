@@ -73,7 +73,8 @@ function Profile() {
             "Data": {
                 "Building": JSON.stringify(building),
                 "Resource": JSON.stringify(res)
-            }
+            },
+            "Permission": "public"
         });
 
         var gloryPoint = Math.randomBetween(sData.GloryPoint[0], sData.GloryPoint[1]);
