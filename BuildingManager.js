@@ -1,8 +1,7 @@
 function BuildingManager(playerId) {
 
-    this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
     this.Handlers = {};
-    UserData.call(this, "BuildingManager", this.PlayerId);
+    UserData.call(this, "BuildingManager", playerId);
 
     this.Execute = function (args) {
         var date = this.GetDate(args);
@@ -47,7 +46,7 @@ function BuildingManager(playerId) {
             switch (type) {
                 case MARKET:
                 case FARM:
-                    this.Handlers[type] = new ResBuilding(type);
+                    this.Handlers[type] = new ResourceBuilding(type);
                     break;
                 case BARRACK:
                     this.Handlers[type] = new Barrack(type);
@@ -65,7 +64,7 @@ function BuildingManager(playerId) {
      * @returns {number}
      */
     this.GetDate = function (args) {
-        if (args === null || !args.hasOwnProperty("date")) {
+        if (args === null || args === undefined || !args.hasOwnProperty("date")) {
             return Date.now();
         }
         return Number(args.date);

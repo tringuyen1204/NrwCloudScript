@@ -1,9 +1,8 @@
 function UserData(Key, playerId) {
 
     this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
+    log.info("get player id = " + this.PlayerId)
     this.Key = Key;
-
-    var id = currentPlayerId;
 
     var rawData = server.GetUserReadOnlyData({
         "PlayFabId": this.PlayerId,

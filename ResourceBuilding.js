@@ -1,4 +1,4 @@
-function ResBuilding(type) {
+function ResourceBuilding(type) {
     Building.call(this, type);
 
     this.CompleteUpgrade = function(id, date) {
@@ -87,8 +87,6 @@ function ResBuilding(type) {
         var total = 0;
         var k;
 
-        log.info(JSON.stringify(this.Data));
-
         for (k in this.Data) {
             if (this.Data.hasOwnProperty(k)) {
                 total += this.ProducedResource(k, date);
@@ -139,4 +137,4 @@ function ResBuilding(type) {
     };
 }
 
-ResBuilding.prototype = Object.create(Building.prototype);
+ResourceBuilding.prototype = Object.create(Building.prototype);

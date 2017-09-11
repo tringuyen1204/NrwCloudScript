@@ -1,5 +1,5 @@
-function ResHandler(){
-  UserData.call(this, "Resource");
+function ResHandler(playerId) {
+    UserData.call(this, "Resource", playerId);
 
   this.ValueOf = function(code){
       if (this.Data[code] === null) {
