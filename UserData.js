@@ -3,6 +3,8 @@ function UserData(Key, playerId) {
     this.PlayerId = playerId !== null ? playerId : currentPlayerId;
     this.Key = Key;
 
+    log.info("id = " + this.PlayerId);
+
     var id = currentPlayerId;
 
     var rawData = server.GetUserReadOnlyData({
