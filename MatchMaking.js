@@ -38,7 +38,8 @@ function MatchMaking() {
 
                 if (data.PlayFabId === currentPlayerId) {
                     if (!retData.hasOwnProperty("MyBattlePoint")) {
-                        curGP = Math.floor(retData.StatValue % 10000 / 10);
+                        curGP = Math.floor(retData.StatValue) % 10000 / 10;
+
                         retData.MyBattlePoint = {
                             GP: curGP,
                             E: retData.StatValue % 100000000
@@ -49,7 +50,7 @@ function MatchMaking() {
 
                 if (!eList.hasOwnProperty(data.PlayFabId)) {
 
-                    var GP = Math.floor(retData.StatValue % 10000 / 10);
+                    var GP = Math.floor(retData.StatValue) % 10000 / 10;
                     var delta = GP - curGP;
 
                     var newData = {
