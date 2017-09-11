@@ -1,6 +1,9 @@
 function MatchMaking() {
     this.FindEnemies = function (args) {
 
+        var minDelta = -200;
+        var maxDelta = 100;
+
         var maxCount = 20;
         maxCount = args === null ? maxCount : args.MaxResultsCount;
 
@@ -27,19 +30,36 @@ function MatchMaking() {
 
         var data;
 
+        var curGP;
+
         for (a = 0; a < result.length; a++) {
             for (b = 0; b < result[a].Leaderboard.length; b++) {
                 data = result[a].Leaderboard[b];
 
                 if (data.PlayFabId === currentPlayerId) {
                     if (!retData.hasOwnProperty("MyBattlePoint")) {
-                        retData.MyBattlePoint = data.StatValue;
+                        curGP = Math.floor(retData.StatValue % 10000 / 10);
+                        retData.MyBattlePoint = {
+                            GP: curGP,
+                            E: retData.StatValue % 100000000
+                        }
                     }
                     continue;
                 }
 
                 if (!eList.hasOwnProperty(data.PlayFabId)) {
-                    eList[data.PlayFabId] = data.StatValue;
+
+                    var GP = Math.floor(retData.StatValue % 10000 / 10);
+                    var delta = GP - curGP;
+
+                    var newData = {
+                        GP: GP,
+                        E: retData.StatValue % 100000000,
+                        Delta: delta,
+                        InRange: minDelta <= delta && delta <= maxDelta
+                    };
+
+                    eList[data.PlayFabId] = newData;
                 }
             }
         }
