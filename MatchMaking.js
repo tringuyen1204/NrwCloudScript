@@ -103,10 +103,10 @@ function MatchMaking() {
             points[a] = Math.floor(points[a] + Math.random() * 10);
 
             if (points[a] > 0) {
-                points[a] = (gloryPoint + points[a] * 1) * 10000 + gloryPoint;
+                points[a] = (gloryPoint + points[a] * 2) * 10000 + gloryPoint;
             }
             else {
-                points[a] = (gloryPoint + points[a] * -8) * 10000 + gloryPoint;
+                points[a] = (gloryPoint + points[a] * -16) * 10000 + gloryPoint;
             }
             points[a] = Math.floor(points[a] * 10 + elo);
         }
