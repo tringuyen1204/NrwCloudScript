@@ -34,15 +34,17 @@ function Profile() {
 
         var sData = sampleData[k];
 
-        var index = 1;
+        var info = {
+            index: 1
+        }
 
         var building = {};
 
         building[CASTLE] = castle;
-        building[FARM] = this.GenerateProductionData(sData, index);
-        building[MARKET] = this.GenerateProductionData(sData, index);
-        building[GOLD_STORAGE] = this.GenerateStorageData(sData, index);
-        building[FOOD_STORAGE] = this.GenerateStorageData(sData, index);
+        building[FARM] = this.GenerateProductionData(sData, info);
+        building[MARKET] = this.GenerateProductionData(sData, info);
+        building[GOLD_STORAGE] = this.GenerateStorageData(sData, info);
+        building[FOOD_STORAGE] = this.GenerateStorageData(sData, info);
 
         var res = {
             Gold: {
@@ -69,7 +71,7 @@ function Profile() {
         m.UpdateBattlePoint(gloryPoint);
     };
 
-    this.GenerateProductionData = function (args, index) {
+    this.GenerateProductionData = function (args, info) {
 
         var farmCount = Math.randomBetween(args.FarmCount[0], args.FarmCount[1]);
         var ret = {};
@@ -78,11 +80,11 @@ function Profile() {
 
             var pos = "c";
 
-            if (++index < 10) {
-                pos += "0" + index;
+            if (++info.index < 10) {
+                pos += "0" + info.index;
             }
             else {
-                pos += index;
+                pos += info.index;
             }
 
             var farmData = {};
@@ -98,25 +100,20 @@ function Profile() {
         return ret;
     };
 
-    this.GenerateStorageData = function (args, index) {
-
-
+    this.GenerateStorageData = function (args, info) {
 
         var storageCount = Math.randomBetween(args.StorageCount[0], args.StorageCount[1]);
-        if (storageCount === 0) {
-            storageCount = 1;
-        }
         var ret = {};
 
         for (var a = 0; a < storageCount; a++) {
 
             var pos = "c";
 
-            if (++index < 10) {
-                pos += "0" + index;
+            if (++info.index < 10) {
+                pos += "0" + info.index;
             }
             else {
-                pos += index;
+                pos += info.index;
             }
 
             var storageData = {};
