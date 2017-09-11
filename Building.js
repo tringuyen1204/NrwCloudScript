@@ -210,7 +210,7 @@ function BuildingHandler(type) {
      */
     this.BoostBuilding = function(id, date) {
 
-        if (this.Completed(id)) {
+        if (this.Completed(id, date)) {
             log.error("this building has been completed!");
         } else {
 
@@ -227,8 +227,8 @@ function BuildingHandler(type) {
     /**
      * @returns {boolean}
      */
-    this.Completed = function (id) {
-        return this.Get(id).CompletedDate <= this.ServerTime();
+    this.Completed = function (id, date) {
+        return this.Get(id).CompletedDate <= date;
     };
 
     this.RefreshStorageCap = function (code) {
@@ -265,4 +265,11 @@ function BuildingHandler(type) {
         }
         return this.Data[id];
     }
+
+    /**
+     * @returns {number}
+     */
+    this.ServerTime = function () {
+        return Date.now();
+    };
 }

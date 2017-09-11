@@ -16,13 +16,6 @@ function UserData(Key) {
         this.Data = {};
     }
 
-    /**
-     * @returns {number}
-     */
-    this.ServerTime = function() {
-        return Date.now();
-    };
-
     this.Push = function(){
         var newData = {};
         newData[this.Key] = JSON.stringify(this.Data);
