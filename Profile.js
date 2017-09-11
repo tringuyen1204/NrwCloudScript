@@ -34,13 +34,15 @@ function Profile() {
 
         var sData = sampleData[k];
 
+        var index = 1;
+
         var building = {};
 
         building[CASTLE] = castle;
-        building[FARM] = this.GenerateProductionData(sData);
-        building[MARKET] = this.GenerateProductionData(sData);
-        building[GOLD_STORAGE] = this.GenerateStorageData(sData);
-        building[FOOD_STORAGE] = this.GenerateStorageData(sData);
+        building[FARM] = this.GenerateProductionData(sData, index);
+        building[MARKET] = this.GenerateProductionData(sData, index);
+        building[GOLD_STORAGE] = this.GenerateStorageData(sData, index);
+        building[FOOD_STORAGE] = this.GenerateStorageData(sData, index);
 
         var res = {
             Gold: {
@@ -67,10 +69,19 @@ function Profile() {
         m.UpdateBattlePoint(gloryPoint);
     };
 
-    this.GenerateProductionData = function (args) {
+    this.GenerateProductionData = function (args, index) {
 
         var farmCount = Math.randomBetween(args.FarmCount[0], args.FarmCount[1]);
         var ret = {};
+
+        var pos = "c";
+
+        if (++index < 10) {
+            pos += "0" + index;
+        }
+        else {
+            pos += index;
+        }
 
         for (var a = 0; a < farmCount; a++) {
             var farmData = {};
@@ -78,6 +89,7 @@ function Profile() {
             farmData.Upgrading = false;
             farmData.CompletedDate = 0;
             farmData.LastCollectDate = Date.now();
+            farmData.Position = pos;
 
             ret[String(a)] = farmData;
         }
@@ -85,7 +97,17 @@ function Profile() {
         return ret;
     };
 
-    this.GenerateStorageData = function (args) {
+    this.GenerateStorageData = function (args, index) {
+
+        var pos = "c";
+
+        if (++index < 10) {
+            pos += "0" + index;
+        }
+        else {
+            pos += index;
+        }
+
         var storageCount = Math.randomBetween(args.StorageCount[0], args.StorageCount[1]);
         if (storageCount === 0) {
             storageCount = 1;
@@ -97,7 +119,10 @@ function Profile() {
             storageData.Level = Math.randomBetween(args.StorageLvl[0], args.StorageLvl[1]);
             storageData.Upgrading = false;
             storageData.CompletedDate = 0;
+            storageData.Position = pos;
+
             ret[String(a)] = storageData;
+
         }
 
         return ret;
