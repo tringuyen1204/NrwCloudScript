@@ -34,17 +34,28 @@ function Profile() {
 
         var sData = sampleData[k];
 
-        var info = {
-            index: 1
-        }
-
+        var index = 0;
         var building = {};
 
         building[CASTLE] = castle;
-        building[FARM] = this.GenerateProductionData(sData, info);
-        building[MARKET] = this.GenerateProductionData(sData, info);
-        building[GOLD_STORAGE] = this.GenerateStorageData(sData, info);
-        building[FOOD_STORAGE] = this.GenerateStorageData(sData, info);
+
+        var ret = {};
+
+        ret = this.GenerateProductionData(sData, index);
+        building[FARM] = ret["Data"];
+        index = ret["Index"];
+
+        ret = this.GenerateProductionData(sData, index);
+        building[MARKET] = ret["Data"];
+        index = ret["Index"];
+
+        ret = this.GenerateStorageData(sData, index);
+        building[FOOD_STORAGE] = ret["Data"];
+        index = ret["Index"];
+
+        ret = this.GenerateStorageData(sData, index);
+        building[GOLD_STORAGE] = ret["Data"];
+        index = ret["Index"];
 
         var res = {
             Gold: {
@@ -71,20 +82,22 @@ function Profile() {
         m.UpdateBattlePoint(gloryPoint);
     };
 
-    this.GenerateProductionData = function (args, info) {
+    this.GenerateProductionData = function (args, index) {
 
         var farmCount = Math.randomBetween(args.FarmCount[0], args.FarmCount[1]);
         var ret = {};
+
+        ret.Data = {};
 
         for (var a = 0; a < farmCount; a++) {
 
             var pos = "c";
 
-            if (++info.index < 10) {
-                pos += "0" + info.index;
+            if (++index < 10) {
+                pos += "0" + index;
             }
             else {
-                pos += info.index;
+                pos += index;
             }
 
             var farmData = {};
@@ -94,13 +107,15 @@ function Profile() {
             farmData.LastCollectDate = Date.now();
             farmData.Position = pos;
 
-            ret[String(a)] = farmData;
+            ret.Data[String(a)] = farmData;
         }
+
+        ret.Index = index;
 
         return ret;
     };
 
-    this.GenerateStorageData = function (args, info) {
+    this.GenerateStorageData = function (args, index) {
 
         var storageCount = Math.randomBetween(args.StorageCount[0], args.StorageCount[1]);
         var ret = {};
@@ -109,11 +124,11 @@ function Profile() {
 
             var pos = "c";
 
-            if (++info.index < 10) {
-                pos += "0" + info.index;
+            if (++index < 10) {
+                pos += "0" + index;
             }
             else {
-                pos += info.index;
+                pos += index;
             }
 
             var storageData = {};
