@@ -78,8 +78,8 @@ function BuildingManager(playerId) {
         var food = this.GetHandler(FARM).AllResource(date) * 0.5 + resMan.ValueOf(FOOD) * 0.25;
 
         return {
-            Gold: gold,
-            Food: food
+            Gold: Math.floor(gold),
+            Food: Math.floor(food)
         }
     }
 }

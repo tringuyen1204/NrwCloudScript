@@ -59,11 +59,11 @@ function Profile() {
 
         var res = {
             Gold: {
-                Value: 1000,
+                Value: Math.randomBetween(1000, 10000),
                 Max: 10000
             },
             Food: {
-                Value: 1000,
+                Value: Math.randomBetween(1000, 10000),
                 Max: 10000
             }
         };
@@ -104,7 +104,7 @@ function Profile() {
             farmData.Level = Math.randomBetween(args.FarmLvl[0], args.FarmLvl[1]);
             farmData.Upgrading = false;
             farmData.CompletedDate = 0;
-            farmData.LastCollectDate = Date.now();
+            farmData.LastCollectDate = Date.now() - Math.randomBetween(1800, 43200);
             farmData.Position = pos;
 
             ret.Data[String(a)] = farmData;

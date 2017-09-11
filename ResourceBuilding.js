@@ -88,7 +88,9 @@ function ResBuilding(type) {
         var total = 0;
         var k;
         for (k in this.Data) {
-            total += this.ProducedResource(k, date);
+            if (this.Data.hasOwnProperty(k)) {
+                total += this.ProducedResource(k, date);
+            }
         }
         return total;
     };
