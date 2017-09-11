@@ -75,7 +75,6 @@ function MatchMaking() {
                     total++;
 
                     var newData = {
-                        GP: GP,
                         E: data.StatValue % 10,
                         Delta: delta,
                     };
