@@ -1,15 +1,13 @@
 function UserData(Key, playerId) {
 
     this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
-    log.info("get player id = " + this.PlayerId)
+    log.info("get player id = " + this.PlayerId);
     this.Key = Key;
 
     var rawData = server.GetUserReadOnlyData({
         "PlayFabId": this.PlayerId,
         "Keys": [this.Key]
     }).Data;
-
-    log.info(rawData[this.Key].Value);
 
     if (rawData.hasOwnProperty(this.Key)) {
         this.Data = JSON.parse(rawData[this.Key].Value);
