@@ -255,4 +255,14 @@ function BuildingHandler(type) {
         var resMan = new ResHandler();
         resMan.SetMax(code ,newMax);
     };
+
+    /**
+     * @returns {data}
+     */
+    this.Get = function (id) {
+        if (this.Data[id] === null) {
+            return null;
+        }
+        return this.Data[id];
+    }
 }
