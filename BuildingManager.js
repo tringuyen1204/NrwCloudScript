@@ -1,6 +1,6 @@
 function BuildingManager(playerId) {
 
-    this.PlayerId = playerId !== null ? playerId : currentPlayerId;
+    this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
     this.Handlers = {};
     UserData.call(this, "BuildingManager", this.PlayerId);
 

@@ -1,9 +1,7 @@
 function UserData(Key, playerId) {
 
-    this.PlayerId = playerId !== null ? playerId : currentPlayerId;
+    this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
     this.Key = Key;
-
-    log.info("id = " + this.PlayerId);
 
     var id = currentPlayerId;
 
