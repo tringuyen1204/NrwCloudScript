@@ -5,7 +5,7 @@ handlers.ServerTime = function (args) {
     return String(Date.now());
 };
 
-handlers.ProcessBuilding = function (args) {
+handlers.UpdateBuilding = function (args) {
     var b = new BuildingManager();
     b.Execute(args);
 };
