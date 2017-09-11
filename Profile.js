@@ -86,16 +86,17 @@ function Profile() {
     };
 
     this.GenerateStorageData = function (args) {
-        var farmCount = Math.randomBetween(args.StorageCount[0], args.StorageCount[1]);
+        var storageCount = Math.randomBetween(args.StorageCount[0], args.StorageCount[1]);
+        if (storageCount === 0) {
+            storageCount = 1;
+        }
         var ret = {};
 
-        for (var a = 0; a < farmCount; a++) {
+        for (var a = 0; a < storageCount; a++) {
             var storageData = {};
             storageData.Level = Math.randomBetween(args.StorageLvl[0], args.StorageLvl[1]);
             storageData.Upgrading = false;
             storageData.CompletedDate = 0;
-            storageData.LastCollectDate = Date.now();
-
             ret[String(a)] = storageData;
         }
 
