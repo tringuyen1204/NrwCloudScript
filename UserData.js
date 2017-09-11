@@ -8,6 +8,8 @@ function UserData(Key) {
         "Keys": [this.Key]
     }).Data;
 
+    var key;
+
     if (key in rawData) {
         this.Data = JSON.parse(rawData[key].Value);
     }
