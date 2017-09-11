@@ -120,6 +120,7 @@ function Profile() {
 
         var storageCount = Math.randomBetween(args.StorageCount[0], args.StorageCount[1]);
         var ret = {};
+        ret.Data = {};
 
         for (var a = 0; a < storageCount; a++) {
 
