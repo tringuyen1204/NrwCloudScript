@@ -74,16 +74,17 @@ function Profile() {
         var farmCount = Math.randomBetween(args.FarmCount[0], args.FarmCount[1]);
         var ret = {};
 
-        var pos = "c";
-
-        if (++index < 10) {
-            pos += "0" + index;
-        }
-        else {
-            pos += index;
-        }
-
         for (var a = 0; a < farmCount; a++) {
+
+            var pos = "c";
+
+            if (++index < 10) {
+                pos += "0" + index;
+            }
+            else {
+                pos += index;
+            }
+
             var farmData = {};
             farmData.Level = Math.randomBetween(args.FarmLvl[0], args.FarmLvl[1]);
             farmData.Upgrading = false;
@@ -99,14 +100,7 @@ function Profile() {
 
     this.GenerateStorageData = function (args, index) {
 
-        var pos = "c";
 
-        if (++index < 10) {
-            pos += "0" + index;
-        }
-        else {
-            pos += index;
-        }
 
         var storageCount = Math.randomBetween(args.StorageCount[0], args.StorageCount[1]);
         if (storageCount === 0) {
@@ -115,6 +109,16 @@ function Profile() {
         var ret = {};
 
         for (var a = 0; a < storageCount; a++) {
+
+            var pos = "c";
+
+            if (++index < 10) {
+                pos += "0" + index;
+            }
+            else {
+                pos += index;
+            }
+
             var storageData = {};
             storageData.Level = Math.randomBetween(args.StorageLvl[0], args.StorageLvl[1]);
             storageData.Upgrading = false;
