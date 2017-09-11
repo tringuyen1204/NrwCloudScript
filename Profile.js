@@ -1,14 +1,14 @@
 function Profile() {
 
     this.Init = function () {
-        var data = {};
+
         var sampleString = server.GetTitleInternalData({
             "Keys": [
                 "DataSample"
             ]
         }).Data["DataSample"];
 
-        var castle, farm, market, goldStorage, foodStorage;
+        var castle;
 
         var random = Math.randomBetween(0, 1000);
 
@@ -17,9 +17,11 @@ function Profile() {
         var sampleData = JSON.parse(sampleString);
 
         for (k in sampleData) {
-            var d = sampleData[k];
-            if (d.SpawnRate[0] <= random && random < d.SpawnRate[1]) {
-                break;
+            if (sampleData.hasOwnProperty(k)) {
+                var d = sampleData[k];
+                if (d.SpawnRate[0] <= random && random < d.SpawnRate[1]) {
+                    break;
+                }
             }
         }
 
@@ -39,7 +41,7 @@ function Profile() {
 
         building[CASTLE] = castle;
 
-        var ret = {};
+        var ret;
 
         ret = this.GenerateProductionData(sData, index);
         building[FARM] = ret["Data"];
@@ -55,7 +57,6 @@ function Profile() {
 
         ret = this.GenerateStorageData(sData, index);
         building[GOLD_STORAGE] = ret["Data"];
-        index = ret["Index"];
 
         var res = {
             Gold: {
@@ -137,9 +138,11 @@ function Profile() {
             storageData.CompletedDate = 0;
             storageData.Position = pos;
 
-            ret[String(a)] = storageData;
+            ret.Data[String(a)] = storageData;
 
         }
+
+        ret.Index = index;
 
         return ret;
     };
