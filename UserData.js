@@ -9,7 +9,6 @@ function UserData(Key) {
     }).Data;
 
     if (rawData.hasOwnProperty(this.Key)) {
-        log.info(rawData[this.Key].Value);
         this.Data = JSON.parse(rawData[this.Key].Value);
     }
     else {

@@ -23,6 +23,7 @@ function Building() {
         }
 
         this.Handlers[type].Data = this.Data[type];
+        log.info(JSON.stringify(this.Handlers[type].Data));
         return this.Handlers[type];
     };
 
