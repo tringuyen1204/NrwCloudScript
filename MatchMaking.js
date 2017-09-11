@@ -53,6 +53,8 @@ function MatchMaking() {
         var inRange = 0;
         var total = 0;
 
+        var newData;
+
         for (a = 0; a < result.length; a++) {
             for (b = 0; b < result[a].Leaderboard.length; b++) {
                 data = result[a].Leaderboard[b];
@@ -74,7 +76,7 @@ function MatchMaking() {
 
                     total++;
 
-                    var newData = {
+                    newData = {
                         E: data.StatValue % 10,
                         Delta: delta
                     };

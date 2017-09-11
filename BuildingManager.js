@@ -79,6 +79,13 @@ function BuildingManager(playerId) {
             ProducedGold: Math.floor(pGold),
             ProducedFood: Math.floor(pFood)
         }
+    };
+
+    this.ApplyRaid = function (args) {
+        var date = this.GetDate(args);
+        this.GetHandler(MARKET).ApplyRaid(date, args.rate);
+        this.GetHandler(FARM).ApplyRaid(date, args.rate);
+        this.Push();
     }
 }
 

@@ -32,3 +32,11 @@ handlers.InitData = function(args){
     var p = new Profile();
     p.Init();
 };
+
+handlers.Raid = function (args) {
+    var b = new BuildingManager(args.playerId);
+    b.ApplyRaid(args);
+
+    var r = new ResHandler(args.playerId);
+    r.ApplyRaid(args);
+};

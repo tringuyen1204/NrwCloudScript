@@ -37,6 +37,12 @@ function ResHandler(playerId) {
     this.Data[code].Max = newMax;
     this.Push();
   };
+
+    this.ApplyRaid = function (args) {
+        this.Change(GOLD, -this.ValueOf(GOLD) * args.rate * 0.25);
+        this.Change(FOOD, -this.ValueOf(FOOD) * args.rate * 0.25);
+        this.Push();
+    };
 }
 
 ResHandler.prototype = Object.create(UserData.prototype);

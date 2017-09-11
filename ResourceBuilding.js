@@ -95,6 +95,28 @@ function ResourceBuilding(type) {
         return total;
     };
 
+    this.ApplyRaid = function (date, rate) {
+
+        var k;
+
+        for (k in this.Data) {
+            if (this.Data.hasOwnProperty(k)) {
+                this.ReduceProduction(k, date, rate);
+            }
+        }
+    };
+
+    this.ReduceProduction = function (id, date, rate) {
+        var bData = this.Get(id);
+
+        var code = (this.Type === MARKET) ? GOLD : FOOD;
+        var produceRate = this.CurLvlData(id).ProduceRate;
+        var amount = this.ProducedResource(id, date);
+
+        amount *= (1 - rate);
+        bData.CollectDate += Math.floor(amount / produceRate * ONE_HOUR);
+    };
+
     /**
      * @returns {boolean}
      */
