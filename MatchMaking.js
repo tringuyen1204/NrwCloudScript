@@ -39,7 +39,7 @@ function MatchMaking() {
                     if (!retData.hasOwnProperty("MyBattlePoint")) {
                         curGP = Math.floor(data.StatValue / 10) % 10000;
 
-                        retData.MyBattlePoint = {
+                        retData.Info = {
                             GP: curGP,
                             E: data.StatValue % 10
                         }
@@ -84,8 +84,10 @@ function MatchMaking() {
             }
         }
 
-        retData.MyBattlePoint.Total = total;
-        retData.MyBattlePoint.InRange = inRange;
+        retData.Info.Total = total;
+        retData.Info.InRange = inRange;
+
+        this.UpdateBattlePoint(curGP);
 
         return JSON.stringify(retData);
     };
