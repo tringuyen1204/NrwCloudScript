@@ -70,17 +70,12 @@ function BuildingManager(playerId) {
         return Number(args.date);
     };
 
-    this.GetRaidInfo = function (args) {
+    this.AllProduceResource = function (args) {
         var date = this.GetDate(args);
-        var resMan = new ResHandler();
-        var gold = resMan.ValueOf(GOLD) * 0.25;
-        var food = resMan.ValueOf(FOOD) * 0.25;
         var pGold = this.GetHandler(MARKET).AllResource(date) * 0.5;
         var pFood = this.GetHandler(FARM).AllResource(date) * 0.5;
 
         return {
-            StorageGold: Math.floor(gold),
-            StorageFood: Math.floor(food),
             ProducedGold: Math.floor(pGold),
             ProducedFood: Math.floor(pFood)
         }

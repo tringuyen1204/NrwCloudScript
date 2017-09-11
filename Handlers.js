@@ -12,7 +12,14 @@ handlers.ProcessBuilding = function (args) {
 
 handlers.Scout = function (args) {
     var b = new BuildingManager(args.playerId);
-    return b.GetRaidInfo(args);
+    var ret = b.AllProduceResource(args);
+    var resMan = new ResHandler(args.playerId);
+
+    var gold = Math.floor(resMan.ValueOf(GOLD) * 0.25);
+    var food = Math.floor(resMan.ValueOf(FOOD) * 0.25);
+    ret[GOLD] = gold;
+    ret[FOOD] = food;
+    return ret;
 };
 
 handlers.FindEnemies = function (args) {
