@@ -1,4 +1,4 @@
-function Building(playerId) {
+function Building() {
     //this.PlayerId = playerId !== null ? playerId : currentPlayerId;
     this.Handlers = {};
     UserData.call(this, "Building");

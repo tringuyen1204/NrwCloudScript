@@ -10,9 +10,11 @@ function UserData(Key) {
 
     var key;
 
+    log.info(rawData[key].Value);
+
     if (key in rawData) {
         this.Data = JSON.parse(rawData[key].Value);
-        log.info(rawData[key].Value);
+
     }
     else {
         this.Data = {};
