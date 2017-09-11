@@ -76,7 +76,7 @@ function MatchMaking() {
 
                     var newData = {
                         E: data.StatValue % 10,
-                        Delta: delta,
+                        Delta: delta
                     };
 
                     eList[data.PlayFabId] = newData;
