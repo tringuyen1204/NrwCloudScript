@@ -1,7 +1,8 @@
 function MatchMaking() {
     this.FindEnemies = function (args) {
 
-        var maxCount = args === null ? 10 : args.MaxResultsCount;
+        var maxCount = 20;
+        maxCount = args === null ? maxCount : args.MaxResultsCount;
 
         var result = [];
 
@@ -31,7 +32,7 @@ function MatchMaking() {
                 data = result[a].Leaderboard[b];
 
                 if (data.PlayFabId === currentPlayerId) {
-                    if (retData.MyBattlePoint === null) {
+                    if (!retData.hasOwnProperty("MyBattlePoint")) {
                         retData.MyBattlePoint = data.StatValue;
                     }
                     continue;
