@@ -88,6 +88,7 @@ function ResBuilding(type) {
         var total = 0;
         var k;
         for (k in this.Data) {
+            log.info("type = " + this.Type + " id = " + k);
             if (this.Data.hasOwnProperty(k)) {
                 total += this.ProducedResource(k, date);
             }
