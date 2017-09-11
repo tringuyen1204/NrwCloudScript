@@ -34,7 +34,6 @@ function MatchMaking() {
 
         for (a = 0; a < result.length; a++) {
             for (b = 0; b < result[a].Leaderboard.length; b++) {
-                data = result[a].Leaderboard[b];
 
                 if (data.PlayFabId === currentPlayerId) {
                     if (!retData.hasOwnProperty("MyBattlePoint")) {
@@ -45,6 +44,20 @@ function MatchMaking() {
                             E: data.StatValue % 10
                         }
                     }
+                    break;
+                }
+            }
+        }
+
+
+        var inRange = 0;
+        var total = 0;
+
+        for (a = 0; a < result.length; a++) {
+            for (b = 0; b < result[a].Leaderboard.length; b++) {
+                data = result[a].Leaderboard[b];
+
+                if (data.PlayFabId === currentPlayerId) {
                     continue;
                 }
 
@@ -53,17 +66,28 @@ function MatchMaking() {
                     var GP = Math.floor(data.StatValue / 10) % 10000;
                     var delta = GP - curGP;
 
+                    var isInRange = minDelta <= delta && delta <= maxDelta;
+
+                    if (isInRange) {
+                        inRange++;
+                    }
+
+                    total++;
+
                     var newData = {
                         GP: GP,
                         E: data.StatValue % 10,
                         Delta: delta,
-                        InRange: minDelta <= delta && delta <= maxDelta
+                        InRange: isInRange
                     };
 
                     eList[data.PlayFabId] = newData;
                 }
             }
         }
+
+        retData.MyBattlePoint.Total = total;
+        retData.MyBattlePoint.InRange = inRange;
 
         return JSON.stringify(retData);
     };
