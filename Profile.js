@@ -105,7 +105,7 @@ function Profile() {
             farmData.Level = Math.randomBetween(args.FarmLvl[0], args.FarmLvl[1]);
             farmData.Upgrading = false;
             farmData.CompletedDate = 0;
-            farmData.LastCollectDate = Date.now() - Math.randomBetween(1800000, 43200000);
+            farmData.CollectDate = Date.now() - Math.randomBetween(1800000, 43200000);
             farmData.Position = pos;
 
             ret.Data[String(a)] = farmData;
