@@ -70,6 +70,9 @@ function ResourceBuilding(type) {
         var workingTime = ( date - bData.CollectDate ) / ONE_HOUR;
         var amount = Math.floor( workingTime * produceRate );
 
+        log.info("product rate = " + produceRate);
+        log.info("working time = " + workingTime);
+
         var code = (this.Type === MARKET) ? GOLD : FOOD;
 
         var capacity = this.CurLvlData(id)[code+"Capacity"]; // GoldCapacity or FoodCapacity
