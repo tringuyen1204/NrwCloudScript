@@ -37,20 +37,6 @@ function ResHandler(){
     this.Data[code].Max = newMax;
     this.Push();
   };
-
-    this.AvailableResource = function (date) {
-        var resInfo = {};
-
-        var goldHandler = CreateHandler(MARKET);
-        resInfo[GOLD] = 0.25 * this.Data[GOLD].Value;
-        resInfo[GOLD] += 0.5 * goldHandler.AllResource(date);
-
-        var foodHandler = CreateHandler(FARM);
-        resInfo[FOOD] = 0.25 * this.Data[FOOD].Value;
-        resInfo[FOOD] += 0.5 * foodHandler.AllResource(date);
-
-        return resInfo;
-    };
 }
 
 ResHandler.prototype = Object.create(UserData.prototype);

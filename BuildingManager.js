@@ -65,10 +65,22 @@ function BuildingManager(playerId) {
      * @returns {number}
      */
     this.GetDate = function (args) {
-        if (!args.hasOwnProperty("date")) {
+        if (args === null || !args.hasOwnProperty("date")) {
             return Date.now();
         }
         return Number(args.date);
+    }
+
+    this.GetRaidInfo = function (args) {
+        var date = this.GetDate(args);
+        var resMan = new ResHandler();
+        var gold = this.GetHandler(MARKET).AllResource(date) * 0.5 + resMan.ValueOf(GOLD) * 0.25;
+        var food = this.GetHandler(FARM).AllResource(date) * 0.5 + resMan.ValueOf(FOOD) * 0.25;
+
+        return {
+            Gold: gold,
+            Food: food
+        }
     }
 }
 

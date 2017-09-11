@@ -11,7 +11,8 @@ handlers.ProcessBuilding = function (args) {
 };
 
 handlers.Scout = function (args) {
-
+    var b = new BuildingManager(args.playerId);
+    return b.GetRaidInfo(args);
 };
 
 handlers.FindEnemiesEnemies = function (args) {
