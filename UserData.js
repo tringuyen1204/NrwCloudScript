@@ -8,13 +8,9 @@ function UserData(Key) {
         "Keys": [this.Key]
     }).Data;
 
-    var key;
-
-    log.info(rawData[key].Value);
-
-    if (key in rawData) {
-        this.Data = JSON.parse(rawData[key].Value);
-
+    if (rawData.hasOwnProperty(this.Key)) {
+        log.info(rawData[this.Key].Value);
+        this.Data = JSON.parse(rawData[this.Key].Value);
     }
     else {
         this.Data = {};
