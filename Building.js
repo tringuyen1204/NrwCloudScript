@@ -124,14 +124,14 @@ function BuildingHandler(type) {
             return false;
         }
 
-        if (this.Type === CASTLE) {
-        }
-        else {
-            var castle = new BuildingHandler(CASTLE);
-            if ( Number(id) > castle.CurLvlData("0")[this.Type+"Limit"] ){
-                return false;
-            }
-        }
+        // if (this.Type === CASTLE) {
+        // }
+        // else {
+        //     var castle = this.GetBui
+        //     if ( Number(id) > castle.CurLvlData("0")[this.Type+"Limit"] ){
+        //         return false;
+        //     }
+        // }
 
         var nxtLv = this.NxtLvlData(id);
 
