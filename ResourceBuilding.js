@@ -87,6 +87,8 @@ function ResourceBuilding(type) {
         var total = 0;
         var k;
 
+        log.info(JSON.stringify(this.Data));
+
         for (k in this.Data) {
             if (this.Data.hasOwnProperty(k)) {
                 total += this.ProducedResource(k, date);
