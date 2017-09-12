@@ -45,6 +45,7 @@ handlers.Raid = function (args) {
 
     if (!args.hasOwnProperty("result")) {
         args.result = Math.random() > 0.4;
+        args.rate = 0.5;
     }
 
     if (args.result) {
@@ -55,7 +56,6 @@ handlers.Raid = function (args) {
 
         var r = new ResHandler(args.target);
         r.ApplyRaid(args);
-
 
         var resMan = new ResHandler();
         var raidData;
