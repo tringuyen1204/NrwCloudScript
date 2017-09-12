@@ -96,7 +96,7 @@ MatchMaking.FindEnemies = function (args) {
 
 MatchMaking.ApplyRaidResult = function (args) {
 
-    var atkId = curPlayerId;
+    var atkId = currentPlayerId;
     var defId = args.target;
     var result = args.result;
 

@@ -90,6 +90,7 @@ function ResourceBuilding(type) {
         }
 
         var produceRate = this.CurLvlData(id).ProduceRate;
+        log.info("Produce rate = " + produceRate);
         var workingTime = ( date - bData.CollectDate ) / ONE_HOUR;
         var amount = Math.floor( workingTime * produceRate );
 
