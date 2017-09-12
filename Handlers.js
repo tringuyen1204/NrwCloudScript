@@ -21,7 +21,7 @@ handlers.Scout = function (args) {
     ret[FOOD] = food;
 
     server.UpdateUserReadOnlyData({
-        "PlayFabId": this.PlayerId,
+        "PlayFabId": currentPlayerId,
         "Data": {
             "Raid": JSON.stringify(ret)
         },
