@@ -1,7 +1,7 @@
 function BuildingManager(playerId) {
 
     this.Handlers = {};
-    UserData.call(this, "UpdateBuilding", playerId);
+    UserData.call(this, "Building", playerId);
 
     this.Execute = function (args) {
         var date = this.GetDate(args);
