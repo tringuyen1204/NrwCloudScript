@@ -41,10 +41,10 @@ handlers.Raid = function (args) {
     if (args.result) {
         log.info("Attacker win!");
 
-        var b = new BuildingManager(args.playerId);
+        var b = new BuildingManager(args.target);
         b.ApplyRaid(args);
 
-        var r = new ResHandler(args.playerId);
+        var r = new ResHandler(args.target);
         r.ApplyRaid(args);
     }
     else {
