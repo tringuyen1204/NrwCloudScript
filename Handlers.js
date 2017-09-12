@@ -11,9 +11,9 @@ handlers.UpdateBuilding = function (args) {
 };
 
 handlers.Scout = function (args) {
-    var b = new BuildingManager(args.playerId);
+    var b = new BuildingManager(args.target);
     var ret = b.AllProduceResource(args);
-    var resMan = new ResHandler(args.playerId);
+    var resMan = new ResHandler(args.target);
 
     var gold = Math.floor(resMan.ValueOf(GOLD) * 0.25);
     var food = Math.floor(resMan.ValueOf(FOOD) * 0.25);

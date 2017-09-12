@@ -96,8 +96,8 @@ MatchMaking.FindEnemies = function (args) {
 
 MatchMaking.ApplyRaidResult = function (args) {
 
-    var atkId = args.attacker;
-    var defId = args.defender;
+    var atkId = curPlayerId;
+    var defId = args.target;
     var result = args.result;
 
     var atkBoard = server.GetLeaderboardAroundUser({
