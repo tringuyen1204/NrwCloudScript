@@ -61,7 +61,7 @@ handlers.Raid = function (args) {
         var raidData;
 
         var rawData = server.GetUserReadOnlyData({
-            "PlayFabId": this.PlayerId,
+            "PlayFabId": currentPlayerId,
             "Keys": ["Raid"]
         }).Data;
 
