@@ -95,10 +95,10 @@ function ResourceBuilding(type) {
 
         var code = (this.Type === MARKET) ? GOLD : FOOD;
 
-        var capacity = this.CurLvlData(id)[code+"Capacity"]; // GoldCapacity or FoodCapacity
+        var capacity = this.CurLvlData(id)[code + "Capacity"];
 
         if (amount > capacity){
-            amount = capacity;    // product amount can't surpass capacity
+            amount = capacity;
         }
         return amount;
     };

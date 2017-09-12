@@ -1,5 +1,4 @@
 function BuildingManager(playerId) {
-
     this.Handlers = {};
     UserData.call(this, "Building", playerId);
 
