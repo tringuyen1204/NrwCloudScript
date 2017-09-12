@@ -55,6 +55,23 @@ handlers.Raid = function (args) {
 
         var r = new ResHandler(args.target);
         r.ApplyRaid(args);
+
+
+        var resMan = new ResHandler();
+        var raidData;
+
+        var rawData = server.GetUserReadOnlyData({
+            "PlayFabId": this.PlayerId,
+            "Keys": ["Raid"]
+        }).Data;
+
+        if (rawData.hasOwnProperty(this.Key)) {
+            raidData = JSON.parse(rawData[this.Key].Value);
+        }
+
+        resMan.Change(GOLD, raidData[GOLD] + raidData["ProducedGold"]);
+        resMan.Change(FOOD, raidData[FOOD] + raidData["ProducedFood"]);
+        resMan.Push();
     }
     else {
         log.info("Attacker lose");
