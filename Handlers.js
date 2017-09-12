@@ -65,8 +65,8 @@ handlers.Raid = function (args) {
             "Keys": ["Raid"]
         }).Data;
 
-        if (rawData.hasOwnProperty(this.Key)) {
-            raidData = JSON.parse(rawData[this.Key].Value);
+        if (rawData.hasOwnProperty("Raid")) {
+            raidData = JSON.parse(rawData["Raid"].Value);
         }
 
         resMan.Change(GOLD, raidData[GOLD] + raidData["ProducedGold"]);
