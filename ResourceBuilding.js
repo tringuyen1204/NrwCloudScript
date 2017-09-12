@@ -27,19 +27,8 @@ function ResourceBuilding(type) {
     /**
      * @returns {boolean}
      */
-    this.Upgrade = function (id, date) {
+    this.PrepareUprade = function (id, date) {
         this.Collect(id, date);
-
-        if (this.Get(id) === null) {
-            log.error("Error: " + this.Type + id + " doesn't exist!");
-            return false;
-        }
-
-        if ( this.TryUpgrade(id, date) ){
-            this.Push();
-            return true;
-        }
-        return false;
     };
 
     /**
@@ -82,10 +71,9 @@ function ResourceBuilding(type) {
     };
 
     this.CollectAll = function(date){
-        for (var id in this.Data){
-            if (this.Data.hasOwnProperty(id)) {
-                this.Collect(id, date);
-            }
+        var k;
+        for (k in this.Data) {
+            this.Collect(k, date);
         }
         this.Push();
     };
@@ -123,21 +111,15 @@ function ResourceBuilding(type) {
         var k;
 
         for (k in this.Data) {
-            if (this.Data.hasOwnProperty(k)) {
-                total += this.ProducedResource(k, date);
-            }
+            total += this.ProducedResource(k, date);
         }
         return total;
     };
 
     this.ApplyRaid = function (date, rate) {
-
         var k;
-
         for (k in this.Data) {
-            if (this.Data.hasOwnProperty(k)) {
-                this.ReduceProduction(k, date, rate);
-            }
+            this.ReduceProduction(k, date, rate);
         }
     };
 
@@ -151,7 +133,6 @@ function ResourceBuilding(type) {
         amount *= (1 - rate);
         bData.CollectDate = Math.floor(date - amount / produceRate * ONE_HOUR);
     };
-
 }
 
 ResourceBuilding.prototype = Object.create(Building.prototype);

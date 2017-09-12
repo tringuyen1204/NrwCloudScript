@@ -1,25 +1,25 @@
 function Building(type) {
     this.Type = type;
 
-    this.GetMasterData = function() {
-        if (!("_masterData" in this)) {
+    this.MasterData = function () {
+        if (!("masterData" in this)) {
             var rawData = server.GetCatalogItems({
                 "CatalogVersion": this.Type
             });
 
             if ("Catalog" in rawData) {
-                this._masterData = JSON.parse(rawData.Catalog[0].CustomData);
+                this.masterData = JSON.parse(rawData.Catalog[0].CustomData);
             }
         }
-        return this._masterData;
+        return this.masterData;
     };
 
     this.CurLvlData = function(id){
-        return this.GetMasterData()[String(this.Get(id).Level)];
+        return this.MasterData()[String(this.Get(id).Level)];
     };
 
     this.NxtLvlData = function(id){
-        return this.GetMasterData()[String(this.Get(id).Level + 1)];
+        return this.MasterData()[String(this.Get(id).Level + 1)];
     };
 
     /**
@@ -51,6 +51,18 @@ function Building(type) {
      * @returns {boolean}
      */
     this.Upgrade = function(id, date){
+        this.PrepareUpgrade(id, date);
+        return this.TryUpgrade(id, date);
+    };
+
+    this.PrepareUprade = function (id, date) {
+        // do nothing, for override
+    };
+
+    /**
+     * @returns {boolean}
+     */
+    this.TryUpgrade = function (id, date) {
 
         if (this.Get(id).Upgrading){
             log.error("Error: " + this.Type + id + " is already upgrading!");
@@ -91,12 +103,12 @@ function Building(type) {
         var boostCost = 0;
 
         if (missingRes > 0) {
-            boostCost = ConvertGoldFoodToDiamond(missingRes);
+            boostCost = Converter.GoldFoodToDiamond(missingRes);
             log.info("diamond needed = " + boostCost);
         }
 
         if ((boostCost === 0)
-            || (boostCost > 0 && SpendCurrency(DIAMOND, boostCost) ) ){
+            || (boostCost > 0 && Currency.Spend(DIAMOND, boostCost) )) {
             if (notEnoughGold){
                 resMan.Change(GOLD ,-resMan.ValueOf(GOLD) );
             }
@@ -125,7 +137,7 @@ function Building(type) {
         return true;
     };
 
-    this.CompleteUpgrade = function(id, date) {
+    this.CompleteUpgrade = function (id) {
         var bData = this.Get(id);
         bData.Level++;
         bData.Upgrading = false;
@@ -148,9 +160,9 @@ function Building(type) {
         } else {
 
             var remainTime = ( this.Get(id).CompletedDate - date );
-            var diamondNeed = ConvertTimeToDiamond(remainTime);
+            var diamondNeed = Converter.TimeToDiamond(remainTime);
 
-            if (SpendCurrency(DIAMOND, diamondNeed)) {
+            if (Currency.Spend(DIAMOND, diamondNeed)) {
                 return this.CompleteUpgrade(id, date);
             }
         }

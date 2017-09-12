@@ -71,7 +71,7 @@ function Profile() {
         server.UpdateUserReadOnlyData({
             "PlayFabId": currentPlayerId,
             "Data": {
-                "Building": JSON.stringify(building),
+                "UpdateBuilding": JSON.stringify(building),
                 "Resource": JSON.stringify(res)
             },
             "Permission": "public"
@@ -80,7 +80,7 @@ function Profile() {
         var gloryPoint = Math.randomBetween(sData.GloryPoint[0], sData.GloryPoint[1]);
 
         var m = new MatchMaking();
-        m.UpdateGloryPoint(gloryPoint);
+        m.SetGloryPoint(gloryPoint);
     };
 
     this.GenerateProductionData = function (args, index) {

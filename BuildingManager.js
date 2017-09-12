@@ -1,7 +1,7 @@
 function BuildingManager(playerId) {
 
     this.Handlers = {};
-    UserData.call(this, "Building", playerId);
+    UserData.call(this, "UpdateBuilding", playerId);
 
     this.Execute = function (args) {
         var date = this.GetDate(args);
@@ -14,7 +14,7 @@ function BuildingManager(playerId) {
                 canPush = handler.Upgrade(args.id, date);
                 break;
             case "CompleteUpgrade":
-                canPush = handler.CompleteUpgrade(args.id, date);
+                canPush = handler.CompleteUpgrade(args.id);
                 break;
             case "BoostBuilding":
                 canPush = handler.BoostBuilding(args.id, date);

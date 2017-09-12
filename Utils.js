@@ -28,10 +28,12 @@ Converter.GoldFoodToDiamond = function (qty) {
     return Math.floor(ret);
 };
 
+var Currency = {};
+
 /**
  * @return(boolean)
  */
-function SpendCurrency(code, qty){
+Currency.Spend = function (code, qty) {
     var vcBalances = server.GetUserInventory({
         "PlayFabId": currentPlayerId
     }).VirtualCurrency;
@@ -43,7 +45,7 @@ function SpendCurrency(code, qty){
         return true;
     }
     return false;
-}
+};
 
 function ChangeCurrency(vcBalances, code, qty)
 {

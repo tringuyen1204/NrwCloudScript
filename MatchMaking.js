@@ -89,7 +89,7 @@ MatchMaking.FindEnemies = function (args) {
     retData.Info.Total = total;
     retData.Info.InRange = inRange;
 
-    MatchMaking.UpdateGloryPoint(curGP);
+    MatchMaking.SetGloryPoint(curGP);
 
     return JSON.stringify(retData);
 };
@@ -112,8 +112,8 @@ MatchMaking.ApplyRaidResult = function (args) {
         "MaxResultsCount": 1
     });
 
-    var atkGp = atkBoard[0].statValue;
-    var defGp = defBoard[0].statValue;
+    var atkGp = atkBoard.Leaderboard[0].statValue;
+    var defGp = defBoard.Leaderboard[0].statValue;
 
     var deltaGp = atkGp - defGp;
 
@@ -161,13 +161,13 @@ MatchMaking.ApplyRaidResult = function (args) {
     log.info("attacker id = " + atkId + " gp change = " + atkGpChange);
     log.info("defender id = " + defId + " gp change = " + defGpChange);
 
-    MatchMaking.UpdateGloryPoint(atkGp + atkGpChange, atkId);
-    MatchMaking.UpdateGloryPoint(defGp + defGpChange, defId);
+    MatchMaking.SetGloryPoint(atkGp + atkGpChange, atkId);
+    MatchMaking.SetGloryPoint(defGp + defGpChange, defId);
 };
 
-MatchMaking.UpdateGloryPoint = function (gloryPoint, playerId) {
+MatchMaking.SetGloryPoint = function (gp, pId) {
 
-    playerId = ( playerId === null || playerId === undefined ) ? currentPlayerId : playerId;
+    pId = ( pId === null || pId === undefined ) ? currentPlayerId : pId;
 
     var points = [-15, -5, 5];
 
@@ -178,10 +178,10 @@ MatchMaking.UpdateGloryPoint = function (gloryPoint, playerId) {
         points[a] = Math.floor(points[a] + Math.random() * 10);
 
         if (points[a] > 0) {
-            points[a] = (gloryPoint + points[a] * 2) * 10000 + gloryPoint;
+            points[a] = (gp + points[a] * 2) * 10000 + gp;
         }
         else {
-            points[a] = (gloryPoint + points[a] * -16) * 10000 + gloryPoint;
+            points[a] = (gp + points[a] * -16) * 10000 + gp;
         }
         points[a] = Math.floor(points[a] * 10 + elo);
     }
@@ -195,7 +195,7 @@ MatchMaking.UpdateGloryPoint = function (gloryPoint, playerId) {
     }
 
     server.UpdatePlayerStatistics({
-        "PlayFabId": playerId,
+        "PlayFabId": pId,
         "Statistics": [
             {
                 "StatisticName": "BattlePoint1",
@@ -211,7 +211,7 @@ MatchMaking.UpdateGloryPoint = function (gloryPoint, playerId) {
             },
             {
                 "StatisticName": "GloryPoint",
-                "Value": gloryPoint
+                "Value": gp
             }
         ]
     });
