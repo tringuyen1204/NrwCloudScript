@@ -112,8 +112,8 @@ MatchMaking.ApplyRaidResult = function (args) {
         "MaxResultsCount": 1
     });
 
-    var atkGp = atkBoard.Leaderboard[0].statValue;
-    var defGp = defBoard.Leaderboard[0].statValue;
+    var atkGp = atkBoard.Leaderboard[0].StatValue;
+    var defGp = defBoard.Leaderboard[0].StatValue;
 
     var deltaGp = atkGp - defGp;
 
@@ -158,8 +158,8 @@ MatchMaking.ApplyRaidResult = function (args) {
         atkGpChange = -atkGpChange;
     }
 
-    log.info("attacker id = " + atkId + " gp change = " + atkGpChange);
-    log.info("defender id = " + defId + " gp change = " + defGpChange);
+    log.info("attacker id = " + atkId + " - Gp change = " + atkGpChange);
+    log.info("defender id = " + defId + " - Gp change = " + defGpChange);
 
     MatchMaking.SetGloryPoint(atkGp + atkGpChange, atkId);
     MatchMaking.SetGloryPoint(defGp + defGpChange, defId);
