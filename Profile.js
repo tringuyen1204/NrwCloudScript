@@ -80,7 +80,7 @@ function Profile() {
         var gloryPoint = Math.randomBetween(sData.GloryPoint[0], sData.GloryPoint[1]);
 
         var m = new MatchMaking();
-        m.UpdateBattlePoint(gloryPoint);
+        m.UpdateGloryPoint(gloryPoint);
     };
 
     this.GenerateProductionData = function (args, index) {

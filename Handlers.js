@@ -23,8 +23,7 @@ handlers.Scout = function (args) {
 };
 
 handlers.FindEnemies = function (args) {
-    var m = new MatchMaking();
-    return m.FindEnemies(args);
+    return MatchMaking.FindEnemies(args);
 };
 
 // account creation handler
@@ -34,9 +33,23 @@ handlers.InitData = function(args){
 };
 
 handlers.Raid = function (args) {
-    var b = new BuildingManager(args.playerId);
-    b.ApplyRaid(args);
 
-    var r = new ResHandler(args.playerId);
-    r.ApplyRaid(args);
+    if (!args.hasOwnProperty("result")) {
+        args.result = Math.random() > 0.4;
+    }
+
+    if (args.result) {
+        log.info("Attacker win!");
+
+        var b = new BuildingManager(args.playerId);
+        b.ApplyRaid(args);
+
+        var r = new ResHandler(args.playerId);
+        r.ApplyRaid(args);
+    }
+    else {
+        log.info("Attacker lose");
+    }
+
+    MatchMaking.ApplyRaidResult(args);
 };

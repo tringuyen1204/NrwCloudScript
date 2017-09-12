@@ -28,7 +28,7 @@ function ResourceBuilding(type) {
      * @returns {boolean}
      */
     this.Upgrade = function (id, date) {
-        this.TryCollect(id, date);
+        this.Collect(id, date);
 
         if (this.Get(id) === null) {
             log.error("Error: " + this.Type + id + " doesn't exist!");
@@ -42,15 +42,50 @@ function ResourceBuilding(type) {
         return false;
     };
 
+    /**
+     * @returns {boolean}
+     */
     this.Collect = function(id, date){
-        if (this.TryCollect(id, date) ){
-            this.Push();
+        var bData = this.Get(id);
+
+        if (bData === null || bData.Level === 0 || bData.Upgrading) {
+            return false;
+        }
+
+        var code = (this.Type === MARKET) ? GOLD : FOOD;
+        var produceRate = this.CurLvlData(id).ProduceRate;
+        var amount = this.ProducedResource(id, date);
+
+        if (amount > 0) {
+
+            var resMan = new ResHandler();
+
+            var curRes = resMan.ValueOf(code);
+            var curMax = resMan.MaxOf(code);
+
+            if (amount + curRes > curMax) {
+                resMan.Change(code, curMax - curRes);
+                amount -= curMax - curRes;
+            }
+            else {
+                resMan.Change(code, amount);
+                amount = 0;
+            }
+
+            bData.CollectDate = Math.floor(date - (amount / produceRate) * ONE_HOUR);
+
+            return true;
+        }
+        else {
+            return false;
         }
     };
 
     this.CollectAll = function(date){
         for (var id in this.Data){
-            this.TryCollect(id, date);
+            if (this.Data.hasOwnProperty(id)) {
+                this.Collect(id, date);
+            }
         }
         this.Push();
     };
@@ -114,49 +149,9 @@ function ResourceBuilding(type) {
         var amount = this.ProducedResource(id, date);
 
         amount *= (1 - rate);
-        bData.CollectDate += Math.floor(amount / produceRate * ONE_HOUR);
+        bData.CollectDate = Math.floor(date - amount / produceRate * ONE_HOUR);
     };
 
-    /**
-     * @returns {boolean}
-     */
-    this.TryCollect = function (id, date) {
-
-        var bData = this.Get(id);
-
-        if (bData === null || bData.Level === 0 || bData.Upgrading) {
-            return false;
-        }
-
-        var code = (this.Type === MARKET) ? GOLD : FOOD;
-        var produceRate = this.CurLvlData(id).ProduceRate;
-        var amount = this.ProducedResource(id, date);
-
-        if (amount > 0){
-
-            var resMan = new ResHandler();
-
-            var curRes = resMan.ValueOf(code);
-            var curMax = resMan.MaxOf(code);
-
-            if (amount + curRes > curMax){
-                resMan.Change(code, curMax - curRes);
-                amount -= curMax - curRes;
-            }
-            else {
-                resMan.Change(code, amount);
-                amount = 0;
-            }
-
-            bData.CollectDate = Math.floor(date - (amount / produceRate) * ONE_HOUR);
-            resMan.Push();
-
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
 }
 
 ResourceBuilding.prototype = Object.create(Building.prototype);
