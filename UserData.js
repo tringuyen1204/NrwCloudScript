@@ -1,7 +1,6 @@
 function UserData(Key, playerId) {
 
     this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
-    log.info("get player id = " + this.PlayerId);
     this.Key = Key;
 
     var rawData = server.GetUserReadOnlyData({
@@ -21,7 +20,7 @@ function UserData(Key, playerId) {
         newData[this.Key] = JSON.stringify(this.Data);
 
         server.UpdateUserReadOnlyData({
-            "PlayFabId":currentPlayerId,
+            "PlayFabId": this.PlayerId,
             "Data":newData,
             "Permission":"public"
         });
@@ -31,7 +30,7 @@ function UserData(Key, playerId) {
      * @returns {data}
      */
     this.Get = function (id) {
-        if (this.Data[id] === null) {
+        if (!this.Data.hasOwnProperty(id)) {
             return null;
         }
         return this.Data[id];
