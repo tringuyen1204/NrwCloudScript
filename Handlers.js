@@ -19,6 +19,15 @@ handlers.Scout = function (args) {
     var food = Math.floor(resMan.ValueOf(FOOD) * 0.25);
     ret[GOLD] = gold;
     ret[FOOD] = food;
+
+    server.UpdateUserReadOnlyData({
+        "PlayFabId": this.PlayerId,
+        "Data": {
+            "Raid": JSON.stringify(ret)
+        },
+        "Permission": "public"
+    });
+
     return ret;
 };
 
