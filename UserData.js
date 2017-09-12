@@ -13,6 +13,7 @@ function UserData(Key, playerId) {
     }
     else {
         this.Data = {};
+        log.error("can't load data key = " + key + " of player id = " + this.PlayerId);
     }
 
     this.Push = function(){

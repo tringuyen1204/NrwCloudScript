@@ -86,7 +86,7 @@ function BuildingManager(playerId) {
         this.GetHandler(MARKET).ApplyRaid(date, args.rate);
         this.GetHandler(FARM).ApplyRaid(date, args.rate);
         this.Push();
-    }
+    };
 }
 
 BuildingManager.prototype = Object.create(UserData.prototype);
