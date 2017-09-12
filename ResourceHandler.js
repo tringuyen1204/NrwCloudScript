@@ -39,8 +39,8 @@ function ResHandler(playerId) {
   };
 
     this.ApplyRaid = function (args) {
-        this.Change(GOLD, -this.ValueOf(GOLD) * args.rate * 0.25);
-        this.Change(FOOD, -this.ValueOf(FOOD) * args.rate * 0.25);
+        this.Change(GOLD, Math.floor(-this.ValueOf(GOLD) * args.rate * 0.25));
+        this.Change(FOOD, Math.floor(-this.ValueOf(FOOD) * args.rate * 0.25));
         this.Push();
     };
 }
