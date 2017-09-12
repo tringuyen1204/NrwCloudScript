@@ -123,12 +123,12 @@ MatchMaking.ApplyRaidResult = function (args) {
     if (result) {
         a = -0.0794;
         b = 29.35838;
-        limit = 39;
+        limit = 59;
     }
     else {
         a = 0.0531;
         b = 19.60453;
-        limit = 59;
+        limit = 39;
     }
 
     // atk
@@ -161,8 +161,8 @@ MatchMaking.ApplyRaidResult = function (args) {
     log.info("attacker id = " + atkId + " - Gp change = " + atkGpChange);
     log.info("defender id = " + defId + " - Gp change = " + defGpChange);
 
-    MatchMaking.SetGloryPoint(atkGp + atkGpChange, atkId);
-    MatchMaking.SetGloryPoint(defGp + defGpChange, defId);
+    MatchMaking.SetGloryPoint(atkGp + Math.floor(atkGpChange), atkId);
+    MatchMaking.SetGloryPoint(defGp + Math.floor(defGpChange), defId);
 };
 
 MatchMaking.SetGloryPoint = function (gp, pId) {
