@@ -14,7 +14,7 @@ function BuildingManager(playerId) {
                 canPush = handler.Upgrade(args.id, date);
                 break;
             case "CompleteUpgrade":
-                canPush = handler.CompleteUpgrade(args.id);
+                canPush = handler.CompleteUpgrade(args.id, date);
                 break;
             case "BoostBuilding":
                 canPush = handler.BoostBuilding(args.id, date);

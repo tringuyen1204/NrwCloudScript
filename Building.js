@@ -137,7 +137,7 @@ function Building(type) {
         return true;
     };
 
-    this.CompleteUpgrade = function (id) {
+    this.CompleteUpgrade = function (id, date) {
         var bData = this.Get(id);
         bData.Level++;
         bData.Upgrading = false;
