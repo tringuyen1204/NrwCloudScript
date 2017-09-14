@@ -28,7 +28,7 @@ function Profile() {
             "0": {
                 "Level": Number(k),
                 "CompletedDate": 0,
-                "isUp": false,
+                "Upgrading": false,
                 "Position": "s01"
             }
         };

@@ -4,7 +4,6 @@ function BuildingManager(playerId) {
 
     this.Execute = function (args) {
         var date = this.GetDate(args);
-
         var handler = this.GetHandler(args.type);
         var canPush = false;
 
