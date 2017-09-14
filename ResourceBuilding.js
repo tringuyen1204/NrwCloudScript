@@ -1,32 +1,35 @@
 function ResourceBuilding(type) {
     Building.call(this, type);
 
-    this.PreComplete = function (id, date) {
-        var bData = this.Get(id);
-        bData.CollectDate = date;
+    this.PreComplete = function (args) {
+        this.Get(args.id).CollectDate = args.date;
     };
 
-    this.DefaultData = function (date, pos) {
+    this.DefaultData = function (args) {
         return {
             "Level": 0,
             "Upgrading": false,
             "CompletedDate": 0,
-            "CollectDate": date,
-            "Position": pos
+            "CollectDate": args.date,
+            "Position": args.position
         }
     };
 
     /**
      * @returns {boolean}
      */
-    this.PrepareUprade = function (id, date) {
-        this.Collect(id, date);
+    this.PrepareUprade = function (args) {
+        this.Collect(args.id, args.date);
     };
 
     /**
      * @returns {boolean}
      */
-    this.Collect = function (id, date) {
+    this.Collect = function (args) {
+
+        var id = args.id;
+        var date = args.date;
+
         var bData = this.Get(id);
 
         if (bData === null || bData.Level === 0 || bData.Upgrading) {
@@ -62,10 +65,10 @@ function ResourceBuilding(type) {
         }
     };
 
-    this.CollectAll = function (date) {
+    this.CollectAll = function (args) {
         var k;
         for (k in this.Data) {
-            this.Collect(k, date);
+            this.Collect(k, args.date);
         }
         return true;
     };

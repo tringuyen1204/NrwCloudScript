@@ -26,12 +26,20 @@ function Building(type) {
         resMan.SetMax(code, newMax);
     };
 
-    this.DefaultData = function (date, position) {
+    this.Push = function (args) {
+        if ((args.type === GOLD_STORAGE || args.type === FOOD_STORAGE)
+            && (args.command === COMPLETE_UPGRADE || args.command === BOOST_UPGRADE)) {
+            this.RefreshStorageCap();
+        }
+        this.PushNow();
+    };
+
+    this.DefaultData = function (args) {
         return {
             "Level": 0,
             "Upgrading": false,
             "CompletedDate": 0,
-            "Position": position
+            "Position": args.position
         }
     };
 }

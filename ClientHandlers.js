@@ -1,13 +1,20 @@
-/**
- * @returns {string}
- */
 handlers.ServerTime = function (args) {
     return String(Date.now());
 };
 
 handlers.UpdateBuilding = function (args) {
-    var b = new BuildingManager();
-    b.Execute(args);
+    var m = new BuildingManager();
+    m.Execute(args);
+};
+
+handlers.UpdateHero = function (args) {
+    var m = new HeroManager();
+    m.Execute(args);
+};
+
+handlers.UpdateTech = function (args) {
+    var m = new TechManager();
+    m.Execute(args);
 };
 
 handlers.Scout = function (args) {

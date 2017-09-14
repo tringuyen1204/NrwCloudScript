@@ -1,5 +1,5 @@
-function UserData(Key, playerId) {
-
+function UserDataManager(Key, playerId) {
+    this.Handlers = {};
     this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
     this.Key = Key;
 
@@ -16,7 +16,11 @@ function UserData(Key, playerId) {
         log.error("can't load data key = " + this.Key + " of player id = " + this.PlayerId);
     }
 
-    this.Push = function () {
+    this.Push = function (args) {
+        this.PushNow();
+    };
+
+    this.PushNow = function () {
         var newData = {};
         newData[this.Key] = JSON.stringify(this.Data);
 
@@ -46,4 +50,29 @@ function UserData(Key, playerId) {
         }
         return Number(args.date);
     };
+
+    this.Execute = function (args) {
+        args.date = this.GetDate(args);
+        var handler = this.GetHandler(args);
+        var canPush = false;
+
+        if (args.command in handler) {
+            canPush = handler[args.command](args);
+        }
+
+        if (canPush) {
+            this.Push(args);
+        }
+    };
+
+    this.GetHandler = function (args) {
+        var handlers = this.Handlers;
+        var type = args.type;
+
+        if (handlers.hasOwnProperty(type)) {
+            handlers[type] = new DataHandler(type);
+            handlers[type].Data = this.Data;
+        }
+        return handlers[type];
+    }
 }

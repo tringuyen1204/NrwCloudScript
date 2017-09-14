@@ -1,13 +1,10 @@
 function Kingdom() {
-    UserData.call(this, "Kingdom");
+    UserDataManager.call(this, "Kingdom");
 
     if (this.Data.Exp === null) {
         this.Data.Exp = 0;
     }
 
-    /**
-     * @returns {boolean}
-     */
     this.AddExp = function (quantity) {
         if (quantity <= 0) {
             log.error("exp quantity must be positive");
@@ -21,4 +18,4 @@ function Kingdom() {
     };
 }
 
-Kingdom.prototype = Object.create(UserData.prototype);
+Kingdom.prototype = Object.create(UserDataManager.prototype);

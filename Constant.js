@@ -28,10 +28,9 @@ const CAV = "Cavalry";
 
 // time
 const ONE_MINUTE = 60 * 1000;
-const ONE_HOUR = 3600 * 1000;
-const ONE_DAY = 86400 * 1000;
+const ONE_HOUR = 60 * ONE_MINUTE;
+const ONE_DAY = 24 * ONE_HOUR;
 
-const BUILD = "Create";
 const UPGRADE = "Upgrade";
 const BOOST_UPGRADE = "BoostUpgrade";
 const CHANGE_TROOP = "ChangeTroop";
@@ -39,6 +38,7 @@ const BOOST_TRAIN = "BoostTrain";
 const BOOST_TRAIN_ALL = "BoostTrainAll";
 const COLLECT = "Collect";
 const COMPLETE_UPGRADE = "CompleteUpgrade";
+const INSTANT_UPGRADE = "InstantUpgrade";
 
 const EVOLVE = "Evolve";
 

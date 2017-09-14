@@ -1,34 +1,19 @@
 function HeroManager(playerId) {
-    UserData.call(this, HERO, playerId);
+    UserDataManager.call(this, HERO, playerId);
 
-    this.Execute = function (args) {
+    this.GetHandler = function (args) {
+        var handlers = this.Handlers;
+        var type = args.type;
 
-        var date = this.CheckDate(args);
-        var canPush = false;
-        var handler = new HeroTrainer(args.type);
-
-        switch (args.command) {
-            case UPGRADE:
-                canPush = handler.Upgrade("0", date);
-                break;
-            case COMPLETE_UPGRADE:
-                canPush = handler.CompleteUpgrade("0", date);
-                break;
-            case BOOST_UPGRADE:
-                canPush = handler.BoostUpgrade("0", date);
-                break;
-            case EVOLVE:
-                canPush = this.Evolve("0", date);
-                break;
+        if (handlers.hasOwnProperty(type)) {
+            handlers[type] = new HeroTrainer(type);
+            handlers[type].Data = this.Data;
         }
-
-        if (canPush) {
-            this.Push();
-        }
-    };
+        return handlers[type];
+    }
 }
 
-HeroManager.prototype = Object.create(UserData.prototype);
+HeroManager.prototype = Object.create(UserDataManager.prototype);
 
 function HeroTrainer(type) {
     DataHandler.call(this, type);

@@ -22,31 +22,59 @@ function DataHandler(type) {
         return this.MasterData()[String(this.Get(id).Level + 1)];
     };
 
-    this.Create = function (id, date, position) {
+    this.Upgrade = function (args) {
         if (this.Get(id) === null) {
-            this.Data[id] = this.DefaultData(date, position);
+            this.Data[id] = this.DefaultData(args);
         }
-        return this.TryUpgrade(id, date);
+        else {
+            this.PrepareUpgrade(args);
+        }
+        return this.TryUpgrade(args);
     };
 
-    this.Upgrade = function (id, date) {
-        this.PrepareUpgrade(id, date);
-        return this.TryUpgrade(id, date);
-    };
-
-    this.DefaultData = function (date, position) {
+    this.DefaultData = function (args) {
         return {
             "Level": 0,
             "Upgrading": false,
-            "CompletedDate": 0,
+            "CompletedDate": 0
         }
     };
 
-    this.PrepareUpgrade = function (id, date) {
+    this.PrepareUpgrade = function (args) {
         // do nothing, for override
     };
 
-    this.TryUpgrade = function (id, date) {
+    this.InstantUpgrade = function (args) {
+        var id = args.id;
+        var date = args.date;
+
+        var nxtLv = this.NxtLvlData(id);
+
+        var missRes = 0;
+
+        if ("GoldCost" in nxtLv) {
+            missRes += nxtLv.GoldCost;
+        }
+
+        if ("FoodCost" in nxtLv) {
+            missRes += nxtLv.FoodCost;
+        }
+
+        var cost = Converter.GoldFoodToDiamond(resCost) + Converter.TimeToDiamond(nxtLv.UpTime);
+        cost = Math.floor(cost * 0.9);
+
+        var resMan = new ResHandler();
+
+        if (Currency.Spend(DIAMOND, cost)) {
+            this.Get(id).Upgrading = true;
+            this.CompleteUpgrade(args);
+        }
+    };
+
+    this.TryUpgrade = function (args) {
+
+        var id = args.id;
+        var date = args.date;
 
         if (!this.CanUpgrade(id)) {
             return false;
@@ -99,12 +127,12 @@ function DataHandler(type) {
 
             resMan.Push();
 
-            this.Get(id).CompletedDate = date + nxtLv.BuildTime;
+            this.Get(id).CompletedDate = date + nxtLv.UpTime;
 
             log.info("server complete date = ", this.Get(id).CompletedDate);
             this.Get(id).Upgrading = true;
 
-            this.GetExecutors().push({
+            this.GetWorkers().push({
                 "Type": this.Type,
                 "Id": id
             });
@@ -116,11 +144,15 @@ function DataHandler(type) {
         return true;
     };
 
-    this.PreComplete = function (id, date) {
+    this.PreComplete = function (args) {
         // do nothing
     };
 
-    this.CompleteUpgrade = function (id, date) {
+    this.CompleteUpgrade = function (args) {
+
+        var id = args.id;
+        var date = args.date;
+
         this.PreComplete();
         var b = this.Get(id);
         b.Level++;
@@ -132,11 +164,14 @@ function DataHandler(type) {
     };
 
     this.CanUpgrade = function () {
-        return this.GetExecutors().length < 2
+        return this.GetWorkers().length < 2
             || this.Get(id).Upgrading;
     };
 
-    this.BoostUpgrade = function (id, date) {
+    this.BoostUpgrade = function (args) {
+
+        var id = args.id;
+        var date = args.date;
 
         if (this.Completed(id, date)) {
             log.error("this building has been completed!");
@@ -156,16 +191,16 @@ function DataHandler(type) {
         return this.Get(id).CompletedDate <= date;
     };
 
-    this.GetExecutors = function () {
-        if (!this.Data.hasOwnProperty("Executors")) {
-            this.Data.Executors = [];
+    this.GetWorkers = function () {
+        if (!this.Data.hasOwnProperty("Workers")) {
+            this.Data.Workers = [];
         }
-        return this.Data.Executors;
+        return this.Data.Workers;
     };
 
     this.RemoveExecutors = function (type, id) {
 
-        var executors = this.GetExecutors();
+        var executors = this.GetWorkers();
         var index = -1;
         for (var a = 0; a < executors.length; a++) {
             var data = executors[a];

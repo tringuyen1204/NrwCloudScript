@@ -1,5 +1,5 @@
 function ResHandler(playerId) {
-    UserData.call(this, "Resource", playerId);
+    UserDataManager.call(this, "Resource", playerId);
 
   this.ValueOf = function(code){
       if (this.Data[code] === null) {
@@ -45,4 +45,4 @@ function ResHandler(playerId) {
     };
 }
 
-ResHandler.prototype = Object.create(UserData.prototype);
+ResHandler.prototype = Object.create(UserDataManager.prototype);
