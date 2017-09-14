@@ -11,6 +11,8 @@ function ResourceBuilding(type) {
         var kingdom = new Kingdom();
         kingdom.AddExp(this.CurLvlData(id).ExpGain);
 
+        this.RemoveExecutors(this.Type, id);
+
         this.Push();
     };
 

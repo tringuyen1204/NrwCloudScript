@@ -55,7 +55,11 @@ function Building(type) {
 
     this.TryUpgrade = function (id, date) {
 
-        if (this.Get(id).Upgrading){
+        if (!this.CanUpgrade()) {
+            return false;
+        }
+
+        if (this.Get(id).Upgrading) {
             return false;
         }
 
@@ -110,6 +114,11 @@ function Building(type) {
 
             log.info("server complete date = ", this.Get(id).CompletedDate);
             this.Get(id).Upgrading = true;
+
+            this.GetExecutors().push({
+                "Type": this.Type,
+                "Id": id
+            });
         }
         else {
             return false;
@@ -129,6 +138,12 @@ function Building(type) {
         if (this.Type === GOLD_STORAGE || this.Type === FOOD_STORAGE) {
             this.RefreshStorageCap();
         }
+
+        this.RemoveExecutors(this.Type, id);
+    };
+
+    this.CanUpgrade = function () {
+        return this.GetExecutors().length < 2;
     };
 
     this.BoostUpgrade = function (id, date) {
@@ -174,6 +189,29 @@ function Building(type) {
 
         var resMan = new ResHandler();
         resMan.SetMax(code ,newMax);
+    };
+
+    this.GetExecutors = function () {
+        if (this.Data.hasOwnProperty("Executors")) {
+            this.Data.Executors = [];
+        }
+        return this.Data.Executors;
+    };
+
+    this.RemoveExecutors = function (type, id) {
+
+        var executors = this.GetExecutors();
+        var index = -1;
+        for (var a = 0; a < executors.length; a++) {
+            var data = executors[a];
+            if (data.Id === id && data.Type === type) {
+                index = a;
+                break;
+            }
+        }
+        if (index !== -1) {
+            executors.remove(index);
+        }
     };
 
     this.Get = function (id) {
