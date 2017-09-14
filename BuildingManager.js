@@ -17,7 +17,15 @@ function BuildingManager(playerId) {
         var date = this.GetDate(args);
         this.GetHandler(MARKET).ApplyRaid(date, args.rate);
         this.GetHandler(FARM).ApplyRaid(date, args.rate);
-        this.Push();
+        this.PushNow();
+    };
+
+    this.Push = function (args) {
+        if ((args.type === GOLD_STORAGE || args.type === FOOD_STORAGE)
+            && (args.command === COMPLETE_UPGRADE || args.command === BOOST_UPGRADE)) {
+            this.RefreshStorageCap();
+        }
+        this.PushNow();
     };
 }
 
