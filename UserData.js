@@ -16,14 +16,14 @@ function UserData(Key, playerId) {
         log.error("can't load data key = " + this.Key + " of player id = " + this.PlayerId);
     }
 
-    this.Push = function(){
+    this.Push = function () {
         var newData = {};
         newData[this.Key] = JSON.stringify(this.Data);
 
         server.UpdateUserReadOnlyData({
             "PlayFabId": this.PlayerId,
-            "Data":newData,
-            "Permission":"public"
+            "Data": newData,
+            "Permission": "public"
         });
     };
 

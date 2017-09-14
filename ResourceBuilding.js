@@ -8,9 +8,9 @@ function ResourceBuilding(type) {
 
     this.DefaultData = function (date, pos) {
         return {
-            "Level":0,
-            "Upgrading":false,
-            "CompletedDate":0,
+            "Level": 0,
+            "Upgrading": false,
+            "CompletedDate": 0,
             "CollectDate": date,
             "Position": pos
         }
@@ -26,7 +26,7 @@ function ResourceBuilding(type) {
     /**
      * @returns {boolean}
      */
-    this.Collect = function(id, date){
+    this.Collect = function (id, date) {
         var bData = this.Get(id);
 
         if (bData === null || bData.Level === 0 || bData.Upgrading) {
@@ -62,7 +62,7 @@ function ResourceBuilding(type) {
         }
     };
 
-    this.CollectAll = function(date){
+    this.CollectAll = function (date) {
         var k;
         for (k in this.Data) {
             this.Collect(k, date);
@@ -83,13 +83,13 @@ function ResourceBuilding(type) {
 
         var produceRate = this.CurLvlData(id).ProduceRate;
         var workingTime = ( date - bData.CollectDate ) / ONE_HOUR;
-        var amount = Math.floor( workingTime * produceRate );
+        var amount = Math.floor(workingTime * produceRate);
 
         var code = (this.Type === MARKET) ? GOLD : FOOD;
 
         var capacity = this.CurLvlData(id)[code + "Capacity"];
 
-        if (amount > capacity){
+        if (amount > capacity) {
             amount = capacity;
         }
         return amount;

@@ -8,7 +8,7 @@ function Building(type) {
         }
 
         var newMax = 0;
-        var str = "Castle"+code+"Storage";
+        var str = "Castle" + code + "Storage";
         var result = server.GetTitleData([str]).Data[str];
 
         newMax += Number(result);
@@ -20,10 +20,10 @@ function Building(type) {
             }
         }
 
-        log.info("New " + code + " capacity = " + newMax );
+        log.info("New " + code + " capacity = " + newMax);
 
         var resMan = new ResHandler();
-        resMan.SetMax(code ,newMax);
+        resMan.SetMax(code, newMax);
     };
 
     this.DefaultData = function (date, position) {

@@ -31,31 +31,30 @@ Currency.Spend = function (code, qty) {
 
     if (vcBalances !== null
         && vcBalances.hasOwnProperty(code)
-        && vcBalances[code] >= qty){
+        && vcBalances[code] >= qty) {
         ChangeCurrency(vcBalances, code, -qty);
         return true;
     }
     return false;
 };
 
-function ChangeCurrency(vcBalances, code, qty)
-{
+function ChangeCurrency(vcBalances, code, qty) {
     if (vcBalances !== null
         && vcBalances.hasOwnProperty(code)
-        && (vcBalances[code] + qty >= 0) ) {
+        && (vcBalances[code] + qty >= 0)) {
         vcBalances[code] += qty;
     }
 
-    if (qty > 0){
+    if (qty > 0) {
         server.AddUserVirtualCurrency({
-            "PlayFabId" : currentPlayerId,
+            "PlayFabId": currentPlayerId,
             "VirtualCurrency": code,
             "Amount": Math.abs(qty)
         });
     }
     else {
         server.SubtractUserVirtualCurrency({
-            "PlayFabId" : currentPlayerId,
+            "PlayFabId": currentPlayerId,
             "VirtualCurrency": code,
             "Amount": Math.abs(qty)
         });

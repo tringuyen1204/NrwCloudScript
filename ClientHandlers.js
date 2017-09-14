@@ -36,7 +36,7 @@ handlers.FindEnemies = function (args) {
 };
 
 // account creation handler
-handlers.InitData = function(args){
+handlers.InitData = function (args) {
     var p = new Profile();
     p.Init();
 };
