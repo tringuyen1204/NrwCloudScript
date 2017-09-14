@@ -211,7 +211,7 @@ function Building(type) {
             }
         }
         if (index !== -1) {
-            executors.remove(index);
+            executors.splice(index, 1);
         }
     };
 
