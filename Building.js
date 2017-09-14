@@ -2,16 +2,16 @@ function Building(type) {
     this.Type = type;
 
     this.MasterData = function () {
-        if (!("masterData" in this)) {
+        if (!("mData" in this)) {
             var rawData = server.GetCatalogItems({
                 "CatalogVersion": this.Type
             });
 
             if ("Catalog" in rawData) {
-                this.masterData = JSON.parse(rawData.Catalog[0].CustomData);
+                this.mData = JSON.parse(rawData.Catalog[0].CustomData);
             }
         }
-        return this.masterData;
+        return this.mData;
     };
 
     this.CurLvlData = function(id){
@@ -65,7 +65,6 @@ function Building(type) {
     this.TryUpgrade = function (id, date) {
 
         if (this.Get(id).Upgrading){
-            log.error("Error: " + this.Type + id + " is already upgrading!");
             return false;
         }
 
@@ -80,43 +79,43 @@ function Building(type) {
 
         var nxtLv = this.NxtLvlData(id);
 
-        var missingRes = 0;
-        var notEnoughGold = false;
-        var notEnoughFood = false;
+        var missRes = 0;
+        var needGold = false;
+        var needFood = false;
 
         var resMan = new ResHandler();
 
         if (nxtLv.GoldCost !== null) {
             if (resMan.ValueOf(GOLD) < nxtLv.GoldCost){
-                missingRes += nxtLv.GoldCost - resMan.ValueOf(GOLD);
-                notEnoughGold = true;
+                missRes += nxtLv.GoldCost - resMan.ValueOf(GOLD);
+                needGold = true;
             }
         }
 
         if (nxtLv.FoodCost !== null) {
             if (resMan.ValueOf(FOOD) < nxtLv.FoodCost){
-                missingRes += nxtLv.FoodCost - resMan.ValueOf(FOOD);
-                notEnoughFood = true;
+                missRes += nxtLv.FoodCost - resMan.ValueOf(FOOD);
+                needFood = true;
             }
         }
 
-        var boostCost = 0;
+        var cost = 0;
 
-        if (missingRes > 0) {
-            boostCost = Converter.GoldFoodToDiamond(missingRes);
-            log.info("diamond needed = " + boostCost);
+        if (missRes > 0) {
+            cost = Converter.GoldFoodToDiamond(missRes);
+            log.info("diamond needed = " + cost);
         }
 
-        if ((boostCost === 0)
-            || (boostCost > 0 && Currency.Spend(DIAMOND, boostCost) )) {
-            if (notEnoughGold){
+        if ((cost === 0)
+            || (cost > 0 && Currency.Spend(DIAMOND, cost) )) {
+            if (needGold) {
                 resMan.Change(GOLD ,-resMan.ValueOf(GOLD) );
             }
             else if (nxtLv.GoldCost !== null) {
                 resMan.Change(GOLD, -nxtLv.GoldCost);
             }
 
-            if (notEnoughFood){
+            if (needFood) {
                 resMan.Change(FOOD , -resMan.ValueOf(FOOD) );
             }
             else if (nxtLv.FoodCost !== null) {
@@ -138,9 +137,9 @@ function Building(type) {
     };
 
     this.CompleteUpgrade = function (id, date) {
-        var bData = this.Get(id);
-        bData.Level++;
-        bData.Upgrading = false;
+        var b = this.Get(id);
+        b.Level++;
+        b.Upgrading = false;
 
         var kingdom = new Kingdom();
         kingdom.AddExp(this.CurLvlData(id).ExpGain);
