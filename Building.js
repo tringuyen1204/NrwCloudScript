@@ -51,6 +51,7 @@ function Building(type) {
 
     this.PrepareUpgrade = function (id, date) {
         // do nothing, for override
+
     };
 
     this.TryUpgrade = function (id, date) {
@@ -192,7 +193,7 @@ function Building(type) {
     };
 
     this.GetExecutors = function () {
-        if (this.Data.hasOwnProperty("Executors")) {
+        if (!this.Data.hasOwnProperty("Executors")) {
             this.Data.Executors = [];
         }
         return this.Data.Executors;
