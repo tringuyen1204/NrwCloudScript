@@ -5,21 +5,20 @@ function HeroManager(playerId) {
 
         var date = this.CheckDate(args);
         var canPush = false;
-
-        var handler = new HeroHandler(args.type);
+        var handler = new HeroTrainer(args.type);
 
         switch (args.command) {
             case UPGRADE:
-                canPush = handler.Upgrade(args.id, date);
+                canPush = handler.Upgrade("0", date);
                 break;
             case COMPLETE_UPGRADE:
-                canPush = handler.CompleteUpgrade(args.id, date);
+                canPush = handler.CompleteUpgrade("0", date);
                 break;
             case BOOST_UPGRADE:
-                canPush = handler.BoostUpgrade(args.id, date);
+                canPush = handler.BoostUpgrade("0", date);
                 break;
             case EVOLVE:
-                canPush = this.Evolve(args.id, date);
+                canPush = this.Evolve("0", date);
                 break;
         }
 
@@ -31,7 +30,7 @@ function HeroManager(playerId) {
 
 HeroManager.prototype = Object.create(UserData.prototype);
 
-function HeroHandler(type) {
+function HeroTrainer(type) {
     DataHandler.call(this, type);
 
     this.Evolve = function (id, date) {
@@ -39,4 +38,4 @@ function HeroHandler(type) {
     };
 }
 
-HeroHandler.prototype = Object.create(DataHandler.prototype);
+HeroTrainer.prototype = Object.create(DataHandler.prototype);

@@ -5,20 +5,21 @@ function TechManager(playerId) {
         var date = this.CheckDate(args);
         var canPush = false;
 
-        var handler = new TechHandler(args.type);
+        var handler = new ResearchHandler(args.type);
+        handler.Data = this.Data[TECH];
 
         switch (args.command) {
             case UPGRADE:
-                canPush = handler.Upgrade(args.id, date);
+                canPush = handler.Upgrade("0", date);
                 break;
             case COMPLETE_UPGRADE:
-                canPush = handler.CompleteUpgrade(args.id, date);
+                canPush = handler.CompleteUpgrade("0", date);
                 break;
             case BOOST_UPGRADE:
-                canPush = handler.BoostUpgrade(args.id, date);
+                canPush = handler.BoostUpgrade("0", date);
                 break;
             case EVOLVE:
-                canPush = this.Evolve(args.id, date);
+                canPush = this.Evolve("0", date);
                 break;
         }
 
@@ -30,8 +31,8 @@ function TechManager(playerId) {
 
 TechManager.prototype = Object.create(UserData.prototype);
 
-function TechHandler(type) {
+function ResearchHandler(type) {
     DataHandler.call(this, type);
 }
 
-TechHandler.prototype = Object.create(DataHandler.prototype);
+ResearchHandler.prototype = Object.create(DataHandler.prototype);
