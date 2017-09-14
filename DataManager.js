@@ -1,4 +1,4 @@
-function UserDataManager(Key, playerId) {
+function DataManager(Key, playerId) {
     this.Handlers = {};
     this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
     this.Key = Key;
@@ -31,9 +31,6 @@ function UserDataManager(Key, playerId) {
         });
     };
 
-    /**
-     * @returns {data}
-     */
     this.Get = function (id) {
         if (!this.Data.hasOwnProperty(id)) {
             return null;
@@ -41,9 +38,6 @@ function UserDataManager(Key, playerId) {
         return this.Data[id];
     };
 
-    /**
-     * @returns {number}
-     */
     this.GetDate = function (args) {
         if (args === null || args === undefined || !args.hasOwnProperty("date")) {
             return Date.now();

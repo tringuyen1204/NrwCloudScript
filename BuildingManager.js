@@ -1,6 +1,6 @@
 function BuildingManager(playerId) {
 
-    UserDataManager.call(this, BUILDING, playerId);
+    DataManager.call(this, BUILDING, playerId);
 
     this.AllProduceResource = function (args) {
         var date = this.GetDate(args);
@@ -21,4 +21,4 @@ function BuildingManager(playerId) {
     };
 }
 
-BuildingManager.prototype = Object.create(UserDataManager.prototype);
+BuildingManager.prototype = Object.create(DataManager.prototype);

@@ -1,21 +1,21 @@
 function HeroManager(playerId) {
-    UserDataManager.call(this, HERO, playerId);
+    DataManager.call(this, HERO, playerId);
 
     this.GetHandler = function (args) {
         var handlers = this.Handlers;
         var type = args.type;
 
         if (handlers.hasOwnProperty(type)) {
-            handlers[type] = new HeroTrainer(type);
+            handlers[type] = new HeroHandler(type);
             handlers[type].Data = this.Data;
         }
         return handlers[type];
     }
 }
 
-HeroManager.prototype = Object.create(UserDataManager.prototype);
+HeroManager.prototype = Object.create(DataManager.prototype);
 
-function HeroTrainer(type) {
+function HeroHandler(type) {
     DataHandler.call(this, type);
 
     this.Evolve = function (id, date) {
@@ -36,4 +36,5 @@ function HeroTrainer(type) {
         return false;
     };
 }
-HeroTrainer.prototype = Object.create(DataHandler.prototype);
+
+HeroHandler.prototype = Object.create(DataHandler.prototype);

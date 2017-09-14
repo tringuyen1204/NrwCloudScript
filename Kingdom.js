@@ -1,5 +1,5 @@
 function Kingdom() {
-    UserDataManager.call(this, "Kingdom");
+    DataManager.call(this, "Kingdom");
 
     if (this.Data.Exp === null) {
         this.Data.Exp = 0;
@@ -18,4 +18,4 @@ function Kingdom() {
     };
 }
 
-Kingdom.prototype = Object.create(UserDataManager.prototype);
+Kingdom.prototype = Object.create(DataManager.prototype);

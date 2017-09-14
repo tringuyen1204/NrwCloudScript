@@ -15,16 +15,10 @@ function ResourceBuilding(type) {
         }
     };
 
-    /**
-     * @returns {boolean}
-     */
     this.PrepareUprade = function (args) {
         this.Collect(args.id, args.date);
     };
 
-    /**
-     * @returns {boolean}
-     */
     this.Collect = function (args) {
 
         var id = args.id;
@@ -73,9 +67,6 @@ function ResourceBuilding(type) {
         return true;
     };
 
-    /**
-     * @returns {number}
-     */
     this.ProducedResource = function (id, date) {
 
         var bData = this.Get(id);
@@ -98,9 +89,6 @@ function ResourceBuilding(type) {
         return amount;
     };
 
-    /**
-     * @returns {number}
-     */
     this.AllResource = function (date) {
         var total = 0;
         var k;

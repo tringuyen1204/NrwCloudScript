@@ -1,5 +1,5 @@
 function TechManager(playerId) {
-    UserDataManager.call(this, TECH, playerId);
+    DataManager.call(this, TECH, playerId);
 }
 
-TechManager.prototype = Object.create(UserDataManager.prototype);
+TechManager.prototype = Object.create(DataManager.prototype);
