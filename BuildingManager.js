@@ -38,7 +38,7 @@ function BuildingManager(playerId) {
             this.Push();
 
             if ((args.type === GOLD_STORAGE || args.type === FOOD_STORAGE)
-                && (args.command == COMPLETE_UPGRADE || args.command == BOOST_UPGRADE)) {
+                && (args.command === COMPLETE_UPGRADE || args.command === BOOST_UPGRADE)) {
                 this.RefreshStorageCap();
             }
         }

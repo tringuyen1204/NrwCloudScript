@@ -41,3 +41,19 @@ const COLLECT = "Collect";
 const COMPLETE_UPGRADE = "CompleteUpgrade";
 
 const EVOLVE = "Evolve";
+
+Constant = {
+    Data: null
+};
+
+Constant.Get = function (key) {
+    if (Constant.Data === null) {
+        var str = server.GetTitleData(["Constant"]).Data["Constant"];
+        Constant.Data = JSON.parse(str);
+    }
+
+    if (key in Constant.Data) {
+        return Constant.Data[key];
+    }
+    return null;
+};
