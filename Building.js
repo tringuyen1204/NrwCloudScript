@@ -49,7 +49,7 @@ function Building(type) {
         return this.TryUpgrade(id, date);
     };
 
-    this.PrepareUprade = function (id, date) {
+    this.PrepareUpgrade = function (id, date) {
         // do nothing, for override
     };
 
