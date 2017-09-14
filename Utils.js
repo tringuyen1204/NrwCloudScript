@@ -1,8 +1,5 @@
 var Converter = {};
 
-/**
- * @return(diamondCost)
- */
 Converter.TimeToDiamond = function (milisec) {
     if (milisec <= 0)
         return 0;
@@ -16,9 +13,6 @@ Converter.TimeToDiamond = function (milisec) {
     return ret;
 };
 
-/**
- * @return(diamondCost)
- */
 Converter.GoldFoodToDiamond = function (qty) {
     if (qty <= 0)
         return 0;
@@ -30,9 +24,6 @@ Converter.GoldFoodToDiamond = function (qty) {
 
 var Currency = {};
 
-/**
- * @return(boolean)
- */
 Currency.Spend = function (code, qty) {
     var vcBalances = server.GetUserInventory({
         "PlayFabId": currentPlayerId

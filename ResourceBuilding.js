@@ -1,19 +1,9 @@
 function ResourceBuilding(type) {
     Building.call(this, type);
 
-    this.CompleteUpgrade = function(id, date) {
-        log.info("complete resource building");
+    this.PreComplete = function (id, date) {
         var bData = this.Get(id);
-        bData.Level++;
-        bData.Upgrading = false;
         bData.CollectDate = date;
-
-        var kingdom = new Kingdom();
-        kingdom.AddExp(this.CurLvlData(id).ExpGain);
-
-        this.RemoveExecutors(this.Type, id);
-
-        this.Push();
     };
 
     this.DefaultData = function (date, pos) {
@@ -77,7 +67,7 @@ function ResourceBuilding(type) {
         for (k in this.Data) {
             this.Collect(k, date);
         }
-        this.Push();
+        return true;
     };
 
     /**

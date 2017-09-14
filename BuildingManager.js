@@ -19,7 +19,7 @@ function BuildingManager(playerId) {
                 canPush = handler.BoostUpgrade(args.id, date);
                 break;
             case BUILD:
-                canPush = handler.Build(args.id, date, args.position);
+                canPush = handler.Create(args.id, date, args.position);
                 break;
             case COLLECT:
                 canPush = handler.Collect(args.id, date);
@@ -37,6 +37,11 @@ function BuildingManager(playerId) {
 
         if (canPush) {
             this.Push();
+
+            if ((args.type === GOLD_STORAGE || args.type === FOOD_STORAGE)
+                && (args.command == COMPLETE_UPGRADE || args.command == BOOST_UPGRADE)) {
+                this.RefreshStorageCap();
+            }
         }
     };
 

@@ -9,6 +9,7 @@ const JADE = "Jade";
 
 const BUILDING = "Building";
 const HERO = "Hero";
+const TECH = "Tech";
 
 // building code
 const CASTLE = "Castle";
@@ -30,7 +31,7 @@ const ONE_MINUTE = 60 * 1000;
 const ONE_HOUR = 3600 * 1000;
 const ONE_DAY = 86400 * 1000;
 
-const BUILD = "Build";
+const BUILD = "Create";
 const UPGRADE = "Upgrade";
 const BOOST_UPGRADE = "BoostUpgrade";
 const CHANGE_TROOP = "ChangeTroop";
