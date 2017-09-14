@@ -152,7 +152,7 @@ function Building(type) {
     /**
      * @returns {boolean}
      */
-    this.BoostBuilding = function(id, date) {
+    this.BoostUpgrade = function (id, date) {
 
         if (this.Completed(id, date)) {
             log.error("this building has been completed!");

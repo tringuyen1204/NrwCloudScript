@@ -1,6 +1,6 @@
 function BuildingManager(playerId) {
     this.Handlers = {};
-    UserData.call(this, "Building", playerId);
+    UserData.call(this, BUILDING, playerId);
 
     this.Execute = function (args) {
         var date = this.GetDate(args);
@@ -9,28 +9,28 @@ function BuildingManager(playerId) {
         var canPush = false;
 
         switch (args.command) {
-            case "Upgrade":
+            case UPGRADE:
                 canPush = handler.Upgrade(args.id, date);
                 break;
-            case "CompleteUpgrade":
+            case COMPLETE_UPGRADE:
                 canPush = handler.CompleteUpgrade(args.id, date);
                 break;
-            case "BoostBuilding":
-                canPush = handler.BoostBuilding(args.id, date);
+            case BOOST_UPGRADE:
+                canPush = handler.BoostUpgrade(args.id, date);
                 break;
-            case "Build":
+            case BUILD:
                 canPush = handler.Build(args.id, date, args.position);
                 break;
-            case "Collect":
+            case COLLECT:
                 canPush = handler.Collect(args.id, date);
                 break;
-            case "ChangeTroop":
+            case CHANGE_TROOP:
                 canPush = handler.ChangeTroop(args.id, date, args.troopType);
                 break;
-            case "BoostTrain":
+            case BOOST_TRAIN:
                 canPush = handler.BoostTrain(args.id, date);
                 break;
-            case "BoostTrainAll":
+            case BOOST_TRAIN_ALL:
                 canPush = handler.BoostTrainAll(date);
                 break;
         }

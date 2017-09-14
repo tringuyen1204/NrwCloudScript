@@ -22,12 +22,11 @@ MatchMaking.FindEnemies = function (args) {
         });
     }
 
-    var eList = {};
     var a, b;
 
-    var retData = {};
-    retData.Info = {};
-    retData.List = eList;
+    var ret = {};
+    ret.Info = {};
+    ret.List = {};
 
     var data;
 
@@ -37,10 +36,10 @@ MatchMaking.FindEnemies = function (args) {
         for (b = 0; b < result[a].Leaderboard.length; b++) {
             data = result[a].Leaderboard[b];
             if (data.PlayFabId === currentPlayerId) {
-                if (!retData.hasOwnProperty("MyBattlePoint")) {
+                if (!ret.hasOwnProperty("MyBattlePoint")) {
                     curGP = Math.floor(data.StatValue / 10) % 10000;
 
-                    retData.Info = {
+                    ret.Info = {
                         GP: curGP,
                         E: data.StatValue % 10
                     }
@@ -52,7 +51,6 @@ MatchMaking.FindEnemies = function (args) {
 
     var inRange = 0;
     var total = 0;
-
     var newData;
 
     for (a = 0; a < result.length; a++) {
@@ -63,14 +61,14 @@ MatchMaking.FindEnemies = function (args) {
                 continue;
             }
 
-            if (!eList.hasOwnProperty(data.PlayFabId)) {
+            if (!ret.List.hasOwnProperty(data.PlayFabId)) {
 
                 var GP = Math.floor(data.StatValue / 10) % 10000;
                 var delta = GP - curGP;
 
-                var isInRange = minDelta <= delta && delta <= maxDelta;
+                var deltaInRange = minDelta <= delta && delta <= maxDelta;
 
-                if (isInRange) {
+                if (deltaInRange) {
                     inRange++;
                 }
 
@@ -81,17 +79,17 @@ MatchMaking.FindEnemies = function (args) {
                     Delta: delta
                 };
 
-                eList[data.PlayFabId] = newData;
+                ret.List[data.PlayFabId] = newData;
             }
         }
     }
 
-    retData.Info.Total = total;
-    retData.Info.InRange = inRange;
+    ret.Info.Total = total;
+    ret.Info.InRange = inRange;
 
     MatchMaking.SetGloryPoint(curGP);
 
-    return JSON.stringify(retData);
+    return JSON.stringify(ret);
 };
 
 MatchMaking.ApplyRaidResult = function (args) {
