@@ -2,7 +2,7 @@ function BuildingManager(playerId) {
 
     DataManager.call(this, BUILDING, playerId);
 
-    this.AllProduceResource = function (args) {
+    this.ProducedResource = function (args) {
         var date = this.GetDate(args);
         var pGold = this.GetHandler(MARKET).AllResource(date) * 0.5;
         var pFood = this.GetHandler(FARM).AllResource(date) * 0.5;

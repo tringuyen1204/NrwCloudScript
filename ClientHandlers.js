@@ -19,7 +19,7 @@ handlers.UpdateTech = function (args) {
 
 handlers.Scout = function (args) {
     var b = new BuildingManager(args.target);
-    var ret = b.AllProduceResource(args);
+    var ret = b.ProducedResource(args);
     var resMan = new ResHandler(args.target);
 
     var gold = Math.floor(resMan.ValueOf(GOLD) * 0.25);

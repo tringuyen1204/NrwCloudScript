@@ -8,10 +8,9 @@ function Building(type) {
         }
 
         var newMax = 0;
-        var str = "Castle" + code + "Storage";
-        var result = server.GetTitleData([str]).Data[str];
+        var key = "Castle" + code + "Storage";
 
-        newMax += Number(result);
+        newMax += Constant.Get(key);
 
         var k;
         for (k in this.Data) {
