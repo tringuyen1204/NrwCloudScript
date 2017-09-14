@@ -22,9 +22,6 @@ function Building(type) {
         return this.MasterData()[String(this.Get(id).Level + 1)];
     };
 
-    /**
-     * @returns {boolean}
-     */
     this.Build = function (id, date, position) {
 
         if (this.Get(id) === null) {
@@ -47,9 +44,6 @@ function Building(type) {
         }
     };
 
-    /**
-     * @returns {boolean}
-     */
     this.Upgrade = function(id, date){
         this.PrepareUpgrade(id, date);
         return this.TryUpgrade(id, date);
@@ -59,23 +53,11 @@ function Building(type) {
         // do nothing, for override
     };
 
-    /**
-     * @returns {boolean}
-     */
     this.TryUpgrade = function (id, date) {
 
         if (this.Get(id).Upgrading){
             return false;
         }
-
-        // if (this.Type === CASTLE) {
-        // }
-        // else {
-        //     var castle = this.GetBui
-        //     if ( Number(id) > castle.CurLvlData("0")[this.Type+"Limit"] ){
-        //         return false;
-        //     }
-        // }
 
         var nxtLv = this.NxtLvlData(id);
 
@@ -149,9 +131,6 @@ function Building(type) {
         }
     };
 
-    /**
-     * @returns {boolean}
-     */
     this.BoostUpgrade = function (id, date) {
 
         if (this.Completed(id, date)) {
@@ -168,9 +147,6 @@ function Building(type) {
         return false;
     };
 
-    /**
-     * @returns {boolean}
-     */
     this.Completed = function (id, date) {
         return this.Get(id).CompletedDate <= date;
     };
@@ -200,22 +176,12 @@ function Building(type) {
         resMan.SetMax(code ,newMax);
     };
 
-    /**
-     * @returns {data}
-     */
     this.Get = function (id) {
-        if (this.Data.hasOwnProperty(id)) {
-            return this.Data[id];
+        if (this.Data[this.Type].hasOwnProperty(id)) {
+            return this.Data[this.Type][id];
         }
         else {
             return null;
         }
-    };
-
-    /**
-     * @returns {number}
-     */
-    this.ServerTime = function () {
-        return Date.now();
     };
 }

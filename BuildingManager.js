@@ -54,19 +54,9 @@ function BuildingManager(playerId) {
                     this.Handlers[type] = new Building(type);
                     break;
             }
-            this.Handlers[type].Data = this.Data[type];
+            this.Handlers[type].Data = this.Data;
         }
         return this.Handlers[type];
-    };
-
-    /**
-     * @returns {number}
-     */
-    this.GetDate = function (args) {
-        if (args === null || args === undefined || !args.hasOwnProperty("date")) {
-            return Date.now();
-        }
-        return Number(args.date);
     };
 
     this.AllProduceResource = function (args) {

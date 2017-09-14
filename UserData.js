@@ -35,5 +35,15 @@ function UserData(Key, playerId) {
             return null;
         }
         return this.Data[id];
-    }
+    };
+
+    /**
+     * @returns {number}
+     */
+    this.GetDate = function (args) {
+        if (args === null || args === undefined || !args.hasOwnProperty("date")) {
+            return Date.now();
+        }
+        return Number(args.date);
+    };
 }
