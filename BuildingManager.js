@@ -32,3 +32,36 @@ BuildingManager.prototype.Push = function (args) {
     }
     this.PushNow();
 };
+
+DataManager.prototype.GetHandler = function (args) {
+    var handlers = this.Handlers;
+    var type = args.type;
+
+    if (handlers.hasOwnProperty(type)) {
+
+        var newHandler = null;
+
+        switch (type) {
+            case FARM:
+            case MARKET:
+                newHandler = new ResBuildingHandler(type);
+                break;
+            case BARRACK:
+                newHandler = new BarrackHandler(type);
+                break;
+            case CASTLE:
+            case FOOD_STORAGE:
+            case GOLD_STORAGE:
+                newHandler = new BuildingHandler(type);
+                break;
+        }
+
+        if (handlers === null) {
+            log.error("invalid building handler type: +" + type);
+            return null;
+        }
+
+        handlers[type].Data = this.Data;
+    }
+    return handlers[type];
+};

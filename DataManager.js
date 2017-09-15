@@ -32,7 +32,7 @@ DataManager.prototype.PushNow = function () {
     });
 };
 
-DataManager.prototype.Get = function (id) {
+DataManager.prototype.GetConstant = function (id) {
     if (!this.Data.hasOwnProperty(id)) {
         return null;
     }
@@ -55,7 +55,8 @@ DataManager.prototype.FormatData = function (args) {
 DataManager.prototype.Execute = function (args) {
     args = this.FormatData(args);
     var handler = this.GetHandler(args);
-    if (handler.Execute(args)) {
+
+    if (handler !== null && handler.Execute(args)) {
         this.Push(args);
     }
 };

@@ -13,7 +13,7 @@ BuildingHandler.prototype.RefreshStorageCap = function (code) {
     var newMax = 0;
     var key = "Castle" + code + "Storage";
 
-    newMax += Constant.Get(key);
+    newMax += TitleData.GetConstant(key);
 
     var k;
     for (k in this.Data) {

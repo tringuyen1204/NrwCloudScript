@@ -7,7 +7,7 @@ const ARTIFACT = "Artifact";
 const FUR = "Fur";
 const JADE = "Jade";
 
-const BUILDING = "BuildingHandler";
+const BUILDING = "Building";
 const HERO = "Hero";
 const TECH = "Tech";
 
@@ -17,7 +17,7 @@ const MARKET = "Market";
 const FARM = "Farm";
 const GOLD_STORAGE = "GoldStorage";
 const FOOD_STORAGE = "FoodStorage";
-const BARRACK = "BarrackHandler";
+const BARRACK = "Barrack";
 
 // cash code
 const DIAMOND = "DI";
@@ -41,25 +41,36 @@ const CMD_COMPLETE_UPGRADE = "CompleteUpgrade";
 const CMD_INSTANT_UPGRADE = "InstantUpgrade";
 const CMD_EVOLVE = "Evolve";
 
+const NATION = "Nation";
+const MERC = "Merc";
+
+const TECH_LIST = [
+    NATION + INF,
+    NATION + SKR,
+    NATION + CAV,
+    MERC + INF,
+    MERC + SKR,
+    MERC + CAV
+];
+
 const PLAYER_ID = currentPlayerId;
 
-Constant = {
-    Data: null
-};
+TitleData = {};
 
-Constant.GetTitleData = function (key) {
-    var str = server.GetTitleData([key]).Data[key];
-    return JSON.parse(str);
-};
+TitleData.Get = function (key) {
 
-Constant.Get = function (key) {
-    if (Constant.Data === null) {
-        var str = server.GetTitleData(["Constant"]).Data["Constant"];
-        Constant.Data = JSON.parse(str);
+    if (!TitleData.hasOwnProperty(key)) {
+        var str = server.GetTitleData([key]).Data[key];
+        TitleData[key] = JSON.parse(str);
     }
+    return TitleData[key];
+};
 
-    if (key in Constant.Data) {
-        return Constant.Data[key];
+TitleData.GetConstant = function (key) {
+    var constant = TitleData.Get("Constant");
+
+    if (key in constant) {
+        return constant;
     }
     return null;
 };

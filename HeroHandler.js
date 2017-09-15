@@ -9,8 +9,8 @@ HeroHandler.prototype.Evolve = function (args) {
     var id = args.id;
     var date = args.date;
 
-    var heroData = this.Get(id);
-    var shardsReqList = Constant.Get("HeroEvolution");
+    var heroData = this.GetConstant(id);
+    var shardsReqList = TitleData.GetConstant("HeroEvolution");
 
     if (heroData.Star >= shardsReqList.length) {
         return false;

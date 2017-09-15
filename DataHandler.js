@@ -4,7 +4,7 @@ DataHandler = function (type) {
 
 DataHandler.prototype.MasterData = function () {
     if (!("mData" in this)) {
-        this.mData = Constant.GetTitleData(this.type);
+        this.mData = TitleData.Get(this.type);
     }
     return this.mData;
 };
@@ -24,11 +24,11 @@ DataHandler.prototype.Execute = function (args) {
 };
 
 DataHandler.prototype.CurLvlData = function (id) {
-    return this.MasterData()[String(this.Get(id).Level)];
+    return this.MasterData()[String(this.GetConstant(id).Level)];
 };
 
 DataHandler.prototype.NxtLvlData = function (id) {
-    return this.MasterData()[String(this.Get(id).Level + 1)];
+    return this.MasterData()[String(this.GetConstant(id).Level + 1)];
 };
 
 DataHandler.prototype.DefaultData = function (args) {
@@ -61,7 +61,7 @@ DataHandler.prototype.InstantUpgrade = function (args) {
     var resMan = new ResHandler();
 
     if (Currency.Spend(DIAMOND, cost)) {
-        this.Get(id).Upgrading = true;
+        this.GetConstant(id).Upgrading = true;
         this.CompleteUpgrade(args);
     }
 };
@@ -71,7 +71,7 @@ DataHandler.prototype.Upgrade = function (args) {
     var id = args.id;
     var date = args.date;
 
-    if (this.Get(id) === null) {
+    if (this.GetConstant(id) === null) {
         this.Data[this.type][id] = this.DefaultData(args);
     }
 
@@ -87,7 +87,7 @@ DataHandler.prototype.Upgrade = function (args) {
 
     var resMan = new ResHandler();
 
-    var data = this.Get(id);
+    var data = this.GetConstant(id);
 
     if (nxtLv.GoldCost !== null) {
         if (resMan.ValueOf(GOLD) < nxtLv.GoldCost) {
@@ -142,7 +142,7 @@ DataHandler.prototype.Upgrade = function (args) {
 DataHandler.prototype.CompleteUpgrade = function (args) {
 
     var id = args.id;
-    var data = this.Get(id);
+    var data = this.GetConstant(id);
     data.Level++;
     data.Upgrading = false;
 
@@ -157,7 +157,7 @@ DataHandler.prototype.CanUpgrade = function () {
         log.error("Max worker reaches");
         return false;
     }
-    else if (this.Get(id).Upgrading) {
+    else if (this.GetConstant(id).Upgrading) {
         log.error("Upgrading in progress");
         return false;
     }
@@ -172,7 +172,7 @@ DataHandler.prototype.BoostUpgrade = function (args) {
         log.error("this building has been completed!");
     } else {
 
-        var remainTime = ( this.Get(id).CompletedDate - date );
+        var remainTime = ( this.GetConstant(id).CompletedDate - date );
         var diamondNeed = Converter.TimeToDiamond(remainTime);
 
         if (Currency.Spend(DIAMOND, diamondNeed)) {
@@ -183,7 +183,7 @@ DataHandler.prototype.BoostUpgrade = function (args) {
 };
 
 DataHandler.prototype.Completed = function (id, date) {
-    return this.Get(id).CompletedDate <= date;
+    return this.GetConstant(id).CompletedDate <= date;
 };
 
 DataHandler.prototype.AddWorkder = function (type, id) {
@@ -216,7 +216,7 @@ DataHandler.prototype.RemoveWorker = function (type, id) {
     }
 };
 
-DataHandler.prototype.Get = function (id) {
+DataHandler.prototype.GetConstant = function (id) {
     if (this.Data[this.type].hasOwnProperty(id)) {
         return this.Data[this.type][id];
     }

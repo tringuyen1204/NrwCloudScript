@@ -5,7 +5,7 @@ ResBuildingHandler = function (type) {
 ResBuildingHandler.prototype = Object.create(BuildingHandler.prototype);
 
 ResBuildingHandler.prototype.CompleteUpgrade = function (args) {
-    this.Get(args.id).CollectDate = args.date;
+    this.GetConstant(args.id).CollectDate = args.date;
     return BuildingHandler.prototype.CompleteUpgrade.call(this, args);
 };
 
@@ -40,7 +40,7 @@ ResBuildingHandler.prototype.Collect = function (args) {
     var id = args.id;
     var date = args.date;
 
-    var bData = this.Get(id);
+    var bData = this.GetConstant(id);
 
     if (bData === null || bData.Level === 0 || bData.Upgrading) {
         return false;
@@ -85,7 +85,7 @@ ResBuildingHandler.prototype.CollectAll = function (args) {
 
 ResBuildingHandler.prototype.ProducedResource = function (id, date) {
 
-    var bData = this.Get(id);
+    var bData = this.GetConstant(id);
 
     if (bData === null || bData.Level === 0 || bData.Upgrading) {
         return 0;
@@ -123,7 +123,7 @@ ResBuildingHandler.prototype.ApplyRaid = function (date, rate) {
 };
 
 ResBuildingHandler.prototype.ReduceProduction = function (id, date, rate) {
-    var bData = this.Get(id);
+    var bData = this.GetConstant(id);
 
     var code = (this.type === MARKET) ? GOLD : FOOD;
     var produceRate = this.CurLvlData(id).ProduceRate;
