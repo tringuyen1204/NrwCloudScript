@@ -8,9 +8,14 @@ HeroManager.prototype.GetHandler = function (args) {
     var handlers = this.Handlers;
     var type = args.type;
 
-    if (handlers.hasOwnProperty(type)) {
-        handlers[type] = new HeroHandler(type);
-        handlers[type].Data = this.Data;
+    for (var a = 0; a < HERO_LIST.length; a++) {
+        if (HERO_LIST[a] === type) {
+            if (handlers.hasOwnProperty(type)) {
+                handlers[type] = new HeroHandler(type);
+                handlers[type].Data = this.Data;
+            }
+            return handlers[type];
+        }
     }
-    return handlers[type];
+    return null;
 };

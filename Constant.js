@@ -53,6 +53,21 @@ const TECH_LIST = [
     MERC + CAV
 ];
 
+const NATION_LIST = [
+    "England",
+    "France",
+    "Japan",
+    "China",
+    "Korea",
+    "Germany"
+];
+
+const HERO_LIST = [
+    "KingArthur",
+    "RobinHood",
+    "JoanDarc"
+];
+
 const PLAYER_ID = currentPlayerId;
 
 TitleData = {};
