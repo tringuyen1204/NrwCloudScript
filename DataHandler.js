@@ -1,6 +1,7 @@
 DataHandler = function (type) {
     this.type = type;
 };
+
 DataHandler.prototype.MasterData = function () {
     if (!("mData" in this)) {
         var rawData = server.GetCatalogItems({
@@ -150,10 +151,9 @@ DataHandler.prototype.Upgrade = function (args) {
 DataHandler.prototype.CompleteUpgrade = function (args) {
 
     var id = args.id;
-    var date = args.date;
-    var b = this.Get(id);
-    b.Level++;
-    b.Upgrading = false;
+    var data = this.Get(id);
+    data.Level++;
+    data.Upgrading = false;
 
     var kingdom = new Kingdom();
     kingdom.AddExp(this.CurLvlData(id).ExpGain);

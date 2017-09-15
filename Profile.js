@@ -1,4 +1,4 @@
-function Profile() {
+Profile = function () {
     this.Init = function () {
         var sampleString = server.GetTitleInternalData({
             "Keys": [
@@ -146,4 +146,4 @@ function Profile() {
 
         return ret;
     };
-}
+};
