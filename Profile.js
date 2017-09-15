@@ -104,7 +104,7 @@ Profile = function () {
             farmData.Level = Math.randomBetween(args.FarmLvl[0], args.FarmLvl[1]);
             farmData.Upgrading = false;
             farmData.CompletedDate = 0;
-            farmData.CollectDate = Date.now() - Math.randomBetween(1800000, 43200000);
+            farmData.CollectDate = Date.now() - Math.randomBetween(HOUR, 12 * HOUR);
             farmData.Position = pos;
 
             ret.Data[String(a)] = farmData;
@@ -139,7 +139,6 @@ Profile = function () {
             storageData.Position = pos;
 
             ret.Data[String(a)] = storageData;
-
         }
 
         ret.Index = index;
