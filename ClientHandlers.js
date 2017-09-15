@@ -1,5 +1,7 @@
 handlers.ServerTime = function (args) {
-    return String(Date.now());
+    return {
+        DateTime: ServerTime.Now()
+    }
 };
 
 handlers.UpdateBuilding = function (args) {
@@ -42,12 +44,6 @@ handlers.FindEnemies = function (args) {
     return MatchMaking.FindEnemies(args);
 };
 
-// account creation handler
-handlers.InitData = function (args) {
-    var p = new Profile();
-    p.Init();
-};
-
 handlers.Raid = function (args) {
 
     if (!args.hasOwnProperty("result")) {
@@ -85,4 +81,10 @@ handlers.Raid = function (args) {
     }
 
     MatchMaking.ApplyRaidResult(args);
+};
+
+// account creation handler
+handlers.InitData = function (args) {
+    var p = new Profile();
+    p.Init();
 };

@@ -4,26 +4,20 @@ DataHandler = function (type) {
 
 DataHandler.prototype.MasterData = function () {
     if (!("mData" in this)) {
-        var rawData = server.GetCatalogItems({
-            "CatalogVersion": this.type
-        });
-
-        if ("Catalog" in rawData) {
-            this.mData = JSON.parse(rawData.Catalog[0].CustomData);
-        }
+        this.mData = Constant.GetTitleData(this.type);
     }
     return this.mData;
 };
 
 DataHandler.prototype.Execute = function (args) {
     switch (args.command) {
-        case UPGRADE:
+        case CMD_UPGRADE:
             return this.Upgrade(args);
-        case COMPLETE_UPGRADE:
+        case CMD_COMPLETE_UPGRADE:
             return this.CompleteUpgrade(args);
-        case INSTANT_UPGRADE:
+        case CMD_INSTANT_UPGRADE:
             return this.InstantUpgrade(args);
-        case BOOST_UPGRADE:
+        case CMD_BOOST_UPGRADE:
             return this.BoostUpgrade(args);
     }
     return false;
@@ -136,10 +130,7 @@ DataHandler.prototype.Upgrade = function (args) {
 
         data.CompletedDate = date + nxtLv.UpTime;
         data.Upgrading = true;
-        this.GetWorkers().push({
-            "type": this.type,
-            "Id": id
-        });
+        this.AddWorkder(this.type, id);
     }
     else {
         return false;
@@ -156,13 +147,21 @@ DataHandler.prototype.CompleteUpgrade = function (args) {
     data.Upgrading = false;
 
     var kingdom = new Kingdom();
-    kingdom.AddExp(this.CurLvlData(id).ExpGain);
-    this.RemoveExecutors(this.type, id);
+    kingdom.AddExp(this.CurLvlData(id).Exp);
+    this.RemoveWorker(this.type, id);
 };
 
 DataHandler.prototype.CanUpgrade = function () {
-    return this.GetWorkers().length < 2
-        || this.Get(id).Upgrading;
+
+    if (this.GetWorkers().length > 1) {
+        log.error("Max worker reaches");
+        return false;
+    }
+    else if (this.Get(id).Upgrading) {
+        log.error("Upgrading in progress");
+        return false;
+    }
+    return true;
 };
 
 DataHandler.prototype.BoostUpgrade = function (args) {
@@ -187,6 +186,13 @@ DataHandler.prototype.Completed = function (id, date) {
     return this.Get(id).CompletedDate <= date;
 };
 
+DataHandler.prototype.AddWorkder = function (type, id) {
+    this.GetWorkers().push({
+        "type": this.type,
+        "Id": id
+    });
+};
+
 DataHandler.prototype.GetWorkers = function () {
     if (!this.Data.hasOwnProperty("Workers")) {
         this.Data.Workers = [];
@@ -194,7 +200,7 @@ DataHandler.prototype.GetWorkers = function () {
     return this.Data.Workers;
 };
 
-DataHandler.prototype.RemoveExecutors = function (type, id) {
+DataHandler.prototype.RemoveWorker = function (type, id) {
 
     var executors = this.GetWorkers();
     var index = -1;

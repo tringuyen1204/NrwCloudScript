@@ -44,7 +44,7 @@ DataManager.prototype.FormatData = function (args) {
         args = {};
     }
     if (!args.hasOwnProperty("date")) {
-        args.date = Date.now();
+        args.date = ServerTime.Now();
     }
     if (!args.hasOwnProperty("id")) {
         args.id = "0";
@@ -55,11 +55,7 @@ DataManager.prototype.FormatData = function (args) {
 DataManager.prototype.Execute = function (args) {
     args = this.FormatData(args);
     var handler = this.GetHandler(args);
-    var canPush = false;
-
-    canPush = handler.Execute(args);
-
-    if (canPush) {
+    if (handler.Execute(args)) {
         this.Push(args);
     }
 };

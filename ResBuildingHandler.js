@@ -23,7 +23,7 @@ ResBuildingHandler.prototype.Execute = function (args) {
     var ret = BuildingHandler.prototype.Execute.call(this, args);
     if (!ret) {
         switch (args.command) {
-            case COLLECT:
+            case CMD_COLLECT:
                 return handler.Collect(args);
         }
     }
@@ -66,7 +66,7 @@ ResBuildingHandler.prototype.Collect = function (args) {
             amount = 0;
         }
 
-        bData.CollectDate = Math.floor(date - (amount / produceRate) * ONE_HOUR);
+        bData.CollectDate = Math.floor(date - (amount / produceRate) * HOUR);
 
         return true;
     }
@@ -92,7 +92,7 @@ ResBuildingHandler.prototype.ProducedResource = function (id, date) {
     }
 
     var produceRate = this.CurLvlData(id).ProduceRate;
-    var workingTime = ( date - bData.CollectDate ) / ONE_HOUR;
+    var workingTime = ( date - bData.CollectDate ) / HOUR;
     var amount = Math.floor(workingTime * produceRate);
 
     var code = (this.type === MARKET) ? GOLD : FOOD;
@@ -130,5 +130,5 @@ ResBuildingHandler.prototype.ReduceProduction = function (id, date, rate) {
     var amount = this.ProducedResource(id, date);
 
     amount *= (1 - rate);
-    bData.CollectDate = Math.floor(date - amount / produceRate * ONE_HOUR);
+    bData.CollectDate = Math.floor(date - amount / produceRate * HOUR);
 };

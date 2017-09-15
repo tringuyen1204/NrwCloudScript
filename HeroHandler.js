@@ -10,9 +10,9 @@ HeroHandler.prototype.Evolve = function (args) {
     var date = args.date;
 
     var heroData = this.Get(id);
-    var shardsReqList = Constant.Get("HeroShardLimit");
+    var shardsReqList = Constant.Get("HeroEvolution");
 
-    if (heroData.Star >= shardsReqList.length + 1) {
+    if (heroData.Star >= shardsReqList.length) {
         return false;
     }
 
@@ -31,7 +31,7 @@ HeroHandler.prototype.Execute = function (args) {
 
     if (!ret) {
         switch (args.command) {
-            case EVOLVE:
+            case CMD_EVOLVE:
                 return this.Evolve(args);
         }
     }

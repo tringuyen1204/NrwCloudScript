@@ -23,9 +23,12 @@ BuildingManager.prototype.ApplyRaid = function (args) {
 };
 
 BuildingManager.prototype.Push = function (args) {
-    if ((args.type === GOLD_STORAGE || args.type === FOOD_STORAGE)
-        && (args.command === COMPLETE_UPGRADE || args.command === BOOST_UPGRADE)) {
-        this.RefreshStorageCap();
+    if ("command" in args) {
+        if (( args.type === GOLD_STORAGE || args.type === FOOD_STORAGE )
+            && ( args.command === CMD_COMPLETE_UPGRADE || args.command === CMD_BOOST_UPGRADE )) {
+
+            this.RefreshStorageCap();
+        }
     }
     this.PushNow();
 };
