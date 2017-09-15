@@ -7,7 +7,7 @@ const ARTIFACT = "Artifact";
 const FUR = "Fur";
 const JADE = "Jade";
 
-const BUILDING = "Building";
+const BUILDING = "BuildingHandler";
 const HERO = "Hero";
 const TECH = "Tech";
 
@@ -17,7 +17,7 @@ const MARKET = "Market";
 const FARM = "Farm";
 const GOLD_STORAGE = "GoldStorage";
 const FOOD_STORAGE = "FoodStorage";
-const BARRACK = "Barrack";
+const BARRACK = "BarrackHandler";
 
 // cash code
 const DIAMOND = "DI";
@@ -41,6 +41,8 @@ const COMPLETE_UPGRADE = "CompleteUpgrade";
 const INSTANT_UPGRADE = "InstantUpgrade";
 
 const EVOLVE = "Evolve";
+
+const PLAYER_ID = currentPlayerId;
 
 Constant = {
     Data: null

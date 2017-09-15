@@ -1,8 +1,9 @@
 var Converter = {};
 
 Converter.TimeToDiamond = function (milisec) {
-    if (milisec <= 0)
+    if (milisec <= 0) {
         return 0;
+    }
 
     var hours = milisec / ONE_HOUR;
     var ret = 25.18375 * Math.pow(hours, 0.7513);
@@ -60,3 +61,7 @@ function ChangeCurrency(vcBalances, code, qty) {
         });
     }
 }
+
+Math.randomBetween = function (min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+};

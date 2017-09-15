@@ -17,7 +17,7 @@ MatchMaking.FindEnemies = function (args) {
 
         result[index] = server.GetLeaderboardAroundUser({
             "StatisticName": statName,
-            "PlayFabId": currentPlayerId,
+            "PlayFabId": PLAYER_ID,
             "MaxResultsCount": maxCount
         });
     }
@@ -35,7 +35,7 @@ MatchMaking.FindEnemies = function (args) {
     for (a = 0; a < result.length; a++) {
         for (b = 0; b < result[a].Leaderboard.length; b++) {
             data = result[a].Leaderboard[b];
-            if (data.PlayFabId === currentPlayerId) {
+            if (data.PlayFabId === PLAYER_ID) {
                 if (!ret.hasOwnProperty("MyBattlePoint")) {
                     curGP = Math.floor(data.StatValue / 10) % 10000;
 
@@ -57,7 +57,7 @@ MatchMaking.FindEnemies = function (args) {
         for (b = 0; b < result[a].Leaderboard.length; b++) {
             data = result[a].Leaderboard[b];
 
-            if (data.PlayFabId === currentPlayerId) {
+            if (data.PlayFabId === PLAYER_ID) {
                 continue;
             }
 
@@ -94,7 +94,7 @@ MatchMaking.FindEnemies = function (args) {
 
 MatchMaking.ApplyRaidResult = function (args) {
 
-    var atkId = currentPlayerId;
+    var atkId = PLAYER_ID;
     var defId = args.target;
     var result = args.result;
 
@@ -130,42 +130,39 @@ MatchMaking.ApplyRaidResult = function (args) {
     }
 
     // atk
-    var atkGpChange = a * deltaGp + b;
+    var atkGpMod = a * deltaGp + b;
 
-    if (atkGpChange < 0) {
-        atkGpChange = 0;
+    if (atkGpMod < 0) {
+        atkGpMod = 0;
     }
-    else if (atkGpChange > limit) {
-        atkGpChange = limit;
+    else if (atkGpMod > limit) {
+        atkGpMod = limit;
     }
 
     // def
-    var defGpChange = a * -deltaGp + b;
+    var defGpMod = a * -deltaGp + b;
 
-    if (defGpChange < 0) {
-        defGpChange = 0;
+    if (defGpMod < 0) {
+        defGpMod = 0;
     }
-    else if (defGpChange > limit) {
-        defGpChange = limit;
+    else if (defGpMod > limit) {
+        defGpMod = limit;
     }
 
     if (result) {
-        defGpChange = -defGpChange;
+        defGpMod = -defGpMod;
     }
     else {
-        atkGpChange = -atkGpChange;
+        atkGpMod = -atkGpMod;
     }
 
-    log.info("attacker id = " + atkId + " - Gp change = " + atkGpChange);
-    log.info("defender id = " + defId + " - Gp change = " + defGpChange);
-
-    MatchMaking.SetGloryPoint(atkGp + Math.floor(atkGpChange), atkId);
-    MatchMaking.SetGloryPoint(defGp + Math.floor(defGpChange), defId);
+    MatchMaking.SetGloryPoint(atkGp + Math.floor(atkGpMod), atkId);
+    MatchMaking.SetGloryPoint(defGp + Math.floor(defGpMod), defId);
 };
 
 MatchMaking.SetGloryPoint = function (gp, pId) {
 
-    pId = ( pId === null || pId === undefined ) ? currentPlayerId : pId;
+    pId = ( pId === null || pId === undefined ) ? PLAYER_ID : pId;
 
     var points = [-15, -5, 5];
 

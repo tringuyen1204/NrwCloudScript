@@ -1,6 +1,5 @@
 function Profile() {
     this.Init = function () {
-
         var sampleString = server.GetTitleInternalData({
             "Keys": [
                 "DataSample"
@@ -42,19 +41,19 @@ function Profile() {
 
         var ret;
 
-        ret = this.GenerateProductionData(sData, index);
+        ret = this.SpawnProductionData(sData, index);
         building[FARM] = ret["Data"];
         index = ret["Index"];
 
-        ret = this.GenerateProductionData(sData, index);
+        ret = this.SpawnProductionData(sData, index);
         building[MARKET] = ret["Data"];
         index = ret["Index"];
 
-        ret = this.GenerateStorageData(sData, index);
+        ret = this.SpawnStorages(sData, index);
         building[FOOD_STORAGE] = ret["Data"];
         index = ret["Index"];
 
-        ret = this.GenerateStorageData(sData, index);
+        ret = this.SpawnStorages(sData, index);
         building[GOLD_STORAGE] = ret["Data"];
 
         var res = {
@@ -83,7 +82,7 @@ function Profile() {
         m.SetGloryPoint(gloryPoint);
     };
 
-    this.GenerateProductionData = function (args, index) {
+    this.SpawnProductionData = function (args, index) {
 
         var farmCount = Math.randomBetween(args.FarmCount[0], args.FarmCount[1]);
         var ret = {};
@@ -116,7 +115,7 @@ function Profile() {
         return ret;
     };
 
-    this.GenerateStorageData = function (args, index) {
+    this.SpawnStorages = function (args, index) {
 
         var storageCount = Math.randomBetween(args.StorageCount[0], args.StorageCount[1]);
         var ret = {};
@@ -148,10 +147,3 @@ function Profile() {
         return ret;
     };
 }
-
-/**
- * @returns {number}
- */
-Math.randomBetween = function (min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-};

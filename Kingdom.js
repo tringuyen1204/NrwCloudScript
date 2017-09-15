@@ -1,5 +1,5 @@
-function Kingdom() {
-    DataManager.call(this, "Kingdom");
+Kingdom = function (playerId) {
+    DataManager.call(this, "Kingdom", playerId);
 
     if (this.Data.Exp === null) {
         this.Data.Exp = 0;
@@ -16,6 +16,6 @@ function Kingdom() {
 
         return true;
     };
-}
+};
 
 Kingdom.prototype = Object.create(DataManager.prototype);
