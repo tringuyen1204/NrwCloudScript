@@ -1,10 +1,10 @@
-BuildingHandler = function (type) {
+BuildHandler = function (type) {
     DataHandler.call(this, type);
 };
 
-BuildingHandler.prototype = Object.create(DataHandler.prototype);
+BuildHandler.prototype = Object.create(DataHandler.prototype);
 
-BuildingHandler.prototype.RefreshStorageCap = function (code) {
+BuildHandler.prototype.RefreshStorageCap = function (code) {
 
     if (code === null) {
         code = this.type === GOLD_STORAGE ? GOLD : FOOD;
@@ -28,7 +28,7 @@ BuildingHandler.prototype.RefreshStorageCap = function (code) {
     resMan.SetMax(code, newMax);
 };
 
-BuildingHandler.prototype.DefaultData = function (args) {
+BuildHandler.prototype.DefaultData = function (args) {
     return {
         "Level": 0,
         "Upgrading": false,

@@ -20,9 +20,9 @@ Kingdom = function (playerId) {
 
 Kingdom.prototype = Object.create(DataManager.prototype);
 
-var KingdomManager = {};
+var GloryPoint = {};
 
-KingdomManager.SetGloryPoint = function (gp, pId) {
+GloryPoint.Set = function (gp, pId) {
 
     pId = ( pId === null || pId === undefined ) ? PLAYER_ID : pId;
 

@@ -1,12 +1,12 @@
 ResBuildHandler = function (type) {
-    BuildingHandler.call(this, type);
+    BuildHandler.call(this, type);
 };
 
-ResBuildHandler.prototype = Object.create(BuildingHandler.prototype);
+ResBuildHandler.prototype = Object.create(BuildHandler.prototype);
 
 ResBuildHandler.prototype.CompleteUpgrade = function (args) {
     this.Get(args.id).CollectDate = args.date;
-    return BuildingHandler.prototype.CompleteUpgrade.call(this, args);
+    return BuildHandler.prototype.CompleteUpgrade.call(this, args);
 };
 
 ResBuildHandler.prototype.DefaultData = function (args) {
@@ -19,8 +19,8 @@ ResBuildHandler.prototype.DefaultData = function (args) {
     }
 };
 
-ResBuildHandler.prototype.Execute = function (args) {
-    var ret = BuildingHandler.prototype.Execute.call(this, args);
+ResBuildHandler.prototype.Run = function (args) {
+    var ret = BuildHandler.prototype.Run.call(this, args);
     if (!ret) {
         switch (args.command) {
             case CMD_COLLECT:
@@ -32,7 +32,7 @@ ResBuildHandler.prototype.Execute = function (args) {
 
 ResBuildHandler.prototype.Upgrade = function (args) {
     this.Collect(args.id, args.date);
-    return BuildingHandler.prototype.Upgrade.call(this, args);
+    return BuildHandler.prototype.Upgrade.call(this, args);
 };
 
 ResBuildHandler.prototype.Collect = function (args) {

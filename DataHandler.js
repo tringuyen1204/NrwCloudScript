@@ -9,7 +9,7 @@ DataHandler.prototype.MasterData = function () {
     return this.mData;
 };
 
-DataHandler.prototype.Execute = function (args) {
+DataHandler.prototype.Run = function (args) {
     switch (args.command) {
         case CMD_UPGRADE:
             return this.Upgrade(args);

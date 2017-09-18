@@ -52,11 +52,11 @@ DataManager.prototype.FormatData = function (args) {
     return args;
 };
 
-DataManager.prototype.Execute = function (args) {
+DataManager.prototype.Run = function (args) {
     args = this.FormatData(args);
     var handler = this.GetHandler(args);
 
-    if (handler !== null && handler.Execute(args)) {
+    if (handler !== null && handler.Run(args)) {
         this.Push(args);
     }
 

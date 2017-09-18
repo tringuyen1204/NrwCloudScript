@@ -4,7 +4,7 @@ RaidManager = function (playerId) {
 
 RaidManager.prototype = Object.create(DataManager.prototype);
 
-RaidManager.prototype.Execute = function (args) {
+RaidManager.prototype.Run = function (args) {
     args = this.FormatData(args);
 
     switch (args.command) {
@@ -16,7 +16,7 @@ RaidManager.prototype.Execute = function (args) {
 
     var handler = this.GetHandler(args);
 
-    if (handler !== null && handler.Execute(args)) {
+    if (handler !== null && handler.Run(args)) {
         this.Push(args);
     }
 
@@ -132,7 +132,7 @@ RaidManager.prototype.FindEnemies = function (args) {
     ret.Info.Total = total;
     ret.Info.InRange = inRange;
 
-    KingdomManager.SetGloryPoint(curGP);
+    GloryPoint.Set(curGP);
 
     return JSON.stringify(ret);
 };

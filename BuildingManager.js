@@ -52,7 +52,7 @@ DataManager.prototype.GetHandler = function (args) {
             case CASTLE:
             case FOOD_STORAGE:
             case GOLD_STORAGE:
-                newHandler = new BuildingHandler(type);
+                newHandler = new BuildHandler(type);
                 break;
         }
 

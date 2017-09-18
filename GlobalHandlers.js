@@ -6,27 +6,27 @@ handlers.ServerTime = function (args) {
 
 handlers.Building = function (args) {
     var m = new BuildingManager();
-    return m.Execute(args);
+    return m.Run(args);
 };
 
 handlers.Hero = function (args) {
     var m = new HeroManager();
-    return m.Execute(args);
+    return m.Run(args);
 };
 
 handlers.Tech = function (args) {
     var m = new TechManager();
-    return m.Execute(args);
+    return m.Run(args);
 };
 
 handlers.Raid = function (args) {
     var m = new RaidManager();
-    return m.Execute(args);
+    return m.Run(args);
 };
 
 handlers.Campaign = function (args) {
     var m = CampaignManager();
-    return m.Execute(args);
+    return m.Run(args);
 };
 
 // account creation handler

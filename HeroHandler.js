@@ -26,8 +26,8 @@ HeroHandler.prototype.Evolve = function (args) {
     return false;
 };
 
-HeroHandler.prototype.Execute = function (args) {
-    var ret = DataHandler.prototype.Execute.call(this, args);
+HeroHandler.prototype.Run = function (args) {
+    var ret = DataHandler.prototype.Run.call(this, args);
 
     if (!ret) {
         switch (args.command) {

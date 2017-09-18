@@ -1,7 +1,7 @@
 BattleHandler = function () {
 };
 
-BattleHandler.prototype.Execute = function (args) {
+BattleHandler.prototype.Run = function (args) {
     switch (args.command) {
         case CMD_START_BATTLE:
             return this.StartBattle(args);

@@ -105,6 +105,6 @@ RaidHandler.prototype.ApplyResult = function (args) {
         atkGpMod = -atkGpMod;
     }
 
-    KingdomManager.SetGloryPoint(atkGp + Math.floor(atkGpMod), atkId);
-    KingdomManager.SetGloryPoint(defGp + Math.floor(defGpMod), defId);
+    GloryPoint.Set(atkGp + Math.floor(atkGpMod), atkId);
+    GloryPoint.Set(defGp + Math.floor(defGpMod), defId);
 };

@@ -35,26 +35,26 @@ Profile = function () {
         var sData = sampleData[k];
 
         var index = 0;
-        var building = {};
+        var b = {};
 
-        building[CASTLE] = castle;
+        b[CASTLE] = castle;
 
         var ret;
 
-        ret = this.SpawnProductionData(sData, index);
-        building[FARM] = ret["Data"];
+        ret = this.SpawnFarms(sData, index);
+        b[FARM] = ret["Data"];
         index = ret["Index"];
 
-        ret = this.SpawnProductionData(sData, index);
-        building[MARKET] = ret["Data"];
-        index = ret["Index"];
-
-        ret = this.SpawnStorages(sData, index);
-        building[FOOD_STORAGE] = ret["Data"];
+        ret = this.SpawnFarms(sData, index);
+        b[MARKET] = ret["Data"];
         index = ret["Index"];
 
         ret = this.SpawnStorages(sData, index);
-        building[GOLD_STORAGE] = ret["Data"];
+        b[FOOD_STORAGE] = ret["Data"];
+        index = ret["Index"];
+
+        ret = this.SpawnStorages(sData, index);
+        b[GOLD_STORAGE] = ret["Data"];
 
         var res = {
             Gold: {
@@ -70,7 +70,7 @@ Profile = function () {
         server.UpdateUserReadOnlyData({
             "PlayFabId": currentPlayerId,
             "Data": {
-                "UpdateBuilding": JSON.stringify(building),
+                "UpdateBuilding": JSON.stringify(b),
                 "Resource": JSON.stringify(res)
             },
             "Permission": "public"
@@ -78,12 +78,12 @@ Profile = function () {
 
         var gloryPoint = Math.randomBetween(sData.GloryPoint[0], sData.GloryPoint[1]);
 
-        KingdomManager.SetGloryPoint(gloryPoint);
+        GloryPoint.Set(gloryPoint);
 
         return true;
     };
 
-    this.SpawnProductionData = function (args, index) {
+    this.SpawnFarms = function (args, index) {
 
         var farmCount = Math.randomBetween(args.FarmCount[0], args.FarmCount[1]);
         var ret = {};
@@ -101,14 +101,14 @@ Profile = function () {
                 pos += index;
             }
 
-            var farmData = {};
-            farmData.Level = Math.randomBetween(args.FarmLvl[0], args.FarmLvl[1]);
-            farmData.Upgrading = false;
-            farmData.CompletedDate = 0;
-            farmData.CollectDate = Date.now() - Math.randomBetween(HOUR, 12 * HOUR);
-            farmData.Position = pos;
+            var fData = {};
+            fData.Level = Math.randomBetween(args.FarmLvl[0], args.FarmLvl[1]);
+            fData.Upgrading = false;
+            fData.CompletedDate = 0;
+            fData.CollectDate = Date.now() - Math.randomBetween(HOUR, 12 * HOUR);
+            fData.Position = pos;
 
-            ret.Data[String(a)] = farmData;
+            ret.Data[String(a)] = fData;
         }
         ret.Index = index;
 
@@ -127,13 +127,13 @@ Profile = function () {
 
             pos += ++index < 10 ? "0" + index : index;
 
-            var storageData = {};
-            storageData.Level = Math.randomBetween(args.StorageLvl[0], args.StorageLvl[1]);
-            storageData.Upgrading = false;
-            storageData.CompletedDate = 0;
-            storageData.Position = pos;
+            var sData = {};
+            sData.Level = Math.randomBetween(args.StorageLvl[0], args.StorageLvl[1]);
+            sData.Upgrading = false;
+            sData.CompletedDate = 0;
+            sData.Position = pos;
 
-            ret.Data[String(a)] = storageData;
+            ret.Data[String(a)] = sData;
         }
         ret.Index = index;
 
