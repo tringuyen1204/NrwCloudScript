@@ -1,25 +1,7 @@
 RaidHandler = function () {
 };
 
-RaidHandler.prototype.Execute = function (args) {
-    switch (args.command) {
-        case CMD_START_BATTLE:
-            return this.StartBattle(args);
-        case CMD_UPDATE_BATTLE:
-            return this.UpdateBattle(args);
-        case CMD_END_BATTLE:
-            return this.EndBattle(args);
-    }
-    return false;
-};
-
-RaidHandler.prototype.StartBattle = function (args) {
-
-};
-
-RaidHandler.prototype.UpdateBattle = function (args) {
-
-};
+RaidHandler.prototype = Object.create(BattleHandler.prototype);
 
 RaidHandler.prototype.EndBattle = function (args) {
 

@@ -3,3 +3,7 @@ CampaignManager = function (playerId) {
 };
 
 CampaignManager.prototype = Object.create(DataManager.prototype);
+
+CampaignManager.prototype.GetHandler = function (args) {
+    return new BattleHandler();
+};

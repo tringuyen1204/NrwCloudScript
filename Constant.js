@@ -72,9 +72,16 @@ const NATION_LIST = [
 ];
 
 const HERO_LIST = [
+
+    // generals
     "KingArthur",
     "RobinHood",
-    "JoanDarc"
+    "JoanDarc",
+
+    // advisors
+    "ZhugeLiang",
+    "LeonardDaVinci",
+    "Notradamus"
 ];
 
 const PLAYER_ID = currentPlayerId;
