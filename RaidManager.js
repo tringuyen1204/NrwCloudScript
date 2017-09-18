@@ -57,9 +57,9 @@ function RaidManager(playerId) {
       var statName = "BattlePoint" + (index + 1);
 
       result[index] = server.GetLeaderboardAroundUser({
-        StatisticName: statName,
-        PlayFabId: this.PlayFabId,
-        MaxResultsCount: maxCount
+        "StatisticName": statName,
+        "PlayFabId": this.PlayFabId,
+        "MaxResultsCount": maxCount
       });
     }
 
