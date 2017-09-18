@@ -46,7 +46,7 @@ function RaidManager(playerId) {
     var maxDelta = 100;
 
     var maxCount = 20;
-    maxCount = (args === null || !args.hasOwnProperty("MaxResults")) ? maxCount : args.MaxResults;
+    maxCount = ( args === null || !args.hasOwnProperty("MaxResults") ) ? maxCount : args.MaxResults;
 
     var result = [];
 
@@ -58,7 +58,7 @@ function RaidManager(playerId) {
 
       result[index] = server.GetLeaderboardAroundUser({
         "StatisticName": statName,
-        "PlayFabId": this.PlayFabId,
+        "PlayFabId": this.PlayerId,
         "MaxResultsCount": maxCount
       });
     }
