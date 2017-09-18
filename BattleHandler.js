@@ -1,4 +1,5 @@
 function BattleHandler() {
+
  this.Run = function (args) {
   switch (args.command) {
    case CMD_START_BATTLE:
@@ -14,4 +15,5 @@ function BattleHandler() {
 
  this.EndBattle = function (args) {
  };
+
 }

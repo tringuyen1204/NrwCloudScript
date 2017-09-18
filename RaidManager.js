@@ -10,17 +10,13 @@ function RaidManager(playerId) {
       case CMD_SCOUT:
         return this.Scout(args);
     }
-    var handler = this.GetHandler(args);
+   var handler = new RaidHandler();
 
     if (handler !== null && handler.Run(args)) {
       this.Push(args);
     }
     return this.Data;
   };
-
- this.GetHandler = function (args) {
-  return new RaidHandler();
- };
 
   this.Scout = function (args) {
 
