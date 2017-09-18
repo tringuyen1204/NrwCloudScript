@@ -59,6 +59,8 @@ DataManager.prototype.Execute = function (args) {
     if (handler !== null && handler.Execute(args)) {
         this.Push(args);
     }
+
+    return this.Data;
 };
 
 DataManager.prototype.GetHandler = function (args) {

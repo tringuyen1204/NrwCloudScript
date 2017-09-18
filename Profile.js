@@ -78,8 +78,9 @@ Profile = function () {
 
         var gloryPoint = Math.randomBetween(sData.GloryPoint[0], sData.GloryPoint[1]);
 
-        var m = new MatchMaking();
-        m.SetGloryPoint(gloryPoint);
+        KingdomManager.SetGloryPoint(gloryPoint);
+
+        return true;
     };
 
     this.SpawnProductionData = function (args, index) {
@@ -109,7 +110,6 @@ Profile = function () {
 
             ret.Data[String(a)] = farmData;
         }
-
         ret.Index = index;
 
         return ret;
@@ -135,7 +135,6 @@ Profile = function () {
 
             ret.Data[String(a)] = storageData;
         }
-
         ret.Index = index;
 
         return ret;
