@@ -1,39 +1,39 @@
 function HeroHandler(type) {
-    DataHandler.call(this, type);
+  DataHandler.call(this, type);
 
-    this.Evolve = function (args) {
+  this.Evolve = function (args) {
 
-        var id = args.id;
-        var date = args.date;
+    var id = args.id;
+    var date = args.date;
 
-        var heroData = this.Get(id);
-        var shardsReqList = TitleData.Get("HeroEvolution");
+    var heroData = this.Get(id);
+    var shardsReqList = TitleData.Get("HeroEvolution");
 
-        if (heroData.Star >= shardsReqList.length) {
-            return false;
-        }
+    if (heroData.Star >= shardsReqList.length) {
+      return false;
+    }
 
-        var shardReq = shardsReqList[heroData.Star - 1];
+    var shardReq = shardsReqList[heroData.Star - 1];
 
-        if (heroData.Shards >= shardReq) {
-            heroData.Shards -= shardReq;
-            heroData.Star = heroData.Star + 1;
-            return true;
-        }
-        return false;
-    };
+    if (heroData.Shards >= shardReq) {
+      heroData.Shards -= shardReq;
+      heroData.Star = heroData.Star + 1;
+      return true;
+    }
+    return false;
+  };
 
-    this.Run = function (args) {
-        var ret = DataHandler.prototype.Run.call(this, args);
+  this.Run = function (args) {
+    var ret = DataHandler.prototype.Run.call(this, args);
 
-        if (!ret) {
-            switch (args.command) {
-                case CMD_EVOLVE:
-                    return this.Evolve(args);
-            }
-        }
-        return ret;
-    };
+    if (!ret) {
+      switch (args.command) {
+        case CMD_EVOLVE:
+          return this.Evolve(args);
+      }
+    }
+    return ret;
+  };
 }
 
 HeroHandler.prototype = Object.create(DataHandler.prototype);
