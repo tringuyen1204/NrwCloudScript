@@ -1,5 +1,5 @@
 function BattleLog(playerId) {
- DataManager.call(this, playerId);
+ DataManager.call(this, "Logs", playerId);
 
  this.Update = function (type, id, data) {
 

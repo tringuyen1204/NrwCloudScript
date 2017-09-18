@@ -10,6 +10,7 @@ function RaidManager(playerId) {
       case CMD_SCOUT:
         return this.Scout(args);
     }
+
    var handler = new RaidHandler();
 
     if (handler !== null && handler.Run(args)) {
