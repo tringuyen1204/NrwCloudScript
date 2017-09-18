@@ -46,7 +46,7 @@ function RaidManager(playerId) {
     var maxDelta = 100;
 
     var maxCount = 20;
-    maxCount = args === null ? maxCount : args.MaxResultsCount;
+    maxCount = (args === null || args.hasOwnProperty("MaxResults")) ? maxCount : args.MaxResults;
 
     var result = [];
 
