@@ -128,7 +128,7 @@ function RaidManager(playerId) {
 
     GloryPoint.Set(curGP);
 
-    return JSON.stringify(ret);
+    return ret;
   };
 }
 
