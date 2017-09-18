@@ -1,5 +1,5 @@
 RaidManager = function (playerId) {
-    DataManager.call(this, playerId);
+    DataManager.call(this, "Raid", playerId);
 };
 
 RaidManager.prototype = Object.create(DataManager.prototype);
@@ -9,38 +9,35 @@ RaidManager.prototype.Run = function (args) {
 
     switch (args.command) {
         case CMD_FIND_ENEMIES:
-            return MatchMaking.FindEnemies(args);
+            return this.FindEnemies(args);
         case CMD_SCOUT:
-            return MatchMaking.Scout(args);
+            return this.Scout(args);
     }
-
     var handler = this.GetHandler(args);
 
     if (handler !== null && handler.Run(args)) {
         this.Push(args);
     }
-
     return this.Data;
 };
 
 RaidManager.prototype.Scout = function (args) {
+
+    var rData = this.Data;
     var b = new BuildManager(args.target);
     var ret = b.ProducedResource(args);
     var resMan = new ResHandler(args.target);
 
     var gold = Math.floor(resMan.ValueOf(GOLD) * 0.25);
     var food = Math.floor(resMan.ValueOf(FOOD) * 0.25);
-    ret[GOLD] = gold;
-    ret[FOOD] = food;
+    rData[GOLD] = gold;
+    rData[FOOD] = food;
+    rData["ProducedGold"] = ret.ProducedGold;
+    rData["ProducedFood"] = ret.ProducedFood;
 
-    server.UpdateUserReadOnlyData({
-        "PlayFabId": this.PlayFabId,
-        "Data": {
-            "Raid": JSON.stringify(ret)
-        },
-        "Permission": "public"
-    });
-    return ret;
+    this.Push();
+
+    return rData;
 };
 
 RaidManager.prototype.GetHandler = function (args) {

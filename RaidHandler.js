@@ -3,6 +3,39 @@ RaidHandler = function () {
 
 RaidHandler.prototype = Object.create(BattleHandler.prototype);
 
+RaidHandler.prototype.StartBattle = function (args) {
+
+    var atkInfo = {
+        "Target": args.target,
+        "ActiveDate": args.date
+    };
+
+    var atkData = {
+        RaidInfo: JSON.stringify(atkInfo)
+    };
+
+    server.UpdateUserReadOnlyData({
+        "PlayFabId": this.PlayerId,
+        "Data": atkData,
+        "Permission": "public"
+    });
+
+    var defInfo = {
+        "Target": args.target,
+        "ActiveDate": args.date
+    };
+
+    var defData = {
+        RaidInfo: JSON.stringify(defInfo)
+    };
+
+    server.UpdateUserReadOnlyData({
+        "PlayFabId": this.PlayerId,
+        "Data": defData,
+        "Permission": "public"
+    });
+};
+
 RaidHandler.prototype.EndBattle = function (args) {
 
     if (!args.hasOwnProperty("result")) {
