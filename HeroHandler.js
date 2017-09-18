@@ -1,4 +1,4 @@
-HeroHandler = function HeroHandler(type) {
+HeroHandler = function (type) {
     DataHandler.call(this, type);
 };
 
