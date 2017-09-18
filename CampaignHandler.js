@@ -3,13 +3,10 @@ CampaignHandler = function (type) {
 };
 
 CampaignHandler.prototype.StartBattle = function (args) {
-
 };
 
-CampaignHandler.prototype.UpgradeBattle = function (args) {
-
+CampaignHandler.prototype.UpdateBattle = function (args) {
 };
 
 CampaignHandler.prototype.EndBattle = function (args) {
-
 };

@@ -44,7 +44,7 @@ DataManager.prototype.GetHandler = function (args) {
         switch (type) {
             case FARM:
             case MARKET:
-                newHandler = new ResBuildingHandler(type);
+                newHandler = new ResBuildHandler(type);
                 break;
             case BARRACK:
                 newHandler = new BarrackHandler(type);

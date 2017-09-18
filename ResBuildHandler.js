@@ -1,15 +1,15 @@
-ResBuildingHandler = function (type) {
+ResBuildHandler = function (type) {
     BuildingHandler.call(this, type);
 };
 
-ResBuildingHandler.prototype = Object.create(BuildingHandler.prototype);
+ResBuildHandler.prototype = Object.create(BuildingHandler.prototype);
 
-ResBuildingHandler.prototype.CompleteUpgrade = function (args) {
+ResBuildHandler.prototype.CompleteUpgrade = function (args) {
     this.Get(args.id).CollectDate = args.date;
     return BuildingHandler.prototype.CompleteUpgrade.call(this, args);
 };
 
-ResBuildingHandler.prototype.DefaultData = function (args) {
+ResBuildHandler.prototype.DefaultData = function (args) {
     return {
         "Level": 0,
         "Upgrading": false,
@@ -19,7 +19,7 @@ ResBuildingHandler.prototype.DefaultData = function (args) {
     }
 };
 
-ResBuildingHandler.prototype.Execute = function (args) {
+ResBuildHandler.prototype.Execute = function (args) {
     var ret = BuildingHandler.prototype.Execute.call(this, args);
     if (!ret) {
         switch (args.command) {
@@ -30,12 +30,12 @@ ResBuildingHandler.prototype.Execute = function (args) {
     return ret;
 };
 
-ResBuildingHandler.prototype.Upgrade = function (args) {
+ResBuildHandler.prototype.Upgrade = function (args) {
     this.Collect(args.id, args.date);
     return BuildingHandler.prototype.Upgrade.call(this, args);
 };
 
-ResBuildingHandler.prototype.Collect = function (args) {
+ResBuildHandler.prototype.Collect = function (args) {
 
     var id = args.id;
     var date = args.date;
@@ -75,7 +75,7 @@ ResBuildingHandler.prototype.Collect = function (args) {
     }
 };
 
-ResBuildingHandler.prototype.CollectAll = function (args) {
+ResBuildHandler.prototype.CollectAll = function (args) {
     var k;
     for (k in this.Data) {
         this.Collect(k, args.date);
@@ -83,7 +83,7 @@ ResBuildingHandler.prototype.CollectAll = function (args) {
     return true;
 };
 
-ResBuildingHandler.prototype.ProducedResource = function (id, date) {
+ResBuildHandler.prototype.ProducedResource = function (id, date) {
 
     var bData = this.Get(id);
 
@@ -105,7 +105,7 @@ ResBuildingHandler.prototype.ProducedResource = function (id, date) {
     return amount;
 };
 
-ResBuildingHandler.prototype.AllResource = function (date) {
+ResBuildHandler.prototype.AllResource = function (date) {
     var total = 0;
     var k;
 
@@ -115,14 +115,14 @@ ResBuildingHandler.prototype.AllResource = function (date) {
     return total;
 };
 
-ResBuildingHandler.prototype.ApplyRaid = function (date, rate) {
+ResBuildHandler.prototype.ApplyRaid = function (date, rate) {
     var k;
     for (k in this.Data) {
         this.ReduceProduction(k, date, rate);
     }
 };
 
-ResBuildingHandler.prototype.ReduceProduction = function (id, date, rate) {
+ResBuildHandler.prototype.ReduceProduction = function (id, date, rate) {
     var bData = this.Get(id);
 
     var code = (this.type === MARKET) ? GOLD : FOOD;

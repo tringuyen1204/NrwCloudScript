@@ -193,20 +193,20 @@ MatchMaking.SetGloryPoint = function (gp, pId) {
         "PlayFabId": pId,
         "Statistics": [
             {
-                "StatisticName": "BattlePoint1",
-                "Value": points[0]
+                StatisticName: "BattlePoint1",
+                Value: points[0]
             },
             {
-                "StatisticName": "BattlePoint2",
-                "Value": points[1]
+                StatisticName: "BattlePoint2",
+                Value: points[1]
             },
             {
-                "StatisticName": "BattlePoint3",
-                "Value": points[2]
+                StatisticName: "BattlePoint3",
+                Value: points[2]
             },
             {
-                "StatisticName": "GloryPoint",
-                "Value": gp
+                StatisticName: "GloryPoint",
+                Value: gp
             }
         ]
     });

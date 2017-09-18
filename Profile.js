@@ -125,12 +125,7 @@ Profile = function () {
 
             var pos = "c";
 
-            if (++index < 10) {
-                pos += "0" + index;
-            }
-            else {
-                pos += index;
-            }
+            pos += ++index < 10 ? "0" + index : index;
 
             var storageData = {};
             storageData.Level = Math.randomBetween(args.StorageLvl[0], args.StorageLvl[1]);
