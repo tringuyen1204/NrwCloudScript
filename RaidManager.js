@@ -76,7 +76,7 @@ function RaidManager(playerId) {
     for (a = 0; a < result.length; a++) {
       for (b = 0; b < result[a].Leaderboard.length; b++) {
         data = result[a].Leaderboard[b];
-        if (data.PlayFabId === PLAYER_ID) {
+        if (data.PlayFabId === currentPlayerId) {
           curGP = Math.floor(data.StatValue / 10) % 10000;
 
           ret.Info = {
@@ -96,7 +96,7 @@ function RaidManager(playerId) {
       for (b = 0; b < result[a].Leaderboard.length; b++) {
         data = result[a].Leaderboard[b];
 
-        if (data.PlayFabId === PLAYER_ID) {
+        if (data.PlayFabId === currentPlayerId) {
           continue;
         }
 

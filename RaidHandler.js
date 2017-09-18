@@ -53,7 +53,7 @@ function RaidHandler() {
       var raidData;
 
       var rawData = server.GetUserReadOnlyData({
-        "PlayFabId": PLAYER_ID,
+        "PlayFabId": currentPlayerId,
         "Keys": ["Raid"]
       }).Data;
 
@@ -73,7 +73,7 @@ function RaidHandler() {
   };
 
   this.ApplyResult = function (args) {
-    var atkId = PLAYER_ID;
+    var atkId = currentPlayerId;
     var defId = args.target;
     var result = args.result;
 

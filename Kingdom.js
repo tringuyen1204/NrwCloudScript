@@ -24,7 +24,7 @@ var GloryPoint = {};
 
 GloryPoint.Set = function (gp, pId) {
 
-  pId = ( pId === null || pId === undefined ) ? PLAYER_ID : pId;
+  pId = ( pId === null || pId === undefined ) ? currentPlayerId : pId;
 
   var points = [-15, -5, 5];
 

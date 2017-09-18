@@ -1,6 +1,6 @@
 function DataManager(Key, playerId) {
   this.Handlers = {};
-  this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : PLAYER_ID;
+  this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
   this.Key = Key;
 
   var rawData = server.GetUserReadOnlyData({

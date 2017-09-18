@@ -84,8 +84,6 @@ const HERO_LIST = [
   "Notradamus"
 ];
 
-const PLAYER_ID = currentPlayerId;
-
 TitleData = {};
 
 TitleData.Get = function (key) {
