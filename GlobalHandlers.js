@@ -5,7 +5,7 @@ handlers.ServerTime = function (args) {
 };
 
 handlers.Building = function (args) {
-    var m = new BuildingManager();
+    var m = new BuildManager();
     return m.Run(args);
 };
 

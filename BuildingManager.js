@@ -1,10 +1,10 @@
-BuildingManager = function (playerId) {
+BuildManager = function (playerId) {
     DataManager.call(this, BUILDING, playerId);
 };
 
-BuildingManager.prototype = Object.create(DataManager.prototype);
+BuildManager.prototype = Object.create(DataManager.prototype);
 
-BuildingManager.prototype.ProducedResource = function (args) {
+BuildManager.prototype.ProducedResource = function (args) {
     var date = this.FormatData(args);
     var pGold = this.GetHandler(MARKET).AllResource(date) * 0.5;
     var pFood = this.GetHandler(FARM).AllResource(date) * 0.5;
@@ -15,19 +15,19 @@ BuildingManager.prototype.ProducedResource = function (args) {
     }
 };
 
-BuildingManager.prototype.ApplyRaid = function (args) {
+BuildManager.prototype.ApplyRaid = function (args) {
     var date = this.FormatData(args);
     this.GetHandler(MARKET).ApplyRaid(date, args.rate);
     this.GetHandler(FARM).ApplyRaid(date, args.rate);
     this.PushNow();
 };
 
-BuildingManager.prototype.Push = function (args) {
+BuildManager.prototype.Push = function (args) {
     if ("command" in args) {
         if (( args.type === GOLD_STORAGE || args.type === FOOD_STORAGE )
             && ( args.command === CMD_COMPLETE_UPGRADE || args.command === CMD_BOOST_UPGRADE )) {
 
-            this.RefreshStorageCap();
+            this.RefreshStorage();
         }
     }
     this.PushNow();

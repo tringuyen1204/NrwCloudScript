@@ -4,7 +4,7 @@ BuildHandler = function (type) {
 
 BuildHandler.prototype = Object.create(DataHandler.prototype);
 
-BuildHandler.prototype.RefreshStorageCap = function (code) {
+BuildHandler.prototype.RefreshStorage = function (code) {
 
     if (code === null) {
         code = this.type === GOLD_STORAGE ? GOLD : FOOD;

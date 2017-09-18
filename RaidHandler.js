@@ -13,7 +13,7 @@ RaidHandler.prototype.EndBattle = function (args) {
     if (args.result) {
         log.info("Attacker win!");
 
-        var b = new BuildingManager(args.target);
+        var b = new BuildManager(args.target);
         b.ApplyRaid(args);
 
         var r = new ResHandler(args.target);

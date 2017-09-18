@@ -24,7 +24,7 @@ RaidManager.prototype.Run = function (args) {
 };
 
 RaidManager.prototype.Scout = function (args) {
-    var b = new BuildingManager(args.target);
+    var b = new BuildManager(args.target);
     var ret = b.ProducedResource(args);
     var resMan = new ResHandler(args.target);
 
