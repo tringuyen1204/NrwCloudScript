@@ -1,5 +1,7 @@
 function RaidHandler() {
 
+ BattleHandler.call(this);
+
  this.StartBattle = function (args) {
   var atkLog = new BattleLog();
   var defLog = new BattleLog(args.target);
