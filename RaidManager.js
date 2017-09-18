@@ -18,6 +18,10 @@ function RaidManager(playerId) {
     return this.Data;
   };
 
+ this.GetHandler = function (args) {
+  return new RaidHandler();
+ };
+
   this.Scout = function (args) {
 
     var rData = this.Data;
@@ -35,10 +39,6 @@ function RaidManager(playerId) {
     this.Push();
 
     return rData;
-  };
-
-  this.GetHandler = function (args) {
-    return new RaidHandler();
   };
 
   this.FindEnemies = function (args) {

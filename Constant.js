@@ -54,52 +54,52 @@ const NATION = "Nation";
 const MERC = "Merc";
 
 const TECH_LIST = [
-  NATION + INF,
-  NATION + SKR,
-  NATION + CAV,
-  MERC + INF,
-  MERC + SKR,
-  MERC + CAV
+ NATION + INF,
+ NATION + SKR,
+ NATION + CAV,
+ MERC + INF,
+ MERC + SKR,
+ MERC + CAV
 ];
 
 const NATION_LIST = [
-  "England",
-  "France",
-  "Japan",
-  "China",
-  "Korea",
-  "Germany"
+ "England",
+ "France",
+ "Japan",
+ "China",
+ "Korea",
+ "Germany"
 ];
 
 const HERO_LIST = [
 
-  // generals
-  "KingArthur",
-  "RobinHood",
-  "JoanDarc",
+ // generals
+ "KingArthur",
+ "RobinHood",
+ "JoanDarc",
 
-  // advisors
-  "ZhugeLiang",
-  "LeonardDaVinci",
-  "Notradamus"
+ // advisors
+ "ZhugeLiang",
+ "LeonardDaVinci",
+ "Notradamus"
 ];
 
 TitleData = {};
 
 TitleData.Get = function (key) {
 
-  if (!TitleData.hasOwnProperty(key)) {
-    var str = server.GetTitleData([key]).Data[key];
-    TitleData[key] = JSON.parse(str);
-  }
-  return TitleData[key];
+ if (!TitleData.hasOwnProperty(key)) {
+  var str = server.GetTitleData([key]).Data[key];
+  TitleData[key] = JSON.parse(str);
+ }
+ return TitleData[key];
 };
 
 TitleData.GetConstant = function (key) {
-  var constant = TitleData.Get("Constant");
+ var constant = TitleData.Get("Constant");
 
-  if (key in constant) {
-    return constant;
-  }
-  return null;
+ if (key in constant) {
+  return constant;
+ }
+ return null;
 };

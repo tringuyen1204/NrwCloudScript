@@ -1,143 +1,114 @@
 function RaidHandler() {
+ this.StartBattle = function (args) {
+  var atkLog = new BattleLog();
+  var defLog = new BattleLog(args.target);
+ };
 
-  this.StartBattle = function (args) {
+ this.EndBattle = function (args) {
 
-    var atkInfo = {
-      "Target": args.target,
-      "ActiveDate": args.date
-    };
+  if (!args.hasOwnProperty("result")) {
+   args.result = Math.random() > 0.4;
+   args.rate = 0.5;
+  }
 
-    var atkData = {
-      RaidInfo: JSON.stringify(atkInfo)
-    };
+  if (args.result) {
+   log.info("Attacker win!");
 
-    server.UpdateUserReadOnlyData({
-      "PlayFabId": this.PlayerId,
-      "Data": atkData,
-      "Permission": "public"
-    });
+   var b = new BuildManager(args.target);
+   b.ApplyRaid(args);
 
-    var defInfo = {
-      "Target": args.target,
-      "ActiveDate": args.date
-    };
+   var r = new ResHandler(args.target);
+   r.ApplyRaid(args);
 
-    var defData = {
-      RaidInfo: JSON.stringify(defInfo)
-    };
+   var resMan = new ResHandler();
+   var raidData;
 
-    server.UpdateUserReadOnlyData({
-      "PlayFabId": this.PlayerId,
-      "Data": defData,
-      "Permission": "public"
-    });
-  };
+   var rawData = server.GetUserReadOnlyData({
+    "PlayFabId": currentPlayerId,
+    "Keys": ["Raid"]
+   }).Data;
 
-  this.EndBattle = function (args) {
+   if (rawData.hasOwnProperty("Raid")) {
+    raidData = JSON.parse(rawData["Raid"].Value);
+   }
 
-    if (!args.hasOwnProperty("result")) {
-      args.result = Math.random() > 0.4;
-      args.rate = 0.5;
-    }
+   resMan.Change(GOLD, raidData[GOLD] + raidData["ProducedGold"]);
+   resMan.Change(FOOD, raidData[FOOD] + raidData["ProducedFood"]);
+   resMan.Push();
+  }
+  else {
+   log.info("Attacker lose");
+  }
 
-    if (args.result) {
-      log.info("Attacker win!");
+  this.ApplyResult(result);
+ };
 
-      var b = new BuildManager(args.target);
-      b.ApplyRaid(args);
+ this.ApplyResult = function (args) {
+  var atkId = currentPlayerId;
+  var defId = args.target;
+  var result = args.result;
 
-      var r = new ResHandler(args.target);
-      r.ApplyRaid(args);
+  var atkBoard = server.GetLeaderboardAroundUser({
+   "StatisticName": "GloryPoint",
+   "PlayFabId": atkId,
+   "MaxResultsCount": 1
+  });
 
-      var resMan = new ResHandler();
-      var raidData;
+  var defBoard = server.GetLeaderboardAroundUser({
+   "StatisticName": "GloryPoint",
+   "PlayFabId": defId,
+   "MaxResultsCount": 1
+  });
 
-      var rawData = server.GetUserReadOnlyData({
-        "PlayFabId": currentPlayerId,
-        "Keys": ["Raid"]
-      }).Data;
+  var atkGp = atkBoard.Leaderboard[0].StatValue;
+  var defGp = defBoard.Leaderboard[0].StatValue;
 
-      if (rawData.hasOwnProperty("Raid")) {
-        raidData = JSON.parse(rawData["Raid"].Value);
-      }
+  var deltaGp = atkGp - defGp;
 
-      resMan.Change(GOLD, raidData[GOLD] + raidData["ProducedGold"]);
-      resMan.Change(FOOD, raidData[FOOD] + raidData["ProducedFood"]);
-      resMan.Push();
-    }
-    else {
-      log.info("Attacker lose");
-    }
+  var a, b;
+  var limit;
 
-    this.ApplyResult(result);
-  };
+  if (result) {
+   a = -0.0794;
+   b = 29.35838;
+   limit = 59;
+  }
+  else {
+   a = 0.0531;
+   b = 19.60453;
+   limit = 39;
+  }
 
-  this.ApplyResult = function (args) {
-    var atkId = currentPlayerId;
-    var defId = args.target;
-    var result = args.result;
+  // atk
+  var atkGpMod = a * deltaGp + b;
 
-    var atkBoard = server.GetLeaderboardAroundUser({
-      "StatisticName": "GloryPoint",
-      "PlayFabId": atkId,
-      "MaxResultsCount": 1
-    });
+  if (atkGpMod < 0) {
+   atkGpMod = 0;
+  }
+  else if (atkGpMod > limit) {
+   atkGpMod = limit;
+  }
 
-    var defBoard = server.GetLeaderboardAroundUser({
-      "StatisticName": "GloryPoint",
-      "PlayFabId": defId,
-      "MaxResultsCount": 1
-    });
+  // def
+  var defGpMod = a * -deltaGp + b;
 
-    var atkGp = atkBoard.Leaderboard[0].StatValue;
-    var defGp = defBoard.Leaderboard[0].StatValue;
+  if (defGpMod < 0) {
+   defGpMod = 0;
+  }
+  else if (defGpMod > limit) {
+   defGpMod = limit;
+  }
 
-    var deltaGp = atkGp - defGp;
+  if (result) {
+   defGpMod = -defGpMod;
+  }
+  else {
+   atkGpMod = -atkGpMod;
+  }
 
-    var a, b;
-    var limit;
-
-    if (result) {
-      a = -0.0794;
-      b = 29.35838;
-      limit = 59;
-    }
-    else {
-      a = 0.0531;
-      b = 19.60453;
-      limit = 39;
-    }
-
-    // atk
-    var atkGpMod = a * deltaGp + b;
-
-    if (atkGpMod < 0) {
-      atkGpMod = 0;
-    }
-    else if (atkGpMod > limit) {
-      atkGpMod = limit;
-    }
-
-    // def
-    var defGpMod = a * -deltaGp + b;
-
-    if (defGpMod < 0) {
-      defGpMod = 0;
-    }
-    else if (defGpMod > limit) {
-      defGpMod = limit;
-    }
-
-    if (result) {
-      defGpMod = -defGpMod;
-    }
-    else {
-      atkGpMod = -atkGpMod;
-    }
-
-    GloryPoint.Set(atkGp + Math.floor(atkGpMod), atkId);
-    GloryPoint.Set(defGp + Math.floor(defGpMod), defId);
-  };
+  GloryPoint.Set(atkGp + Math.floor(atkGpMod), atkId);
+  GloryPoint.Set(defGp + Math.floor(defGpMod), defId);
+ };
 }
 
 RaidHandler.prototype = Object.create(BattleHandler.prototype);
