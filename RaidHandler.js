@@ -1,7 +1,38 @@
 function RaidHandler() {
+
  this.StartBattle = function (args) {
   var atkLog = new BattleLog();
   var defLog = new BattleLog(args.target);
+
+  var atkId = currentPlayerId;
+  var defId = args.target;
+
+  var atkBoard = server.GetLeaderboardAroundUser({
+   "StatisticName": "GloryPoint",
+   "PlayFabId": atkId,
+   "MaxResultsCount": 1
+  });
+
+  var defBoard = server.GetLeaderboardAroundUser({
+   "StatisticName": "GloryPoint",
+   "PlayFabId": defId,
+   "MaxResultsCount": 1
+  });
+
+  var atkGp = atkBoard.Leaderboard[0].StatValue;
+  var defGp = defBoard.Leaderboard[0].StatValue;
+
+  var data = {
+   Attacker: currentPlayerId,
+   Target: args.target,
+   AtkGp: atkGp,
+   DefGp: defGp,
+   State: "Begin",
+   LastActiveDate: args.date
+  };
+
+  atkLog.Update("Attack", String(args.date), data);
+  defLog.Update("Defence", String(args.date), data);
  };
 
  this.EndBattle = function (args) {
