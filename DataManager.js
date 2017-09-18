@@ -32,7 +32,7 @@ DataManager.prototype.PushNow = function () {
     });
 };
 
-DataManager.prototype.GetConstant = function (id) {
+DataManager.prototype.Get = function (id) {
     if (!this.Data.hasOwnProperty(id)) {
         return null;
     }
