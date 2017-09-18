@@ -1,4 +1,4 @@
-DataHandler = function (type) {
+function DataHandler(type) {
     this.type = type;
 
 
@@ -223,4 +223,4 @@ DataHandler = function (type) {
             return null;
         }
     };
-};
+}
