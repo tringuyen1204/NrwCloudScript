@@ -1,4 +1,5 @@
 function SpyManager() {
+ DataManager.call(this, [LOGS]);
 
  this.Run = function (args) {
   args = this.FormatData(args);
@@ -104,7 +105,7 @@ function SpyManager() {
 
   var atkId = currentPlayerId;
   var defId = args.target;
-  var atkData = UserData.Get([LOGS]);
+  var atkData = this.Data;
   var defData = UserData.Get([BUILDING, RES], args.target);
 
   var b = new BuildManager(args.target, defData[BUILDING]);
