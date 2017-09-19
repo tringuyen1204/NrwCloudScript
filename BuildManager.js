@@ -9,9 +9,9 @@ function BuildManager(playerId, loadedData) {
  }
 
  this.ProducedResource = function (args) {
-  var date = this.FormatData(args);
-  var pGold = this.GetHandler(MARKET).AllResource(date) * 0.5;
-  var pFood = this.GetHandler(FARM).AllResource(date) * 0.5;
+  args = this.FormatData(args);
+  var pGold = this.GetHandler(MARKET).AllResource(args.date) * 0.5;
+  var pFood = this.GetHandler(FARM).AllResource(args.date) * 0.5;
 
   return {
    ProducedGold: Math.floor(pGold),
@@ -20,9 +20,9 @@ function BuildManager(playerId, loadedData) {
  };
 
  this.ApplyRaid = function (args) {
-  var date = this.FormatData(args);
-  this.GetHandler(MARKET).ApplyRaid(date, args.rate);
-  this.GetHandler(FARM).ApplyRaid(date, args.rate);
+  args = this.FormatData(args);
+  this.GetHandler(MARKET).ApplyRaid(args.date, args.rate);
+  this.GetHandler(FARM).ApplyRaid(args.date, args.rate);
   this.PushNow();
  };
 
