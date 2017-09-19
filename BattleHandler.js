@@ -26,6 +26,8 @@ function BattleHandler() {
 
 function AttackerHandler(playerId) {
 
+ BattleHandler.call(this);
+
  this.playerId = playerId;
  this.type = ATK;
 
@@ -95,7 +97,7 @@ AttackerHandler.prototype = Object.create(BattleHandler.prototype);
 
 function DefenceHandler(playerId) {
 
- this.playerId = playerId;
+ AttackerHandler.call(this, playerId);
  this.type = DEF;
 
  this.EndBattle = function (args) {
