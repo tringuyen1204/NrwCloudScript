@@ -3,6 +3,7 @@ function RaidManager(AttackerId, DefenderId) {
  this.Ids[ATK] = AttackerId;
  this.Ids[DEF] = DefenderId;
 
+ this.Data = {};
  this.Data[ATK] = UserData.Get([RES, LOGS], AttackerId);
  this.Data[DEF] = UserData.Get([RES, LOGS, BUILDING], DefenderId);
 
