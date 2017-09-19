@@ -4,6 +4,7 @@ function ResManager(playerId, loadedData) {
   DataManager.call(this, [RES], playerId);
  }
  else {
+  DataManager.call(this, [], playerId);
   this.Data = {};
   this.Data[RES] = loadedData;
  }
