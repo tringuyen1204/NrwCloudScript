@@ -16,6 +16,7 @@ UserData.Update = function (data, playerId) {
   Data: writeData,
   Permission: "public"
  });
+
 };
 
 UserData.Get = function (keys, playerId) {
@@ -24,12 +25,15 @@ UserData.Get = function (keys, playerId) {
 
  var ret = {};
 
+ log.info("Load player id = " + playerId);
+
  var rawData = server.GetUserReadOnlyData({
   PlayFabId: playerId,
   Keys: keys
  }).Data;
 
  for (var a = 0; a < keys.length; a++) {
+  log.info("Read key = " + keys[a]);
   if (keys[a] in rawData) {
    ret[keys[a]] = JSON.parse(rawData[keys[a]]);
   }

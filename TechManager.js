@@ -11,4 +11,5 @@ TechManager = function (playerId) {
   return null;
  };
 };
+
 TechManager.prototype = Object.create(DataManager.prototype);
