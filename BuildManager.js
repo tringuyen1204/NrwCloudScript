@@ -82,7 +82,7 @@ function BuildManager(playerId, loadedData) {
    return null;
   }
 
-  newHandler.Data = this.Data[BUILDING][type];
+  newHandler.Data = this.Data[BUILDING];
   return newHandler;
  }
 
