@@ -74,7 +74,7 @@ function ResBuildHandler(type) {
 
  this.CollectAll = function (args) {
   var k;
-  for (k in this.Data) {
+  for (k in this.Data[this.type]) {
    this.Collect(k, args.date);
   }
   return true;
@@ -106,7 +106,7 @@ function ResBuildHandler(type) {
   var total = 0;
   var k;
 
-  for (k in this.Data) {
+  for (k in this.Data[this.type]) {
    total += this.ProducedResource(k, date);
   }
   return total;
@@ -114,7 +114,7 @@ function ResBuildHandler(type) {
 
  this.ApplyRaid = function (date, rate) {
   var k;
-  for (k in this.Data) {
+  for (k in this.Data[this.type]) {
    this.ReduceProduction(k, date, rate);
   }
  };
