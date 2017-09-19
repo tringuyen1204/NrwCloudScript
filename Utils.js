@@ -73,5 +73,3 @@ var ServerTime = {
 ServerTime.Now = function () {
  return Date.now() + ServerTime.deltaTime;
 };
-
-

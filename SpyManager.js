@@ -143,4 +143,3 @@ function SpyManager() {
 }
 
 SpyManager.prototype = Object.create(DataManager.prototype);
-

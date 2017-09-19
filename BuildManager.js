@@ -89,4 +89,3 @@ function BuildManager(playerId, loadedData) {
 }
 
 BuildManager.prototype = Object.create(DataManager.prototype);
-

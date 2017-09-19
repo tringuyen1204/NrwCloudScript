@@ -37,4 +37,3 @@ function HeroHandler(type) {
 }
 
 HeroHandler.prototype = Object.create(DataHandler.prototype);
-
