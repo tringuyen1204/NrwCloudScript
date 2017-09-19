@@ -4,7 +4,7 @@ function BuildManager(playerId, loadedData) {
   DataManager.call(this, [BUILDING], playerId);
  }
  else {
-  this.Data = {};
+  DataManager.call(this, [], playerId);
   this.Data[BUILDING] = loadedData;
  }
 
@@ -37,6 +37,28 @@ function BuildManager(playerId, loadedData) {
   this.PushNow();
  };
 
+ this.RefreshStorage = function (code) {
+
+  if (code === null) {
+   code = this.type === GOLD_STORAGE ? GOLD : FOOD;
+  }
+
+  var newMax = 0;
+  var key = "Castle" + code + "Storage";
+
+  newMax += TitleData.GetConstant(key);
+
+  var bData = this.Data[BUILDING][code];
+
+  var k;
+  for (k in bData) {
+   newMax += this.CurLvlData(k)[code + "Capacity"];
+  }
+
+  var resMan = new ResManager();
+  resMan.SetMax(code, newMax);
+ };
+
  this.GetHandler = function (args) {
 
   var type = args.type;
@@ -63,8 +85,9 @@ function BuildManager(playerId, loadedData) {
   }
 
   newHandler.Data = this.Data[BUILDING];
-  return handlers[type];
+  return newHandler;
  }
+
 }
 
 BuildManager.prototype = Object.create(DataManager.prototype);

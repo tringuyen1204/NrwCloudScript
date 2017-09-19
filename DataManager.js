@@ -1,8 +1,12 @@
 function DataManager(keys, playerId) {
  this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
- this.Keys = keys;
 
- this.Data = UserData.Get(keys, this.PlayerId);
+ if (keys === null || keys === undefined || keys.length === 0) {
+  this.Data = {};
+ }
+ else {
+  this.Data = UserData.Get(keys, this.PlayerId);
+ }
 
  this.Push = function (args) {
   this.PushNow();
