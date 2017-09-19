@@ -140,3 +140,6 @@ function SpyManager() {
   return scoutData;
  };
 }
+
+SpyManager.prototype = Object.create(DataManager.prototype);
+
