@@ -33,7 +33,7 @@ function AttackerHandler(playerId) {
 
  this.StartBattle = function (args) {
 
-  if (this.type in this.Data[LOGS]) {
+  if (!(this.type in this.Data[LOGS])) {
    this.Data[LOGS][this.type] = {};
   }
 
