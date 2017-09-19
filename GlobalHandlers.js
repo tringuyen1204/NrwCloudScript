@@ -20,7 +20,7 @@ handlers.Tech = function (args) {
 };
 
 handlers.Raid = function (args) {
- var m = new RaidManager();
+ var m = new RaidManager(currentPlayerId, args.target);
  return m.Run(args);
 };
 
