@@ -128,12 +128,12 @@ function SpyManager() {
   scoutData.AttackerGp = server.GetPlayerStatistics({
    PlayFabId: atkId,
    StatisticNames: [GP]
-  }).Statistics[GP].Value;
+  }).Statistics[0].Value;
 
   scoutData.DefenderGp = server.GetPlayerStatistics({
    PlayFabId: defId,
    StatisticNames: [GP]
-  }).Statistics[GP].Value;
+  }).Statistics[0].Value;
 
   atkData[LOGS].ScoutData = scoutData;
   UserData.Update(atkData, atkId);
