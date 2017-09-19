@@ -82,7 +82,7 @@ function AttackerHandler(playerId) {
   GloryPoint.Set(scoutData.AttackerGp + Math.floor(changes[ATK]), this.playerId);
 
   var logId = scoutData.LastLogId;
-  var log = this.Data[this.type][logId];
+  var log = this.Data[LOGS][this.type][logId];
 
   if (args.result) {
    log.Result = "Attacker Win";
@@ -118,7 +118,7 @@ function DefenceHandler(playerId) {
   GloryPoint.Set(scoutData.DefenderGp + Math.floor(changes[DEF]), this.playerId);
 
   var logId = scoutData.LastLogId;
-  var log = this.Data[this.type][logId];
+  var log = this.Data[LOGS][this.type][logId];
 
   if (args.result) {
    log.Result = "Attacker Win";
