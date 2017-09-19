@@ -31,7 +31,7 @@ UserData.Get = function (keys, playerId) {
 
  for (var a = 0; a < keys.length; a++) {
   if (keys[a] in rawData) {
-   ret[keys[a]] = JSON.parse(rawData[a]);
+   ret[keys[a]] = JSON.parse(rawData[keys[a]]);
   }
   else {
    ret[keys[a]] = {};
