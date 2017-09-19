@@ -13,6 +13,9 @@ function RaidManager(AttackerId, DefenderId) {
   var atkHandler = new AttackerHandler(this.Ids[ATK]);
   var defHandler = new DefenceHandler(this.Ids[DEF]);
 
+  atkHandler.Data = this.Data[ATK];
+  defHandler.Data = this.Data[DEF];
+
   if (atkHandler.Run(args) && defHandler.Run(args)) {
    UserData.Update(this.Data[ATK], this.Ids[ATK]);
    UserData.Update(this.Data[DEF], this.Ids[DEF]);
