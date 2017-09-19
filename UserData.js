@@ -7,7 +7,7 @@ UserData.Update = function (data, playerId) {
 
  for (var key in data) {
   if (data.hasOwnProperty(key)) {
-   writeData[key] = JSON.parse(data[key]);
+   writeData[key] = JSON.stringify(data[key]);
   }
  }
 
