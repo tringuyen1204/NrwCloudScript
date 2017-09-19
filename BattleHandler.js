@@ -58,7 +58,9 @@ function AttackerHandler(playerId) {
   log.ScoutData = args.ScoutData;
   log.LastActiveDate = args.date;
 
-  this.Data[LOGS][this.type][args.LastLogId] = log;
+  var logId = args.LastLogId;
+
+  this.Data[LOGS][this.type][logId] = log;
 
   if (this.type === DEF) {
    this.Data[LOGS].LastDefendDate = args.date;
@@ -76,10 +78,10 @@ function AttackerHandler(playerId) {
    resMan.Change(FOOD, scoutData[FOOD] + scoutData["ProducedFood"]);
   }
 
-  var changes = GloryPoint.GetChanges(args.result, args.AttackerGp - args.DefenderGp);
-  GloryPoint.Set(args.AttackerGp + Math.floor(changes[ATK]), this.playerId);
+  var changes = GloryPoint.GetChanges(args.result, scoutData.AttackerGp - scoutData.DefenderGp);
+  GloryPoint.Set(scoutData.AttackerGp + Math.floor(changes[ATK]), this.playerId);
 
-  var logId = args.ScoutData.LastLogId;
+  var logId = scoutData.LastLogId;
   var log = this.Data[this.type][logId];
 
   if (args.result) {
@@ -102,6 +104,8 @@ function DefenceHandler(playerId) {
 
  this.EndBattle = function (args) {
 
+  var scoutData = args.ScoutData;
+
   if (args.result) {
    var b = new BuildManager(this.playerId, this.Data[BUILDING]);
    b.ApplyRaid(args);
@@ -110,10 +114,10 @@ function DefenceHandler(playerId) {
    r.ApplyRaid(args);
   }
 
-  var changes = GloryPoint.GetChanges(args.result, args.AttackerGp - args.DefenderGp);
-  GloryPoint.Set(args.DefenderGp + Math.floor(changes[DEF]), this.playerId);
+  var changes = GloryPoint.GetChanges(args.result, scoutData.AttackerGp - scoutData.DefenderGp);
+  GloryPoint.Set(scoutData.DefenderGp + Math.floor(changes[DEF]), this.playerId);
 
-  var logId = args.ScoutData.LastLogId;
+  var logId = scoutData.LastLogId;
   var log = this.Data[this.type][logId];
 
   if (args.result) {
