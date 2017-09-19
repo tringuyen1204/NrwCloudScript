@@ -41,8 +41,25 @@ function AttackerHandler(playerId) {
    this.Data[LOGS].ScoutData.LastLogId = String(args.date);
   }
 
+  var scoutData = args.ScoutData;
+
   args.LastLogId = String(args.date);
-  return this.UpdateBattleLog(args);
+  this.UpdateBattleLog(args);
+
+  var changes = GloryPoint.GetChanges(false, scoutData.AttackerGp - scoutData.DefenderGp);
+
+  var log = this.Data[LOGS][this.type][args.LastLogId];
+  log.AtkGpChange = changes[ATK];
+  log.DefGpChange = changes[DEF];
+
+  if (this.type === ATK) {
+   GloryPoint.Set(scoutData.AttackerGp + log.AtkGpChange, scoutData.AttackerId);
+  }
+  else {
+   GloryPoint.Set(scoutData.DefenderGp + log.DefGpChange, scoutData.DefenderId);
+  }
+
+  return true;
  };
 
  this.UpdateBattle = function (args) {
