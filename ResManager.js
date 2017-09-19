@@ -9,39 +9,39 @@ function ResManager(playerId, loadedData) {
  }
 
  this.ValueOf = function (code) {
-  if (this.Data[code] === null) {
-   this.Data[code] = {
+  if (this.Data[RES][code] === null) {
+   this.Data[RES][code] = {
     "Value": 0,
     "Max": 0
    }
   }
-  return this.Data[code].Value;
+  return this.Data[RES][code].Value;
  };
 
  this.MaxOf = function (code) {
-  if (this.Data[code] === null) {
-   this.Data[code] = {
+  if (this.Data[RES][code] === null) {
+   this.Data[RES][code] = {
     "Value": 0,
     "Max": 0
    }
   }
-  return this.Data[code].Max;
+  return this.Data[RES][code].Max;
  };
 
  this.Change = function (code, qty) {
   if (this.ValueOf(code) + qty < 0) {
-   this.Data[code].Value = 0;
+   this.Data[RES][code].Value = 0;
   }
   else if (this.ValueOf(code) + qty > this.MaxOf(code)) {
-   this.Data[code].Value = this.MaxOf(code);
+   this.Data[RES][code].Value = this.MaxOf(code);
   }
   else {
-   this.Data[code].Value += qty;
+   this.Data[RES][code].Value += qty;
   }
  };
 
  this.SetMax = function (code, newMax) {
-  this.Data[code].Max = newMax;
+  this.Data[RES][code].Max = newMax;
   this.Push();
  };
 
