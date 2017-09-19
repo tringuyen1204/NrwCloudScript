@@ -59,9 +59,7 @@ function BuildManager(playerId, loadedData) {
   resMan.SetMax(code, newMax);
  };
 
- this.GetHandler = function (args) {
-
-  var type = args.type;
+ this.GetHandler = function (type) {
 
   var newHandler = null;
 

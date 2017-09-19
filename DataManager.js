@@ -31,7 +31,7 @@ function DataManager(keys, playerId) {
 
  this.Run = function (args) {
   args = this.FormatData(args);
-  var handler = this.GetHandler(args);
+  var handler = this.GetHandler(args.type);
 
   if (handler !== null && handler.Run(args)) {
    this.Push(args);
@@ -40,7 +40,7 @@ function DataManager(keys, playerId) {
   return this.Data;
  };
 
- this.GetHandler = function (args) {
+ this.GetHandler = function (type) {
   var handler = new DataHandler(type);
   handler.Data = this.Data;
   return handler;
