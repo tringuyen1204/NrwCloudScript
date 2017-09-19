@@ -1,5 +1,12 @@
-function BuildManager(playerId) {
- DataManager.call(this, BUILDING, playerId);
+function BuildManager(playerId, loadedData) {
+
+ if (loadedData === null || loadedData === undefined) {
+  DataManager.call(this, [BUILDING], playerId);
+ }
+ else {
+  this.Data = {};
+  this.Data[BUILDING] = loadedData;
+ }
 
  this.ProducedResource = function (args) {
   var date = this.FormatData(args);
@@ -31,37 +38,33 @@ function BuildManager(playerId) {
  };
 
  this.GetHandler = function (args) {
-  var handlers = this.Handlers;
+
   var type = args.type;
 
-  if (handlers.hasOwnProperty(type)) {
+  var newHandler = null;
 
-   var newHandler = null;
-
-   switch (type) {
-    case FARM:
-    case MARKET:
-     newHandler = new ResBuildHandler(type);
-     break;
-    case BARRACK:
-     newHandler = new BarrackHandler(type);
-     break;
-    case CASTLE:
-    case FOOD_STORAGE:
-    case GOLD_STORAGE:
-     newHandler = new BuildHandler(type);
-     break;
-   }
-
-   if (handlers === null) {
-    log.error("invalid building handler type: +" + type);
-    return null;
-   }
-
-   handlers[type].Data = this.Data;
+  switch (type) {
+   case FARM:
+   case MARKET:
+    newHandler = new ResBuildHandler(type);
+    break;
+   case BARRACK:
+    newHandler = new BarrackHandler(type);
+    break;
+   case CASTLE:
+   case FOOD_STORAGE:
+   case GOLD_STORAGE:
+    newHandler = new BuildHandler(type);
+    break;
   }
+
+  if (newHandler === null) {
+   return null;
+  }
+
+  newHandler.Data = this.Data[BUILDING];
   return handlers[type];
- };
+ }
 }
 
 BuildManager.prototype = Object.create(DataManager.prototype);

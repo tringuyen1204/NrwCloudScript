@@ -21,7 +21,7 @@ function BuildHandler(type) {
 
   log.info("New " + code + " capacity = " + newMax);
 
-  var resMan = new ResHandler();
+  var resMan = new ResManager();
   resMan.SetMax(code, newMax);
  };
 

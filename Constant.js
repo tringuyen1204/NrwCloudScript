@@ -53,6 +53,8 @@ const CMD_END_BATTLE = "EndBattle";
 const NATION = "Nation";
 const MERC = "Merc";
 
+const GP = "GloryPoint";
+
 const TECH_LIST = [
  NATION + INF,
  NATION + SKR,
@@ -61,6 +63,12 @@ const TECH_LIST = [
  MERC + SKR,
  MERC + CAV
 ];
+
+const ATK = "Attack";
+const DEF = "Defence";
+const RES = "Resource";
+const RAID = "Raid";
+const LOGS = "Logs";
 
 const NATION_LIST = [
  "England",

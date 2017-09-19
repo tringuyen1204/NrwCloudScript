@@ -1,7 +1,6 @@
 function DataHandler(type) {
  this.type = type;
 
-
  this.MasterData = function () {
   if (!("mData" in this)) {
    this.mData = TitleData.Get(this.type);
@@ -57,7 +56,7 @@ function DataHandler(type) {
   var cost = Converter.GoldFoodToDiamond(resCost) + Converter.TimeToDiamond(nxtLv.UpTime);
   cost = Math.floor(cost * 0.9);
 
-  var resMan = new ResHandler();
+  var resMan = new ResManager();
 
   if (Currency.Spend(DIAMOND, cost)) {
    this.Get(id).Upgrading = true;
@@ -84,7 +83,7 @@ function DataHandler(type) {
   var needGold = false;
   var needFood = false;
 
-  var resMan = new ResHandler();
+  var resMan = new ResManager();
 
   var data = this.Get(id);
 

@@ -1,5 +1,12 @@
-function ResHandler(playerId) {
- DataManager.call(this, "Resource", playerId);
+function ResManager(playerId, loadedData) {
+
+ if (loadedData === null || loadedData === undefined) {
+  DataManager.call(this, [RES], playerId);
+ }
+ else {
+  this.Data = {};
+  this.Data[RES] = loadedData;
+ }
 
  this.ValueOf = function (code) {
   if (this.Data[code] === null) {
@@ -41,8 +48,7 @@ function ResHandler(playerId) {
  this.ApplyRaid = function (args) {
   this.Change(GOLD, Math.floor(-this.ValueOf(GOLD) * args.rate * 0.25));
   this.Change(FOOD, Math.floor(-this.ValueOf(FOOD) * args.rate * 0.25));
-  this.Push();
  };
 }
 
-ResHandler.prototype = Object.create(DataManager.prototype);
+ResManager.prototype = Object.create(DataManager.prototype);

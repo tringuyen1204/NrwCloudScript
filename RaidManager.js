@@ -1,133 +1,29 @@
-function RaidManager(playerId) {
-  DataManager.call(this, "Raid", playerId);
+function RaidManager(AttackerId, DefenderId) {
+ this.Ids = {};
+ this.Ids[ATK] = AttackerId;
+ this.Ids[DEF] = DefenderId;
 
-  this.Run = function (args) {
-    args = this.FormatData(args);
+ this.Data[ATK] = UserData.Get([RES, LOGS], AttackerId);
+ this.Data[DEF] = UserData.Get([RES, LOGS, BUILDING], DefenderId);
 
-    switch (args.command) {
-      case CMD_FIND_ENEMIES:
-        return this.FindEnemies(args);
-      case CMD_SCOUT:
-        return this.Scout(args);
-    }
+ this.Run = function (args) {
+  args = this.FormatData(args);
 
-   var handler = new RaidHandler();
+  var atkHandler = new AttackerHandler(this.Ids[ATK]);
+  var defHandler = new DefenceHandler(this.Ids[DEF]);
 
-    if (handler !== null && handler.Run(args)) {
-      this.Push(args);
-    }
-    return this.Data;
-  };
+  if (atkHandler.Run(args) && defHandler.Run(args)) {
+   UserData.Update(this.Data[ATK], this.Ids[ATK]);
+   UserData.Update(this.Data[DEF], this.Ids[DEF]);
+  }
+ };
 
-  this.Scout = function (args) {
+ this.FormatData = function (args) {
 
-    var rData = this.Data;
-    var b = new BuildManager(args.target);
-    var ret = b.ProducedResource(args);
-    var resMan = new ResHandler(args.target);
-
-    var gold = Math.floor(resMan.ValueOf(GOLD) * 0.25);
-    var food = Math.floor(resMan.ValueOf(FOOD) * 0.25);
-    rData[GOLD] = gold;
-    rData[FOOD] = food;
-    rData["ProducedGold"] = ret.ProducedGold;
-    rData["ProducedFood"] = ret.ProducedFood;
-
-    this.Push();
-
-    return rData;
-  };
-
-  this.FindEnemies = function (args) {
-    var minDelta = -200;
-    var maxDelta = 100;
-
-    var maxCount = 20;
-    maxCount = ( args === null || !args.hasOwnProperty("MaxResults") ) ? maxCount : args.MaxResults;
-
-    var result = [];
-
-    var index;
-
-    for (index = 0; index < 3; index++) {
-
-      var statName = "BattlePoint" + (index + 1);
-
-      result[index] = server.GetLeaderboardAroundUser({
-        "StatisticName": statName,
-        "PlayFabId": this.PlayerId,
-        "MaxResultsCount": maxCount
-      });
-    }
-
-    var a, b;
-
-    var ret = {};
-    ret.Info = {};
-    ret.List = {};
-
-    var data;
-
-    var curGP;
-
-    for (a = 0; a < result.length; a++) {
-      for (b = 0; b < result[a].Leaderboard.length; b++) {
-        data = result[a].Leaderboard[b];
-        if (data.PlayFabId === currentPlayerId) {
-          curGP = Math.floor(data.StatValue / 10) % 10000;
-
-          ret.Info = {
-            GP: curGP,
-            E: data.StatValue % 10
-          };
-          break;
-        }
-      }
-    }
-
-    var inRange = 0;
-    var total = 0;
-    var newData;
-
-    for (a = 0; a < result.length; a++) {
-      for (b = 0; b < result[a].Leaderboard.length; b++) {
-        data = result[a].Leaderboard[b];
-
-        if (data.PlayFabId === currentPlayerId) {
-          continue;
-        }
-
-        if (!ret.List.hasOwnProperty(data.PlayFabId)) {
-
-          var GP = Math.floor(data.StatValue / 10) % 10000;
-          var delta = GP - curGP;
-
-          var deltaInRange = minDelta <= delta && delta <= maxDelta;
-
-          if (deltaInRange) {
-            inRange++;
-          }
-
-          total++;
-
-          newData = {
-            E: data.StatValue % 10,
-            Delta: delta
-          };
-
-          ret.List[data.PlayFabId] = newData;
-        }
-      }
-    }
-
-    ret.Info.Total = total;
-    ret.Info.InRange = inRange;
-
-    GloryPoint.Set(curGP);
-
-    return ret;
-  };
+  if (!args.hasOwnProperty("date")) {
+   args.date = ServerTime.Now();
+  }
+  args.ScoutData = this.Data[ATK][LOGS].ScoutData;
+  return args;
+ }
 }
-
-RaidManager.prototype = Object.create(DataManager.prototype);
-

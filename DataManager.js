@@ -1,41 +1,15 @@
-function DataManager(Key, playerId) {
- this.Handlers = {};
+function DataManager(keys, playerId) {
  this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
- this.Key = Key;
+ this.Keys = keys;
 
- var rawData = server.GetUserReadOnlyData({
-  "PlayFabId": this.PlayerId,
-  "Keys": [this.Key]
- }).Data;
-
- if (rawData.hasOwnProperty(this.Key)) {
-  this.Data = JSON.parse(rawData[this.Key].Value);
- }
- else {
-  this.Data = {};
-  log.error("can't load data key = " + this.Key + " of player id = " + this.PlayerId);
- }
+ this.Data = UserData.Get(keys, this.PlayerId);
 
  this.Push = function (args) {
   this.PushNow();
  };
 
  this.PushNow = function () {
-  var newData = {};
-  newData[this.Key] = JSON.stringify(this.Data);
-
-  server.UpdateUserReadOnlyData({
-   "PlayFabId": this.PlayerId,
-   "Data": newData,
-   "Permission": "public"
-  });
- };
-
- this.Get = function (id) {
-  if (!this.Data.hasOwnProperty(id)) {
-   return null;
-  }
-  return this.Data[id];
+  UserData.Update(this.Data, this.PlayerId);
  };
 
  this.FormatData = function (args) {
@@ -63,14 +37,8 @@ function DataManager(Key, playerId) {
  };
 
  this.GetHandler = function (args) {
-  var handlers = this.Handlers;
-  var type = args.type;
-
-  if (handlers.hasOwnProperty(type)) {
-   handlers[type] = new DataHandler(type);
-   handlers[type].Data = this.Data;
-  }
-  return handlers[type];
+  var handler = new DataHandler(type);
+  handler.Data = this.Data;
+  return handler;
  };
 }
-

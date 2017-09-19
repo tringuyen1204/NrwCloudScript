@@ -49,7 +49,7 @@ function ResBuildHandler(type) {
 
   if (amount > 0) {
 
-   var resMan = new ResHandler();
+   var resMan = new ResManager();
 
    var curRes = resMan.ValueOf(code);
    var curMax = resMan.MaxOf(code);

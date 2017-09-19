@@ -24,8 +24,13 @@ handlers.Raid = function (args) {
  return m.Run(args);
 };
 
+handlers.Spy = function (args) {
+ var m = new SpyManager();
+ return m.Run(args);
+};
+
 handlers.Campaign = function (args) {
- var m = CampaignManager();
+ var m = new CampaignManager();
  return m.Run(args);
 };
 

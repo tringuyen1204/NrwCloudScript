@@ -73,3 +73,54 @@ GloryPoint.Set = function (gp, pId) {
   ]
  });
 };
+
+GloryPoint.GetChanges = function (result, deltaGP) {
+
+ var A, B;
+ var limit;
+
+ if (result) {
+  A = -0.0794;
+  B = 29.35838;
+  limit = 59;
+ }
+ else {
+  A = 0.0531;
+  B = 19.60453;
+  limit = 39;
+ }
+
+ // atk
+ var atkGpMod = A * deltaGP + B;
+
+ if (atkGpMod < 0) {
+  atkGpMod = 0;
+ }
+ else if (atkGpMod > limit) {
+  atkGpMod = limit;
+ }
+
+ // def
+ var defGpMod = A * -deltaGP + B;
+
+ if (defGpMod < 0) {
+  defGpMod = 0;
+ }
+ else if (defGpMod > limit) {
+  defGpMod = limit;
+ }
+
+ if (result) {
+  defGpMod = -defGpMod;
+ }
+ else {
+  atkGpMod = -atkGpMod;
+ }
+
+ var ret = {};
+
+ ret[ATK] = atkGpMod;
+ ret[DEF] = defGpMod;
+
+ return ret;
+};

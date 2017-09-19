@@ -1,5 +1,5 @@
 HeroManager = function (playerId) {
- DataManager.call(this, HERO, playerId);
+ DataManager.call(this, [HERO], playerId);
 
  this.GetHandler = function (args) {
   var handlers = this.Handlers;
@@ -9,7 +9,7 @@ HeroManager = function (playerId) {
    if (HERO_LIST[a] === type) {
     if (handlers.hasOwnProperty(type)) {
      handlers[type] = new HeroHandler(type);
-     handlers[type].Data = this.Data;
+     handlers[type].Data = this.Data[HERO];
     }
     return handlers[type];
    }
