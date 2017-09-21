@@ -85,14 +85,14 @@ function DataHandler(type) {
 
   var data = this.Get(id);
 
-  if (nxtLv.GoldCost !== null) {
+  if ("GoldCost" in nxtLv) {
    if (resMan.ValueOf(GOLD) < nxtLv.GoldCost) {
     missRes += nxtLv.GoldCost - resMan.ValueOf(GOLD);
     needGold = true;
    }
   }
 
-  if (nxtLv.FoodCost !== null) {
+  if ("FoodCost" in nxtLv) {
    if (resMan.ValueOf(FOOD) < nxtLv.FoodCost) {
     missRes += nxtLv.FoodCost - resMan.ValueOf(FOOD);
     needFood = true;
