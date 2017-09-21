@@ -1,6 +1,8 @@
 function ResBuildHandler(type) {
  BuildHandler.call(this, type);
 
+ this.base = Object.create(BuildHandler.prototype);
+
  this.CompleteUpgrade = function (args) {
   if (BuildHandler.prototype.CompleteUpgrade.call(this, args)) {
    this.Get(args.id).CollectDate = args.date;
@@ -133,4 +135,4 @@ function ResBuildHandler(type) {
 }
 
 ResBuildHandler.prototype = Object.create(BuildHandler.prototype);
-ResBuildHandler.prototype.base = Object.create(BuildHandler.prototype);
+
