@@ -94,7 +94,6 @@ Profile = function () {
   for (var a = 0; a < count; a++) {
 
    var pos = "c";
-
    pos += ++index < 10 ? "0" + index : index;
 
    var fData = {};
@@ -119,7 +118,6 @@ Profile = function () {
   for (var a = 0; a < count; a++) {
 
    var pos = "m";
-
    pos += ++index < 10 ? "0" + index : index;
 
    var bData = {};
@@ -128,7 +126,7 @@ Profile = function () {
    bData.FinishTrainDate = ServerTime.Now();
    bData.Position = pos;
 
-   ret.Data[String[a]] = bData;
+   ret.Data[String(a)] = bData;
   }
   ret.Index = index;
 
@@ -144,7 +142,6 @@ Profile = function () {
   for (var a = 0; a < count; a++) {
 
    var pos = "c";
-
    pos += ++index < 10 ? "0" + index : index;
 
    var sData = {};
