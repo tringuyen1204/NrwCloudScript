@@ -124,6 +124,7 @@ Profile = function () {
    bData.Level = Math.randomBetween(args.BarrackLvl[0], args.BarrackLvl[1]);
    bData.Upgrading = false;
    bData.FinishTrainDate = ServerTime.Now();
+   bData.CompletedDate = 0;
    bData.Position = pos;
 
    ret.Data[String(a)] = bData;
