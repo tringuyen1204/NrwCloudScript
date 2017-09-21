@@ -50,5 +50,6 @@ handlers.ApplyCasualties = function (args) {
  log.info(m.GetTroopInfo(args));
  args = m.FormatData(args);
  m.GetHandler(BARRACK).ApplyCasualties(args);
+ m.PushNow();
  return m.GetTroopInfo(args);
 };
