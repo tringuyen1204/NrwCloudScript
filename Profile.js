@@ -56,6 +56,10 @@ Profile = function () {
   ret = this.SpawnStorages(sData, index);
   b[GOLD_STORAGE] = ret["Data"];
 
+  index = 0;
+  ret = this.SpawnBarracks(sData, index);
+  b[BARRACK] = ret["Data"];
+
   var res = {
    Gold: {
     Value: Math.randomBetween(1000, 10000),
@@ -85,21 +89,16 @@ Profile = function () {
 
  this.SpawnFarms = function (args, index) {
 
-  var farmCount = Math.randomBetween(args.FarmCount[0], args.FarmCount[1]);
+  var count = Math.randomBetween(args.FarmQty[0], args.FarmCount[1]);
   var ret = {};
 
   ret.Data = {};
 
-  for (var a = 0; a < farmCount; a++) {
+  for (var a = 0; a < count; a++) {
 
    var pos = "c";
 
-   if (++index < 10) {
-    pos += "0" + index;
-   }
-   else {
-    pos += index;
-   }
+   pos += ++index < 10 ? "0" + index : index;
 
    var fData = {};
    fData.Level = Math.randomBetween(args.FarmLvl[0], args.FarmLvl[1]);
@@ -115,13 +114,37 @@ Profile = function () {
   return ret;
  };
 
- this.SpawnStorages = function (args, index) {
-
-  var storageCount = Math.randomBetween(args.StorageCount[0], args.StorageCount[1]);
+ this.SpawnBarracks = function (arg, index) {
+  var count = Math.randomBetween(args.BarrackQty[0], args.BarrackQty[1]);
   var ret = {};
   ret.Data = {};
 
-  for (var a = 0; a < storageCount; a++) {
+  for (var a = 0; a < count; a++) {
+
+   var pos = "m";
+
+   pos += ++index < 10 ? "0" + index : index;
+
+   var bData = {};
+   bData.Level = Math.randomBetween(args.BarrackLvl[0], args.BarrackLvl[1]);
+   bData.Upgrading = false;
+   bData.FinishTrainDate = ServerTime.Now();
+   bData.Position = pos;
+
+   ret.Data[String[a]] = bData;
+  }
+  ret.Index = index;
+
+  return ret;
+ };
+
+ this.SpawnStorages = function (args, index) {
+
+  var count = Math.randomBetween(args.StorageQty[0], args.StorageQty[1]);
+  var ret = {};
+  ret.Data = {};
+
+  for (var a = 0; a < count; a++) {
 
    var pos = "c";
 
