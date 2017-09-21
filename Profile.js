@@ -1,6 +1,6 @@
 Profile = function () {
  this.Init = function () {
-  var sampleString = server.GetTitleInternalData({
+  var sampleString = server.GetTitleData({
    "Keys": [
     "DataSample"
    ]
@@ -71,14 +71,11 @@ Profile = function () {
    }
   };
 
-  server.UpdateUserReadOnlyData({
-   "PlayFabId": currentPlayerId,
-   "Data": {
-    "UpdateBuilding": JSON.stringify(b),
-    "Resource": JSON.stringify(res)
-   },
-   "Permission": "public"
-  });
+  var writeData = {};
+  writeData[BUILDING] = b;
+  writeData[RES] = res;
+
+  UserData.Update(writeData, currentPlayerId);
 
   var gloryPoint = Math.randomBetween(sData.GloryPoint[0], sData.GloryPoint[1]);
 
