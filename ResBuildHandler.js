@@ -3,7 +3,7 @@ function ResBuildHandler(type) {
  this.base = new BuildHandler(type);
 
  this.CompleteUpgrade = function (args) {
-  if (this.base.CompleteUpgrade(args)) {
+  if (this.base.CompleteUpgrade.call(this, args)) {
    this.Get(args.id).CollectDate = args.date;
    return true;
   }

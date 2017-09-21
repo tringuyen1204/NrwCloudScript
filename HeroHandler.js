@@ -1,5 +1,6 @@
 function HeroHandler(type) {
  DataHandler.call(this, type);
+ this.base = new DataHandler(type);
 
  this.Evolve = function (args) {
 
@@ -24,7 +25,7 @@ function HeroHandler(type) {
  };
 
  this.Run = function (args) {
-  var ret = DataHandler.prototype.Run.call(this, args);
+  var ret = this.base.Run.call(this, args);
 
   if (!ret) {
    switch (args.command) {
