@@ -1,6 +1,6 @@
 Profile = function () {
  this.Init = function () {
-  var sampleString = server.GetTitleData({
+  var sampleString = server.GetInternalTitleData({
    "Keys": [
     "DataSample"
    ]
