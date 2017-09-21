@@ -4,8 +4,6 @@ function BuildHandler(type) {
  this.DefaultData = function (args) {
   return {
    "Lvl": 0,
-   "IsUp": false,
-   "CompletedDate": 0,
    "Pos": args.position
   }
  };

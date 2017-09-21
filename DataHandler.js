@@ -33,8 +33,6 @@ function DataHandler(type) {
  this.DefaultData = function (args) {
   return {
    "Lvl": 0,
-   "Upgrading": false,
-   "CompletedDate": 0
   }
  };
 
@@ -126,8 +124,7 @@ function DataHandler(type) {
 
    resMan.Push();
 
-   data.CompletedDate = date + nxtLv.UpTime;
-   data.IsUp = true;
+   data.FinishDate = date + nxtLv.UpTime;
    this.AddWorkder(this.type, id);
   }
   else {
@@ -141,12 +138,15 @@ function DataHandler(type) {
 
   var id = args.id;
   var data = this.Get(id);
-  data.Lvl++;
-  data.IsUp = false;
 
-  var kingdom = new Kingdom();
-  kingdom.AddExp(this.CurLvlData(id).Exp);
-  this.RemoveWorker(this.type, id);
+  if ("FinishDate" in data) {
+   data.Lvl++;
+   delete data.FinishDate;
+
+   var kingdom = new Kingdom();
+   kingdom.AddExp(this.CurLvlData(id).Exp);
+   this.RemoveWorker(this.type, id);
+  }
  };
 
  this.CanUpgrade = function () {
@@ -170,7 +170,7 @@ function DataHandler(type) {
    log.error("this building has been completed!");
   } else {
 
-   var remainTime = ( this.Get(id).CompletedDate - date );
+   var remainTime = ( this.Get(id).FinishDate - date );
    var diamondNeed = Converter.TimeToDiamond(remainTime);
 
    if (Currency.Spend(DIAMOND, diamondNeed)) {
@@ -181,7 +181,10 @@ function DataHandler(type) {
  };
 
  this.Completed = function (id, date) {
-  return this.Get(id).CompletedDate <= date;
+  if ("FinishDate" in this.Get(id)) {
+   return this.Get(id).FinishDate <= date;
+  }
+  return false;
  };
 
  this.AddWorkder = function (type, id) {

@@ -26,7 +26,7 @@ Profile = function () {
   castle = {
    "0": {
     "Lvl": Number(k),
-    "CompletedDate": 0,
+    "FinishDate": 0,
     "Upgrading": false,
     "Pos": "s01"
    }
@@ -99,7 +99,7 @@ Profile = function () {
    var fData = {};
    fData.Lvl = Math.randomBetween(args.FarmLvl[0], args.FarmLvl[1]);
    fData.IsUp = false;
-   fData.CompletedDate = 0;
+   fData.FinishDate = 0;
    fData.CollectDate = Date.now() - Math.randomBetween(HOUR, 12 * HOUR);
    fData.Pos = pos;
 
@@ -124,18 +124,18 @@ Profile = function () {
    bData.Lvl = Math.randomBetween(args.BarrackLvl[0], args.BarrackLvl[1]);
    bData.IsUp = false;
    bData.FinishTrainDate = ServerTime.Now();
-   bData.CompletedDate = 0;
+   bData.FinishDate = 0;
    bData.Pos = pos;
 
    switch (Math.randomBetween(0, 2)) {
     case 0:
-     bData.TroopType = INF;
+     bData.Class = INF;
      break;
     case 1:
-     bData.TroopType = SKR;
+     bData.Class = SKR;
      break;
     case 2:
-     bData.TroopType = CAV;
+     bData.Class = CAV;
      break;
    }
    ret.Data[String(a)] = bData;
@@ -159,7 +159,7 @@ Profile = function () {
    var sData = {};
    sData.Lvl = Math.randomBetween(args.StorageLvl[0], args.StorageLvl[1]);
    sData.IsUp = false;
-   sData.CompletedDate = 0;
+   sData.FinishDate = 0;
    sData.Pos = pos;
 
 

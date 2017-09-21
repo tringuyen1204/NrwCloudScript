@@ -10,7 +10,7 @@ function ResBuildHandler(type) {
   return {
    "Lvl": 0,
    "Upgrading": false,
-   "CompletedDate": 0,
+   "FinishDate": 0,
    "CollectDate": args.date,
    "Pos": args.position
   }
