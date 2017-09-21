@@ -8,11 +8,11 @@ function ResBuildHandler(type) {
 
  this.DefaultData = function (args) {
   return {
-   "Level": 0,
+   "Lvl": 0,
    "Upgrading": false,
    "CompletedDate": 0,
    "CollectDate": args.date,
-   "Position": args.position
+   "Pos": args.position
   }
  };
 
@@ -39,7 +39,7 @@ function ResBuildHandler(type) {
 
   var bData = this.Get(id);
 
-  if (bData === null || bData.Level === 0 || bData.Upgrading) {
+  if (bData === null || bData.Lvl === 0 || bData.IsUp) {
    return false;
   }
 
@@ -84,7 +84,7 @@ function ResBuildHandler(type) {
 
   var bData = this.Get(id);
 
-  if (bData === null || bData.Level === 0 || bData.Upgrading) {
+  if (bData === null || bData.Lvl === 0 || bData.IsUp) {
    return 0;
   }
 

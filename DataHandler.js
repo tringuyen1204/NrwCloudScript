@@ -23,16 +23,16 @@ function DataHandler(type) {
  };
 
  this.CurLvlData = function (id) {
-  return this.MasterData()[String(this.Get(id).Level)];
+  return this.MasterData()[String(this.Get(id).Lvl)];
  };
 
  this.NxtLvlData = function (id) {
-  return this.MasterData()[String(this.Get(id).Level + 1)];
+  return this.MasterData()[String(this.Get(id).Lvl + 1)];
  };
 
  this.DefaultData = function (args) {
   return {
-   "Level": 0,
+   "Lvl": 0,
    "Upgrading": false,
    "CompletedDate": 0
   }
@@ -59,7 +59,7 @@ function DataHandler(type) {
   var resMan = new ResManager();
 
   if (Currency.Spend(DIAMOND, cost)) {
-   this.Get(id).Upgrading = true;
+   this.Get(id).IsUp = true;
    this.CompleteUpgrade(args);
   }
  };
@@ -127,7 +127,7 @@ function DataHandler(type) {
    resMan.Push();
 
    data.CompletedDate = date + nxtLv.UpTime;
-   data.Upgrading = true;
+   data.IsUp = true;
    this.AddWorkder(this.type, id);
   }
   else {
@@ -141,8 +141,8 @@ function DataHandler(type) {
 
   var id = args.id;
   var data = this.Get(id);
-  data.Level++;
-  data.Upgrading = false;
+  data.Lvl++;
+  data.IsUp = false;
 
   var kingdom = new Kingdom();
   kingdom.AddExp(this.CurLvlData(id).Exp);
@@ -155,8 +155,8 @@ function DataHandler(type) {
    log.error("Max worker reaches");
    return false;
   }
-  else if (this.Get(id).Upgrading) {
-   log.error("Upgrading in progress");
+  else if (this.Get(id).IsUp) {
+   log.error("IsUp in progress");
    return false;
   }
   return true;

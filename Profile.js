@@ -25,10 +25,10 @@ Profile = function () {
 
   castle = {
    "0": {
-    "Level": Number(k),
+    "Lvl": Number(k),
     "CompletedDate": 0,
     "Upgrading": false,
-    "Position": "s01"
+    "Pos": "s01"
    }
   };
 
@@ -97,11 +97,11 @@ Profile = function () {
    pos += ++index < 10 ? "0" + index : index;
 
    var fData = {};
-   fData.Level = Math.randomBetween(args.FarmLvl[0], args.FarmLvl[1]);
-   fData.Upgrading = false;
+   fData.Lvl = Math.randomBetween(args.FarmLvl[0], args.FarmLvl[1]);
+   fData.IsUp = false;
    fData.CompletedDate = 0;
    fData.CollectDate = Date.now() - Math.randomBetween(HOUR, 12 * HOUR);
-   fData.Position = pos;
+   fData.Pos = pos;
 
    ret.Data[String(a)] = fData;
   }
@@ -121,11 +121,11 @@ Profile = function () {
    pos += ++index < 10 ? "0" + index : index;
 
    var bData = {};
-   bData.Level = Math.randomBetween(args.BarrackLvl[0], args.BarrackLvl[1]);
-   bData.Upgrading = false;
+   bData.Lvl = Math.randomBetween(args.BarrackLvl[0], args.BarrackLvl[1]);
+   bData.IsUp = false;
    bData.FinishTrainDate = ServerTime.Now();
    bData.CompletedDate = 0;
-   bData.Position = pos;
+   bData.Pos = pos;
 
    switch (Math.randomBetween(0, 2)) {
     case 0:
@@ -157,10 +157,10 @@ Profile = function () {
    pos += ++index < 10 ? "0" + index : index;
 
    var sData = {};
-   sData.Level = Math.randomBetween(args.StorageLvl[0], args.StorageLvl[1]);
-   sData.Upgrading = false;
+   sData.Lvl = Math.randomBetween(args.StorageLvl[0], args.StorageLvl[1]);
+   sData.IsUp = false;
    sData.CompletedDate = 0;
-   sData.Position = pos;
+   sData.Pos = pos;
 
 
    ret.Data[String(a)] = sData;

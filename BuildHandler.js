@@ -3,10 +3,10 @@ function BuildHandler(type) {
 
  this.DefaultData = function (args) {
   return {
-   "Level": 0,
-   "Upgrading": false,
+   "Lvl": 0,
+   "IsUp": false,
    "CompletedDate": 0,
-   "Position": args.position
+   "Pos": args.position
   }
  };
 }
