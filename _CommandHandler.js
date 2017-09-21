@@ -44,3 +44,10 @@ handlers.GetTroopInfo = function (args) {
  var m = new BuildManager();
  return m.GetTroopInfo(args);
 };
+
+handlers.ApplyCasualties = function (args) {
+ var m = new BuildManager();
+ args = m.FormatData(args);
+ m.GetHandler(BARRACK).ApplyCasualties(args);
+ return m.GetTroopInfo(args);
+};

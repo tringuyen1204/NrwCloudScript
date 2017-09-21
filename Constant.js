@@ -26,6 +26,27 @@ const TROOP_MATCH_HASH = {
  Cavalry: "Horseman"
 };
 
+function TroopNameToClass(name) {
+ switch (name) {
+  case "Swordsman":
+  case "Samurai":
+  case "Vandal":
+   return INF;
+
+  case "Bowman":
+  case "Longbowman":
+  case "Chukonu":
+   return SKR;
+
+  case "Horseman":
+  case "Chevalier":
+  case "Jaesong Cavalry":
+   return CAV;
+ }
+
+ return null;
+}
+
 // cash code
 const DIAMOND = "DI";
 
@@ -117,3 +138,4 @@ TitleData.GetConstant = function (key) {
  }
  return null;
 };
+
