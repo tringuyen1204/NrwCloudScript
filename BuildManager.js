@@ -20,6 +20,7 @@ function BuildManager(playerId, loadedData) {
  };
 
  this.GetTroopInfo = function (args) {
+  args = this.FormatData(args);
   return this.GetHandler(BARRACK).GetTroopInfo(args);
  };
 
