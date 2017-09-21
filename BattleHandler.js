@@ -98,6 +98,17 @@ function AttackerHandler(playerId) {
   var changes = GloryPoint.GetChanges(args.result, scoutData.AttackerGp - scoutData.DefenderGp);
   GloryPoint.Set(scoutData.AttackerGp + Math.floor(changes[ATK]), this.playerId);
 
+  if ("Casualties" in args) {
+   var bMan = new BuildManager(this.playerId, this.Data[RES]);
+   bMan.ApplyCasualties(args);
+  }
+
+  this.UpdateResultLog(args);
+
+  return true;
+ }
+
+ this.UpdateResultLog = function (args) {
   var logId = scoutData.LastLogId;
   var log = this.Data[LOGS][this.type][logId];
 
@@ -109,11 +120,8 @@ function AttackerHandler(playerId) {
   }
 
   if ("Casualties" in args) {
-   var bMan = new BuildManager(this.playerId, this.Data[RES]);
-   bMan.ApplyCasualties(args);
+   log.Casualties = args.Casualties;
   }
-
-  return true;
  }
 }
 
@@ -139,15 +147,7 @@ function DefenceHandler(playerId) {
   var changes = GloryPoint.GetChanges(args.result, scoutData.AttackerGp - scoutData.DefenderGp);
   GloryPoint.Set(scoutData.DefenderGp + Math.floor(changes[DEF]), this.playerId);
 
-  var logId = scoutData.LastLogId;
-  var log = this.Data[LOGS][this.type][logId];
-
-  if (args.result) {
-   log.Result = "Attacker Win";
-  }
-  else {
-   log.Result = "Defender Win";
-  }
+  this.UpdateResultLog(args);
 
   return true;
  }
