@@ -18,7 +18,7 @@ function ResBuildHandler(type) {
  };
 
  this.Run = function (args) {
-  var ret = BuildHandler.prototype.Run.call(this, args);
+  var ret = DataHandler.prototype.Run.call(this, args);
   if (!ret) {
    switch (args.command) {
     case CMD_COLLECT:
