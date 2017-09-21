@@ -1,7 +1,6 @@
 function ResBuildHandler(type) {
  BuildHandler.call(this, type);
  this.base = new BuildHandler(type);
- this.base.Data = this.Data;
 
  this.CompleteUpgrade = function (args) {
   if (this.base.CompleteUpgrade(args)) {
@@ -21,7 +20,7 @@ function ResBuildHandler(type) {
 
 
  this.Run = function (args) {
-  var ret = this.base.Run(args);
+  var ret = this.base.Run.call(this, args);
   if (!ret) {
    switch (args.command) {
     case CMD_COLLECT:
@@ -33,7 +32,7 @@ function ResBuildHandler(type) {
 
  this.Upgrade = function (args) {
   this.Collect(args.id, args.date);
-  return BuildHandler.prototype.Upgrade.call(this, args);
+  return this.base.Upgrade.call(this, args);
  };
 
  this.Collect = function (args) {
