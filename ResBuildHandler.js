@@ -18,7 +18,7 @@ function ResBuildHandler(type) {
  };
 
  this.Run = function (args) {
-  var ret = DataHandler.prototype.Run.call(this, args);
+  var ret = this.base.Run(args);
   if (!ret) {
    switch (args.command) {
     case CMD_COLLECT:
@@ -133,3 +133,4 @@ function ResBuildHandler(type) {
 }
 
 ResBuildHandler.prototype = Object.create(BuildHandler.prototype);
+ResBuildHandler.prototype.base = Object.create(BuildHandler.prototype);
