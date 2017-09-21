@@ -9,8 +9,6 @@ function ResBuildHandler(type) {
  this.DefaultData = function (args) {
   return {
    "Lvl": 0,
-   "Upgrading": false,
-   "FinishDate": 0,
    "CollectDate": args.date,
    "Pos": args.position
   }
@@ -39,7 +37,7 @@ function ResBuildHandler(type) {
 
   var bData = this.Get(id);
 
-  if (bData === null || bData.Lvl === 0 || bData.IsUp) {
+  if (bData === null || bData.Lvl === 0 || ("FinishDate" in bData)) {
    return false;
   }
 
