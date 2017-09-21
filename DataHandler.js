@@ -149,13 +149,13 @@ function DataHandler(type) {
   }
  };
 
- this.CanUpgrade = function () {
+ this.CanUpgrade = function (id) {
 
   if (this.GetWorkers().length > 1) {
    log.error("Max worker reaches");
    return false;
   }
-  else if (this.Get(id).IsUp) {
+  else if (this.Get(id).Upgrading) {
    log.error("IsUp in progress");
    return false;
   }
