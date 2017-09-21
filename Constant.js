@@ -50,9 +50,9 @@ function TroopNameToClass(name) {
 // cash code
 const DIAMOND = "DI";
 
-const INF = "Infantry";
-const SKR = "Skirmisher";
-const CAV = "Cavalry";
+const INF = "INF";
+const SKR = "SKR";
+const CAV = "CAV";
 
 // time
 const MINUTE = 60 * 1000;
