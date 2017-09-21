@@ -134,4 +134,4 @@ function ResBuildHandler(type) {
 }
 
 ResBuildHandler.prototype = Object.create(BuildHandler.prototype);
-ResBuildHandler.prototype._Run = BuildHandler.prototype.Run;
+ResBuildHandler.prototype._Run = BuildHandler.prototype.Run.bind({});
