@@ -1,7 +1,7 @@
 function ResBuildHandler(type) {
  BuildHandler.call(this, type);
 
- this.base = Object.create(BuildHandler.prototype);
+ this.base = new BuildHandler(type);
 
  this.CompleteUpgrade = function (args) {
   if (BuildHandler.prototype.CompleteUpgrade.call(this, args)) {
