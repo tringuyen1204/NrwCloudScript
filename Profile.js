@@ -26,8 +26,6 @@ Profile = function () {
   castle = {
    "0": {
     "Lvl": Number(k),
-    "FinishDate": 0,
-    "Upgrading": false,
     "Pos": "s01"
    }
   };

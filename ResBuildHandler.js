@@ -2,8 +2,11 @@ function ResBuildHandler(type) {
  BuildHandler.call(this, type);
 
  this.CompleteUpgrade = function (args) {
-  this.Get(args.id).CollectDate = args.date;
-  return BuildHandler.prototype.CompleteUpgrade.call(this, args);
+  if (BuildHandler.prototype.CompleteUpgrade.call(this, args)) {
+   this.Get(args.id).CollectDate = args.date;
+   return true;
+  }
+  return false;
  };
 
  this.DefaultData = function (args) {
