@@ -111,7 +111,7 @@ Profile = function () {
   return ret;
  };
 
- this.SpawnBarracks = function (arg, index) {
+ this.SpawnBarracks = function (args, index) {
   var count = Math.randomBetween(args.BarrackQty[0], args.BarrackQty[1]);
   var ret = {};
   ret.Data = {};
