@@ -111,14 +111,14 @@ function DataHandler(type) {
    if (needGold) {
     resMan.Change(GOLD, -resMan.ValueOf(GOLD));
    }
-   else if (nxtLv.GoldCost !== null) {
+   else if ("GoldCost" in nxtLv) {
     resMan.Change(GOLD, -nxtLv.GoldCost);
    }
 
    if (needFood) {
     resMan.Change(FOOD, -resMan.ValueOf(FOOD));
    }
-   else if (nxtLv.FoodCost !== null) {
+   else if ("FoodCost" in nxtLv) {
     resMan.Change(FOOD, -nxtLv.FoodCost);
    }
 
