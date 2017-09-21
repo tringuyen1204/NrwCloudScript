@@ -162,6 +162,13 @@ function DataHandler(type) {
   return true;
  };
 
+ this.Upgrading = function (id, date) {
+  if ("FinishDate" in this.Get(id)) {
+   return this.Get(id).FinishDate > date;
+  }
+  return false;
+ };
+
  this.BoostUpgrade = function (args) {
   var id = args.id;
   var date = args.date;
