@@ -19,6 +19,10 @@ function BuildManager(playerId, loadedData) {
   }
  };
 
+ this.GetTroopInfo = function (args) {
+  return this.GetHandler(BARRACK).GetTroopInfo(args);
+ };
+
  this.ApplyRaid = function (args) {
   args = this.FormatData(args);
   this.GetHandler(MARKET).ApplyRaid(args.date, args.rate);

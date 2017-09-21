@@ -39,3 +39,8 @@ handlers.InitData = function (args) {
  var p = new Profile();
  return p.Init();
 };
+
+handlers.GetTroopInfo = function (args) {
+ var m = BuildManager();
+ return m.GetTroopInfo(args);
+};
