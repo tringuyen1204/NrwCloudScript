@@ -17,7 +17,7 @@ function ResBuildHandler(type) {
   }
  };
 
- ResBuildHandler.prototype._Run = BuildHandler.prototype.Run;
+
  this.Run = function (args) {
   var ret = this._Run(args);
   if (!ret) {
@@ -134,4 +134,4 @@ function ResBuildHandler(type) {
 }
 
 ResBuildHandler.prototype = Object.create(BuildHandler.prototype);
-
+ResBuildHandler.prototype._Run = BuildHandler.prototype.Run;
