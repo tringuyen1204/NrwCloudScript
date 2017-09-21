@@ -41,6 +41,6 @@ handlers.InitData = function (args) {
 };
 
 handlers.GetTroopInfo = function (args) {
- var m = BuildManager();
+ var m = new BuildManager();
  return m.GetTroopInfo(args);
 };
