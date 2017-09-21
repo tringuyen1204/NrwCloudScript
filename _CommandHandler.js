@@ -47,6 +47,7 @@ handlers.GetTroopInfo = function (args) {
 
 handlers.ApplyCasualties = function (args) {
  var m = new BuildManager();
+ log.info(m.GetTroopInfo(args));
  args = m.FormatData(args);
  m.GetHandler(BARRACK).ApplyCasualties(args);
  return m.GetTroopInfo(args);
