@@ -108,6 +108,11 @@ function AttackerHandler(playerId) {
    log.Result = "Defender Win";
   }
 
+  if ("Casualties" in args) {
+   var bMan = new BuildManager(this.playerId, this.Data[RES]);
+   bMan.ApplyCasualties(args);
+  }
+
   return true;
  }
 }
