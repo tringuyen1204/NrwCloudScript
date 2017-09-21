@@ -20,6 +20,12 @@ const GOLD_STORAGE = "GoldStorage";
 const FOOD_STORAGE = "FoodStorage";
 const BARRACK = "Barrack";
 
+const TROOP_MATCH_HASH = {
+ Infantry: "Swordsman",
+ Skirmisher: "Bowman",
+ Cavalry: "Horseman"
+};
+
 // cash code
 const DIAMOND = "DI";
 

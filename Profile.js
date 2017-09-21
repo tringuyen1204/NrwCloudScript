@@ -127,6 +127,17 @@ Profile = function () {
    bData.CompletedDate = 0;
    bData.Position = pos;
 
+   switch (Math.randomBetween(0, 2)) {
+    case 0:
+     bData.TroopType = INF;
+     break;
+    case 1:
+     bData.TroopType = SKR;
+     break;
+    case 2:
+     bData.TroopType = CAV;
+     break;
+   }
    ret.Data[String(a)] = bData;
   }
   ret.Index = index;
@@ -150,6 +161,7 @@ Profile = function () {
    sData.Upgrading = false;
    sData.CompletedDate = 0;
    sData.Position = pos;
+
 
    ret.Data[String(a)] = sData;
   }
