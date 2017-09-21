@@ -1,6 +1,6 @@
 Profile = function () {
  this.Init = function () {
-  var sampleString = server.GetInternalTitleData({
+  var sampleString = server.GetTitleData({
    "Keys": [
     "DataSample"
    ]
@@ -86,7 +86,7 @@ Profile = function () {
 
  this.SpawnFarms = function (args, index) {
 
-  var count = Math.randomBetween(args.FarmQty[0], args.FarmCount[1]);
+  var count = Math.randomBetween(args.FarmQty[0], args.FarmQty[1]);
   var ret = {};
 
   ret.Data = {};
