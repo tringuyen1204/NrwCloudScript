@@ -27,6 +27,7 @@ function GachaManager() {
   for (var a = 0; a < chestData.length; a++) {
    ret.push(this.SpinTable(chestData[a]));
   }
+  return ret;
  };
 
  this.SpinTable = function (tableId) {
@@ -51,8 +52,6 @@ function GachaManager() {
    }
    total += cumulative[a];
   }
-
-  log.info(cumulative);
 
   var random = Math.randomBetween(1, total);
 
