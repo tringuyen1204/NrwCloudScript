@@ -43,7 +43,6 @@ function GachaManager() {
   var a = 0;
 
   for (a = 0; a < itemList.length; a++) {
-
    if (a === 0) {
     cumulative[a] = itemList[a].weight;
    }
@@ -55,7 +54,7 @@ function GachaManager() {
 
   var random = Math.randomBetween(1, total);
 
-  for (a = 0; a < cumulative.length; a--) {
+  for (a = 0; a < cumulative.length; a++) {
    if (random <= cumulative[a]) {
     break;
    }
