@@ -42,7 +42,7 @@ handlers.InitData = function (args) {
 
 handlers.OpenChest = function (args) {
  var m = new GachaManager();
- m.OpenChest(args);
+ return m.OpenChest(args);
 };
 
 handlers.GetTroopInfo = function (args) {
