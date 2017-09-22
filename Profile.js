@@ -66,6 +66,10 @@ Profile = function () {
    Food: {
     Value: Math.randomBetween(1000, 10000),
     Max: 10000
+   },
+   Crown: {
+    Value: 0,
+    Max: 10
    }
   };
 

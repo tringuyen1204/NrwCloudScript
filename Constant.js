@@ -8,6 +8,8 @@ const ARTIFACT = "Artifact";
 const FUR = "Fur";
 const JADE = "Jade";
 
+const CROWN = "Crown";
+
 const BUILDING = "Building";
 const HERO = "Hero";
 const TECH = "Tech";
@@ -122,7 +124,6 @@ const HERO_LIST = [
 TitleData = {};
 
 TitleData.Get = function (key) {
-
  if (!TitleData.hasOwnProperty(key)) {
   var str = server.GetTitleData([key]).Data[key];
   TitleData[key] = JSON.parse(str);
@@ -132,10 +133,10 @@ TitleData.Get = function (key) {
 
 TitleData.GetConstant = function (key) {
  var constant = TitleData.Get("Constant");
-
  if (key in constant) {
   return constant;
  }
  return null;
 };
+
 

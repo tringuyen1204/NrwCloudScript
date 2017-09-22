@@ -40,6 +40,10 @@ handlers.InitData = function (args) {
  return p.Init();
 };
 
+handlers.OpenChest = function (args) {
+ Gacha.OpenChest(args);
+};
+
 handlers.GetTroopInfo = function (args) {
  var m = new BuildManager();
  return m.GetTroopInfo(args);
