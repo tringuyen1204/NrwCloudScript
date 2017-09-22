@@ -63,8 +63,6 @@ function GachaManager() {
    }
   }
 
-  log.info(itemList[index]);
-
   if ("item" in itemList[index]) {
    var ret = {};
    ret.item = itemList[index].item;
