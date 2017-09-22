@@ -49,7 +49,7 @@ function GachaManager() {
    else {
     cumulative[a] = itemList[a].weight + total;
    }
-   total += cumulative[a];
+   total = cumulative[a];
   }
 
   log.info(cumulative);
