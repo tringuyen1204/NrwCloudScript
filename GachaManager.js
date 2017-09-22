@@ -16,7 +16,7 @@ function GachaManager() {
 
   var chestId = args["chestId"];
 
-  if (!(chestId in Containers)) {
+  if (!(chestId in this.Containers)) {
    log.error("containers don't have this chest");
   }
 
