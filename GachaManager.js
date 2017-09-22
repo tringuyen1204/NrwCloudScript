@@ -20,7 +20,7 @@ function GachaManager() {
    log.error("containers don't have this chest");
   }
 
-  var chestData = Gacha.Containers[chestId].Data;
+  var chestData = this.Containers[chestId].Data;
 
   var ret = [];
 
