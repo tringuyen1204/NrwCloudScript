@@ -9,7 +9,7 @@ Gacha.OpenChest = function (args) {
 
  var chestId = args["chestId"];
 
- var rawData = server.GetInternalTitleData([
+ var rawData = server.GetTitleInternalData([
   "DropTable",
   "Containers"
  ]).Data;
