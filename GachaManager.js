@@ -54,21 +54,24 @@ function GachaManager() {
 
   var random = Math.randomBetween(1, total);
 
+  var index = 0;
+
   for (a = 0; a < cumulative.length; a++) {
    if (random <= cumulative[a]) {
+    index = a;
     break;
    }
   }
 
-  if ("item" in itemList[a]) {
+  if ("item" in itemList[index]) {
 
    var ret = {};
-   ret.item = itemList[a].item;
-   ret.qty = Math.randomBetween(itemList[a].range[0], itemList[a].range[1]);
+   ret.item = itemList[index].item;
+   ret.qty = Math.randomBetween(itemList[index].range[0], itemList[index].range[1]);
    return ret;
   }
-  else if ("table" in itemList[a]) {
-   return this.SpinTable(itemList[a].table);
+  else if ("table" in itemList[index]) {
+   return this.SpinTable(itemList[index].table);
   }
   return null;
  };
