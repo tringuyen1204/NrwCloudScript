@@ -63,8 +63,9 @@ function GachaManager() {
    }
   }
 
-  if ("item" in itemList[index]) {
+  log.info(a);
 
+  if ("item" in itemList[index]) {
    var ret = {};
    ret.item = itemList[index].item;
    ret.qty = Math.randomBetween(itemList[index].range[0], itemList[index].range[1]);
