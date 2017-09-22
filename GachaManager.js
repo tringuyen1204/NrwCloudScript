@@ -52,9 +52,7 @@ function GachaManager() {
    total = cumulative[a];
   }
 
-  log.info(cumulative);
-
-  var random = Math.randomBetween(0, total);
+  var random = Math.randomBetween(1, total);
 
   var index = 0;
 
