@@ -39,6 +39,20 @@ Currency.Spend = function (code, qty) {
  return false;
 };
 
+Currency.Add = function (code, qty) {
+ var vcBalances = server.GetUserInventory({
+  "PlayFabId": currentPlayerId
+ }).VirtualCurrency;
+
+ if (vcBalances !== null
+  && vcBalances.hasOwnProperty(code)
+  && qty > 0) {
+  ChangeCurrency(vcBalances, code, qty);
+  return true;
+ }
+ return false;
+};
+
 function ChangeCurrency(vcBalances, code, qty) {
  if (vcBalances !== null
   && vcBalances.hasOwnProperty(code)

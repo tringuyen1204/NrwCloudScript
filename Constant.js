@@ -13,6 +13,7 @@ const CROWN = "Crown";
 const BUILDING = "Building";
 const HERO = "Hero";
 const TECH = "Tech";
+const INV = "Inventory";
 
 // building code
 const CASTLE = "Castle";

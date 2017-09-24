@@ -1,5 +1,7 @@
 function GachaManager() {
 
+ DataManager.call(this, [INV]);
+
  var rawData = server.GetTitleInternalData([
   "DropTable",
   "Containers"
@@ -25,9 +27,51 @@ function GachaManager() {
   var ret = [];
 
   for (var a = 0; a < chestData.length; a++) {
+
+   var reward = this.SpinTable(chestData[a]);
+   if (reward !== null) {
+    this.ClaimReward(reward);
+   }
    ret.push(this.SpinTable(chestData[a]));
   }
+
+  this.PushNow();
+
   return ret;
+ };
+
+ this.ClaimReward = function (itemData) {
+  var id = itemData.item;
+  var parts = id.split(".");
+  var inventory;
+  switch (parts[0]) {
+
+   case "currency":
+    if (parts[1] === "diamond") {
+     Currency.Add(DIAMOND, itemData.qty);
+    }
+    break;
+
+   case "piece":
+   case "merc":
+   case "mat":
+    inventory = this.GetInvetory();
+    if (id in inventory) {
+     inventory[id] += itemData.qty;
+    }
+    else {
+     inventory[id] = itemData.qty;
+    }
+    break;
+  }
+ };
+
+ this.GetInvetory = function () {
+
+  if (!(INV in this.Data)) {
+   this.Data[INV] = {};
+  }
+  return this.Data[INV];
  };
 
  this.SpinTable = function (tableId) {
