@@ -5,18 +5,25 @@ UserData.Update = function (data, playerId) {
 
  var writeData = {};
 
+ var canPush = false;
+
  for (var key in data) {
   if (data.hasOwnProperty(key)) {
    writeData[key] = JSON.stringify(data[key]);
+   canPush = true;
   }
  }
 
- server.UpdateUserReadOnlyData({
-  PlayFabId: playerId,
-  Data: writeData,
-  Permission: "public"
- });
-
+ if (canPush) {
+  server.UpdateUserReadOnlyData({
+   PlayFabId: playerId,
+   Data: writeData,
+   Permission: "public"
+  });
+ }
+ else {
+  log.info("nothing to push");
+ }
 };
 
 UserData.Get = function (keys, playerId) {
