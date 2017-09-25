@@ -1,5 +1,5 @@
 function HeroHandler() {
- DataHandler.call(this);
+ DataHandler.call(this, "Hero");
  this.base = new DataHandler();
 
  this.UsePieces = function (id, qty) {
