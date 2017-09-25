@@ -25,8 +25,12 @@ function HeroHandler() {
   var unlocked = true;
   var pieceReqList = TitleData.GetConstObject("HERO_PIECES");
 
-  if (heroData === null || heroData === undefined || heroData.Rarity === 0) {
+  if (heroData === null || heroData === undefined || heroData.Rarity < minRarity) {
    unlocked = false;
+   heroData = {
+    Rarity: 0,
+    Lvl: 1
+   }
   }
   else if (heroData.Rarity >= pieceReqList.length) {
    return false;

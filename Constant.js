@@ -126,7 +126,6 @@ TitleData = {};
 
 TitleData.GetConstObject = function (key) {
  return JSON.parse(TitleData.GetConst(key));
- ;
 };
 
 TitleData.Get = function (key) {
