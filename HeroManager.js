@@ -2,19 +2,8 @@ HeroManager = function (playerId) {
  DataManager.call(this, [HERO, INV], playerId);
 
  this.GetHandler = function (args) {
-  var handlers = this.Handlers;
-  var type = args.type;
-
-  for (var a = 0; a < HERO_LIST.length; a++) {
-   if (HERO_LIST[a] === type) {
-    if (handlers.hasOwnProperty(type)) {
-     handlers[type] = new HeroHandler(type);
-     handlers[type].Data = this.Data[HERO];
-    }
-    return handlers[type];
-   }
-  }
-  return null;
+  var hanldler = new HeroHandler();
+  hanldler.Data = this.Data;
  }
 };
 

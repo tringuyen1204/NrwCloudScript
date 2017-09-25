@@ -1,6 +1,6 @@
-function HeroHandler(type) {
- DataHandler.call(this, type);
- this.base = new DataHandler(type);
+function HeroHandler() {
+ DataHandler.call(this);
+ this.base = new DataHandler();
 
  this.UsePieces = function (id, qty) {
   var inventory = this.Data[INV];
