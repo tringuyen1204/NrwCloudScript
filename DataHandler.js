@@ -225,6 +225,7 @@ function DataHandler(type) {
  };
 
  this.Get = function (id) {
+
   if (this.Data[this.type].hasOwnProperty(id)) {
    return this.Data[this.type][id];
   }
