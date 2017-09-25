@@ -51,7 +51,7 @@ function BuildManager(playerId, loadedData) {
   var newMax = 0;
   var key = "Castle" + code + "Storage";
 
-  newMax += TitleData.GetConstant(key);
+  newMax += TitleData.GetConst(key);
 
   var bData = this.Data[BUILDING][code];
 

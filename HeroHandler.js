@@ -2,26 +2,53 @@ function HeroHandler(type) {
  DataHandler.call(this, type);
  this.base = new DataHandler(type);
 
- this.PieceReqList = function () {
-  return TitleData.GetConstant("HeroEvolution");
+ this.UsePieces = function (id, qty) {
+  var inventory = this.Data[INV];
+  if (id in inventory) {
+   if (inventory[id] >= qty) {
+    inventory[id] -= qty;
+    return true;
+   }
+   else {
+    return false;
+   }
+   return false;
+  }
  };
 
  this.Evolve = function (args) {
 
   var id = args.id;
-
   var heroData = this.Get(id);
-  var pieceReqList = this.PieceReqList();
+  var minRarity = TitleData.GetConst(id.toUpperCase() + "_RARITY");
 
-  if (heroData.Star >= pieceReqList.length) {
+  var unlocked = true;
+  var pieceReqList = TitleData.GetConstObject("HERO_PIECES");
+
+  if (heroData === null || heroData === undefined || heroData.Rarity === 0) {
+   unlocked = false;
+  }
+  else if (heroData.Rarity >= pieceReqList.length) {
    return false;
   }
 
-  var shardReq = pieceReqList[heroData.Star - 1];
+  var pieceReq = 0;
+  var pieceId = TitleData.GetConst(id.toUpperCase() + "_PIECE");
+  var targetRarity = 0;
 
-  if (heroData.Shards >= shardReq) {
-   heroData.Shards -= shardReq;
-   heroData.Star = heroData.Star + 1;
+  if (unlocked) {
+   pieceReq = pieceReqList[heroData.Rarity - 1];
+   targetRarity = heroData.Rarity + 1;
+  }
+  else {
+   for (var a = 0; a < minRarity; a++) {
+    pieceReq += pieceReqList[a];
+    targetRarity = minRarity;
+   }
+  }
+
+  if (this.UsePieces(pieceId, pieceReq)) {
+   heroData.Rarity = targetRarity;
    return true;
   }
   return false;

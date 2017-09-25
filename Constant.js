@@ -124,6 +124,11 @@ const HERO_LIST = [
 
 TitleData = {};
 
+TitleData.GetConstObject = function (key) {
+ return JSON.parse(TitleData.GetConst(key));
+ ;
+};
+
 TitleData.Get = function (key) {
  if (!TitleData.hasOwnProperty(key)) {
   var str = server.GetTitleData([key]).Data[key];
@@ -132,7 +137,7 @@ TitleData.Get = function (key) {
  return TitleData[key];
 };
 
-TitleData.GetConstant = function (key) {
+TitleData.GetConst = function (key) {
  var constant = TitleData.Get("Constant");
  if (key in constant) {
   return constant;
