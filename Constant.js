@@ -140,7 +140,7 @@ TitleData.Get = function (key) {
 TitleData.GetConst = function (key) {
  var constant = TitleData.Get("Constant");
  if (key in constant) {
-  return constant;
+  return constant[key].Value;
  }
  return null;
 };
