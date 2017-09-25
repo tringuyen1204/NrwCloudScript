@@ -2,19 +2,22 @@ function HeroHandler(type) {
  DataHandler.call(this, type);
  this.base = new DataHandler(type);
 
+ this.PieceReqList = function () {
+  return TitleData.GetConstant("HeroEvolution");
+ };
+
  this.Evolve = function (args) {
 
   var id = args.id;
-  var date = args.date;
 
   var heroData = this.Get(id);
-  var shardsReqList = TitleData.Get("HeroEvolution");
+  var pieceReqList = this.PieceReqList();
 
-  if (heroData.Star >= shardsReqList.length) {
+  if (heroData.Star >= pieceReqList.length) {
    return false;
   }
 
-  var shardReq = shardsReqList[heroData.Star - 1];
+  var shardReq = pieceReqList[heroData.Star - 1];
 
   if (heroData.Shards >= shardReq) {
    heroData.Shards -= shardReq;

@@ -12,7 +12,41 @@ function BattleHandler() {
  };
 
  this.StartBattle = function (args) {
-  return false;
+
+  var noError = true;
+
+  if (!(MERC in args)) {
+   return false;
+  }
+
+  for (var a = 0; a < args[MERC].length; a++) {
+   if (!this.UseMerc(args[MERC][a])) {
+    noError = false;
+    break;
+   }
+  }
+
+  return noError;
+ };
+
+ this.UseMerc = function (mercId) {
+
+  var inventory = this.Data[INV];
+  if (inventory === null || inventory === undefined) {
+   log.error("inventory null");
+   return false;
+  }
+
+  if (!(mercId in inventory) || inventory[mercId] <= 0) {
+   log.error("inventory doesn't contain this merc: " + mercId);
+   return false;
+  }
+  inventory[mercId]--;
+
+  if (inventory[mercId] == 0) {
+   delete inventory[mercId];
+  }
+  return true;
  };
 
  this.EndBattle = function (args) {
@@ -27,11 +61,18 @@ function BattleHandler() {
 function AttackerHandler(playerId) {
 
  BattleHandler.call(this);
+ this.base = new BattleHandler();
 
  this.playerId = playerId;
  this.type = ATK;
 
  this.StartBattle = function (args) {
+
+  if (this.type === ATK) {
+   if (!this.base.StartBattle.call(this, args)) {
+    return false;
+   }
+  }
 
   if (!(this.type in this.Data[LOGS])) {
    this.Data[LOGS][this.type] = {};
@@ -58,7 +99,6 @@ function AttackerHandler(playerId) {
   else {
    GloryPoint.Set(scoutData.DefenderGp + log.DefGpChange, scoutData.DefenderId);
   }
-
   return true;
  };
 

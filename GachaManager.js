@@ -22,7 +22,7 @@ function GachaManager() {
    log.error("containers don't have this chest");
   }
 
-  var chestData = this.Containers[chestId].Data;
+  var chestData = this.Containers[chestId];
 
   var ret = [];
 
@@ -77,10 +77,10 @@ function GachaManager() {
  this.SpinTable = function (tableId) {
 
   if (!(tableId in this.DropTable)) {
-   log.error("invalid table name: " + tableId);
+   log.error("invalid table: " + tableId);
   }
 
-  var itemList = this.DropTable[tableId].Data;
+  var itemList = this.DropTable[tableId];
 
   var cumulative = [];
   var total = 0;

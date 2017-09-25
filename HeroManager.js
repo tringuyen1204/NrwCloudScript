@@ -1,5 +1,5 @@
 HeroManager = function (playerId) {
- DataManager.call(this, [HERO], playerId);
+ DataManager.call(this, [HERO, INV], playerId);
 
  this.GetHandler = function (args) {
   var handlers = this.Handlers;
