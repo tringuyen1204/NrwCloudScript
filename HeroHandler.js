@@ -7,6 +7,9 @@ function HeroHandler() {
   if (id in inventory) {
    if (inventory[id] >= qty) {
     inventory[id] -= qty;
+    if (inventory[id] <= 0) {
+     delete  inventory[id];
+    }
     return true;
    }
    else {
@@ -31,6 +34,7 @@ function HeroHandler() {
     Rarity: 0,
     Lvl: 1
    }
+   this.Data[HERO][id] = heroData;
   }
   else if (heroData.Rarity >= pieceReqList.length) {
    return false;
