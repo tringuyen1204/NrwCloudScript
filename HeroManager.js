@@ -2,8 +2,9 @@ HeroManager = function (playerId) {
  DataManager.call(this, [HERO, INV], playerId);
 
  this.GetHandler = function (args) {
-  var hanldler = new HeroHandler();
-  hanldler.Data = this.Data;
+  var handler = new HeroHandler();
+  handler.Data = this.Data;
+  return handler;
  }
 };
 
