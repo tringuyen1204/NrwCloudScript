@@ -29,16 +29,15 @@ Profile = function () {
   };
 
   var sData = sampleData[k];
-
+  var newId;
   var index = 0;
   var b = {};
 
-  b["building.castle.0"] = castle;
+  newId = BUILDING + "." + CASTLE + "." + 0;
+  b[newId] = castle;
 
   var ret;
-
   var a = 0;
-  var newId;
 
   ret = this.SpawnFarms(sData, index);
   for (a = 0; a < ret.Data.length; a++) {
