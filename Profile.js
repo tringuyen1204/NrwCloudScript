@@ -69,15 +69,15 @@ Profile = function () {
   }
 
   var res = {
-   Gold: {
+   'resource.gold': {
     Value: Math.randomBetween(1000, 10000),
     Max: 10000
    },
-   Food: {
+   'resource.food': {
     Value: Math.randomBetween(1000, 10000),
     Max: 10000
    },
-   Crown: {
+   'resource.crown': {
     Value: 0,
     Max: 10
    }
