@@ -64,22 +64,28 @@ function BuildManager(playerId, loadedData) {
   resMan.SetMax(code, newMax);
  };
 
- this.GetHandler = function (type) {
+ this.GetHandler = function (id) {
+
+  var parts = id.split('.'); // 'building.farm.2' --> ['building', 'farm', '2']
+
+  if (parts[0] !== 'building') {
+   return null;
+  }
 
   var newHandler = null;
 
-  switch (type) {
+  switch (parts[1]) {
    case FARM:
    case MARKET:
-    newHandler = new ResBuildHandler(type);
+    newHandler = new ResBuildHandler();
     break;
    case BARRACK:
-    newHandler = new BarrackHandler(type);
+    newHandler = new BarrackHandler();
     break;
    case CASTLE:
    case FOOD_STORAGE:
    case GOLD_STORAGE:
-    newHandler = new BuildHandler(type);
+    newHandler = new BuildHandler();
     break;
   }
 

@@ -38,49 +38,57 @@ Profile = function () {
   var ret;
 
   var a = 0;
+  var newId;
 
   ret = this.SpawnFarms(sData, index);
   for (a = 0; a < ret.Data.length; a++) {
-   b["building.farm." + a] = ret.Data[a];
+   newId = BUILDING + "." + FARM + "." + a;
+   b[newId] = ret.Data[a];
   }
   index = ret["Index"];
 
   ret = this.SpawnFarms(sData, index);
   for (a = 0; a < ret.Data.length; a++) {
-   b["building.market." + a] = ret.Data[a];
+   newId = BUILDING + "." + MARKET + "." + a;
+   b[newId] = ret.Data[a];
   }
   index = ret["Index"];
 
   ret = this.SpawnStorages(sData, index);
   for (a = 0; a < ret.Data.length; a++) {
-   b["building.foodstorage." + a] = ret.Data[a];
+   newId = BUILDING + "." + FOOD_STORAGE + "." + a;
+   b[newId] = ret.Data[a];
   }
   index = ret["Index"];
 
   ret = this.SpawnStorages(sData, index);
   for (a = 0; a < ret.Data.length; a++) {
-   b["building.goldstorage." + a] = ret.Data[a];
+   newId = BUILDING + "." + GOLD_STORAGE + "." + a;
+   b[newId] = ret.Data[a];
   }
 
   index = 0;
   ret = this.SpawnBarracks(sData, index);
   for (a = 0; a < ret.Data.length; a++) {
-   b["building.barrack." + a] = ret.Data[a];
+   newId = BUILDING + "." + BARRACK + "." + a;
+   b[newId] = ret.Data[a];
   }
 
-  var res = {
-   'resource.gold': {
-    Value: Math.randomBetween(1000, 10000),
+  var res = {};
+
+  ret[RES + "." + GOLD] = {
+   Value: Math.randomBetween(1000, 10000),
     Max: 10000
-   },
-   'resource.food': {
-    Value: Math.randomBetween(1000, 10000),
-    Max: 10000
-   },
-   'resource.crown': {
-    Value: 0,
-    Max: 10
-   }
+  };
+
+  ret[RES + "." + FOOD] = {
+   Value: Math.randomBetween(1000, 10000),
+   Max: 10000
+  };
+
+  ret[RES + "." + CROWN] = {
+   Value: 0,
+   Max: 10
   };
 
   var writeData = {};

@@ -16,12 +16,12 @@ const TECH = "Tech";
 const INV = "Inventory";
 
 // building code
-const CASTLE = "CASTLE";
-const MARKET = "MARKET";
-const FARM = "FARM";
-const GOLD_STORAGE = "GOLDSTORAGE";
-const FOOD_STORAGE = "FOODSTORAGE";
-const BARRACK = "BARRACK";
+const CASTLE = "Castle";
+const MARKET = "Market";
+const FARM = "Farm";
+const GOLD_STORAGE = "GoldStorage";
+const FOOD_STORAGE = "FoodStorage";
+const BARRACK = "Barrack";
 
 const TROOP_MATCH_HASH = {
  Infantry: "Swordsman",
