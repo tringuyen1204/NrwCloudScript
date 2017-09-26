@@ -75,17 +75,17 @@ Profile = function () {
 
   var res = {};
 
-  ret[RES + "." + GOLD] = {
+  res[RES + "." + GOLD] = {
    Value: Math.randomBetween(1000, 10000),
     Max: 10000
   };
 
-  ret[RES + "." + FOOD] = {
+  res[RES + "." + FOOD] = {
    Value: Math.randomBetween(1000, 10000),
    Max: 10000
   };
 
-  ret[RES + "." + CROWN] = {
+  res[RES + "." + CROWN] = {
    Value: 0,
    Max: 10
   };
