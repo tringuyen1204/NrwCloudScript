@@ -1,14 +1,14 @@
 // resource code
 const GOLD = "Gold";
 const FOOD = "Food";
-const TRUFFLE = "Truffle";
-const SILK = "Silk";
-const PEARL = "Pearl";
-const ARTIFACT = "Artifact";
-const FUR = "Fur";
-const JADE = "Jade";
-
 const CROWN = "Crown";
+
+const TRUFFLE = "mat.truffle";
+const SILK = "mat.silk";
+const PEARL = "mat.pearl";
+const ARTIFACT = "mat.artifact";
+const FUR = "mat.fur";
+const JADE = "mat.jade";
 
 const BUILDING = "Building";
 const HERO = "Hero";
@@ -16,12 +16,12 @@ const TECH = "Tech";
 const INV = "Inventory";
 
 // building code
-const CASTLE = "Castle";
-const MARKET = "Market";
-const FARM = "Farm";
-const GOLD_STORAGE = "GoldStorage";
-const FOOD_STORAGE = "FoodStorage";
-const BARRACK = "Barrack";
+const CASTLE = "CASTLE";
+const MARKET = "MARKET";
+const FARM = "FARM";
+const GOLD_STORAGE = "GOLDSTORAGE";
+const FOOD_STORAGE = "FOODSTORAGE";
+const BARRACK = "BARRACK";
 
 const TROOP_MATCH_HASH = {
  Infantry: "Swordsman",
@@ -80,7 +80,7 @@ const CMD_START_BATTLE = "StartBattle";
 const CMD_UPDATE_BATTLE = "UpdateBattle";
 const CMD_END_BATTLE = "EndBattle";
 
-const NATION = "Nation";
+const NATION = "Troop";
 const MERC = "Merc";
 
 const GP = "GloryPoint";
@@ -112,14 +112,14 @@ const NATION_LIST = [
 const HERO_LIST = [
 
  // generals
- "KingArthur",
- "RobinHood",
- "JoanDarc",
+ "general.inf.arthur",
+ "general.skr.robin",
+ "general.cav.joan",
 
  // advisors
- "ZhugeLiang",
- "LeonardDaVinci",
- "Notradamus"
+ "advisor.zhuge",
+ "advisor.leonardo",
+ "advisor.notradamus"
 ];
 
 TitleData = {};

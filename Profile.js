@@ -24,10 +24,8 @@ Profile = function () {
   }
 
   castle = {
-   "0": {
-    "Lvl": Number(k),
-    "Pos": "s01"
-   }
+   "Lvl": Number(k),
+   "Pos": "s01"
   };
 
   var sData = sampleData[k];
@@ -35,7 +33,7 @@ Profile = function () {
   var index = 0;
   var b = {};
 
-  b[CASTLE] = castle;
+  b["building.castle.0"] = castle;
 
   var ret;
 
