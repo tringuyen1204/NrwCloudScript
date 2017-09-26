@@ -37,24 +37,36 @@ Profile = function () {
 
   var ret;
 
+  var a = 0;
+
   ret = this.SpawnFarms(sData, index);
-  b[FARM] = ret["Data"];
+  for (a = 0; a < ret.Data.length; a++) {
+   b["building.farm." + a] = ret.Data[a];
+  }
   index = ret["Index"];
 
   ret = this.SpawnFarms(sData, index);
-  b[MARKET] = ret["Data"];
+  for (a = 0; a < ret.Data.length; a++) {
+   b["building.market." + a] = ret.Data[a];
+  }
   index = ret["Index"];
 
   ret = this.SpawnStorages(sData, index);
-  b[FOOD_STORAGE] = ret["Data"];
+  for (a = 0; a < ret.Data.length; a++) {
+   b["building.foodstorage." + a] = ret.Data[a];
+  }
   index = ret["Index"];
 
   ret = this.SpawnStorages(sData, index);
-  b[GOLD_STORAGE] = ret["Data"];
+  for (a = 0; a < ret.Data.length; a++) {
+   b["building.goldstorage." + a] = ret.Data[a];
+  }
 
   index = 0;
   ret = this.SpawnBarracks(sData, index);
-  b[BARRACK] = ret["Data"];
+  for (a = 0; a < ret.Data.length; a++) {
+   b["building.barrack." + a] = ret.Data[a];
+  }
 
   var res = {
    Gold: {
@@ -89,7 +101,7 @@ Profile = function () {
   var count = Math.randomBetween(args.FarmQty[0], args.FarmQty[1]);
   var ret = {};
 
-  ret.Data = {};
+  ret.Data = [];
 
   for (var a = 0; a < count; a++) {
 
@@ -101,7 +113,7 @@ Profile = function () {
    fData.CollectDate = Date.now() - Math.randomBetween(HOUR, 12 * HOUR);
    fData.Pos = pos;
 
-   ret.Data[String(a)] = fData;
+   ret.Data[a] = fData;
   }
   ret.Index = index;
 
@@ -111,7 +123,7 @@ Profile = function () {
  this.SpawnBarracks = function (args, index) {
   var count = Math.randomBetween(args.BarrackQty[0], args.BarrackQty[1]);
   var ret = {};
-  ret.Data = {};
+  ret.Data = [];
 
   for (var a = 0; a < count; a++) {
 
@@ -134,7 +146,7 @@ Profile = function () {
      bData.Class = CAV;
      break;
    }
-   ret.Data[String(a)] = bData;
+   ret.Data[a] = bData;
   }
   ret.Index = index;
 
@@ -145,7 +157,7 @@ Profile = function () {
 
   var count = Math.randomBetween(args.StorageQty[0], args.StorageQty[1]);
   var ret = {};
-  ret.Data = {};
+  ret.Data = [];
 
   for (var a = 0; a < count; a++) {
 
@@ -157,7 +169,7 @@ Profile = function () {
    sData.Pos = pos;
 
 
-   ret.Data[String(a)] = sData;
+   ret.Data[a] = sData;
   }
   ret.Index = index;
 
