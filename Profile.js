@@ -2,9 +2,9 @@ Profile = function () {
  this.Init = function () {
   var sampleString = server.GetTitleData({
    "Keys": [
-    "DataSample"
+    "Data.Sample"
    ]
-  }).Data["DataSample"];
+  }).Data["Data.Sample"];
 
   var castle;
 
