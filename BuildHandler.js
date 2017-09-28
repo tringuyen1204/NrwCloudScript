@@ -1,5 +1,5 @@
 function BuildHandler() {
- DataHandler.call(this);
+ DefaultHandler.call(this);
 
  this.DefaultData = function (args) {
   return {
@@ -9,4 +9,4 @@ function BuildHandler() {
  };
 }
 
-BuildHandler.prototype = Object.create(DataHandler.prototype);
+BuildHandler.prototype = Object.create(DefaultHandler.prototype);

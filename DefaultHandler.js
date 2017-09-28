@@ -1,4 +1,4 @@
-function DataHandler() {
+function DefaultHandler() {
 
  this.Run = function (args) {
   switch (args.command) {
@@ -26,6 +26,27 @@ function DataHandler() {
   return {
    "Lvl": 0
   }
+ };
+
+ this.GetClass = function (id) {
+  var temp = id.split('.')[0];
+  switch (temp) {
+   case BUILDING:
+    return BUILDING;
+   case GENERAL:
+   case ADVISOR:
+    return HERO;
+   case TECH:
+    return TECH;
+   case TROOP:
+    return TROOP;
+   case MERC:
+    return INV;
+  }
+ };
+
+ this.GetType = function (id) {
+  return id.split('.')[1];
  };
 
  this.InstantUpgrade = function (args) {
@@ -214,8 +235,10 @@ function DataHandler() {
 
  this.Get = function (id) {
 
-  if (this.Data.hasOwnProperty(id)) {
-   return this.Data[id];
+  var objClass = this.GetClass(id);
+
+  if (this.Data[objClass].hasOwnProperty(id)) {
+   return this.Data[objClass][id];
   }
   else {
    return null;

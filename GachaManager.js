@@ -1,6 +1,6 @@
 function GachaManager() {
 
- DataManager.call(this, [INV]);
+ DefaultManager.call(this, [INV]);
 
  var rawData = server.GetTitleInternalData([
   "DropTable",
@@ -68,10 +68,10 @@ function GachaManager() {
 
  this.GetInvetory = function () {
 
-  if (!(INV in this.Data)) {
-   this.Data[INV] = {};
+  if (!(INV in this.GetData())) {
+   this.GetData()[INV] = {};
   }
-  return this.Data[INV];
+  return this.GetData()[INV];
  };
 
  this.SpinTable = function (tableId) {

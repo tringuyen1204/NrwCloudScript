@@ -4,19 +4,29 @@ handlers.ServerTime = function (args) {
  }
 };
 
-handlers.Building = function (args) {
- var m = new BuildManager();
- return m.Run(args);
-};
+handlers.Run = function (args) {
 
-handlers.Hero = function (args) {
- var m = new HeroManager();
- return m.Run(args);
-};
+ var id = args.id;
 
-handlers.Tech = function (args) {
- var m = new TechManager();
- return m.Run(args);
+ var objClass = id.split('.')[0];
+
+ var manager;
+
+ switch (objClass) {
+  case BUILDING:
+   manager = new BuildManager();
+   break;
+  case GENERAL:
+  case ADVISOR:
+   manager = new HeroManager();
+   break;
+  case TECH:
+   manager = new TechManager();
+   break;
+ }
+ if (manager !== undefined) {
+  return manager.Run(args);
+ }
 };
 
 handlers.Raid = function (args) {

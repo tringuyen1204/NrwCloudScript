@@ -1,11 +1,11 @@
 HeroManager = function (playerId) {
- DataManager.call(this, [HERO, INV], playerId);
+ DefaultManager.call(this, [HERO, INV], playerId);
 
  this.GetHandler = function (args) {
   var handler = new HeroHandler();
-  handler.Data = this.Data;
+  handler.Data = this.GetData();
   return handler;
  }
 };
 
-HeroManager.prototype = Object.create(DataManager.prototype);
+HeroManager.prototype = Object.create(DefaultManager.prototype);

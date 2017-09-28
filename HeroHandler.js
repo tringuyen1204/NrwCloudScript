@@ -1,6 +1,6 @@
 function HeroHandler() {
- DataHandler.call(this, "Hero");
- this.base = new DataHandler();
+ DefaultHandler.call(this);
+ this.base = new DefaultHandler();
 
  this.UsePieces = function (id, qty) {
   var inventory = this.Data[INV];
@@ -75,4 +75,4 @@ function HeroHandler() {
  };
 }
 
-HeroHandler.prototype = Object.create(DataHandler.prototype);
+HeroHandler.prototype = Object.create(DefaultHandler.prototype);

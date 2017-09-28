@@ -1,5 +1,5 @@
 function SpyManager() {
- DataManager.call(this, [LOGS]);
+ DefaultManager.call(this, [LOGS]);
 
  this.Run = function (args) {
   args = this.FormatData(args);
@@ -142,4 +142,4 @@ function SpyManager() {
  };
 }
 
-SpyManager.prototype = Object.create(DataManager.prototype);
+SpyManager.prototype = Object.create(DefaultManager.prototype);

@@ -1,6 +1,6 @@
-function ResBuildHandler(type) {
- BuildHandler.call(this, type);
- this.base = new BuildHandler(type);
+function ResBuildHandler() {
+ BuildHandler.call(this);
+ this.base = new BuildHandler();
 
  this.CompleteUpgrade = function (args) {
   if (this.base.CompleteUpgrade.call(this, args)) {

@@ -1,8 +1,8 @@
 Kingdom = function (playerId) {
- DataManager.call(this, "Kingdom", playerId);
+ DefaultManager.call(this, "Kingdom", playerId);
 
- if (this.Data.Exp === null) {
-  this.Data.Exp = 0;
+ if (this.GetData().Exp === null) {
+  this.GetData().Exp = 0;
  }
 
  this.AddExp = function (quantity) {
@@ -11,14 +11,14 @@ Kingdom = function (playerId) {
    return false;
   }
 
-  this.Data.Exp += quantity;
+  this.GetData().Exp += quantity;
   this.Push();
 
   return true;
  };
 };
 
-Kingdom.prototype = Object.create(DataManager.prototype);
+Kingdom.prototype = Object.create(DefaultManager.prototype);
 
 var GloryPoint = {};
 

@@ -1,19 +1,20 @@
-function DataManager(keys, playerId) {
+function DefaultManager(keys, playerId) {
  this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
+ this.Keys = keys;
 
- if (keys === null || keys === undefined || keys.length === 0) {
-  this.Data = {};
- }
- else {
-  this.Data = UserData.Get(keys, this.PlayerId);
- }
+ this.GetData = function () {
+  if (this.Data === null || this.Data === undefined) {
+   this.Data = UserData.Get(keys, this.PlayerId);
+  }
+  return this.Data;
+ };
 
  this.Push = function (args) {
   this.PushNow();
  };
 
  this.PushNow = function () {
-  UserData.Update(this.Data, this.PlayerId);
+  UserData.Update(this.GetData(), this.PlayerId);
  };
 
  this.FormatData = function (args) {
@@ -36,13 +37,12 @@ function DataManager(keys, playerId) {
   if (handler !== null && handler.Run(args)) {
    this.Push(args);
   }
-
-  return this.Data;
+  return this.GetData();
  };
 
- this.GetHandler = function (type) {
-  var handler = new DataHandler(type);
-  handler.Data = this.Data;
+ this.GetHandler = function () {
+  var handler = new DefaultHandler();
+  handler.Data = this.GetData();
   return handler;
  };
 }

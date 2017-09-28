@@ -1,10 +1,10 @@
 function BuildManager(playerId, loadedData) {
 
  if (loadedData === null || loadedData === undefined) {
-  DataManager.call(this, [BUILDING], playerId);
+  DefaultManager.call(this, [BUILDING], playerId);
  }
  else {
-  DataManager.call(this, [], playerId);
+  DefaultManager.call(this, [], playerId);
   this.Data[BUILDING] = loadedData;
  }
 
@@ -66,37 +66,33 @@ function BuildManager(playerId, loadedData) {
 
  this.GetHandler = function (id) {
 
-  var parts = id.split('.'); // 'building.farm.2' --> ['building', 'farm', '2']
+  var parts = id.split('.'); // 'Building.Farm.2' --> ['Building', 'Farm', '2']
 
-  if (parts[0] !== 'building') {
-   return null;
-  }
-
-  var newHandler = null;
+  var handler;
 
   switch (parts[1]) {
    case FARM:
    case MARKET:
-    newHandler = new ResBuildHandler();
+    handler = new ResBuildHandler();
     break;
    case BARRACK:
-    newHandler = new BarrackHandler();
+    handler = new BarrackHandler();
     break;
    case CASTLE:
    case FOOD_STORAGE:
    case GOLD_STORAGE:
-    newHandler = new BuildHandler();
+    handler = new BuildHandler();
     break;
   }
 
-  if (newHandler === null) {
+  if (handler === undefined) {
    return null;
   }
 
-  newHandler.Data = this.Data[BUILDING];
-  return newHandler;
+  handler.Data = this.GetData();
+  return handler;
  }
 
 }
 
-BuildManager.prototype = Object.create(DataManager.prototype);
+BuildManager.prototype = Object.create(DefaultManager.prototype);

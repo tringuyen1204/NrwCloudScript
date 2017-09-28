@@ -1,47 +1,47 @@
 function ResManager(playerId, loadedData) {
 
  if (loadedData === null || loadedData === undefined) {
-  DataManager.call(this, [RES], playerId);
+  DefaultManager.call(this, [RES], playerId);
  }
  else {
-  DataManager.call(this, [], playerId);
-  this.Data[RES] = loadedData;
+  DefaultManager.call(this, [], playerId);
+  this.GetData()[RES] = loadedData;
  }
 
  this.ValueOf = function (code) {
-  if (this.Data[RES][code] === null) {
-   this.Data[RES][code] = {
+  if (this.GetData()[RES][code] === null) {
+   this.GetData()[RES][code] = {
     "Value": 0,
     "Max": 0
    }
   }
-  return this.Data[RES][code].Value;
+  return this.GetData()[RES][code].Value;
  };
 
  this.MaxOf = function (code) {
-  if (this.Data[RES][code] === null) {
-   this.Data[RES][code] = {
+  if (this.GetData()[RES][code] === null) {
+   this.GetData()[RES][code] = {
     "Value": 0,
     "Max": 0
    }
   }
-  return this.Data[RES][code].Max;
+  return this.GetData()[RES][code].Max;
  };
 
  this.Change = function (code, qty) {
   if (this.ValueOf(code) + qty < 0) {
-   this.Data[RES][code].Value = 0;
+   this.GetData()[RES][code].Value = 0;
   }
   else if (this.ValueOf(code) + qty > this.MaxOf(code)) {
-   this.Data[RES][code].Value = this.MaxOf(code);
+   this.GetData()[RES][code].Value = this.MaxOf(code);
   }
   else {
-   this.Data[RES][code].Value += qty;
+   this.GetData()[RES][code].Value += qty;
   }
  };
 
  this.SetMax = function (code, newMax) {
-  this.Data[RES][code].Max = newMax;
+  this.GetData()[RES][code].Max = newMax;
   this.Push();
  };
 
@@ -51,4 +51,4 @@ function ResManager(playerId, loadedData) {
  };
 }
 
-ResManager.prototype = Object.create(DataManager.prototype);
+ResManager.prototype = Object.create(DefaultManager.prototype);
