@@ -146,7 +146,7 @@ function AttackerHandler(playerId) {
   this.UpdateResultLog(args);
 
   return true;
- }
+ };
 
  this.UpdateResultLog = function (args) {
   var logId = scoutData.LastLogId;

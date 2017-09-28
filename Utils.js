@@ -87,3 +87,27 @@ var ServerTime = {
 ServerTime.Now = function () {
  return Date.now() + ServerTime.deltaTime;
 };
+
+var MasterData = {
+ Data: {}
+};
+
+MasterData.FromKey = function (key) {
+ if (!(key in MasterData.Data)) {
+  MasterData.Data[key] = TitleData.Get(key);
+ }
+ return MasterData.Data[key];
+};
+
+MasterData.FromId = function (id) {
+ var parts = id.split('.');
+
+ switch (parts[0]) {
+  case BUILDING:
+   return MasterData.FromKey(parts[0] + "." + parts[1]);
+   break;
+  case TECH:
+   return MasterData.FromKey(parts[0] + "." + parts[1] + "." + parts[2]);
+   break;
+ }
+};

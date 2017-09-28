@@ -1,5 +1,5 @@
-function BuildHandler(type) {
- DataHandler.call(this, type);
+function BuildHandler() {
+ DataHandler.call(this);
 
  this.DefaultData = function (args) {
   return {

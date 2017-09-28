@@ -1,12 +1,4 @@
-function DataHandler(type) {
- this.type = type;
-
- this.MasterData = function () {
-  if (!("mData" in this)) {
-   this.mData = TitleData.Get(this.type);
-  }
-  return this.mData;
- };
+function DataHandler() {
 
  this.Run = function (args) {
   switch (args.command) {
@@ -23,16 +15,16 @@ function DataHandler(type) {
  };
 
  this.CurLvlData = function (id) {
-  return this.MasterData()[String(this.Get(id).Lvl)];
+  return MasterData.FromId(id)[String(this.Get(id).Lvl)];
  };
 
  this.NxtLvlData = function (id) {
-  return this.MasterData()[String(this.Get(id).Lvl + 1)];
+  return MasterData.FromId(id)[String(this.Get(id).Lvl + 1)];
  };
 
  this.DefaultData = function (args) {
   return {
-   "Lvl": 0,
+   "Lvl": 0
   }
  };
 
@@ -68,7 +60,7 @@ function DataHandler(type) {
   var date = args.date;
 
   if (this.Get(id) === null) {
-   this.Data[this.type][id] = this.DefaultData(args);
+   this.Data[id] = this.DefaultData(args);
   }
 
   if (!this.CanUpgrade(id)) {
@@ -125,7 +117,7 @@ function DataHandler(type) {
    resMan.Push();
 
    data.FinishDate = date + nxtLv.UpTime;
-   this.AddWorkder(this.type, id);
+   this.AddWorkder(id);
   }
   else {
    return false;
@@ -145,7 +137,7 @@ function DataHandler(type) {
 
    var kingdom = new Kingdom();
    kingdom.AddExp(this.CurLvlData(id).Exp);
-   this.RemoveWorker(this.type, id);
+   this.RemoveWorker(id);
   }
  };
 
@@ -194,11 +186,8 @@ function DataHandler(type) {
   return false;
  };
 
- this.AddWorkder = function (type, id) {
-  this.GetWorkers().push({
-   "type": this.type,
-   "Id": id
-  });
+ this.AddWorkder = function (id) {
+  this.GetWorkers().push(id);
  };
 
  this.GetWorkers = function () {
@@ -208,26 +197,25 @@ function DataHandler(type) {
   return this.Data.Workers;
  };
 
- this.RemoveWorker = function (type, id) {
+ this.RemoveWorker = function (id) {
 
-  var executors = this.GetWorkers();
+  var worker = this.GetWorkers();
   var index = -1;
-  for (var a = 0; a < executors.length; a++) {
-   var data = executors[a];
-   if (data.Id === id && data.type === type) {
+  for (var a = 0; a < worker.length; a++) {
+   if (worker[a] === id) {
     index = a;
     break;
    }
   }
   if (index !== -1) {
-   executors.splice(index, 1);
+   worker.splice(index, 1);
   }
  };
 
  this.Get = function (id) {
 
-  if (this.Data[this.type].hasOwnProperty(id)) {
-   return this.Data[this.type][id];
+  if (this.Data.hasOwnProperty(id)) {
+   return this.Data[id];
   }
   else {
    return null;

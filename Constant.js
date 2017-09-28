@@ -3,17 +3,23 @@ const GOLD = "Gold";
 const FOOD = "Food";
 const CROWN = "Crown";
 
-const TRUFFLE = "mat.truffle";
-const SILK = "mat.silk";
-const PEARL = "mat.pearl";
-const ARTIFACT = "mat.artifact";
-const FUR = "mat.fur";
-const JADE = "mat.jade";
+const MAT = {
+ TRUFFLE: "Truffle",
+ SILK: "Silk",
+ PEARL: "Pearl",
+ ARTIFACT: "Artifact",
+ FUR: "Fur",
+ JADE: "Jade"
+};
 
 const BUILDING = "Building";
 const HERO = "Hero";
 const TECH = "Tech";
 const INV = "Inventory";
+const GENERAL = "General";
+const ADVISOR = "Advisor";
+const TROOP = "Troop";
+const MERC = "Merc";
 
 // building code
 const CASTLE = "Castle";
@@ -80,15 +86,14 @@ const CMD_START_BATTLE = "StartBattle";
 const CMD_UPDATE_BATTLE = "UpdateBattle";
 const CMD_END_BATTLE = "EndBattle";
 
-const NATION = "Troop";
-const MERC = "Merc";
+
 
 const GP = "GloryPoint";
 
 const TECH_LIST = [
- NATION + INF,
- NATION + SKR,
- NATION + CAV,
+ TROOP + INF,
+ TROOP + SKR,
+ TROOP + CAV,
  MERC + INF,
  MERC + SKR,
  MERC + CAV
@@ -100,27 +105,6 @@ const RES = "Resource";
 const RAID = "Raid";
 const LOGS = "Logs";
 
-const NATION_LIST = [
- "England",
- "France",
- "Japan",
- "China",
- "Korea",
- "Germany"
-];
-
-const HERO_LIST = [
-
- // generals
- "general.inf.arthur",
- "general.skr.robin",
- "general.cav.joan",
-
- // advisors
- "advisor.zhuge",
- "advisor.leonardo",
- "advisor.notradamus"
-];
 
 TitleData = {};
 
@@ -130,7 +114,7 @@ TitleData.GetConstObject = function (key) {
 
 TitleData.Get = function (key) {
  if (!TitleData.hasOwnProperty(key)) {
-  var str = server.GetTitleData([key]).Data[key];
+  var str = server.GetTitleInternalData([key]).Data[key];
   TitleData[key] = JSON.parse(str);
  }
  return TitleData[key];
