@@ -1,18 +1,12 @@
 Profile = function () {
  this.Init = function () {
-  var sampleString = server.GetTitleData({
-   "Keys": [
-    "Data.Sample"
-   ]
-  }).Data["Data.Sample"];
-
   var castle;
 
   var random = Math.randomBetween(0, 1000);
 
   var k;
 
-  var sampleData = JSON.parse(sampleString);
+  var sampleData = TitleData.Get("Data.Sample");
 
   for (k in sampleData) {
    if (sampleData.hasOwnProperty(k)) {
