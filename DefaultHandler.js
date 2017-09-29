@@ -156,7 +156,7 @@ function DefaultHandler() {
             data.Lvl++;
             delete data.FinishDate;
 
-            var kingdom = new Kingdom();
+            var kingdom = new Player();
             kingdom.AddExp(this.CurLvlData(id).Exp);
             this.RemoveWorker(id);
         }

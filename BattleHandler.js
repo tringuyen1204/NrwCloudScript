@@ -87,17 +87,17 @@ function AttackerHandler(playerId) {
         args.LastLogId = String(args.date);
         this.UpdateBattleLog(args);
 
-        var changes = GloryPoint.GetChanges(false, scoutData.AttackerGp - scoutData.DefenderGp);
+        var changes = GloryPoint.GetChanges(false, scoutData.AtkGp - scoutData.DefGp);
 
         var log = this.Data[LOGS][this.type][args.LastLogId];
         log.AtkGpChange = changes[ATK];
         log.DefGpChange = changes[DEF];
 
         if (this.type === ATK) {
-            GloryPoint.Set(scoutData.AttackerGp + log.AtkGpChange, scoutData.AttackerId);
+            GloryPoint.Set(scoutData.AtkGp + log.AtkGpChange, scoutData.AtkId);
         }
         else {
-            GloryPoint.Set(scoutData.DefenderGp + log.DefGpChange, scoutData.DefenderId);
+            GloryPoint.Set(scoutData.DefGp + log.DefGpChange, scoutData.DefId);
         }
         return true;
     };
@@ -135,8 +135,8 @@ function AttackerHandler(playerId) {
             resMan.Change(FOOD, scoutData[FOOD] + scoutData["ProducedFood"]);
         }
 
-        var changes = GloryPoint.GetChanges(args.result, scoutData.AttackerGp - scoutData.DefenderGp);
-        GloryPoint.Set(scoutData.AttackerGp + Math.floor(changes[ATK]), this.playerId);
+        var changes = GloryPoint.GetChanges(args.result, scoutData.AtkGp - scoutData.DefGp);
+        GloryPoint.Set(scoutData.AtkGp + Math.floor(changes[ATK]), this.playerId);
 
         if ("Casualties" in args) {
             var bMan = new BuildManager(this.playerId, this.Data[RES]);
@@ -184,8 +184,8 @@ function DefenceHandler(playerId) {
             r.ApplyRaid(args);
         }
 
-        var changes = GloryPoint.GetChanges(args.result, scoutData.AttackerGp - scoutData.DefenderGp);
-        GloryPoint.Set(scoutData.DefenderGp + Math.floor(changes[DEF]), this.playerId);
+        var changes = GloryPoint.GetChanges(args.result, scoutData.AtkGp - scoutData.DefGp);
+        GloryPoint.Set(scoutData.DefGp + Math.floor(changes[DEF]), this.playerId);
 
         this.UpdateResultLog(args);
 

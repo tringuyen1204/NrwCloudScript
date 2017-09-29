@@ -18,7 +18,6 @@ function ResBuildHandler() {
         }
     };
 
-
     this.Run = function (args) {
         var ret = this.base.Run.call(this, args);
         if (!ret) {
@@ -97,7 +96,7 @@ function ResBuildHandler() {
 
         var code = (this.type === MARKET) ? GOLD : FOOD;
 
-        var capacity = this.CurLvlData(id)[code + "Capacity"];
+        var capacity = this.CurLvlData(id)[code + "Cap"];
 
         if (amount > capacity) {
             amount = capacity;
@@ -118,11 +117,11 @@ function ResBuildHandler() {
     this.ApplyRaid = function (date, rate) {
         var k;
         for (k in this.Data[this.type]) {
-            this.ReduceProduction(k, date, rate);
+            this.Reduce(k, date, rate);
         }
     };
 
-    this.ReduceProduction = function (id, date, rate) {
+    this.Reduce = function (id, date, rate) {
         var bData = this.Get(id);
 
         var code = (this.type === MARKET) ? GOLD : FOOD;

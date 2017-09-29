@@ -105,10 +105,21 @@ const LOGS = "Logs";
 
 TitleData = {};
 
+/**
+ *
+ * @param key
+ * @constructor
+ */
 TitleData.GetConstObject = function (key) {
     return JSON.parse(TitleData.GetConst(key));
 };
 
+/**
+ *
+ * @param key
+ * @returns {*}
+ * @constructor
+ */
 TitleData.Get = function (key) {
     if (!TitleData.hasOwnProperty(key)) {
         var str = server.GetTitleInternalData([key]).Data[key];
@@ -117,6 +128,12 @@ TitleData.Get = function (key) {
     return TitleData[key];
 };
 
+/**
+ *
+ * @param key
+ * @returns {*}
+ * @constructor
+ */
 TitleData.GetConst = function (key) {
     var constant = TitleData.Get("Constant");
     if (key in constant) {

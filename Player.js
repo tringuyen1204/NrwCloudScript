@@ -1,5 +1,5 @@
-Kingdom = function (playerId) {
-    DefaultManager.call(this, "Kingdom", playerId);
+Player = function (playerId) {
+    DefaultManager.call(this, [Player], playerId);
 
     if (this.GetData().Exp === null) {
         this.GetData().Exp = 0;
@@ -18,7 +18,7 @@ Kingdom = function (playerId) {
     };
 };
 
-Kingdom.prototype = Object.create(DefaultManager.prototype);
+Player.prototype = Object.create(DefaultManager.prototype);
 
 var GloryPoint = {};
 

@@ -57,7 +57,7 @@ function BuildManager(playerId, loadedData) {
 
         var k;
         for (k in bData) {
-            newMax += this.CurLvlData(k)[code + "Capacity"];
+            newMax += this.CurLvlData(k)[code + "Cap"];
         }
 
         var resMan = new ResManager();

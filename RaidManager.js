@@ -1,11 +1,11 @@
 function RaidManager(AttackerId, DefenderId) {
     this.Ids = {};
-    this.Ids[ATK] = AttackerId;
-    this.Ids[DEF] = DefenderId;
+    this.Ids[ATK] = AtkId;
+    this.Ids[DEF] = DefId;
 
     this.Data = {};
-    this.Data[ATK] = UserData.Get([RES, LOGS, BUILDING, INV], AttackerId);
-    this.Data[DEF] = UserData.Get([RES, LOGS, BUILDING], DefenderId);
+    this.Data[ATK] = UserData.Get([RES, LOGS, BUILDING, INV], AtkId);
+    this.Data[DEF] = UserData.Get([RES, LOGS, BUILDING], DefId);
 
     this.Run = function (args) {
         args = this.FormatData(args);

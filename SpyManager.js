@@ -122,15 +122,15 @@ function SpyManager() {
         scoutData["ProducedGold"] = ret.ProducedGold;
         scoutData["ProducedFood"] = ret.ProducedFood;
 
-        scoutData.AttackerId = atkId;
-        scoutData.DefenderId = defId;
+        scoutData.AtkId = atkId;
+        scoutData.DefId = defId;
 
-        scoutData.AttackerGp = server.GetPlayerStatistics({
+        scoutData.AtkGp = server.GetPlayerStatistics({
             PlayFabId: atkId,
             StatisticNames: [GP]
         }).Statistics[0].Value;
 
-        scoutData.DefenderGp = server.GetPlayerStatistics({
+        scoutData.DefGp = server.GetPlayerStatistics({
             PlayFabId: defId,
             StatisticNames: [GP]
         }).Statistics[0].Value;
