@@ -43,7 +43,7 @@ function BattleHandler() {
   }
   inventory[mercId]--;
 
-  if (inventory[mercId] == 0) {
+  if (inventory[mercId] === 0) {
    delete inventory[mercId];
   }
   return true;

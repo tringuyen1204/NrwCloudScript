@@ -86,8 +86,6 @@ const CMD_START_BATTLE = "StartBattle";
 const CMD_UPDATE_BATTLE = "UpdateBattle";
 const CMD_END_BATTLE = "EndBattle";
 
-
-
 const GP = "GloryPoint";
 
 const TECH_LIST = [
@@ -104,7 +102,6 @@ const DEF = "Defence";
 const RES = "Resource";
 const RAID = "Raid";
 const LOGS = "Logs";
-
 
 TitleData = {};
 

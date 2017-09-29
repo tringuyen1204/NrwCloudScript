@@ -1,6 +1,6 @@
 handlers.ServerTime = function (args) {
  return {
-  DateTime: ServerTime.Now()
+  Date: ServerTime.Now()
  }
 };
 
