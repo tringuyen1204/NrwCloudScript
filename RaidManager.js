@@ -1,33 +1,33 @@
 function RaidManager(AttackerId, DefenderId) {
- this.Ids = {};
- this.Ids[ATK] = AttackerId;
- this.Ids[DEF] = DefenderId;
+    this.Ids = {};
+    this.Ids[ATK] = AttackerId;
+    this.Ids[DEF] = DefenderId;
 
- this.Data = {};
- this.Data[ATK] = UserData.Get([RES, LOGS, BUILDING, INV], AttackerId);
- this.Data[DEF] = UserData.Get([RES, LOGS, BUILDING], DefenderId);
+    this.Data = {};
+    this.Data[ATK] = UserData.Get([RES, LOGS, BUILDING, INV], AttackerId);
+    this.Data[DEF] = UserData.Get([RES, LOGS, BUILDING], DefenderId);
 
- this.Run = function (args) {
-  args = this.FormatData(args);
+    this.Run = function (args) {
+        args = this.FormatData(args);
 
-  var atkHandler = new AttackerHandler(this.Ids[ATK]);
-  var defHandler = new DefenceHandler(this.Ids[DEF]);
+        var atkHandler = new AttackerHandler(this.Ids[ATK]);
+        var defHandler = new DefenceHandler(this.Ids[DEF]);
 
-  atkHandler.Data = this.Data[ATK];
-  defHandler.Data = this.Data[DEF];
+        atkHandler.Data = this.Data[ATK];
+        defHandler.Data = this.Data[DEF];
 
-  if (atkHandler.Run(args) && defHandler.Run(args)) {
-   UserData.Update(this.Data[ATK], this.Ids[ATK]);
-   UserData.Update(this.Data[DEF], this.Ids[DEF]);
-  }
- };
+        if (atkHandler.Run(args) && defHandler.Run(args)) {
+            UserData.Update(this.Data[ATK], this.Ids[ATK]);
+            UserData.Update(this.Data[DEF], this.Ids[DEF]);
+        }
+    };
 
- this.FormatData = function (args) {
+    this.FormatData = function (args) {
 
-  if (!args.hasOwnProperty("date")) {
-   args.date = ServerTime.Now();
-  }
-  args.ScoutData = this.Data[ATK][LOGS].ScoutData;
-  return args;
- }
+        if (!args.hasOwnProperty("date")) {
+            args.date = ServerTime.Now();
+        }
+        args.ScoutData = this.Data[ATK][LOGS].ScoutData;
+        return args;
+    }
 }

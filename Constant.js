@@ -4,12 +4,12 @@ const FOOD = "Food";
 const CROWN = "Crown";
 
 const MAT = {
- TRUFFLE: "Truffle",
- SILK: "Silk",
- PEARL: "Pearl",
- ARTIFACT: "Artifact",
- FUR: "Fur",
- JADE: "Jade"
+    TRUFFLE: "Truffle",
+    SILK: "Silk",
+    PEARL: "Pearl",
+    ARTIFACT: "Artifact",
+    FUR: "Fur",
+    JADE: "Jade"
 };
 
 const BUILDING = "Building";
@@ -30,30 +30,30 @@ const FOOD_STORAGE = "FoodStorage";
 const BARRACK = "Barrack";
 
 const TROOP_MATCH_HASH = {
- Infantry: "Swordsman",
- Skirmisher: "Bowman",
- Cavalry: "Horseman"
+    Infantry: "Swordsman",
+    Skirmisher: "Bowman",
+    Cavalry: "Horseman"
 };
 
 function TroopNameToClass(name) {
- switch (name) {
-  case "Swordsman":
-  case "Samurai":
-  case "Vandal":
-   return INF;
+    switch (name) {
+        case "Swordsman":
+        case "Samurai":
+        case "Vandal":
+            return INF;
 
-  case "Bowman":
-  case "Longbowman":
-  case "Chukonu":
-   return SKR;
+        case "Bowman":
+        case "Longbowman":
+        case "Chukonu":
+            return SKR;
 
-  case "Horseman":
-  case "Chevalier":
-  case "Jaesong Cavalry":
-   return CAV;
- }
+        case "Horseman":
+        case "Chevalier":
+        case "Jaesong Cavalry":
+            return CAV;
+    }
 
- return null;
+    return null;
 }
 
 // cash code
@@ -89,12 +89,12 @@ const CMD_END_BATTLE = "EndBattle";
 const GP = "GloryPoint";
 
 const TECH_LIST = [
- TROOP + INF,
- TROOP + SKR,
- TROOP + CAV,
- MERC + INF,
- MERC + SKR,
- MERC + CAV
+    TROOP + INF,
+    TROOP + SKR,
+    TROOP + CAV,
+    MERC + INF,
+    MERC + SKR,
+    MERC + CAV
 ];
 
 const ATK = "Attack";
@@ -106,23 +106,23 @@ const LOGS = "Logs";
 TitleData = {};
 
 TitleData.GetConstObject = function (key) {
- return JSON.parse(TitleData.GetConst(key));
+    return JSON.parse(TitleData.GetConst(key));
 };
 
 TitleData.Get = function (key) {
- if (!TitleData.hasOwnProperty(key)) {
-  var str = server.GetTitleInternalData([key]).Data[key];
-  TitleData[key] = JSON.parse(str);
- }
- return TitleData[key];
+    if (!TitleData.hasOwnProperty(key)) {
+        var str = server.GetTitleInternalData([key]).Data[key];
+        TitleData[key] = JSON.parse(str);
+    }
+    return TitleData[key];
 };
 
 TitleData.GetConst = function (key) {
- var constant = TitleData.Get("Constant");
- if (key in constant) {
-  return constant[key].Value;
- }
- return null;
+    var constant = TitleData.Get("Constant");
+    if (key in constant) {
+        return constant[key].Value;
+    }
+    return null;
 };
 
 
