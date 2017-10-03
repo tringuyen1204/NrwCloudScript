@@ -1,5 +1,5 @@
-function SpyManager() {
-    DefaultManager.call(this, [LOGS]);
+function SpyHandler(playerId) {
+    DefaultHandler.call(this, playerId, [LOGS]);
 
     this.Run = function (args) {
         args = this.FormatData(args);
@@ -102,23 +102,22 @@ function SpyManager() {
     };
 
     this.Scout = function (args) {
-
         var atkId = currentPlayerId;
         var defId = args.target;
         var atkData = this.Data;
-        var defData = UserData.Get([BUILDING, RES], args.target);
+        var defData = ServerData.Get([BUILDING, RESOURCE], args.target);
 
         var b = new BuildManager(args.target, defData[BUILDING]);
         var ret = b.ProducedResource(args);
-        var resMan = new ResManager(args.target, defData[RES]);
+        var resMan = new ResHandler(args.target, defData[RESOURCE]);
 
-        var gold = Math.floor(resMan.ValueOf(GOLD) * 0.25);
-        var food = Math.floor(resMan.ValueOf(FOOD) * 0.25);
+        var gold = Math.floor(resMan.ValueOf(RES.GOLD) * 0.25);
+        var food = Math.floor(resMan.ValueOf(RES.FOOD) * 0.25);
 
         var scoutData = {};
 
-        scoutData[GOLD] = gold;
-        scoutData[FOOD] = food;
+        scoutData[RES.GOLD] = gold;
+        scoutData[RES.FOOD] = food;
         scoutData["ProducedGold"] = ret.ProducedGold;
         scoutData["ProducedFood"] = ret.ProducedFood;
 
@@ -136,10 +135,10 @@ function SpyManager() {
         }).Statistics[0].Value;
 
         atkData[LOGS].ScoutData = scoutData;
-        UserData.Update(atkData, atkId);
+        this.Push();
 
         return scoutData;
     };
 }
 
-SpyManager.prototype = Object.create(DefaultManager.prototype);
+SpyHandler.prototype = Object.create(DefaultHandler.prototype);

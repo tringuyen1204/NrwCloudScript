@@ -1,56 +1,93 @@
-var UserData = {};
+/**
+ *
+ * @param {String} playerId = null
+ * @constructor
+ */
+function UserData(playerId) {
 
-UserData.Update = function (data, playerId) {
-    playerId = UserData.CheckId(playerId);
-
-    var writeData = {};
-
-    var canPush = false;
-
-    for (var key in data) {
-        if (data.hasOwnProperty(key)) {
-            writeData[key] = JSON.stringify(data[key]);
-            canPush = true;
-        }
-    }
-
-    if (canPush) {
-        server.UpdateUserReadOnlyData({
-            PlayFabId: playerId,
-            Data: writeData,
-            Permission: "public"
-        });
+    if (playerId === null || playerId === undefined) {
+        this.PlayerId = currentPlayerId;
     }
     else {
-        log.info("nothing to push");
+        this.PlayerId = playerId;
     }
-};
 
-UserData.Get = function (keys, playerId) {
+    this.Data = {};
 
-    playerId = UserData.CheckId(playerId);
+    /**
+     *
+     * @param {Array} keys
+     * @constructor
+     */
+    this.Load = function (keys) {
 
-    var ret = {};
+        if (keys === null || keys === undefined) {
+            return;
+        }
 
-    var rawData = server.GetUserReadOnlyData({
-        PlayFabId: playerId,
-        Keys: keys
-    }).Data;
+        var requestKey = [];
 
-    for (var a = 0; a < keys.length; a++) {
-        if (keys[a] in rawData) {
-            ret[keys[a]] = JSON.parse(rawData[keys[a]].Value);
+        var a;
+
+        for (a = 0; a < keys.length; a++) {
+            if (keys[a] in this.Data) {
+                continue;
+            }
+            requestKey.push(keys[a]);
+        }
+
+        var rawData = server.GetUserReadOnlyData({
+            PlayFabId: this.PlayerId,
+            Keys: requestKey
+        });
+
+        for (a = 0; a < requestKey.length; a++) {
+            if (requestKey[a] in rawData) {
+                this.Data[requestKey[a]] = JSON.parse(rawData[requestKey[a]].Value);
+            }
+            else {
+                this.Data[requestKey[a]] = {};
+            }
+        }
+    };
+
+    this.Push = function () {
+
+        var writeData = {};
+
+        var canPush = false;
+
+        for (var key in this.Data) {
+            if (this.Data.hasOwnProperty(key)) {
+                writeData[key] = JSON.stringify(this.Data[key]);
+                canPush = true;
+            }
+        }
+
+        if (canPush) {
+            server.UpdateUserReadOnlyData({
+                PlayFabId: this.PlayerId,
+                Data: writeData,
+                Permission: "public"
+            });
         }
         else {
-            ret[keys[a]] = {};
+            log.info("nothing to push");
         }
     }
-    return ret;
-};
+}
 
-UserData.CheckId = function (id) {
-    if (id === null || id === undefined) {
-        return currentPlayerId;
+ServerData = {};
+
+/**
+ *
+ * @param playerId
+ * @returns {UserData}
+ * @constructor
+ */
+ServerData.Get = function (playerId) {
+    if (!(playerId in ServerData)) {
+        ServerData[playerId] = new UserData(playerId);
     }
-    return id;
+    return ServerData[playerId];
 };

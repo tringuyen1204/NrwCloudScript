@@ -1,5 +1,5 @@
-function ResBuildHandler() {
-    BuildHandler.call(this);
+function ResBuildHandler(playerId) {
+    BuildHandler.call(this, playerId);
     this.base = new BuildHandler();
 
     this.CompleteUpgrade = function (args) {
@@ -19,18 +19,22 @@ function ResBuildHandler() {
     };
 
     this.Run = function (args) {
-        var ret = this.base.Run.call(this, args);
-        if (!ret) {
+        var result = this.base.Run.call(this, args);
+        if (!result) {
             switch (args.command) {
                 case CMD_COLLECT:
-                    return handler.Collect(args);
+                    result = this.Collect(args);
+                    break;
+            }
+            if (result) {
+                this.Push();
             }
         }
-        return ret;
+        return result;
     };
 
     this.Upgrade = function (args) {
-        this.Collect(args.id, args.date);
+        this.Collect(args);
         return this.base.Upgrade.call(this, args);
     };
 
@@ -45,13 +49,13 @@ function ResBuildHandler() {
             return false;
         }
 
-        var code = (this.type === MARKET) ? GOLD : FOOD;
+        var code = (this.type === MARKET) ? RES.GOLD : RES.FOOD;
         var produceRate = this.CurLvlData(id).ProduceRate;
         var amount = this.ProducedResource(id, date);
 
         if (amount > 0) {
 
-            var resMan = new ResManager();
+            var resMan = new ResHandler();
 
             var curRes = resMan.ValueOf(code);
             var curMax = resMan.MaxOf(code);
@@ -94,7 +98,7 @@ function ResBuildHandler() {
         var workingTime = ( date - bData.CollectDate ) / HOUR;
         var amount = Math.floor(workingTime * produceRate);
 
-        var code = (this.type === MARKET) ? GOLD : FOOD;
+        var code = (this.type === MARKET) ? RES.GOLD : RES.FOOD;
 
         var capacity = this.CurLvlData(id)[code + "Cap"];
 
@@ -123,8 +127,6 @@ function ResBuildHandler() {
 
     this.Reduce = function (id, date, rate) {
         var bData = this.Get(id);
-
-        var code = (this.type === MARKET) ? GOLD : FOOD;
         var produceRate = this.CurLvlData(id).ProduceRate;
         var amount = this.ProducedResource(id, date);
 

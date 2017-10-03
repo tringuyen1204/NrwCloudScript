@@ -69,26 +69,26 @@ Profile = function () {
 
         var res = {};
 
-        res[RES + "." + GOLD] = {
+        res[RES.GOLD] = {
             Value: Math.randomBetween(1000, 10000),
             Max: 10000
         };
 
-        res[RES + "." + FOOD] = {
+        res[RES.FOOD] = {
             Value: Math.randomBetween(1000, 10000),
             Max: 10000
         };
 
-        res[RES + "." + CROWN] = {
+        res[RES.CROWN] = {
             Value: 0,
             Max: 10
         };
 
         var writeData = {};
         writeData[BUILDING] = b;
-        writeData[RES] = res;
+        writeData[RESOURCE] = res;
 
-        UserData.Update(writeData, currentPlayerId);
+        ServerData.Update(writeData, currentPlayerId);
 
         var gloryPoint = Math.randomBetween(sData.GloryPoint[0], sData.GloryPoint[1]);
 

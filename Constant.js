@@ -1,8 +1,3 @@
-// resource code
-const GOLD = "Gold";
-const FOOD = "Food";
-const CROWN = "Crown";
-
 const MAT = {
     TRUFFLE: "Truffle",
     SILK: "Silk",
@@ -10,6 +5,12 @@ const MAT = {
     ARTIFACT: "Artifact",
     FUR: "Fur",
     JADE: "Jade"
+};
+
+const RES = {
+    GOLD: "Resource.Gold",
+    FOOD: "Resource.Food",
+    CROWN: "Resource.Crown"
 };
 
 const BUILDING = "Building";
@@ -99,7 +100,7 @@ const TECH_LIST = [
 
 const ATK = "Attack";
 const DEF = "Defence";
-const RES = "Resource";
+const RESOURCE = "Resource";
 const RAID = "Raid";
 const LOGS = "Logs";
 

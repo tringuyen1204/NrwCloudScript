@@ -1,5 +1,5 @@
-function BarrackHandler() {
-    BuildHandler.call(this);
+function BarrackHandler(playerId) {
+    BuildHandler.call(this, playerId);
     this.base = new BuildHandler();
 
     /**
@@ -96,18 +96,24 @@ function BarrackHandler() {
      * @constructor
      */
     this.Run = function (args) {
-        var ret = this.base.Run.call(this, args);
-        if (!ret) {
+        var result = this.base.Run.call(this, args);
+        if (!result) {
             switch (args.command) {
                 case CMD_CHANGE_TROOP:
-                    return handler.ChangeTroop(args);
+                    result = this.ChangeTroop(args);
+                    break;
                 case CMD_BOOST_TRAIN:
-                    return handler.BoostTrain(args);
+                    result = this.BoostTrain(args);
+                    break;
                 case CMD_BOOST_TRAIN_ALL:
-                    return handler.BoostTrainAll(args);
+                    result = this.BoostTrainAll(args);
+                    break;
+            }
+            if (result) {
+                this.Push();
             }
         }
-        return ret;
+        return result;
     };
 
     /**

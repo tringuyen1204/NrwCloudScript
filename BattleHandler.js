@@ -1,4 +1,12 @@
-function BattleHandler() {
+function BattleHandler(playerId) {
+    DefaultHandler.call(this, playerId, [BUILDING, LOGS, RESOURCE, INV]);
+
+    /**
+     *
+     * @param args
+     * @returns {boolean}
+     * @constructor
+     */
     this.Run = function (args) {
         switch (args.command) {
             case CMD_START_BATTLE:
@@ -29,7 +37,7 @@ function BattleHandler() {
         return noError;
     };
 
-    this.UseMerc = function (mercId) {
+    this.UseMerc = function (id) {
 
         var inventory = this.Data[INV];
         if (inventory === null || inventory === undefined) {
@@ -37,14 +45,14 @@ function BattleHandler() {
             return false;
         }
 
-        if (!(mercId in inventory) || inventory[mercId] <= 0) {
-            log.error("inventory doesn't contain this merc: " + mercId);
+        if (!(id in inventory) || inventory[id] <= 0) {
+            log.error("inventory doesn't contain this merc: " + id);
             return false;
         }
-        inventory[mercId]--;
+        inventory[id]--;
 
-        if (inventory[mercId] === 0) {
-            delete inventory[mercId];
+        if (inventory[id] === 0) {
+            delete inventory[id];
         }
         return true;
     };
@@ -58,12 +66,12 @@ function BattleHandler() {
     };
 }
 
+BattleHandler.prototype = Object.create(DefaultHandler.prototype);
+
 function AttackerHandler(playerId) {
 
-    BattleHandler.call(this);
+    BattleHandler.call(this, playerId);
     this.base = new BattleHandler();
-
-    this.playerId = playerId;
     this.type = ATK;
 
     this.StartBattle = function (args) {
@@ -128,11 +136,11 @@ function AttackerHandler(playerId) {
     this.EndBattle = function (args) {
         if (args.result) {
 
-            var resMan = new ResManager(this.playerId, this.Data[RES]);
+            var resMan = new ResHandler(this.playerId, this.Data[RES]);
             var scoutData = args.ScoutData;
 
-            resMan.Change(GOLD, scoutData[GOLD] + scoutData["ProducedGold"]);
-            resMan.Change(FOOD, scoutData[FOOD] + scoutData["ProducedFood"]);
+            resMan.Change(RES.GOLD, scoutData[RES.GOLD] + scoutData["ProducedGold"]);
+            resMan.Change(RES.FOOD, scoutData[RES.FOOD] + scoutData["ProducedFood"]);
         }
 
         var changes = GloryPoint.GetChanges(args.result, scoutData.AtkGp - scoutData.DefGp);
@@ -168,7 +176,6 @@ function AttackerHandler(playerId) {
 AttackerHandler.prototype = Object.create(BattleHandler.prototype);
 
 function DefenceHandler(playerId) {
-
     AttackerHandler.call(this, playerId);
     this.type = DEF;
 
@@ -180,7 +187,7 @@ function DefenceHandler(playerId) {
             var b = new BuildManager(this.playerId, this.Data[BUILDING]);
             b.ApplyRaid(args);
 
-            var r = new ResManager(this.playerId, this.Data[RES]);
+            var r = new ResHandler(this.playerId, this.Data[RESOURCE]);
             r.ApplyRaid(args);
         }
 

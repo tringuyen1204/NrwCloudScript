@@ -1,6 +1,6 @@
-function HeroHandler() {
-    DefaultHandler.call(this);
-    this.base = new DefaultHandler();
+function HeroHandler(playerId) {
+    UpgradeHandler.call(this, [HERO, INV], playerId);
+    this.base = new UpgradeHandler();
 
     this.UsePieces = function (id, qty) {
         var inventory = this.Data[INV];
@@ -33,7 +33,7 @@ function HeroHandler() {
             heroData = {
                 Rarity: 0,
                 Lvl: 1
-            }
+            };
             this.Data[HERO][id] = heroData;
         }
         else if (heroData.Rarity >= pieceReqList.length) {
@@ -75,4 +75,4 @@ function HeroHandler() {
     };
 }
 
-HeroHandler.prototype = Object.create(DefaultHandler.prototype);
+HeroHandler.prototype = Object.create(UpgradeHandler.prototype);

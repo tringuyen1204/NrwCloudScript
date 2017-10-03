@@ -5,37 +5,21 @@ handlers.ServerTime = function (args) {
 };
 
 handlers.Run = function (args) {
-
+    args = FormatData(args);
     var id = args.id;
-
-    var objClass = id.split('.')[0];
-
-    var manager;
-
-    switch (objClass) {
-        case BUILDING:
-            manager = new BuildManager();
-            break;
-        case GENERAL:
-        case ADVISOR:
-            manager = new HeroManager();
-            break;
-        case TECH:
-            manager = new TechManager();
-            break;
-    }
-    if (manager !== undefined) {
-        return manager.Run(args);
+    var handler = HandlerPool.HandlerFromId(id);
+    if (handler !== null) {
+        return handler.Run(args);
     }
 };
 
 handlers.Raid = function (args) {
-    var m = new RaidManager(currentPlayerId, args.target);
+    var m = new RaidHandler(currentPlayerId, args.target);
     return m.Run(args);
 };
 
 handlers.Spy = function (args) {
-    var m = new SpyManager();
+    var m = new SpyHandler();
     return m.Run(args);
 };
 
@@ -51,7 +35,7 @@ handlers.InitData = function (args) {
 };
 
 handlers.OpenChest = function (args) {
-    var m = new GachaManager();
+    var m = new GachaHandler();
     return m.OpenChest(args);
 };
 
@@ -59,3 +43,13 @@ handlers.GetTroopInfo = function (args) {
     var m = new BuildManager();
     return m.GetTroopInfo(args);
 };
+
+function FormatData(args) {
+    if (args === null || args === undefined) {
+        args = {};
+    }
+    if (!args.hasOwnProperty("date")) {
+        args.date = ServerTime.Now();
+    }
+    return args;
+}

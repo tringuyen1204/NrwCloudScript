@@ -1,9 +1,5 @@
 Player = function (playerId) {
-    DefaultManager.call(this, [Player], playerId);
-
-    if (this.GetData().Exp === null) {
-        this.GetData().Exp = 0;
-    }
+    DefaultHandler.call(this, playerId, ["Player"]);
 
     this.AddExp = function (quantity) {
         if (quantity <= 0) {
@@ -11,14 +7,17 @@ Player = function (playerId) {
             return false;
         }
 
-        this.GetData().Exp += quantity;
-        this.Push();
-
+        if ("Exp" in this.Data["Player"]) {
+            this.Data["Player"].Exp = quantity;
+        }
+        else {
+            this.Data["Player"].Exp += quantity;
+        }
         return true;
     };
 };
 
-Player.prototype = Object.create(DefaultManager.prototype);
+Player.prototype = Object.create(DefaultHandler.prototype);
 
 var GloryPoint = {};
 

@@ -1,6 +1,5 @@
-function GachaManager() {
-
-    DefaultManager.call(this, [INV]);
+function GachaHandler(playerId) {
+    DefaultHandler.call(this, [INV], playerId);
 
     var rawData = server.GetTitleInternalData([
         "DropTable",
@@ -46,16 +45,16 @@ function GachaManager() {
         var inventory;
         switch (parts[0]) {
 
-            case "currency":
-                if (parts[1] === "diamond") {
+            case "Currency":
+                if (parts[1] === "Diamond") {
                     Currency.Add(DIAMOND, itemData.qty);
                 }
                 break;
 
-            case "piece":
-            case "merc":
-            case "mat":
-                inventory = this.GetInvetory();
+            case "Piece":
+            case "Merc":
+            case "Mat":
+                inventory = this.GetInventory();
                 if (id in inventory) {
                     inventory[id] += itemData.qty;
                 }
@@ -66,12 +65,11 @@ function GachaManager() {
         }
     };
 
-    this.GetInvetory = function () {
-
-        if (!(INV in this.GetData())) {
-            this.GetData()[INV] = {};
+    this.GetInventory = function () {
+        if (!(INV in this.Data)) {
+            this.Data[INV] = {};
         }
-        return this.GetData()[INV];
+        return this.Data[INV];
     };
 
     this.SpinTable = function (tableId) {
@@ -118,5 +116,6 @@ function GachaManager() {
         }
         return null;
     };
-
 }
+
+GachaHandler.prototype = Object.create(DefaultHandler.prototype);

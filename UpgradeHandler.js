@@ -1,17 +1,27 @@
-function DefaultHandler() {
+function UpgradeHandler(playerId, keys) {
+    DefaultHandler.call(this, playerId, keys);
 
     this.Run = function (args) {
+        var result = false;
         switch (args.command) {
             case CMD_UPGRADE:
-                return this.Upgrade(args);
+                result = this.Upgrade(args);
+                break;
             case CMD_COMPLETE_UPGRADE:
-                return this.CompleteUpgrade(args);
+                result = this.CompleteUpgrade(args);
+                break;
             case CMD_INSTANT_UPGRADE:
-                return this.InstantUpgrade(args);
+                result = this.InstantUpgrade(args);
+                break;
             case CMD_BOOST_UPGRADE:
-                return this.BoostUpgrade(args);
+                result = this.BoostUpgrade(args);
+                break;
         }
-        return false;
+
+        if (result) {
+            this.Push();
+        }
+        return result;
     };
 
     this.CurLvlData = function (id) {
@@ -26,27 +36,6 @@ function DefaultHandler() {
         return {
             "Lvl": 0
         }
-    };
-
-    this.GetClass = function (id) {
-        var temp = id.split('.')[0];
-        switch (temp) {
-            case BUILDING:
-                return BUILDING;
-            case GENERAL:
-            case ADVISOR:
-                return HERO;
-            case TECH:
-                return TECH;
-            case TROOP:
-                return TROOP;
-            case MERC:
-                return INV;
-        }
-    };
-
-    this.GetType = function (id) {
-        return id.split('.')[1];
     };
 
     this.InstantUpgrade = function (args) {
@@ -64,10 +53,10 @@ function DefaultHandler() {
             missRes += nxtLv.FoodCost;
         }
 
-        var cost = Converter.GoldFoodToDiamond(resCost) + Converter.TimeToDiamond(nxtLv.UpTime);
+        var cost = Converter.GoldFoodToDiamond(missRes) + Converter.TimeToDiamond(nxtLv.UpTime);
         cost = Math.floor(cost * 0.9);
 
-        var resMan = new ResManager();
+        var resMan = new ResHandler();
 
         if (Currency.Spend(DIAMOND, cost)) {
             this.Get(id).IsUp = true;
@@ -81,10 +70,11 @@ function DefaultHandler() {
         var date = args.date;
 
         if (this.Get(id) === null) {
-            this.Data[id] = this.DefaultData(args);
+            var objClass = this.GetClass(id);
+            this.Data[objClass][id] = this.DefaultData(args);
         }
 
-        if (!this.CanUpgrade(id)) {
+        if (!this.CanUpgrade(id, date)) {
             return false;
         }
 
@@ -94,20 +84,20 @@ function DefaultHandler() {
         var needGold = false;
         var needFood = false;
 
-        var resMan = new ResManager();
+        var resMan = new ResHandler();
 
         var data = this.Get(id);
 
         if ("GoldCost" in nxtLv) {
-            if (resMan.ValueOf(GOLD) < nxtLv.GoldCost) {
-                missRes += nxtLv.GoldCost - resMan.ValueOf(GOLD);
+            if (resMan.ValueOf(RES.GOLD) < nxtLv.GoldCost) {
+                missRes += nxtLv.GoldCost - resMan.ValueOf(RES.GOLD);
                 needGold = true;
             }
         }
 
         if ("FoodCost" in nxtLv) {
-            if (resMan.ValueOf(FOOD) < nxtLv.FoodCost) {
-                missRes += nxtLv.FoodCost - resMan.ValueOf(FOOD);
+            if (resMan.ValueOf(RES.FOOD) < nxtLv.FoodCost) {
+                missRes += nxtLv.FoodCost - resMan.ValueOf(RES.FOOD);
                 needFood = true;
             }
         }
@@ -122,23 +112,21 @@ function DefaultHandler() {
         if ((cost === 0)
             || (cost > 0 && Currency.Spend(DIAMOND, cost) )) {
             if (needGold) {
-                resMan.Change(GOLD, -resMan.ValueOf(GOLD));
+                resMan.Change(RES.GOLD, -resMan.ValueOf(RES.GOLD));
             }
             else if ("GoldCost" in nxtLv) {
-                resMan.Change(GOLD, -nxtLv.GoldCost);
+                resMan.Change(RES.GOLD, -nxtLv.GoldCost);
             }
 
             if (needFood) {
-                resMan.Change(FOOD, -resMan.ValueOf(FOOD));
+                resMan.Change(RES.FOOD, -resMan.ValueOf(RES.FOOD));
             }
             else if ("FoodCost" in nxtLv) {
-                resMan.Change(FOOD, -nxtLv.FoodCost);
+                resMan.Change(RES.FOOD, -nxtLv.FoodCost);
             }
 
-            resMan.Push();
-
             data.FinishDate = date + nxtLv.UpTime;
-            this.AddWorkder(id);
+            this.AddWorker(id);
         }
         else {
             return false;
@@ -162,26 +150,47 @@ function DefaultHandler() {
         }
     };
 
-    this.CanUpgrade = function (id) {
+    /**
+     *
+     * @param {string} id
+     * @param {number} date
+     * @returns {boolean}
+     * @constructor
+     */
+    this.CanUpgrade = function (id, date) {
 
         if (this.GetWorkers().length > 1) {
             log.error("Max worker reaches");
             return false;
         }
-        else if (this.Get(id).Upgrading) {
+        else if (this.Upgrading(id, date)) {
             log.error("IsUp in progress");
             return false;
         }
         return true;
     };
 
+    /**
+     *
+     * @param id
+     * @param date
+     * @returns {boolean}
+     * @constructor
+     */
     this.Upgrading = function (id, date) {
-        if ("FinishDate" in this.Get(id)) {
+        var data = this.Get(id);
+        if (data !== null && "FinishDate" in data) {
             return this.Get(id).FinishDate > date;
         }
         return false;
     };
 
+    /**
+     *
+     * @param args
+     * @returns {boolean}
+     * @constructor
+     */
     this.BoostUpgrade = function (args) {
         var id = args.id;
         var date = args.date;
@@ -200,6 +209,13 @@ function DefaultHandler() {
         return false;
     };
 
+    /**
+     *
+     * @param {string} id
+     * @param {number} date
+     * @returns {boolean}
+     * @constructor
+     */
     this.Completed = function (id, date) {
         if ("FinishDate" in this.Get(id)) {
             return this.Get(id).FinishDate <= date;
@@ -207,19 +223,21 @@ function DefaultHandler() {
         return false;
     };
 
-    this.AddWorkder = function (id) {
+    this.AddWorker = function (id) {
         this.GetWorkers().push(id);
     };
 
-    this.GetWorkers = function () {
-        if (!this.Data.hasOwnProperty("Workers")) {
-            this.Data.Workers = [];
+    this.GetWorkers = function (id) {
+
+        var objClass = HandlerPool.GetClass(id);
+
+        if (!this.Data[objClass].hasOwnProperty("Workers")) {
+            this.Data[objClass].Workers = [];
         }
-        return this.Data.Workers;
+        return this.Data[objClass].Workers;
     };
 
     this.RemoveWorker = function (id) {
-
         var worker = this.GetWorkers();
         var index = -1;
         for (var a = 0; a < worker.length; a++) {
@@ -230,18 +248,6 @@ function DefaultHandler() {
         }
         if (index !== -1) {
             worker.splice(index, 1);
-        }
-    };
-
-    this.Get = function (id) {
-
-        var objClass = this.GetClass(id);
-
-        if (this.Data[objClass].hasOwnProperty(id)) {
-            return this.Data[objClass][id];
-        }
-        else {
-            return null;
         }
     };
 }
