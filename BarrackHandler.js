@@ -99,13 +99,13 @@ function BarrackHandler(playerId) {
         var result = this.base.Run.call(this, args);
         if (!result) {
             switch (args.command) {
-                case CMD_CHANGE_TROOP:
+                case CMD.BARRACK.CHANGE_TROOP:
                     result = this.ChangeTroop(args);
                     break;
-                case CMD_BOOST_TRAIN:
+                case CMD.BARRACK.BOOST_TRAIN:
                     result = this.BoostTrain(args);
                     break;
-                case CMD_BOOST_TRAIN_ALL:
+                case CMD.BARRACK.BOOST_ALL:
                     result = this.BoostTrainAll(args);
                     break;
             }

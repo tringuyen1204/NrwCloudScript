@@ -69,39 +69,44 @@ const MINUTE = 60 * 1000;
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 
-// building cmd
-const CMD_UPGRADE = "Upgrade";
-const CMD_BOOST_UPGRADE = "BoostUpgrade";
-const CMD_CHANGE_TROOP = "ChangeTroop";
-const CMD_BOOST_TRAIN = "BoostTrain";
-const CMD_BOOST_TRAIN_ALL = "BoostTrainAll";
-const CMD_COLLECT = "Collect";
-const CMD_COMPLETE_UPGRADE = "CompleteUpgrade";
-const CMD_INSTANT_UPGRADE = "InstantUpgrade";
-const CMD_EVOLVE = "Evolve";
 
-// raid cmd
-const CMD_FIND_ENEMIES = "FindEnemies";
-const CMD_SCOUT = "Scout";
-const CMD_START_BATTLE = "StartBattle";
-const CMD_UPDATE_BATTLE = "UpdateBattle";
-const CMD_END_BATTLE = "EndBattle";
+const CMD = {
+    // for building, tech, hero
+    UPGRADE: {
+        BASE: "Upgrade",
+        BOOST: "BoostUpgrade",
+        COMPLETE: "CompleteUpgrade",
+        INSTANT: "InstantUpgrade"
+    },
+
+    RESOURCE: {
+        COLLECT: "Collect"
+    },
+
+    BARRACK: {
+        CHANGE_TROOP: "ChangeTroop",
+        BOOST_TRAIN: "BoostTrain",
+        BOOST_ALL: "BoostTrainAll"
+    },
+
+    BATTLE: {
+        FIND_ENEMIES: "FindEnemies",
+        SCOUT: "Scout",
+        START: "StartBattle",
+        UPDATE: "UpdateBattle",
+        END: "EndBattle"
+    },
+
+    HERO: {
+        EVOLVE: "Evolve"
+    }
+};
 
 const GP = "GloryPoint";
-
-const TECH_LIST = [
-    TROOP + INF,
-    TROOP + SKR,
-    TROOP + CAV,
-    MERC + INF,
-    MERC + SKR,
-    MERC + CAV
-];
 
 const ATK = "Attack";
 const DEF = "Defence";
 const RESOURCE = "Resource";
-const RAID = "Raid";
 const LOGS = "Logs";
 
 TitleData = {};

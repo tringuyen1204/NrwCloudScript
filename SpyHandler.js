@@ -2,11 +2,11 @@ function SpyHandler(playerId) {
     DefaultHandler.call(this, playerId, [LOGS]);
 
     this.Run = function (args) {
-        args = this.FormatData(args);
+        args = this.FormatArgs(args);
         switch (args.command) {
-            case CMD_FIND_ENEMIES:
+            case CMD.BATTLE.FIND_ENEMIES:
                 return this.FindEnemies(args);
-            case CMD_SCOUT:
+            case CMD.BATTLE.SCOUT:
                 return this.Scout(args);
         }
     };
@@ -104,12 +104,12 @@ function SpyHandler(playerId) {
     this.Scout = function (args) {
         var atkId = currentPlayerId;
         var defId = args.target;
-        var atkData = this.Data;
-        var defData = ServerData.Get([BUILDING, RESOURCE], args.target);
 
-        var b = new BuildManager(args.target, defData[BUILDING]);
-        var ret = b.ProducedResource(args);
-        var resMan = new ResHandler(args.target, defData[RESOURCE]);
+        ServerData.Get(defId).Load([BUILDING, RESOURCE]);
+
+        var b = new ResHandler(defId);
+        var ret = b.AllResource(args);
+        var resMan = new ResHandler(defId);
 
         var gold = Math.floor(resMan.ValueOf(RES.GOLD) * 0.25);
         var food = Math.floor(resMan.ValueOf(RES.FOOD) * 0.25);
@@ -118,8 +118,8 @@ function SpyHandler(playerId) {
 
         scoutData[RES.GOLD] = gold;
         scoutData[RES.FOOD] = food;
-        scoutData["ProducedGold"] = ret.ProducedGold;
-        scoutData["ProducedFood"] = ret.ProducedFood;
+        scoutData["ProducedGold"] = Math.floor(ret[RES.GOLD] * 0.5);
+        scoutData["ProducedFood"] = Math.floor(ret[RES.FOOD] * 0.5);
 
         scoutData.AtkId = atkId;
         scoutData.DefId = defId;
@@ -134,7 +134,7 @@ function SpyHandler(playerId) {
             StatisticNames: [GP]
         }).Statistics[0].Value;
 
-        atkData[LOGS].ScoutData = scoutData;
+        this.Data[LOGS].ScoutData = scoutData;
         this.Push();
 
         return scoutData;

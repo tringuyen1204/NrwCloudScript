@@ -8,15 +8,22 @@ function BattleHandler(playerId) {
      * @constructor
      */
     this.Run = function (args) {
+        var result = false;
         switch (args.command) {
-            case CMD_START_BATTLE:
-                return this.StartBattle(args);
-            case CMD_UPDATE_BATTLE:
-                return this.UpdateBattle(args);
-            case CMD_END_BATTLE:
-                return this.EndBattle(args);
+            case CMD.BATTLE.START:
+                result = this.StartBattle(args);
+                break;
+            case CMD.BATTLE.UPDATE:
+                result = this.UpdateBattle(args);
+                break;
+            case CMD.BATTLE.END:
+                result = this.EndBattle(args);
+                break;
         }
-        return false;
+        if (result) {
+            this.Push();
+        }
+        return result;
     };
 
     this.StartBattle = function (args) {

@@ -28,8 +28,7 @@ function DefaultHandler(playerId, keys) {
 
     this.Get = function (id) {
 
-        var objClass = this.GetClass(id);
-
+        var objClass = HandlerPool.GetClass(id);
         if (this.Data[objClass].hasOwnProperty(id)) {
             return this.Data[objClass][id];
         }

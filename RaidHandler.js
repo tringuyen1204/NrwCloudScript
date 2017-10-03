@@ -11,14 +11,10 @@ function RaidHandler(AtkId, DefId) {
 
     this.Run = function (args) {
         args = this.FormatData(args);
-
         var atkHandler = new AttackerHandler(this.Ids[ATK]);
         var defHandler = new DefenceHandler(this.Ids[DEF]);
-
-        if (atkHandler.Run(args) && defHandler.Run(args)) {
-            atkHandler.Push();
-            defHandler.Push();
-        }
+        atkHandler.Run(args);
+        defHandler.Run(args)
     };
 
     this.FormatData = function (args) {

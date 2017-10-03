@@ -1,5 +1,5 @@
 function ResHandler(playerId) {
-    UpgradeHandler.call(this, [RESOURCE], playerId);
+    DefaultHandler.call(this, playerId, [RESOURCE]);
 
     this.ValueOf = function (id) {
         if (this.Get(id) === null) {
@@ -44,4 +44,4 @@ function ResHandler(playerId) {
     };
 }
 
-ResHandler.prototype = Object.create(UpgradeHandler.prototype);
+ResHandler.prototype = Object.create(DefaultHandler.prototype);

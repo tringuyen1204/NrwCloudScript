@@ -22,7 +22,7 @@ function ResBuildHandler(playerId) {
         var result = this.base.Run.call(this, args);
         if (!result) {
             switch (args.command) {
-                case CMD_COLLECT:
+                case CMD.RESOURCE.COLLECT:
                     result = this.Collect(args);
                     break;
             }
@@ -108,11 +108,11 @@ function ResBuildHandler(playerId) {
         return amount;
     };
 
-    this.AllResource = function (date) {
+    this.AllResourceByType = function (type, date) {
         var total = 0;
         var k;
 
-        for (k in this.Data[this.type]) {
+        for (k in this.Data[type]) {
             total += this.ProducedResource(k, date);
         }
         return total;
@@ -133,6 +133,20 @@ function ResBuildHandler(playerId) {
         amount *= (1 - rate);
         bData.CollectDate = Math.floor(date - amount / produceRate * HOUR);
     };
+
+    /**
+     *
+     * @param args
+     * @returns {{ProducedGold: number, ProducedFood: number}}
+     * @constructor
+     */
+    this.AllResource = function (args) {
+        var ret = {};
+        ret[RES.GOLD] = this.AllResourceByType(MARKET, args.date);
+        ret[RES.FOOD] = this.AllResourceByType(FARM, args.date);
+        return ret;
+    };
+
 }
 
 ResBuildHandler.prototype = Object.create(BuildHandler.prototype);

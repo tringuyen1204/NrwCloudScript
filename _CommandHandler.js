@@ -5,27 +5,21 @@ handlers.ServerTime = function (args) {
 };
 
 handlers.Run = function (args) {
-    args = FormatData(args);
     var id = args.id;
     var handler = HandlerPool.HandlerFromId(id);
     if (handler !== null) {
-        return handler.Run(args);
+        return handler.Run(FormatArgs(args));
     }
 };
 
 handlers.Raid = function (args) {
     var m = new RaidHandler(currentPlayerId, args.target);
-    return m.Run(args);
+    return m.Run(FormatArgs(args));
 };
 
 handlers.Spy = function (args) {
     var m = new SpyHandler();
-    return m.Run(args);
-};
-
-handlers.Campaign = function (args) {
-    var m = new CampaignManager();
-    return m.Run(args);
+    return m.Run(FormatArgs(args));
 };
 
 // account creation handler
@@ -40,11 +34,11 @@ handlers.OpenChest = function (args) {
 };
 
 handlers.GetTroopInfo = function (args) {
-    var m = new BuildManager();
-    return m.GetTroopInfo(args);
+    var m = new BarrackHandler();
+    return m.GetTroopInfo(FormatArgs(args));
 };
 
-function FormatData(args) {
+function FormatArgs(args) {
     if (args === null || args === undefined) {
         args = {};
     }

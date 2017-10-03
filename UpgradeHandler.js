@@ -4,16 +4,16 @@ function UpgradeHandler(playerId, keys) {
     this.Run = function (args) {
         var result = false;
         switch (args.command) {
-            case CMD_UPGRADE:
+            case CMD.UPGRADE.BASE:
                 result = this.Upgrade(args);
                 break;
-            case CMD_COMPLETE_UPGRADE:
+            case CMD.UPGRADE.COMPLETE:
                 result = this.CompleteUpgrade(args);
                 break;
-            case CMD_INSTANT_UPGRADE:
+            case CMD.UPGRADE.INSTANT:
                 result = this.InstantUpgrade(args);
                 break;
-            case CMD_BOOST_UPGRADE:
+            case CMD.UPGRADE.BOOST:
                 result = this.BoostUpgrade(args);
                 break;
         }
@@ -159,7 +159,7 @@ function UpgradeHandler(playerId, keys) {
      */
     this.CanUpgrade = function (id, date) {
 
-        if (this.GetWorkers().length > 1) {
+        if (this.CheckWorking(id)) {
             log.error("Max worker reaches");
             return false;
         }
@@ -223,31 +223,40 @@ function UpgradeHandler(playerId, keys) {
         return false;
     };
 
-    this.AddWorker = function (id) {
-        this.GetWorkers().push(id);
+    this.CheckWorking = function (id) {
+        var objClass = HandlerPool.GetClass(id);
+        if (!("Workers" in this.Data[objClass])) {
+            return false;
+        }
+        return this.Data[objClass]["Workers"].length >= 1;
     };
 
-    this.GetWorkers = function (id) {
-
+    this.AddWorker = function (id) {
         var objClass = HandlerPool.GetClass(id);
-
-        if (!this.Data[objClass].hasOwnProperty("Workers")) {
-            this.Data[objClass].Workers = [];
+        if (!("Workers" in this.Data[objClass])) {
+            this.Data[objClass]["Workers"] = [];
+            this.Data[objClass]["Workers"].push(id);
         }
-        return this.Data[objClass].Workers;
     };
 
     this.RemoveWorker = function (id) {
-        var worker = this.GetWorkers();
+        var objClass = HandlerPool.GetClass(id);
+
+        if (!("Workers" in this.Data[objClass])) {
+            return;
+        }
+
+        var workers = this.Data[objClass]["Workers"];
+
         var index = -1;
-        for (var a = 0; a < worker.length; a++) {
-            if (worker[a] === id) {
+        for (var a = 0; a < workers.length; a++) {
+            if (workers[a] === id) {
                 index = a;
                 break;
             }
         }
         if (index !== -1) {
-            worker.splice(index, 1);
+            workers.splice(index, 1);
         }
     };
 }

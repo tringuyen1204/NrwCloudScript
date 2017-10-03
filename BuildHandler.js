@@ -42,33 +42,7 @@ function BuildHandler(playerId) {
         resMan.SetMax(code, newMax);
     };
 
-    // /**
-    //  *
-    //  * @param args
-    //  * @returns {{ProducedGold: number, ProducedFood: number}}
-    //  * @constructor
-    //  */
-    // this.ProducedResource = function (args) {
-    //     args = this.FormatData(args);
-    //     var pGold = this.HandlerByType(MARKET).AllResource(args.date) * 0.5;
-    //     var pFood = this.HandlerByType(FARM).AllResource(args.date) * 0.5;
-    //
-    //     return {
-    //         ProducedGold: Math.floor(pGold),
-    //         ProducedFood: Math.floor(pFood)
-    //     }
-    // };
-    //
-    // /**
-    //  *
-    //  * @param args
-    //  * @returns {{}}
-    //  * @constructor
-    //  */
-    // this.GetTroopInfo = function (args) {
-    //     args = this.FormatData(args);
-    //     return this.GetHandler(BARRACK).GetTroopInfo(args);
-    // };
+
     //
     // /**
     //  *
@@ -76,7 +50,7 @@ function BuildHandler(playerId) {
     //  * @constructor
     //  */
     // this.ApplyRaid = function (args) {
-    //     args = this.FormatData(args);
+    //     args = this.FormatArgs(args);
     //     this.GetHandler(MARKET).ApplyRaid(args.date, args.rate);
     //     this.GetHandler(FARM).ApplyRaid(args.date, args.rate);
     //     this.PushNow();

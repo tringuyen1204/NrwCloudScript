@@ -1,6 +1,5 @@
 var HandlerPool = {};
 
-
 HandlerPool.HandlerFromId = function (id, playerId) {
     switch (HandlerPool.GetClass(id)) {
         case BUILDING:
