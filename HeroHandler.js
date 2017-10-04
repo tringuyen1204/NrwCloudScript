@@ -1,5 +1,5 @@
-function HeroHandler(playerId) {
-    UpgradeHandler.call(this, [HERO, INV], playerId);
+function HeroHandler(pId) {
+    UpgradeHandler.call(this, [HERO, INV], pId);
     this.base = new UpgradeHandler();
 
     this.UsePieces = function (id, qty) {

@@ -1,5 +1,5 @@
-function ResBuildHandler(playerId) {
-    BuildHandler.call(this, playerId);
+function ResBuildHandler(pId) {
+    BuildHandler.call(this, pId);
     this.base = new BuildHandler();
 
     this.CompleteUpgrade = function (args) {
@@ -49,12 +49,12 @@ function ResBuildHandler(playerId) {
             return false;
         }
 
-        var code = (this.type === MARKET) ? RES.GOLD : RES.FOOD;
-        var produceRate = this.CurLvlData(id).ProduceRate;
+        var curLvData = this.CurLvlData(id);
+
+        var code = (Handler.GetType(id) === MARKET) ? RES.GOLD : RES.FOOD;
         var amount = this.ProducedResource(id, date);
 
         if (amount > 0) {
-
             var resMan = new ResHandler();
 
             var curRes = resMan.ValueOf(code);
@@ -69,7 +69,7 @@ function ResBuildHandler(playerId) {
                 amount = 0;
             }
 
-            bData.CollectDate = Math.floor(date - (amount / produceRate) * HOUR);
+            bData.CollectDate = Math.floor(date - (amount / curLvData.ProduceRate) * HOUR);
 
             return true;
         }
@@ -86,8 +86,14 @@ function ResBuildHandler(playerId) {
         return true;
     };
 
-    this.ProducedResource = function (id, date) {
-
+    /**
+     *
+     * @param id
+     * @param date
+     * @returns {number}
+     * @constructor
+     */
+    this.RealProduceResource = function (id, date) {
         var bData = this.Get(id);
 
         if (bData === null || bData.Lvl === 0 || bData.IsUp) {
@@ -97,10 +103,22 @@ function ResBuildHandler(playerId) {
         var produceRate = this.CurLvlData(id).ProduceRate;
         var workingTime = ( date - bData.CollectDate ) / HOUR;
         var amount = Math.floor(workingTime * produceRate);
+        return amount;
+    };
 
-        var code = (this.type === MARKET) ? RES.GOLD : RES.FOOD;
+    /**
+     *
+     * @param id
+     * @param date
+     * @returns {number}
+     * @constructor
+     */
+    this.ProducedResource = function (id, date) {
 
-        var capacity = this.CurLvlData(id)[code + "Cap"];
+        var amount = this.RealProduceResource(id, date);
+
+        var capCode = (Handler.GetType(id) === MARKET) ? GOLD_CAP : FOOD_CAP;
+        var capacity = this.CurLvlData(id)[capCode];
 
         if (amount > capacity) {
             amount = capacity;

@@ -1,15 +1,15 @@
 /**
  *
- * @param {String} playerId = null
+ * @param {String} pId = null
  * @constructor
  */
-function UserData(playerId) {
+function UserData(pId) {
 
-    if (playerId === null || playerId === undefined) {
+    if (pId === null || pId === undefined) {
         this.PlayerId = currentPlayerId;
     }
     else {
-        this.PlayerId = playerId;
+        this.PlayerId = pId;
     }
 
     this.Data = {};
@@ -25,7 +25,7 @@ function UserData(playerId) {
             return;
         }
 
-        var requestKey = [];
+        var reqKeys = [];
 
         var a;
 
@@ -33,20 +33,23 @@ function UserData(playerId) {
             if (keys[a] in this.Data) {
                 continue;
             }
-            requestKey.push(keys[a]);
+            reqKeys.push(keys[a]);
         }
 
-        var rawData = server.GetUserReadOnlyData({
-            PlayFabId: this.PlayerId,
-            Keys: requestKey
-        });
+        if (reqKeys.length > 0) {
 
-        for (a = 0; a < requestKey.length; a++) {
-            if (requestKey[a] in rawData) {
-                this.Data[requestKey[a]] = JSON.parse(rawData[requestKey[a]].Value);
-            }
-            else {
-                this.Data[requestKey[a]] = {};
+            var rawData = server.GetUserReadOnlyData({
+                PlayFabId: this.PlayerId,
+                Keys: reqKeys
+            }).Data;
+
+            for (a = 0; a < reqKeys.length; a++) {
+                if (reqKeys[a] in rawData) {
+                    this.Data[reqKeys[a]] = JSON.parse(rawData[reqKeys[a]].Value);
+                }
+                else {
+                    this.Data[reqKeys[a]] = {};
+                }
             }
         }
     };
@@ -77,7 +80,7 @@ function UserData(playerId) {
     }
 }
 
-ServerData = {};
+var ServerData = {};
 
 /**
  *

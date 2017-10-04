@@ -22,6 +22,9 @@ const ADVISOR = "Advisor";
 const TROOP = "Troop";
 const MERC = "Merc";
 
+const FOOD_CAP = "FoodCap";
+const GOLD_CAP = "GoldCap";
+
 // building code
 const CASTLE = "Castle";
 const MARKET = "Market";

@@ -85,7 +85,7 @@ var ServerTime = {
 };
 
 ServerTime.Now = function () {
-    return Date.now() + ServerTime.deltaTime;
+    return Math.floor(Date.now() + ServerTime.deltaTime);
 };
 
 var MasterData = {

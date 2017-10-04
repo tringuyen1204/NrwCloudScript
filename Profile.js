@@ -1,4 +1,6 @@
-Profile = function () {
+function AccountHandler() {
+    DefaultHandler.call(this);
+
     this.Init = function () {
         var castle;
 
@@ -85,10 +87,10 @@ Profile = function () {
         };
 
         var writeData = {};
-        writeData[BUILDING] = b;
-        writeData[RESOURCE] = res;
+        this.Data[BUILDING] = b;
+        this.Data[RESOURCE] = res;
 
-        ServerData.Update(writeData, currentPlayerId);
+        this.Push();
 
         var gloryPoint = Math.randomBetween(sData.GloryPoint[0], sData.GloryPoint[1]);
 
@@ -176,4 +178,6 @@ Profile = function () {
 
         return ret;
     };
-};
+}
+
+AccountHandler.prototype = Object.create(DefaultHandler.prototype);

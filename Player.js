@@ -1,17 +1,17 @@
-Player = function (playerId) {
-    DefaultHandler.call(this, playerId, ["Player"]);
+Player = function (pId) {
+    DefaultHandler.call(this, pId, ["Player"]);
 
-    this.AddExp = function (quantity) {
-        if (quantity <= 0) {
-            log.error("exp quantity must be positive");
+    this.AddExp = function (qty) {
+        if (qty <= 0) {
+            log.error("exp qty must be positive");
             return false;
         }
 
         if ("Exp" in this.Data["Player"]) {
-            this.Data["Player"].Exp = quantity;
+            this.Data["Player"].Exp += qty;
         }
         else {
-            this.Data["Player"].Exp += quantity;
+            this.Data["Player"].Exp = qty;
         }
         return true;
     };

@@ -1,27 +1,34 @@
-var HandlerPool = {};
+var Handler = {};
 
-HandlerPool.HandlerFromId = function (id, playerId) {
-    switch (HandlerPool.GetClass(id)) {
+/**
+ *
+ * @param id
+ * @param pId = null
+ * @returns {*}
+ * @constructor
+ */
+Handler.FromId = function (id, pId) {
+    switch (Handler.GetClass(id)) {
         case BUILDING:
-            switch (HandlerPool.GetType(id)) {
+            switch (Handler.GetType(id)) {
                 case MARKET:
                 case FARM:
-                    return new ResBuildHandler(playerId);
+                    return new ResBuildHandler(pId);
                 case BARRACK:
-                    return new BarrackHandler(playerId);
+                    return new BarrackHandler(pId);
                 default:
-                    return new BuildHandler(playerId);
+                    return new BuildHandler(pId);
             }
         case HERO:
-            return new HeroHandler(playerId);
+            return new HeroHandler(pId);
         case TECH:
-            return new TechHandler(playerId);
+            return new TechHandler(pId);
         case RESOURCE:
-            return new ResHandler(playerId);
+            return new ResHandler(pId);
     }
 };
 
-HandlerPool.GetClass = function (id) {
+Handler.GetClass = function (id) {
     var temp = id.split('.')[0];
     switch (temp) {
         case BUILDING:
@@ -40,6 +47,6 @@ HandlerPool.GetClass = function (id) {
     }
 };
 
-HandlerPool.GetType = function (id) {
+Handler.GetType = function (id) {
     return id.split('.')[1];
 };

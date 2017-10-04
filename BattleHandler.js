@@ -1,5 +1,5 @@
-function BattleHandler(playerId) {
-    DefaultHandler.call(this, playerId, [BUILDING, LOGS, RESOURCE, INV]);
+function BattleHandler(pId) {
+    DefaultHandler.call(this, pId, [BUILDING, LOGS, RESOURCE, INV]);
 
     /**
      *

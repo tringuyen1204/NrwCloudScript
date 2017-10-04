@@ -1,5 +1,5 @@
-function SpyHandler(playerId) {
-    DefaultHandler.call(this, playerId, [LOGS]);
+function SpyHandler(pId) {
+    DefaultHandler.call(this, pId, [LOGS]);
 
     this.Run = function (args) {
         args = this.FormatArgs(args);

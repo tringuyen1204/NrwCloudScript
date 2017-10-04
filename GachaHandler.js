@@ -1,5 +1,5 @@
-function GachaHandler(playerId) {
-    DefaultHandler.call(this, [INV], playerId);
+function GachaHandler(pId) {
+    DefaultHandler.call(this, [INV], pId);
 
     var rawData = server.GetTitleInternalData([
         "DropTable",

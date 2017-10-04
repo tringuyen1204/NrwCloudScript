@@ -1,5 +1,5 @@
-function ResHandler(playerId) {
-    DefaultHandler.call(this, playerId, [RESOURCE]);
+function ResHandler(pId) {
+    DefaultHandler.call(this, pId, [RESOURCE]);
 
     this.ValueOf = function (id) {
         if (this.Get(id) === null) {

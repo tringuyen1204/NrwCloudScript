@@ -1,7 +1,7 @@
-function BuildHandler(playerId) {
+function BuildHandler(pId) {
     // base class
-    UpgradeHandler.call(this, playerId, [BUILDING]);
-    this.base = new UpgradeHandler(playerId);
+    UpgradeHandler.call(this, pId, [BUILDING]);
+    this.base = new UpgradeHandler(pId);
 
     this.DefaultData = function (args) {
         return {
@@ -10,38 +10,49 @@ function BuildHandler(playerId) {
         }
     };
 
+    /**
+     *
+     * @param args
+     * @returns {boolean}
+     * @constructor
+     */
     this.CompleteUpgrade = function (args) {
-        this.base.CompleteUpgrade.call(this, args);
-        var type = this.GetType(args.id);
-        if (type === GOLD_STORAGE) {
-            this.RefreshStorage(RES.GOLD);
+        var result = this.base.CompleteUpgrade.call(this, args);
+        if (result) {
+            var type = this.GetType(args.id);
+            if (type === GOLD_STORAGE) {
+                this.RefreshStorage(RES.GOLD);
+            }
+            else if (type === FOOD_STORAGE) {
+                this.RefreshStorage(RES.FOOD);
+            }
+            return true;
         }
-        else if (type === FOOD_STORAGE) {
-            this.RefreshStorage(RES.FOOD);
-        }
+        return false;
     };
 
+    /**
+     *
+     * @param code
+     * @constructor
+     */
     this.RefreshStorage = function (code) {
 
         var bType = code === RES.GOLD ? GOLD_STORAGE : FOOD_STORAGE;
-        var keyData = code === RES.GOLD ? "GoldCap" : "FoodCap";
+        var keyData = code === RES.GOLD ? GOLD_CAP : FOOD_CAP;
 
-        var newMax = 0;
-        var key = "Castle" + code + "Storage";
-
-        newMax += TitleData.GetConst(key);
-
-        var bData = this.Data[BUILDING];
+        var newMax = 2000;
         var idSample = BUILDING + "." + bType + ".";
 
         for (var a = 0; a < 4; a++) {
-            newMax += this.CurLvlData(idSample + a)[keyData];
+            if (this.Get(idSample + a) !== null) {
+                newMax += this.CurLvlData(idSample + a)[keyData];
+            }
         }
 
         var resMan = new ResHandler();
         resMan.SetMax(code, newMax);
     };
-
 
     //
     // /**

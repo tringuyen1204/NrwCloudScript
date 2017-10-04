@@ -1,5 +1,5 @@
-function DefaultHandler(playerId, keys) {
-    this.PlayerId = (playerId !== undefined && playerId !== null) ? playerId : currentPlayerId;
+function DefaultHandler(pId, keys) {
+    this.PlayerId = (pId !== undefined && pId !== null) ? pId : currentPlayerId;
     ServerData.Get(this.PlayerId).Load(keys);
     this.Data = ServerData.Get(this.PlayerId).Data;
 
@@ -28,7 +28,7 @@ function DefaultHandler(playerId, keys) {
 
     this.Get = function (id) {
 
-        var objClass = HandlerPool.GetClass(id);
+        var objClass = Handler.GetClass(id);
         if (this.Data[objClass].hasOwnProperty(id)) {
             return this.Data[objClass][id];
         }

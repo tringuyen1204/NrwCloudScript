@@ -1,5 +1,5 @@
-function BarrackHandler(playerId) {
-    BuildHandler.call(this, playerId);
+function BarrackHandler(pId) {
+    BuildHandler.call(this, pId);
     this.base = new BuildHandler();
 
     /**

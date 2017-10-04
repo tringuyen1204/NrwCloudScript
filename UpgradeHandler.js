@@ -1,5 +1,5 @@
-function UpgradeHandler(playerId, keys) {
-    DefaultHandler.call(this, playerId, keys);
+function UpgradeHandler(pId, keys) {
+    DefaultHandler.call(this, pId, keys);
 
     this.Run = function (args) {
         var result = false;
@@ -107,6 +107,7 @@ function UpgradeHandler(playerId, keys) {
         if (missRes > 0) {
             cost = Converter.GoldFoodToDiamond(missRes);
             log.info("diamond needed = " + cost);
+            log.info("diamond needed = " + cost);
         }
 
         if ((cost === 0)
@@ -136,7 +137,6 @@ function UpgradeHandler(playerId, keys) {
     };
 
     this.CompleteUpgrade = function (args) {
-
         var id = args.id;
         var data = this.Get(id);
 
@@ -147,7 +147,9 @@ function UpgradeHandler(playerId, keys) {
             var kingdom = new Player();
             kingdom.AddExp(this.CurLvlData(id).Exp);
             this.RemoveWorker(id);
+            return true;
         }
+        return false;
     };
 
     /**
@@ -203,7 +205,7 @@ function UpgradeHandler(playerId, keys) {
             var diamondNeed = Converter.TimeToDiamond(remainTime);
 
             if (Currency.Spend(DIAMOND, diamondNeed)) {
-                return this.CompleteUpgrade(id, date);
+                return this.CompleteUpgrade(args);
             }
         }
         return false;
@@ -224,7 +226,7 @@ function UpgradeHandler(playerId, keys) {
     };
 
     this.CheckWorking = function (id) {
-        var objClass = HandlerPool.GetClass(id);
+        var objClass = Handler.GetClass(id);
         if (!("Workers" in this.Data[objClass])) {
             return false;
         }
@@ -232,7 +234,7 @@ function UpgradeHandler(playerId, keys) {
     };
 
     this.AddWorker = function (id) {
-        var objClass = HandlerPool.GetClass(id);
+        var objClass = Handler.GetClass(id);
         if (!("Workers" in this.Data[objClass])) {
             this.Data[objClass]["Workers"] = [];
             this.Data[objClass]["Workers"].push(id);
@@ -240,7 +242,7 @@ function UpgradeHandler(playerId, keys) {
     };
 
     this.RemoveWorker = function (id) {
-        var objClass = HandlerPool.GetClass(id);
+        var objClass = Handler.GetClass(id);
 
         if (!("Workers" in this.Data[objClass])) {
             return;
