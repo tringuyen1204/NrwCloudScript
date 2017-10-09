@@ -14,6 +14,12 @@ Converter.TimeToDiamond = function (milisec) {
     return ret;
 };
 
+/**
+ *
+ * @param qty
+ * @returns {number}
+ * @constructor
+ */
 Converter.GoldFoodToDiamond = function (qty) {
     if (qty <= 0)
         return 0;

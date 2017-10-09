@@ -125,10 +125,10 @@ function BarrackHandler(pId) {
     this.ChangeTroop = function (args) {
         var id = args.id;
         var date = args.date;
-        var troopClass = args.troopClass;
+        var troopClass = args.troopType;
 
         var bData = this.Get(id);
-        if (bData.IsUp) {
+        if (this.Upgrading(id, date)) {
             log.error("This barrack is constructing!");
             return false;
         }
